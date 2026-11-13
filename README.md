@@ -25,12 +25,17 @@ The sandbox root is `<portfolio>\SAP Projects`:
 <portfolio>\SAP Projects\
 ├── abap-agent-workspace-opencode\   # this repository: framework, memory, agents, skills
 └── Projects\
+    ├── _archive\                    # retired work
+    ├── _sandbox\                    # temporary experiments
     └── DEMO\
         └── ZDEMO01\                 # SAP program work
 ```
 
 New global folders go under the sandbox root. New SAP projects go under
-`Projects\<project>\<program>\`.
+`Projects\<PROJECT>\<PROGRAM>\`. Use an uppercase project code and the SAP object
+name for the program folder. Every project and program folder has a `README.md`
+with system, clients, transport, status, and pointers. Retired work goes to
+`Projects\_archive`; temporary experiments go to `Projects\_sandbox`.
 
 ## Team model
 
