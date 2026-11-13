@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.5.7 — 2026-11-14
+
+**29 Basis/DB skills parked: fixed prompt 57.9k → 41.9k chars (−27.6%).**
+
+- Moved out of the loaded catalog: kernel patch, OS executables, SSCR keys,
+  housekeeping, SAProuter, Web Dispatcher, Cloud Connector, system lifecycle, GUI
+  landscape, HANA SR/XSA/lifecycle, Oracle DG, Db2/ASE/MaxDB/SQL Server HADR, DB
+  commands, backup/recovery, space reclaim, crypto PSE, transport at OS level, client
+  copy, dormant clients, software download, security patch, compliance docs, BTP CLI,
+  NW Java/PI. 15,950 chars of description measured out of the prompt.
+- Skills 78 → 49 entries / 41.7k → **25.8k chars**; tools unchanged at 111 / 16.1k.
+- Restore in seconds, per skill or per family:
+  `~\.config\opencode\skills-parked\RESTORE.md` (also pointed at from `tool-map.md`).
+- `--refresh` also dropped 11 Copilot entries whose folders no longer exist under
+  `~\.copilot\skills` — stale, not caused by the move (verified: paths absent before).
+- Still 5.8k over the 20k skill budget. Next candidates are named in
+  `docs/design.md` §Prompt budget: the duplicate RAP/CDS/troubleshooting pairs and the
+  unused AI Core / Fiori iOS / Integration Suite family.
+
 ## v0.5.6 — 2026-11-14
 
 **A config change that is not in effect is now visible.**

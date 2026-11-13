@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T17:07:32+00:00",
+  "generated_at": "2026-11-13T19:30:05+00:00",
   "agents": [
     {
       "id": "abap-developer",
@@ -109,7 +109,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "3af67f0cbb3a4ccd69bd770b18d5e07d4ad248a0c2b4ff96cb07ac269789dddf",
+      "hash": "371cab84968d04a1511bc2269e1a5965ecfc9c2b68b1c362cb97be1d925c43af",
       "status": "active",
       "last_validated": "2026-11-13"
     },

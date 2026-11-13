@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T17:07:32+00:00",
+  "generated_at": "2026-11-13T19:30:05+00:00",
   "skills": [
     {
       "id": "abap-debugging",
@@ -376,116 +376,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-ase-hadr",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-ase-hadr\\SKILL.md",
-      "owner": "vendor",
-      "hash": "3cf3f5452f3609973518121dbce59066a8909db370327ee9f80f6e2d68f71182",
-      "desc_chars": 411,
-      "description": "SAP ASE (Sybase) HADR / Always-On built on SAP Replication Server — the RMA command surface (sap_status, sap_failover, sap_materialize), setuphadr, the Fault Manager, split-brain and when `force` is legitimate, sync vs async, the three-node DR topology. Use for \"ASE HADR\", \"Sybase high availability\"",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-backup-recovery",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-backup-recovery\\SKILL.md",
-      "owner": "vendor",
-      "hash": "1d682b8307dfd6d18c1a1c00fffabd6cddb0f552d5bdb9ee9ad703005d1ddff5",
-      "desc_chars": 392,
-      "description": "Back up and (critically) recover the database under a SAP system — backup and recovery types, log/recovery-mode prerequisites, and the per-DB restore commands for HANA, Oracle, ASE, Db2, MaxDB and SQL Server on Linux/Windows/AIX. Use for \"restore the database\", \"recover to point in time\", \"backup st",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-btp-cli",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-btp-cli\\SKILL.md",
-      "owner": "vendor",
-      "hash": "57e30ca584f4c33c5ba8f0bfb17fa57b8417f069e681b448638aa347d6edf254",
-      "desc_chars": 427,
-      "description": "SAP BTP command-line administration — the btp CLI (subaccounts, directories, entitlements, role collections, environments, service instances) and the cf CLI as SAP uses it, including the MultiApps plugin (deploy, bg-deploy, rollback-mta, undeploy) and mbt. Use for \"btp CLI\", \"btp login\", \"create sub",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-client-copy-accelerator",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-client-copy-accelerator\\SKILL.md",
-      "owner": "vendor",
-      "hash": "d73f9b2023b234ec70e96a72cf2aa7df2a14aff460deae4209170659158db0c9",
-      "desc_chars": 710,
-      "description": "Rescue an SAP client copy (SCC9 / SCCL / SCC7) that has stalled or is crawling on ONE huge table — ACDOCA, BSEG, FAGLFLEXA, MATDOC, COEP — by moving the rows database-natively instead: batched DELETE, then parallel INSERT...SELECT partitioned by fiscal year, on HANA (Smart Data Access) or Oracle (da",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-cloud-connector",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-cloud-connector\\SKILL.md",
-      "owner": "vendor",
-      "hash": "9c4c6d43792dd4963f03505b13578d15df57e0098359ccf1647c049f329b3dc4",
-      "desc_chars": 349,
-      "description": "Operate the SAP Cloud Connector (SCC), the on-premise agent linking SAP BTP to on-prem systems — start, stop, restart, the admin UI on 8443, Master/Shadow HA, ports and auto-restart, on Linux/Windows/macOS (not AIX). Use for \"start/stop/restart cloud connector\", \"scc is down\", \"cloud connector admin",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-compliance-docs",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-compliance-docs\\SKILL.md",
-      "owner": "vendor",
-      "hash": "2ea0c16ce6cf95384a8025007e81da7771f3ffc39066f79c5c5e7b6ee515c4b1",
-      "desc_chars": 745,
-      "description": "Map an SAP landscape or subscription to the governance, certification and usage-rights documents that apply to it — the Trust Center Compliance Finder, the certification catalogue (ISO 27001/27017/27018/27701/42001, SOC 1/2 and bridge letters, C5, PCI DSS, CSA STAR, TISAX, GxP, FedRAMP, IRAP, NIS2),",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-crypto-pse",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-crypto-pse\\SKILL.md",
-      "owner": "vendor",
-      "hash": "3ad520e9ee08a5ef8750477e4b281560dce8f1b802c6f2c6d6bb8b510cd033e8",
-      "desc_chars": 490,
-      "description": "sapgenpse and CommonCryptoLib — managing the PSEs behind SNC and SSL/TLS: get_pse, gen_pse, import_own_cert, export_own_cert, maintain_pk, seclogin, the PSE/cred_v2 pairing that causes \"works as one user, fails as another\", SECUDIR, PSE types, SAProuter certificate renewal, HSM-backed PSEs. Use for ",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-db-command-reference",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-db-command-reference\\SKILL.md",
-      "owner": "vendor",
-      "hash": "64801a2f8c30b50e56fa7d5bd8e4feb52fd6e2b061e9fa2fe97cbd846e45958b",
-      "desc_chars": 401,
-      "description": "Start, stop, connect, status and basic backup commands for the SAP-supported databases (HANA, Oracle, ASE/Sybase, Db2, MaxDB/liveCache, SQL Server), with Linux / Windows / AIX variants. Use whenever a task needs the DB layer: \"stop the database\", \"connect to HANA/ASE/Oracle\", \"is the DB up\", \"restar",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-db2-hadr",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-db2-hadr\\SKILL.md",
-      "owner": "vendor",
-      "hash": "c844ffcf5605d85a2778a9607479c94faf97e6271a8a6df5b0d4cb619ab67ab7",
-      "desc_chars": 490,
-      "description": "IBM Db2 for LUW HADR under SAP — synchronization modes, multiple standbys and HADR_TARGET_LIST, VIP vs Automatic Client Reroute, cluster automation with SA MP or Pacemaker, takeover and the Graceful Maintenance Tool, rolling Fix Packs, Reads on Standby, and the non-logged operations that silently in",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-dormant-clients",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-dormant-clients\\SKILL.md",
-      "owner": "vendor",
-      "hash": "f30ecd42c9fbccd5103d361e9b86bf2cdd8d5225ae2eea3450087ef8aedaf84f",
-      "desc_chars": 495,
-      "description": "Assess whether a client is genuinely dormant and retire it safely — 000/001/066 and abandoned project/sandbox clients. Builds evidence from last logon (RSUSR200/SUIM), ST03N workload statistics, jobs (TBTCO/TBTCP), change documents and client-specific table volumes, then deletes with SCC5 (test run ",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "abap-code-review",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-engineering\\abap-code-review\\SKILL.md",
@@ -552,50 +442,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-gui-landscape",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-gui-landscape\\SKILL.md",
-      "owner": "vendor",
-      "hash": "8b2b5539dbfa96c257b783dd79291dd9cccea115c54187b9a6f372d5e00ce5ae",
-      "desc_chars": 732,
-      "description": "Central SAP GUI landscape configuration — SLMT (report RSLSMT) and the SAPUILandscape.xml / SAPUILandscapeGlobal.xml files SAP Logon, Business Client and SAP GUI for Java read: maintaining them centrally, distribution by UNC or HTTP(S), the LandscapeFileOnServer registry keys and HKCU-vs-HKLM preced",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-hana-lifecycle-tools",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-hana-lifecycle-tools\\SKILL.md",
-      "owner": "vendor",
-      "hash": "ee52ae83253cee7ce1ed877e72906e56e64ec5d05f150a22fb801257a2116d0b",
-      "desc_chars": 507,
-      "description": "The two HANA command-line tools outside SQL — hdblcm for install, update, add/remove hosts, host roles, internal network and SLD registration (resident vs media, --action, batch mode), and hdbcons for expert diagnostics when SQL is unavailable: runtime dumps, call stacks, memory analysis, savepoints",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-hana-system-replication",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-hana-system-replication\\SKILL.md",
-      "owner": "vendor",
-      "hash": "2400816de1a535eca4b2800e622ce05577ce5c2f25c4991689ab8a086af1810a",
-      "desc_chars": 766,
-      "description": "Configure, operate, monitor and take over HANA System Replication — the full hdbnsutil set (sr_enable, sr_register, sr_takeover, sr_unregister, sr_changeReplicationMode, sr_state), replication and operation modes, multitier and multitarget, Active/Active read-enabled, takeover with handshake, failba",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-hana-xsa",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-hana-xsa\\SKILL.md",
-      "owner": "vendor",
-      "hash": "1920f48894aad12133cdbfdcbd94735628d9cb742d7f97d240fdf2bb9d86f48c",
-      "desc_chars": 605,
-      "description": "SAP HANA XS Advanced operations — `xs` for normal work and `XSA` for local maintenance when remote access is gone (diagnose, collect-traces, restart, du, list-tenants). Covers the org/space model, routing mode (unchangeable after installation), the app-working directory and its sizing, global_alloca",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "sap-health-triage",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-health-triage\\SKILL.md",
@@ -603,17 +449,6 @@
       "hash": "bf55d44a89f8ed5ce869cc041654bb143c48393a9025973c4e03bdc9d11da370",
       "desc_chars": 740,
       "description": "First-response health check and triage for a NetWeaver / S/4HANA system from the OS shell — is it up, is it healthy, and if not, why. Uses SAPControl read-only diagnostics (GetProcessList, ABAPReadSyslog for SM21, ABAPGetWPTable, dev traces, CCMS alerts), sappfpar, disp+work, dpmon and filesystem ch",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-housekeeping",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-housekeeping\\SKILL.md",
-      "owner": "vendor",
-      "hash": "2f88775f753926ebbf44a6a7665a2842774629a75956c23c09f6a638b12c584e",
-      "desc_chars": 401,
-      "description": "Keep a SAP system's logs, traces, spool, job logs, ABAP dumps, audit logs and work directory from filling the filesystem — via the standard reorganization jobs (RSBTCDEL2, RSPO1041, RSSNAPDL, RSBDCREO …) and safe OS-level cleanup, on Linux/Windows/AIX. Use for \"clean up logs/traces\", \"/usr/sap is fu",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -629,17 +464,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-kernel-patch",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-kernel-patch\\SKILL.md",
-      "owner": "vendor",
-      "hash": "4d888bb6b5705022cf5050ea7cec28f8f1959ceaefcba76f537888a5d8f5d1c7",
-      "desc_chars": 681,
-      "description": "Patch the SAP kernel and update the SAP Host Agent on Linux/Windows/AIX — version assessment, the manual swap (stop → back up exe → SAPCAR extract SAPEXE/SAPEXEDB → saproot.sh → start → verify), Host Agent self-upgrade, rollback, and which archives you actually need: SAPEXE/SAPEXEDB exist only for S",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "sap-log-reference",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-log-reference\\SKILL.md",
@@ -647,28 +471,6 @@
       "hash": "18c109ff33fe1d153ad4cf7e59e272ae5758098504b5e55d4f3aa947a2bf9a16",
       "desc_chars": 517,
       "description": "Find and read the right log or trace for any SAP component or database — instance work-directory traces (dev_disp, dev_w*, dev_ms, dev_rd, dev_icm), ABAP logs (SM21, ST22, SM50, SLG1), standalone components (Web Dispatcher, SAProuter, Cloud Connector, Host Agent, IGS) and each database's own logs (H",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-maxdb-ha",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-maxdb-ha\\SKILL.md",
-      "owner": "vendor",
-      "hash": "9ff571e64a9406fe27b2edc302c8090f5311f79cf4757ae214eb3335f7e1da65",
-      "desc_chars": 598,
-      "description": "SAP MaxDB, liveCache and Content Server HA/DR — the four mechanisms and when each is right: cluster failover (MSCS, UNIX agents, LifeKeeper), shadow/standby via log recovery, Hot Standby with a storage-vendor HSS library, and snapshot/split-mirror. Covers why SAP recommends a shadow database over Ho",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-nw-java-pi",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-nw-java-pi\\SKILL.md",
-      "owner": "vendor",
-      "hash": "f842e58fa5f4883940ff6a33b5559c7ea13ac32de0014015ca7fd3faaedf7d0d",
-      "desc_chars": 669,
-      "description": "SAP NetWeaver AS Java and PI/PO operations — NWA, the J2EE sapcontrol functions, jcmon and the telnet admin shell on 5<nr>08 as out-of-band channels, the AS Java log set (defaultTrace, std_server*.out, dev_jcontrol), and on PI: PIMON, message monitoring, the EOIO stuck-message decision tree, CPA cac",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -684,39 +486,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-oracle-dataguard",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-oracle-dataguard\\SKILL.md",
-      "owner": "vendor",
-      "hash": "a29040e0895febf84626ebf0ba70c731ebe66d16eab8f3c1c23c6ecf8d295eb1",
-      "desc_chars": 655,
-      "description": "Oracle Data Guard under SAP — what SAP actually permits, which is narrower than Oracle's own documentation: physical standby only (logical is forbidden), the Broker, the three protection modes and the Maximum Protection trap that terminates the primary, Fast-Start Failover (permitted but unsupported",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-os-executables",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-os-executables\\SKILL.md",
-      "owner": "vendor",
-      "hash": "a0f70c4928cda338bc08bc9e55e66b44bb7d2f85d091fd6ee7ad8aa08647a6ab",
-      "desc_chars": 560,
-      "description": "The SAP executables that cross the OS/ABAP boundary — sapevt to raise background-processing events from outside SAP (it needs no dialog work process, so it triggers work when nobody can log on), sapxpg as the controller behind SM49/SM69/DB13/SXPG_COMMAND_EXECUTE with its Y/Z privilege boundary and S",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-saprouter",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-saprouter\\SKILL.md",
-      "owner": "vendor",
-      "hash": "459d7e775c8da3305f823aa85c16cfb1c6264138c5f5699f4f6df30614bd9640",
-      "desc_chars": 323,
-      "description": "Operate SAProuter, the application-level proxy controlling network routes to/from SAP support — start, stop, status, the saprouttab route-permission table, port 3299, SNC and niping connection tests, on Linux/Windows/AIX. Use for \"start/stop saprouter\", \"saprouttab\", \"route to SAP support\", \"niping ",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "sap-sdlc-orchestration",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-sdlc-orchestration\\SKILL.md",
@@ -724,61 +493,6 @@
       "hash": "0f65e6f852722f84efecab45ee769ce37779925df141a9b9428b967b4b3de21d",
       "desc_chars": 186,
       "description": "Orchestrate the SAP delivery lifecycle from requirement analysis through design, delegated implementation, validation, transport preparation, release readiness, and operational handover.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-security-patch",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-security-patch\\SKILL.md",
-      "owner": "vendor",
-      "hash": "a1e1ff483101673c4d18d7a4bd1089978c23d69a608730649e53cb41142e1db5",
-      "desc_chars": 506,
-      "description": "The monthly SAP Security Patch Day workflow — retrieve the current month's Security Notes from the Support Portal, narrow them to the subset that applies to THIS system (installed component versions + kernel), compare against what is already applied (System Recommendations / Focused Run / RSECNOTE),",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-software-download",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-software-download\\SKILL.md",
-      "owner": "vendor",
-      "hash": "708f5d62eae21db56309fa6cb466adb034badaad6f20c95be055df713996d42a",
-      "desc_chars": 767,
-      "description": "Find, qualify and download SAP software from the SAP for Me Software Center — Support Packages, kernel and patches, installation media, add-ons — and build a correct SP import queue. Resolves a component (e.g. \"ST-PI 740\") to exact filenames, object keys, sizes, SHA-256 checksums, the required SPAM/",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-space-reclaim",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-space-reclaim\\SKILL.md",
-      "owner": "vendor",
-      "hash": "b7507421c691c9d6264f316ea708622e8015b474c25b8ec795863066e530361f",
-      "desc_chars": 782,
-      "description": "Landscape space-reclamation assessment — what can be deleted, what has a configurable retention, what is self-service vs change-controlled, and how much disk you actually get back. Covers ABAP technical tables (spool/TemSe, table logging, application log, job logs, dumps, IDoc/RFC queues, workload s",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-sqlserver-alwayson",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-sqlserver-alwayson\\SKILL.md",
-      "owner": "vendor",
-      "hash": "4f265f825df3f16645a56fb40352dee1ca5b9ed6b28f164277f8d432268be086",
-      "desc_chars": 666,
-      "description": "SQL Server Always On Availability Groups under SAP NetWeaver — listener-based connection configuration (SAPDBHOST, dbs/mss/server, MSSQL_SERVER, MultiSubnetFailover and the case-sensitive JDBC parameter), why logins must be created by SWPM \"Configure additional Always On Node\" and never manually, th",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-sscr-keys",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-sscr-keys\\SKILL.md",
-      "owner": "vendor",
-      "hash": "e38cb7e6f72f6bcecd0605f614553509c97619a66640ab2100ad242de05269db",
-      "desc_chars": 582,
-      "description": "SAP Software Change Registration (SSCR) — developer keys and object keys. Decide whether the system even needs them (S/4HANA, BW/4HANA and AS ABAP 7.51+ do not; NetWeaver 7.50 and below do), gather the parameters a key binds to, request them in SAP for Me, handle the 14-day post-upgrade SPAU grace w",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -805,28 +519,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-system-lifecycle",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-system-lifecycle\\SKILL.md",
-      "owner": "vendor",
-      "hash": "c345b22d85f22da17cadd5a57796a221800eeef7f000fd2473ab56c72644f765",
-      "desc_chars": 428,
-      "description": "Start, stop and restart a NetWeaver / S/4HANA system in the correct order — database and the instance layer (ERS, ASCS/SCS, PAS, AAS, Web Dispatcher) — using SAPControl and SAP MMC on Windows, on Linux/Windows/AIX. Use for \"start/stop/restart the SAP system\", \"bounce <SID>\", \"start the app servers\",",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-transport-mgmt",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-transport-mgmt\\SKILL.md",
-      "owner": "vendor",
-      "hash": "5401f2a4ac48931eb853550f57979894b1751565f9d0ae08bb6c1b30b5997e41",
-      "desc_chars": 482,
-      "description": "Move SAP transport requests at the OS layer with tp and R3trans — add to the import buffer, import single requests or import all, check status, and understand the transport directory, unconditional modes and return codes, on Linux/Windows/AIX. STMS is the preferred front-end; this is the command-lin",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "sap-transport-release",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-transport-release\\SKILL.md",
@@ -845,17 +537,6 @@
       "hash": "41cd773b747434cb5e0cec271937d5e1a14ed4b80ae77674d66e1f0eacd9139c",
       "desc_chars": 526,
       "description": "Method and rules of thumb for troubleshooting any SAP issue — establish the facts, enumerate EVERY relevant log/trace source (SM21, ST22, SLG1, ST01/STAUTHTRACE, ST05, RSAU_READ_LOG, SM58/SMQ1, /IWFND/ERROR_LOG, Java defaultTrace, kernel dev_* traces, DB and OS logs), correlate by timestamp, ask wha",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-web-dispatcher",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-web-dispatcher\\SKILL.md",
-      "owner": "vendor",
-      "hash": "2f0955f60e9a29464f37c64510c5d3281c114cfb353f6696aa50af99dcb479f8",
-      "desc_chars": 330,
-      "description": "Operate the SAP Web Dispatcher, the reverse proxy / load balancer in front of SAP HTTP(S) traffic — start, stop, status, ports, profile essentials and the admin UI, on Linux/Windows/AIX. Use for \"start/stop/restart the web dispatcher\", \"webdisp is down\", \"web dispatcher ports/profile\", \"wdisp/system",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -1260,9 +941,9 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\sap-st22-dump-analysis\\SKILL.md",
       "owner": "vendor",
-      "hash": "c26b43af9b6e2f4571687af9365cff160b31e922f60eb674f4573fe848d89873",
-      "desc_chars": 0,
-      "description": "",
+      "hash": "0a9904bedbfc94bec62f1510dc6b0c7fbe177c3ce43f7b37be9a2479553e611f",
+      "desc_chars": 296,
+      "description": "Analyze SAP ST22 / ABAP runtime dumps through ARC-1 SAPDiagnose action=dumps, with optional separately confirmed read-only ABAP source inspection for root-cause analysis. Use when users want to list recent dumps, inspect a dump ID, explain a short dump/call stack, or investigate a runtime error.",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -1432,28 +1113,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "btp-platform-administration",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\btp-platform-administration\\SKILL.md",
-      "owner": "vendor",
-      "hash": "3b4dcf03710b85347455536ab2505727b7232994766042cd767585c1d7ef5a6c",
-      "desc_chars": 286,
-      "description": "Audit and operate SAP BTP core platform administration with the sap-ai-btp MCP server: global account hierarchy, entitlements and quotas, Service Manager service instances and service keys, destinations, identity and destination trust, Cloud Connectors and principal propagation checks.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "bw-datasphere-migration",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\bw-datasphere-migration\\SKILL.md",
-      "owner": "vendor",
-      "hash": "d915778226d598387f1e8741946ad8662a66bf8ef04aef9ec2e0bac8becfd72b",
-      "desc_chars": 228,
-      "description": "Plan and run SAP BW to SAP Datasphere migrations: inventory BW models through the ABAP destination server, choose the Data Product Generator or rebuild path, map objects, baseline BW figures, and reconcile results in Datasphere.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "capture-lesson",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\capture-lesson\\SKILL.md",
@@ -1487,101 +1146,13 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "cloud-alm-operations",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\cloud-alm-operations\\SKILL.md",
-      "owner": "vendor",
-      "hash": "849ecc9f44c57c7a3051ad1aa7f1815fa0607bbfd13788ca03c00e3e33e460e6",
-      "desc_chars": 355,
-      "description": "Monitor, triage and track SAP landscapes with the sap-ai-cloud-alm MCP server: Integration & Exception Monitoring records and analytics, health and alert hotspots per DEV/TEST/PROD tier, incident triage correlated with CPI message processing logs and ABAP SLG1 logs, feature and transport deployment ",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "datasphere-administration",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\datasphere-administration\\SKILL.md",
-      "owner": "vendor",
-      "hash": "2daf085a540d746bd8e883cfe34a03911c1d53be7fd7943c91ad2fd4bbee6e4b",
-      "desc_chars": 220,
-      "description": "Administer SAP Datasphere through the sap-ai-datasphere MCP server: spaces and space users, database users, workload priorities, global and scoped roles, users, connections, TLS certificates, and task-scheduling consent.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "datasphere-development",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\datasphere-development\\SKILL.md",
-      "owner": "vendor",
-      "hash": "6c2d5d719edad0b8030e741329d876e47d71592444741fd5c058d43306283f8d",
-      "desc_chars": 210,
-      "description": "Model, deploy, load and verify SAP Datasphere content with the sap-ai-datasphere MCP server: CSN objects of every type, packages, task chains, replication flows, data products, consumption queries and Open SQL.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "hana-cloud-inspection",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\hana-cloud-inspection\\SKILL.md",
-      "owner": "vendor",
-      "hash": "5b5b451651909c1ddbec1b6fb982e890d5bda888c2d0ba5e82e174ca3d017e08",
-      "desc_chars": 191,
-      "description": "Inspect SAP HANA Cloud HDI containers and schemas using the read-only HANA MCP server. Use for connection verification, catalog inventory, table/view metadata, and bounded data investigation.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "hana-cloud-native-development",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\hana-cloud-native-development\\SKILL.md",
-      "owner": "vendor",
-      "hash": "46dc9dc3db05e4fad3162fd3d2032feb25d11acb6d803e1d74942be84937f4f8",
-      "desc_chars": 188,
-      "description": "Develop SAP HANA Cloud CAP and HDI database components locally, including CDS models, HANA build outputs, synonyms, and grants. Use when creating or changing HANA-native project artifacts.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "hana-cloud-validation",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\hana-cloud-validation\\SKILL.md",
-      "owner": "vendor",
-      "hash": "397c8a6593621025b242d8b4baf54e5288b8d7f122151d9d0ae54e9b5282389d",
-      "desc_chars": 200,
-      "description": "Validate HANA Cloud CAP and HDI changes locally, inspect deployment plans and diffs, and prepare a safe user-run deployment handoff. Use before deploying database artifacts or assessing a HANA change.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "integration-suite-delivery",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\integration-suite-delivery\\SKILL.md",
-      "owner": "vendor",
-      "hash": "27b16e934488254a895b7266a026fa5bcd590225e000b5cefc7585643e633eca",
-      "desc_chars": 244,
-      "description": "Build and operate SAP Integration Suite scenarios — Cloud Integration iFlows, value mappings, script collections, security material, Partner Directory and monitoring, and API Management providers, proxies, policies, products and key value maps.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "mcp-surface-audit",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\mcp-surface-audit\\SKILL.md",
       "owner": "vendor",
-      "hash": "1d86f96b889364cc315ffbf9b6d74cdec493902bb85c95e8f1115723f2720863",
+      "hash": "10f676d1fcc7ee5744377204f87a7766dea9481382e76992b48d33d12a174565",
       "desc_chars": 446,
       "description": "Rebuild the real SAP/ABAP MCP tool surface from live config and extension manifests, then fix routing drift. Use when a new MCP server or ABAP extension is installed, when the agent picks the wrong server for a task, when a tool name referenced by an agent or skill no longer resolves, or when asked ",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "process-automation-development",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\process-automation-development\\SKILL.md",
-      "owner": "vendor",
-      "hash": "3d1fbf2dfd7768bd2b72b6421ea527ed6d5e5f95858afb2b90d0a2b634dd5277",
-      "desc_chars": 334,
-      "description": "Inspect, test and operate SAP Build Process Automation with the sap-ai-process-automation MCP server: process definitions, workflow instances, contexts, logs and errors, stuck instances, user tasks and the user inbox, decisions, API triggers, automations, process visibility, administration jobs, pro",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -1604,17 +1175,6 @@
       "hash": "3fdc4a4c8cbb71e35b4437dfe4d82c1c58e5044b5d94568556e036ea0068b3a4",
       "desc_chars": 199,
       "description": "Validate and deliver SAP RAP OData services, behavior implementations, service bindings, activation, publication, and runtime checks. Use with RAP service exposure or end-to-end RAP validation tasks.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-integration-architect",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\sap-integration-architect\\SKILL.md",
-      "owner": "vendor",
-      "hash": "903065411d6c17113e74e1e13608ec6ff6314494ca7f7c0a52aca84976f86a01",
-      "desc_chars": 275,
-      "description": "Architect SAP Integration Suite solutions — choose API Management, Cloud Integration, or both; design connectivity, per-hop security, error handling, monitoring, naming and versioning; assess the live CPI/APIM tenant; and produce an approved build plan with exact tool calls.",
       "status": "active",
       "last_validated": "2026-11-13"
     },
