@@ -1,13 +1,13 @@
 # Registry report
 
-Generated: 2026-11-13T19:37:03+00:00
+Generated: 2026-11-13T20:29:31+00:00
 
 ## Summary
 
 | Area | Count | Issues | Warnings |
 |---|---|---|---|
-| Skills | 122 | 0 | 4 |
-| Agents | 23 | 0 | 0 |
+| Skills | 134 | 0 | 4 |
+| Agents | 24 | 0 | 0 |
 | MCP servers | 14 | 0 | 0 |
 | Tools | 111 | 0 | 0 |
 
@@ -15,7 +15,7 @@ Generated: 2026-11-13T19:37:03+00:00
 
 - agents: 47
 - claude: 30
-- copilot: 14
+- copilot: 26
 - opencode: 31
 
 ## New skills

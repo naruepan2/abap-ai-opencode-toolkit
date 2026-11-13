@@ -211,8 +211,8 @@ docs/
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 122 entries | opencode 31, agents 47, claude 30, copilot 14; 47 vendor skills parked outside the catalog |
-| Agents | 23 | 4 editable (`*-by-pongg`), 19 vendor |
+| Skills | 134 entries | opencode 31, agents 47, claude 30, copilot 26; 47 vendor skills parked outside the catalog |
+| Agents | 24 | 4 editable (`*-by-pongg`), 20 vendor |
 | MCP servers | 14 | 8 enabled, 6 disabled; SAP, GUI, docs, Playwright are on-demand, `rosa` removed |
 | Tools | 111 | 5 namespaces; measured 211 before the 2026-11-14 diet |
 

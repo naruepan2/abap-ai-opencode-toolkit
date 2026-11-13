@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.5.9 — 2026-11-14
+
+**`sap-ai-dev-toolkit` 0.9.9924 → 0.9.9926.**
+
+- `npm install -g sap-ai-dev-toolkit@0.9.9926`; the pinned runtime binary was
+  reinstalled by its postinstall. Node 26 trips the package's `EBADENGINE` warning
+  (it declares `^20 … ^24`) but the install and the launcher work — recorded here so
+  the warning is not re-investigated.
+- npm skipped the postinstall on the first pass (`allow-scripts` policy). Re-ran
+  `node scripts/postinstall.mjs` explicitly; it reported "MCP config was not changed"
+  and only touched the Copilot side, so `opencode.json` stayed byte-identical
+  (verified against a backup).
+- The toolkit materialised 12 Copilot skills and 1 Copilot agent that had gone stale
+  (`btp-platform-administration`, `datasphere-*`, `cloud-alm-operations`,
+  `process-automation-development`, `bw-datasphere-migration`, and the integration and
+  HANA-cloud set). Copilot registry 14 → 26 skills, 16 → 17 agents.
+- **No OpenCode prompt cost**: the OpenCode catalog is unchanged at 31 skills / 19.8k
+  chars, tools 111 / 16.1k, prompt 36.0k. Registry 0 issues / 4 warnings after
+  `--refresh`.
+- Parked skills were not re-created (10 folders still in the loaded catalog, 47 in
+  `skills-parked`), which is the failure mode to check after every toolkit update.
+
 ## v0.5.8 — 2026-11-14
 
 **Second wave: 18 duplicates and unused families parked. Fixed prompt 41.9k → 36.0k.**

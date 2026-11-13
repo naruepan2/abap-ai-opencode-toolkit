@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T19:37:03+00:00",
+  "generated_at": "2026-11-13T20:29:31+00:00",
   "agents": [
     {
       "id": "abap-developer",
@@ -184,6 +184,20 @@
       "hash": "69ab3b41c7188cbf84c17b952fe83f83747acc5414d33baf2229b88f03676386",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-advanced-event-mesh-administrator",
+      "name": "SAP Advanced Event Mesh Administrator",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\sap-advanced-event-mesh-administrator.agent.md",
+      "owner": "vendor",
+      "editable": false,
+      "mode": "",
+      "skills": [],
+      "description": "Manage SAP Integration Suite, advanced event mesh (Solace) end to end with the sap-ai-aem MCP server: broker service create, resize, upgrade and delete with operation polling, SEMP configuration, monitoring and actions, and Event Portal design objects with AsyncAPI export.",
+      "hash": "3533cf48b741a9a3ea11516b37b5aea694a896e17d3bc619ec7381e2e92d36f6",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "sap-btp-infrastructure-admin",

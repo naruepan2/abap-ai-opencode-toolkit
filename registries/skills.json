@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T19:37:03+00:00",
+  "generated_at": "2026-11-13T20:29:31+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -904,6 +904,17 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "advanced-event-mesh-lifecycle",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\advanced-event-mesh-lifecycle\\SKILL.md",
+      "owner": "vendor",
+      "hash": "a68a48dc63164220df4f18d714e01d8951caa59aab01a6df045a5af00fbc2653",
+      "desc_chars": 328,
+      "description": "Manage SAP Integration Suite, advanced event mesh (Solace) with the sap-ai-aem MCP server: event broker service create, resize, upgrade and delete with operation polling (Mission Control), SEMP v2 configuration, monitoring and actions, and Event Portal domains, applications, events, schemas, version",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "arc-1-add-sap-system",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\arc-1-add-sap-system\\SKILL.md",
@@ -913,6 +924,28 @@
       "description": "Add a new SAP system logon to the ARC-1 MCP configuration (VS Code User mcp.json + Copilot CLI mcp-config.json) as a new named server entry. Use when asked to \"add SAP system\", \"add another SAP logon\", \"add client 120\", \"add trial system\", \"new SAP connection\", or \"register SAP system for ARC-1\".",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "btp-platform-administration",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\btp-platform-administration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "3b4dcf03710b85347455536ab2505727b7232994766042cd767585c1d7ef5a6c",
+      "desc_chars": 286,
+      "description": "Audit and operate SAP BTP core platform administration with the sap-ai-btp MCP server: global account hierarchy, entitlements and quotas, Service Manager service instances and service keys, destinations, identity and destination trust, Cloud Connectors and principal propagation checks.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "bw-datasphere-migration",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\bw-datasphere-migration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "d915778226d598387f1e8741946ad8662a66bf8ef04aef9ec2e0bac8becfd72b",
+      "desc_chars": 228,
+      "description": "Plan and run SAP BW to SAP Datasphere migrations: inventory BW models through the ABAP destination server, choose the Data Product Generator or rebuild path, map objects, baseline BW figures, and reconcile results in Datasphere.",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "capture-lesson",
@@ -948,6 +981,83 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "cloud-alm-operations",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\cloud-alm-operations\\SKILL.md",
+      "owner": "vendor",
+      "hash": "849ecc9f44c57c7a3051ad1aa7f1815fa0607bbfd13788ca03c00e3e33e460e6",
+      "desc_chars": 355,
+      "description": "Monitor, triage and track SAP landscapes with the sap-ai-cloud-alm MCP server: Integration & Exception Monitoring records and analytics, health and alert hotspots per DEV/TEST/PROD tier, incident triage correlated with CPI message processing logs and ABAP SLG1 logs, feature and transport deployment ",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "datasphere-administration",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\datasphere-administration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "2daf085a540d746bd8e883cfe34a03911c1d53be7fd7943c91ad2fd4bbee6e4b",
+      "desc_chars": 220,
+      "description": "Administer SAP Datasphere through the sap-ai-datasphere MCP server: spaces and space users, database users, workload priorities, global and scoped roles, users, connections, TLS certificates, and task-scheduling consent.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "datasphere-development",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\datasphere-development\\SKILL.md",
+      "owner": "vendor",
+      "hash": "6c2d5d719edad0b8030e741329d876e47d71592444741fd5c058d43306283f8d",
+      "desc_chars": 210,
+      "description": "Model, deploy, load and verify SAP Datasphere content with the sap-ai-datasphere MCP server: CSN objects of every type, packages, task chains, replication flows, data products, consumption queries and Open SQL.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "hana-cloud-inspection",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\hana-cloud-inspection\\SKILL.md",
+      "owner": "vendor",
+      "hash": "5b5b451651909c1ddbec1b6fb982e890d5bda888c2d0ba5e82e174ca3d017e08",
+      "desc_chars": 191,
+      "description": "Inspect SAP HANA Cloud HDI containers and schemas using the read-only HANA MCP server. Use for connection verification, catalog inventory, table/view metadata, and bounded data investigation.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "hana-cloud-native-development",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\hana-cloud-native-development\\SKILL.md",
+      "owner": "vendor",
+      "hash": "46dc9dc3db05e4fad3162fd3d2032feb25d11acb6d803e1d74942be84937f4f8",
+      "desc_chars": 188,
+      "description": "Develop SAP HANA Cloud CAP and HDI database components locally, including CDS models, HANA build outputs, synonyms, and grants. Use when creating or changing HANA-native project artifacts.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "hana-cloud-validation",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\hana-cloud-validation\\SKILL.md",
+      "owner": "vendor",
+      "hash": "397c8a6593621025b242d8b4baf54e5288b8d7f122151d9d0ae54e9b5282389d",
+      "desc_chars": 200,
+      "description": "Validate HANA Cloud CAP and HDI changes locally, inspect deployment plans and diffs, and prepare a safe user-run deployment handoff. Use before deploying database artifacts or assessing a HANA change.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "integration-suite-delivery",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\integration-suite-delivery\\SKILL.md",
+      "owner": "vendor",
+      "hash": "27b16e934488254a895b7266a026fa5bcd590225e000b5cefc7585643e633eca",
+      "desc_chars": 244,
+      "description": "Build and operate SAP Integration Suite scenarios — Cloud Integration iFlows, value mappings, script collections, security material, Partner Directory and monitoring, and API Management providers, proxies, policies, products and key value maps.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "mcp-surface-audit",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\mcp-surface-audit\\SKILL.md",
@@ -957,6 +1067,17 @@
       "description": "Rebuild the real SAP/ABAP MCP tool surface from live config and extension manifests, then fix routing drift. Use when a new MCP server or ABAP extension is installed, when the agent picks the wrong server for a task, when a tool name referenced by an agent or skill no longer resolves, or when asked ",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "process-automation-development",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\process-automation-development\\SKILL.md",
+      "owner": "vendor",
+      "hash": "3d1fbf2dfd7768bd2b72b6421ea527ed6d5e5f95858afb2b90d0a2b634dd5277",
+      "desc_chars": 334,
+      "description": "Inspect, test and operate SAP Build Process Automation with the sap-ai-process-automation MCP server: process definitions, workflow instances, contexts, logs and errors, stuck instances, user tasks and the user inbox, decisions, API triggers, automations, process visibility, administration jobs, pro",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "rap-development",
@@ -979,6 +1100,17 @@
       "description": "Validate and deliver SAP RAP OData services, behavior implementations, service bindings, activation, publication, and runtime checks. Use with RAP service exposure or end-to-end RAP validation tasks.",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-integration-architect",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-integration-architect\\SKILL.md",
+      "owner": "vendor",
+      "hash": "903065411d6c17113e74e1e13608ec6ff6314494ca7f7c0a52aca84976f86a01",
+      "desc_chars": 275,
+      "description": "Architect SAP Integration Suite solutions — choose API Management, Cloud Integration, or both; design connectivity, per-hop security, error handling, monitoring, naming and versioning; assess the live CPI/APIM tenant; and produce an approved build plan with exact tool calls.",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "sap-sdlc-orchestration",
