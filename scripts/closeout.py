@@ -35,12 +35,7 @@ INBOX_AGE_DAYS = 7
 INBOX_CAP = 40
 CARD_AGE_DAYS = 14
 ENTRY_STALE_DAYS = 180
-CONTRACT = {
-    "FS": "fs",
-    "Change type": "change type",
-    "Production": "production",
-    "Target": "target",
-}
+CONTRACT = ("FS", "Change type", "Production", "Target")
 
 WARN, ISSUE = "warning", "issue"
 

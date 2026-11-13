@@ -5,7 +5,8 @@ connects to SAP, calls an MCP tool, or edits an agent/skill.
 
 ## `session_context.py` — the one call at session start
 
-Prints a compact digest (~1.8k chars) so the agent does not read eight files
+Prints a compact digest (~2.6k chars, ~0.8k with `--tiny`) so the agent does not read
+eight files
 before starting work:
 
 - the active project's resume card (status / next step / do not / working dir)

@@ -1,8 +1,11 @@
 # Memory model: from a work log to expertise
 
-> Status: **adopted 2026-11-14** (P0–P3 implemented). The v0 ledger (dated
-> `corrections.md` / `lessons.md` tables) is migrated: its rules live in
-> `memory/knowledge/`, the old tables are at `memory/_archive/v0-ledger/`, and
+> Status: **adopted 2026-11-14** (P0–P3 implemented). This file is the *rationale and
+> history*; the operating rules are `memory/README.md`. Do not maintain the same rule
+> in both — if they disagree, `memory/README.md` wins.
+>
+> The v0 ledger (dated `corrections.md` / `lessons.md` tables) is migrated: its rules
+> live in `memory/knowledge/`, the old tables are at `memory/_archive/v0-ledger/`, and
 > `corrections.md` is now the inbox. P4 (the monthly review) is ongoing.
 > Supersedes the "one row per correction / per lesson" model.
 

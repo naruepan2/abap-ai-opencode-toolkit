@@ -50,18 +50,19 @@ on 2026-11-13:
 |---|---|---|---|
 | Skill catalog (descriptions) | 41.7k chars / 78 entries | 20k | `registry_check.py` |
 | Tool descriptions | 16.1k chars / 111 tools | 28k | `registry_check.py` |
-| `AGENTS.md` chain | ~6.2k chars (6 files, 5 loaded) | — | one canonical copy per rule |
-| Session digest | 2.4k chars (2.4k brief, 0.8k `--tiny`) | 3k | `session_context.py` |
-| Project card | 8.1k chars (ZDEMO01) | 9k | `memory_check.py` |
+| `AGENTS.md` chain (5 files loaded in ZDEMO01) | **15.1k chars** (global 5.2k, workspace 4.2k, ZDEMO01 3.2k, DEMO 1.2k, SAP Projects 1.3k) | — | one canonical copy per rule |
+| Session digest | 2.6k chars (2.6k brief, 0.8k `--tiny`) | 3k | `session_context.py` |
+| Task tier add-on | card 8.7k + 2 domain files 4.9k = 13.7k | 9k card | `memory_check.py` |
 | Inbox row | ≤240 chars | 240 | `memory_check.py` |
 | Knowledge entry | ≤1.2k chars, ≤12 per domain | per domain | `memory_check.py` |
 
 Measured before/after the 2026-11-14 tool diet: 211 tools / 31.5k chars → **111 /
 16.1k**, by moving `sap-gui` (59), `playwright` (25) and `sap-docs` (9) to on-demand
-and removing `rosa` (7). Total prompt cost went from 73.3k to 57.9k chars.
+and removing `rosa` (7). Fixed prompt cost went from 73.3k to 57.9k chars.
 
-The skill catalog is now the only block over budget. It is reduced by parking
-skills that this workspace does not use, never by editing a vendor file.
+The skill catalog is now 72% of the fixed cost and the only block over budget. It is
+reduced by parking skills that this workspace does not use, never by editing a vendor
+file.
 
 ## No-guess protocol
 

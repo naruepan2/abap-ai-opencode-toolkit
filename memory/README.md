@@ -7,7 +7,7 @@
 ## Read at session start — one call, then pick a tier
 
 ```powershell
-python scripts\session_context.py            # digest, ~2.4k chars
+python scripts\session_context.py            # digest, ~2.6k chars
 python scripts\session_context.py --tiny     # light tier, ~0.8k chars
 python scripts\session_context.py --full     # + file map + raw checks
 python scripts\session_context.py --project DEMO/ZDEMO01

@@ -8,17 +8,9 @@ the rule one level if it fails.
 A probe run in a session that has already read the knowledge base is not a probe: the
 context gives the answer away.
 
-| # | Rule it tests | Pass condition (first action) |
-|---|---|---|
-| 1 | S/4 material documents | reads `MATDOC` only; never `MKPF`/`MSEG` |
-| 2 | open quantity semantics | `KWMENG − SUM(LIPS-LFIMG)`; never trusts `ZMMT014` |
-| 3 | SAP GUI focus | checks or asks for OS focus before a custom toolbar button |
-| 4 | SICF procedure | selects the parent node, F5 not F9, Store not F11 |
-| 5 | nested structure fields | addresses `mmt010-mblnr`, not flat `mblnr` |
-| 6 | BAPI return shape | recovers the delivery from `LIPS` when `DELIVERY` is empty |
-| 7 | Thai-safe source handling | reads via ADT and verifies the Thai char count |
-| 8 | symptom-first diagnosis (meta) | searches the knowledge base for the symptom before hypothesising |
-| 9 | change contract | asks FS / change type / production / target **before** editing |
+The pass conditions and the rule behind each probe are in
+`memory/expertise.md` §Probes — one table, one place. This file holds only the
+prompts, so the two cannot drift.
 
 ## The prompts
 
