@@ -1,6 +1,6 @@
 # Registry report
 
-Generated: 2026-11-13T17:08:52+00:00
+Generated: 2026-11-13T19:13:26+00:00
 
 ## Summary
 
@@ -9,7 +9,7 @@ Generated: 2026-11-13T17:08:52+00:00
 | Skills | 180 | 0 | 4 |
 | Agents | 23 | 0 | 0 |
 | MCP servers | 14 | 0 | 0 |
-| Tools | 111 | 0 | 0 |
+| Tools | 170 | 0 | 0 |
 
 ## Skills by harness
 
@@ -57,7 +57,7 @@ _None._
 | `playwright` | opencode | no | 0 |  |
 | `open-computer-use` | opencode | yes | 9 |  |
 | `windows-mcp` | opencode | yes | 19 |  |
-| `sap-gui` | opencode | no | 0 |  |
+| `sap-gui` | opencode | no | 59 |  |
 | `sap-docs` | opencode | no | 0 |  |
 | `gsd-120` | opencode | no | 0 |  |
 | `ds4-100` | opencode | no | 0 |  |
@@ -99,11 +99,12 @@ _None._
 ## Prompt budget
 
 - skills (opencode): 41748 chars of description across 78 entries — budget 20000
-- tools: 16111 chars of description across 111 tools — budget 28000
+- tools: 26525 chars of description across 170 tools — budget 28000
 
 ## Prompt budget notes
 
 - skill catalog is 41748 chars over budget 20000 (78 skills); park unused skills
+- config disables sap-gui but the running catalog still exposes it — restart the opencode service (the daemon), not the window
 
 ## Notes
 

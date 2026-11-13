@@ -200,6 +200,7 @@ scripts/
 templates/
   AGENTS.md               # pointer block for a new machine
   plan.md                 # plan + todo template for a long task
+  probes.md               # the 9 cold probes as paste-ready prompts
 docs/
   design.md               # why the teammate works this way
   lifecycle.md            # onboarding / offboarding agents, skills, MCP

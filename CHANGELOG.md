@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.5.6 — 2026-11-14
+
+**A config change that is not in effect is now visible.**
+
+- `registry_check.py` warns when a server is disabled in the config but still present
+  in the running catalog — the exact symptom of a daemon that was not restarted. The
+  note names the server and says to restart the service, not the window.
+- `knowledge/tooling.md`: the rule is generalised from "`policy.json` is read once" to
+  "the service daemon holds the MCP servers, not the window", `Seen` 1 → 2, with the
+  2026-11-14 evidence (daemon PID 33916 started 20:59, app 21:13, catalog still 170).
+- `templates/probes.md`: the nine probes as paste-ready prompts for cold sessions,
+  with the first-action pass condition and the scorecard update.
+- Correction: `mcp.servers` in `opencode.json` is **not** a phantom entry — the
+  scanner already flattens it and lists `browse` correctly. My earlier claim came from
+  reading the raw config, not the registry.
+
 ## v0.5.5 — 2026-11-14
 
 **The close-out is verified, and a task loads only its own domains.**

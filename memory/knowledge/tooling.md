@@ -32,15 +32,19 @@
 - **Seen:** 1 · **Confidence:** low · **Last confirmed:** 2026-11-13
 - **Evidence:** `tool error: unknown tool sap_press_key`
 
-## `sap-gui` reads `policy.json` once, at server start
+## The service daemon holds the MCP servers, not the window
 
-- **Rule:** after changing `%APPDATA%\mcp-sap-gui\policy.json`, restart the
-  `opencode-cli.exe serve --service` daemon. Restarting the window is not enough.
-- **Why:** MCP servers are held by that daemon; the window is a client.
-- **Break it, and:** the audit log shows `allow: ["SICF"]` while every call is still
-  blocked — you debug the policy instead of the reload.
-- **Seen:** 1 · **Confidence:** high · **Last confirmed:** 2026-11-13
-- **Evidence:** policy event 20:52, calls blocked at 20:54 and 20:56
+- **Rule:** to make an MCP change take effect — a policy file, or an enable/disable in
+  the config — restart `opencode-cli.exe serve --service`. Restarting the window or the
+  desktop app changes nothing.
+- **Why:** that daemon owns the server processes, their tool catalog and their policy
+  snapshot; the app is only a client.
+- **Break it, and:** the config says a server is disabled while the catalog still loads
+  it (10.4k chars of prompt for a server you turned off), or a policy change seems to
+  do nothing — and you debug the wrong layer.
+- **Seen:** 2 · **Confidence:** high · **Last confirmed:** 2026-11-14
+- **Evidence:** policy event 20:52 vs calls blocked 20:54/20:56; 2026-11-14 the daemon
+  (PID 33916) started 20:59, the app 21:13, catalog unchanged at 170 tools
 
 ## Never kill an MCP process to force a reload
 

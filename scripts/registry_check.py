@@ -496,6 +496,18 @@ def cmd_check(brief=False):
             f"tool catalog is {tool_chars} chars over budget {PROMPT_TOOL_BUDGET} "
             f"({len(tool_list)} tools; {top}); disable an unused server")
 
+    # A server disabled in the config but still in the live catalog means the
+    # service daemon has not restarted: the change is saved but not in effect.
+    still_loaded = sorted(
+        s["server"] for s in mcp
+        if s["harness"] == "opencode" and not s.get("enabled")
+        and s["server"] in set(ns)
+    )
+    if still_loaded:
+        prompt_notes.append(
+            f"config disables {', '.join(still_loaded)} but the running catalog still "
+            "exposes it — restart the opencode service (the daemon), not the window")
+
     skill_issues = len(missing_skills) + len(dup)
     agent_issues = len(agent_missing)
     mcp_issues = len(missing_mcp) + len(mcp_zero)
