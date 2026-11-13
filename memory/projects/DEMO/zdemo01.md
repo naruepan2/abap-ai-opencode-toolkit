@@ -132,12 +132,8 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - `VBAP` SO `1011099686`/`10`: `KWMENG = 60` KG, `VRKME = MEINS = KG`, `LFSTA = B`.
 - `SE16` filter `LIPS-UECHA = '000000'` returns exactly the main item, so the
   main-item lookup is correct; an empty ALV cell is only the ALPHA display.
-- `BAPI_OUTB_DELIVERY_CREATE_SLS` may create a DO but return an empty `DELIVERY`
-  when `NUM_DELIVERIES > 1`. The code imports and checks the count.
-- The batch-split BAPI needs the main item in `ITEM_CONTROL` with
-  `CHG_DELQTY = 'X'` (not `CHG_DELQY`).
-- SAP GUI custom toolbar buttons may not fire when the session window lacks OS
-  focus. ALV built-in buttons can still respond.
+- General process rules from this session — the BAPI count, `CHG_DELQTY`, and the
+  GUI focus caveat — live in `memory/lessons.md`, not here.
 
 ## Evidence
 

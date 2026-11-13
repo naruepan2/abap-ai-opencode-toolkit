@@ -9,9 +9,10 @@ Checks
   1. required memory files exist
   2. the Markdown tables parse and match their declared columns
   3. every row carries evidence (a lesson without evidence is an opinion)
-  4. no credential-like strings in any memory file
-  5. skill candidates marked draft/testing/active have a real skill folder
-  6. project cards are reachable from INDEX.md (the navigation model)
+  4. a row stays under its length budget (a long row is a recurring token cost)
+  5. no credential-like strings in any memory file
+  6. skill candidates marked draft/testing/active have a real skill folder
+  7. project cards are reachable from INDEX.md (the navigation model)
 
 Usage
   python scripts/memory_check.py            # full report
@@ -71,6 +72,13 @@ TABLES = {
 }
 
 PROMOTED_STATUS = ("draft", "testing", "active")
+
+# A memory row is read at every session start, so a long row is a recurring cost.
+# Over budget is a warning: shorten the row and move the detail to the card.
+ROW_BUDGET = {
+    "corrections.md": 240,
+    "lessons.md": 240,
+}
 
 CREDENTIAL_PATTERNS = [
     re.compile(r"(?i)\bpassw(or)?d\b\s*[:=]\s*\S"),
@@ -184,6 +192,25 @@ def check_tables(findings, warnings):
                              f"{sorted(spec['status_allowed'])}"))
 
 
+def check_row_length(warnings):
+    for name, budget in ROW_BUDGET.items():
+        path = MEM / name
+        if not path.is_file():
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            continue
+        for n, line in enumerate(lines, start=1):
+            body = line.strip()
+            if not re.match(r"^\|\s*\d{4}-\d{2}-\d{2}", body):
+                continue
+            if len(body) > budget:
+                warnings.append((WARN, name,
+                                 f"line {n} is {len(body)} chars (budget {budget}); "
+                                 "shorten the row and move detail to the card"))
+
+
 def check_credentials(findings, warnings):
     for path in sorted(MEM.rglob("*.md")):
         try:
@@ -254,6 +281,7 @@ def main() -> int:
     findings, warnings = [], []
     check_files(findings)
     check_tables(findings, warnings)
+    check_row_length(warnings)
     check_credentials(findings, warnings)
     check_skill_candidates(warnings)
     check_index(warnings)

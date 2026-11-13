@@ -39,26 +39,20 @@ Parent chain: `DEFAULT_HOST` (`0000000000000000000000000`) → `SAP`
 child defines its own (siblings: `4-WAYS`, `ASRS`, `SALESFORCE`, `SLPROTOCOL`, `TEST`,
 `THEMES`).
 
-## What went wrong in this session (agent mistakes)
+## Agent mistakes in this session
 
-1. **Restart did not reach the MCP server.** `sap-gui` reads
-   `%APPDATA%\mcp-sap-gui\policy.json` once at start. Restarting the OpenCode window
-   is not enough: the MCP servers are held by the background
-   `opencode-cli.exe serve --service` daemon (was PID 8848). The audit log proved it:
-   a `policy` event with `allow: ["SICF"]` at 20:52, yet calls at 20:54/20:56 still
-   blocked — those were served by an older, pre-policy process.
-2. **Killed the live MCP process.** Killing the stale 19:45/19:50 stacks removed the
-   `sap-gui` namespace from the session mid-task. Killing MCP processes to force a
-   reload costs the session its tools; stop and let the user restart instead.
-3. **Assumed F5 creates a sub-service.** F5 acts on the tree selection. With nothing
-   selected it opens **"Create/Change a Virtual Host"**, not the service dialog.
-4. **Used the F9 wizard.** It opens an HTML (Edge) popup that scripting cannot read,
-   so every answer needs a separate user approval — wrong tool for this job.
-5. **Sent arrow keys through `open-computer-use` to SAP GUI.** SAP GUI was not
-   foreground; the keys landed in another window and the tree row was never selected.
-6. **Told the user a service was not created** based on a filter popup
-   ("Selection criteria did not select any data"), while the node actually existed.
-   Verify from `ICFSERVICE` / HTTP before reporting absence.
+All six were general process mistakes, so each rule is recorded once, elsewhere:
+
+| Mistake | Rule lives in |
+|---|---|
+| Expected a window restart to reload MCP | `lessons.md`: `policy.json` is read once; restart the service daemon |
+| Killed the live MCP process | `lessons.md` + `tool-map.md`: the namespace disappears |
+| Assumed F5 needs no selection; then used the F9 wizard | this program's `AGENTS.md` §SICF rules |
+| Sent arrow keys through open-computer-use to SAP GUI | `tool-map.md`: keys go to the focused window |
+| Reported "not created" from a filter popup | `lessons.md`: verify in a table or over HTTP |
+
+What stays HCL-specific: the verified state table above, the procedure below, the
+verification recipe, and the access notes.
 
 ## Correct procedure (SICF sub-element) — use next time
 

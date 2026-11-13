@@ -42,18 +42,20 @@ script, when a rule must appear on every session — and keep it to a few one-li
 
 ## Write immediately (do not wait for close-out)
 
-- **A user correction** → one row in `corrections.md`, status `open`. Keep it to
-  one line per column: what the AI did, the correct behavior, the root cause, the
-  fix level, the evidence. This is the one write that must happen mid-task, because
-  a session can end mid-task.
+- **A user correction** → one row in `corrections.md`, status `open`. One line per
+  column: what the AI did, the correct behavior, the root cause, the fix level, the
+  evidence. **≤240 chars for the whole row** — `memory_check.py` warns above that.
+  This is the one write that must happen mid-task, because a session can end
+  mid-task.
 - A decision that cannot be cheaply reversed → project `memory/decisions.md` or
   `reports/DECISIONS.md`
 
 ## Write at task close-out
 
-- A durable lesson → `lessons.md`, in **one** row, then set the source correction's
-  status to `promoted` and point `evidence` at the lesson. Do not restate the same
-  fact in both files: the promotion replaces the open row, it does not copy it.
+- A durable lesson → `lessons.md`, in **one** row (≤240 chars), then set the source
+  correction's status to `promoted` and point `evidence` at the lesson. Do not
+  restate the same fact in both files: the promotion replaces the open row, it does
+  not copy it.
 - Update the active project's resume card (status / next step / do not).
 - A repeated pattern → `skill-candidates.md` (rule of 2).
 - A non-obvious tool choice → a row in `tool-map.md`; add it to the `digest` block
@@ -80,6 +82,8 @@ The memory is read at every session start, so its size is the price of every
 future task.
 
 - One fact lives in exactly one file; other files point at it.
+- One row ≤240 chars. If it needs more, the detail goes to the project card and the
+  row keeps the pointer.
 - A closed or promoted row older than 30 days moves to
   `memory/_archive/<file>-YYYY-MM.md` (git keeps the history). Keep the last 30
   days plus everything still `open`.

@@ -13,12 +13,12 @@ side of the AI teammate.
 - The digest runs the registry and memory checks. If it reports an **issue**, show
   the short summary and propose a fix. Warnings (a new asset, a stale date, an idle
   on-demand server) need a human decision, not a turn.
-- Log a correction in `memory/corrections.md` the moment it happens, one line, status
-  `open`. At task close-out, promote anything durable to `memory/lessons.md`, set the
-  source row to `promoted`, and update the project resume card — one edit per file,
-  batched, no re-read. A rule that must bind the next session goes into the
-  `AGENTS.md` of the level where the mistake happened; a skill is for a repeating
-  multi-step procedure, not a one-line rule.
+- Log a correction in `memory/corrections.md` the moment it happens, one row of at
+  most 240 characters, status `open`. At task close-out, promote anything durable to
+  `memory/lessons.md`, set the source row to `promoted`, and update the project
+  resume card — one edit per file, batched, no re-read. A rule that must bind the
+  next session goes into the `AGENTS.md` of the level where the mistake happened; a
+  skill is for a repeating multi-step procedure, not a one-line rule.
 - Do not edit vendor agents or skills. Only `*-by-pongg` files and newly created
   personal skills may be edited, and only after approval.
 - Keep Copilot and OpenCode separate: this repository is the OpenCode side.

@@ -70,7 +70,9 @@ correction is not repeated.
 row to `corrections.md` immediately — do not wait for task close-out, because a
 session can end mid-task. One line per column: what the AI did, the correct
 behavior, the root cause, the fix level (`architecture` → `type/check` → `lint/CI`
-→ `test` → `memory/AGENTS` → `skill`), evidence, status `open`.
+→ `test` → `memory/AGENTS` → `skill`), evidence, status `open`. **One row of at most
+240 characters** — the detail belongs in the project card, and a fact that already
+lives in a lesson, a tool-map row, or an `AGENTS.md` line is a pointer, not a copy.
 
 At task close-out, promote anything durable from `corrections.md` into `lessons.md`
 and set the source row to `promoted` (do not copy the same text into both), then
