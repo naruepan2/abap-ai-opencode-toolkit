@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.5.1 — 2026-11-14
+
+**Expertise is the goal; notes are not.**
+
+- `memory/expertise.md`: defines the end state (a rule is expertise when it is
+  unprompted, not looked up, and testable), tracks three levels — **reflex** (printed
+  into every session: 6), **enforced** (a check fails when it breaks: 3),
+  **handbook** (correct only if read: 15 of 24) — and lists **8 cold probes** with
+  pass conditions, plus the monthly loop and a scorecard.
+- The first probe is the meta-probe: recognise the symptom and go to the evidence.
+  Added as knowledge entry `working-method` §"Diagnose from the symptom".
+- `memory_check.py` requires `expertise.md`; the digest lists it as an on-demand file.
+- Honest status recorded: no probe has been run yet, so the 8/8 target is not claimed.
+
 ## v0.5 — 2026-11-14
 
 **Memory became a knowledge base instead of a work log.** Design: `docs/memory-model.md`.

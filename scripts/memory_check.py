@@ -47,6 +47,7 @@ REQUIRED_FILES = [
     "skill-candidates.md",
     "agent-registry.md",
     "tool-map.md",
+    "expertise.md",
     "knowledge/README.md",
 ]
 

@@ -114,6 +114,9 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - v12: new ALV column `OPEN_SO_QTY` ("Open Sales Order Qty") between TF DEMO Qty
   and Ex.WH.Stck. Value = `KWMENG - SUM(LIPS-LFIMG)` per SO item, on editable
   rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
+- v13: hid `MENGE_GR`/`MENGE_PD_INITIAL`/`MENGE_INITIAL` in Option 8 (whitelist);
+  editable rows leave Sales Doc/Item empty for the user to type; ticking the
+  select checkbox no longer clears the status message.
 
 ## Known unknowns (do not guess)
 
@@ -139,17 +142,17 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 ## Evidence
 
-- Built source: `patched_MODL_v11.abap`, 279,549 bytes,
-  md5 `1e2b6437c3888368c68f97742525c124` (builder `build_v11.py`, 31 exact-match
-  edits); `patched_VIEW.abap`, 57,479 bytes,
-  md5 `2bda9c14f44361a07885e66e0a68d4bc` (builder `build_view.py`).
-- Deployed AND ACTIVE (verified via `?version=active`): MODL 7,166 lines
-  `c3f3a8b9940d30e6ffcd110c9d3c46bb`, VIEW 1,441 lines
-  `11dbc0c2f55ee62166243bb08f7a7328`; `syntax-check` 0 findings.
-- Runtime check (client 900, SO `1011099686`/10): `OPEN_SO_QTY` sits between
-  `MENGE_TF` and `MENGE_PD`, `30.000` on the editable row and `0.000` on the DO
-  lines (editable lines only, per user decision); editable row has Sales Doc/Item
-  `1011099686`/`10`; DO `1041100095` lines show remark `PONG1 Remark`.
+- Built source: `patched_MODL_v11.abap`, 279,566 bytes,
+  md5 `01f1456d2c7d7abc916afd5cb099a72f` (builder `build_v11.py`, 33 exact-match
+  edits); `patched_VIEW.abap`, 57,337 bytes,
+  md5 `3a7cf40f9b7b3006ff2313058db4948c` (builder `build_view.py`, idempotent).
+- Deployed AND ACTIVE (verified via `?version=active`): MODL 7,167 lines
+  `8bc4f86c838bb2265d7071f1115c7dc6`, VIEW 1,438 lines
+  `54881ab7077a313b476a564fb6aeb0f1`; `syntax-check` 0 findings.
+- Runtime check (client 900, SO `1011099686`/10): `MENGE_TF | OPEN_SO_QTY |
+  MENGE_PD`, `30.000` on the editable row and `0.000` on the DO lines; editable
+  row has blank Sales Doc/Item (user types them); DO lines keep message 041 after
+  `SELC` is ticked.
 - Activation trap: `activate program` alone left the includes inactive;
   `activate include ZDEMO01_MODL` and `ZDEMO01_VIEW` are required. `get-include`
   returns the inactive source, so verification must use `?version=active`.

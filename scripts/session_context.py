@@ -51,6 +51,7 @@ DIGEST_END = "<!-- digest:end -->"
 FILES_ON_DEMAND = [
     ("user-profile.md", "how Pongg communicates and decides"),
     ("corrections.md", "inbox: incidents not yet consolidated"),
+    ("expertise.md", "the end state, the probes, the scorecard"),
     ("tool-map.md", "authoritative tool per task"),
     ("team-roster.md", "who to delegate to, and when not to"),
     ("skill-candidates.md", "repeated patterns not yet a skill"),

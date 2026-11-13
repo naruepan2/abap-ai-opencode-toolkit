@@ -97,6 +97,15 @@ mentions.
 - **≤240 chars per inbox row; ≤9k chars per project card; ≤1.2k per knowledge entry.**
 - **A rule that repeats belongs in a check**, not in prose.
 
+### The goal is expertise, not notes
+
+`memory/expertise.md` defines the end state: a rule has become expertise when it is
+**unprompted, not looked up, and testable**. It tracks three levels — reflex (printed
+into every session), enforced (a check fails when it breaks), handbook (only correct
+if read) — and lists eight cold probes that prove it. Promote a rule up the ladder
+only when getting it wrong is expensive and it recurs; archive an entry once its probe
+can no longer fail. Today: 6 reflex, 3 enforced, 15 handbook — the honest gap.
+
 Measured prompt budget (skills, tools, AGENTS, digest, cards): `docs/design.md`
 §"Prompt budget".
 

@@ -161,6 +161,7 @@ memory/
   README.md               # how the memory system works (the consolidation gate)
   user-profile.md         # how the user communicates and decides
   corrections.md          # INBOX: incidents not yet consolidated (≤7 days)
+  expertise.md            # the end state: reflex / enforced / handbook + cold probes
   knowledge/              # durable memory: one entry per rule, by domain
     README.md             # schema, caps, how an entry changes
     working-method.md     # how to do the work

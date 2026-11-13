@@ -33,6 +33,17 @@
 - **Seen:** 1 · **Confidence:** medium · **Last confirmed:** 2026-11-13
 - **Evidence:** ZDEMO01 — preload key mismatch *and* a missing BAPI main-item row
 
+## Diagnose from the symptom, not from memory
+
+- **Rule:** when a failure looks familiar, search `memory/knowledge/` for the symptom
+  (`Break it, and` lines) before forming a hypothesis, then verify in the data.
+- **Why:** recognising the symptom is what an expert actually does; the rule is
+  useless if it is never retrieved at the moment of failure.
+- **Break it, and:** you re-derive the cause from scratch, or confidently apply the
+  wrong familiar rule to a different fault.
+- **Seen:** 1 · **Confidence:** medium · **Last confirmed:** 2026-11-14
+- **Evidence:** probe 8 in `memory/expertise.md`
+
 ## A rule that repeats belongs in a check, not in prose
 
 - **Rule:** the second time a rule is violated, move it out of prose into
