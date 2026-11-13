@@ -1,5 +1,11 @@
 # Corrections
 
+> **Archived 2026-11-14** when the memory model changed (`docs/memory-model.md`).
+> The rule behind each row now lives in `memory/knowledge/<domain>.md`. The rows
+> still marked `open` at archive time (open quantity, GR row, `ZMMT014` authority,
+> `mmt010~*` substructure) were implemented in ZDEMO01 v11/v12 and are recorded in
+> the project card. This file is history, not input.
+
 > One row per correction, ≤240 chars: the rule, not the story. Detail belongs in
 > the project card (`memory/projects/<PROJECT>/<program>.md`). Fix level, strongest
 > first: architecture -> type/check -> lint/CI -> test -> memory/AGENTS -> skill.

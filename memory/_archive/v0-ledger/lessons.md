@@ -1,5 +1,9 @@
 # Lessons
 
+> **Archived 2026-11-14**: every durable rule moved to
+> `memory/knowledge/<domain>.md`. `lessons.md` no longer exists — a knowledge entry
+> *is* the lesson. This file is history, not input.
+
 > One terse row per lesson, ≤240 chars. A lesson is created by **promoting** a
 > correction, so do not restate the correction's detail here — point at the card.
 > A lesson becomes a skill candidate only after the same correction appears twice
