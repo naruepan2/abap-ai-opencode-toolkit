@@ -114,6 +114,7 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
   rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
 - v14: posted DOs (PGI_FLAG = 'X' / WBSTK = 'C') are no longer listed; `create_issue_no` now has a p_rad8 branch and is called after Create DO + Batch Split, before `_save_history` so ZMMT014 gets ISSNO. Base is `base_v13.abap` (live source with the user's edits). `ty_outtab8` now has `is_deleteline`; `delete_issue_no` has a commented p_rad8 skeleton.
 - v15/v16: `post_goods_issue_from_do` calls `WS_DELIVERY_UPDATE_2` once (`wabuc` + `update_picking` + VBPOK) instead of picking then PGI; VBPOK lines carry `UMVKZ`/`UMVKN`. Messages 026/027/032 are no longer emitted.
+- v17: the 601 material document is read from `MATDOC` (not `MSEG`) in both the write-back and `_save_history`; `CLEAR <ls_mseg>` (dump on an unassigned field symbol) removed.
 - v13.1: `menge_pd` in `ty_outtab8` is `TYPE lips-lfimg` (MENG13, no sign) so the ALV cannot take a minus; guard code removed, message 046 unused.
 - v13: hid `MENGE_GR`/`MENGE_PD_INITIAL`/`MENGE_INITIAL` in Option 8 (whitelist);
   editable rows leave Sales Doc/Item empty for the user to type; ticking the
