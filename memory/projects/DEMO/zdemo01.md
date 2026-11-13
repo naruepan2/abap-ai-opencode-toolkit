@@ -127,27 +127,18 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 7. FS gaps: `ZMMT014` mapping is empty; `ZMMT013` has no definition; `BUDAT` is
    declared twice; ใบเบิก `MENGE_TF_P` is never populated by Option 8.
 
-## Latest debugging findings (client 900, 13.11.2026)
+## Latest findings (details in `reports/DECISIONS.md`)
 
-- DO `1041100092` (60 KG, sub items `900001 = 50` batch `0105240100` and
-  `900002 = 10` batch `1012240100`) was **deleted** from `LIKP`; its two
-  `ZMMT014` rows (created 19:23:45) remain. `UECHA` is blank in those rows
-  because they predate the v9 code.
-- DO `1041100095` (30 KG, sub items `900001 = 15` batch `1012240100` and
-  `900002 = 15` batch `0105240100`) exists, `KOSTK = A`, `WBSTK = A`, and has
-  **no** `ZMMT014` row.
-- `ZMMT010`: `4900000646` MENGE_PD 50 (batch `0105240100`), `4900000647`
-  MENGE_PD 20 (batch `1012240100`). MENGE_PD drops only at Post Goods Issue.
-- `VBAP` SO `1011099686`/`10`: `KWMENG = 60` KG, `VRKME = MEINS = KG`, `LFSTA = B`.
-- `SE16` filter `LIPS-UECHA = '000000'` returns exactly the main item, so the
-  main-item lookup is correct; an empty ALV cell is only the ALPHA display.
-- General process rules from this session — the BAPI count, `CHG_DELQTY`, and the
-  GUI focus caveat — live in `memory/lessons.md`, not here.
+- DO `1041100092` was deleted from `LIKP` but its `ZMMT014` rows remain.
+- DO `1041100095` (30 KG, split 15 + 15) exists with `KOSTK = WBSTK = A` and **no**
+  `ZMMT014` row; its remark comes from the `ZMMT010` fallback.
+- `ZMMT010` MENGE_PD 50 / 20 (batches `0105240100` / `1012240100`); it drops only
+  at Post Goods Issue. SO `1011099686`/10 `KWMENG 60`, `LFSTA = B`.
+- `SE16` filter `LIPS-UECHA = '000000'` returns exactly the main item (an empty
+  ALV cell is only the ALPHA display).
 
 ## Evidence
 
-- Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
-  md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
 - Built source: `patched_MODL_v11.abap`, 279,549 bytes,
   md5 `1e2b6437c3888368c68f97742525c124` (builder `build_v11.py`, 31 exact-match
   edits); `patched_VIEW.abap`, 57,479 bytes,
