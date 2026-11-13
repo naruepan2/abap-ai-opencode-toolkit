@@ -45,6 +45,12 @@ TODAY = date.today()
 VENDOR_DESC_BUDGET = 1000
 PERSONAL_DESC_BUDGET = 500
 
+# The skill catalog and the tool catalog are injected into every session, so their
+# size is a per-turn cost. Measure it, and warn above the budget: the fix is to
+# park skills or disable a server, never to edit a vendor file.
+PROMPT_SKILL_BUDGET = 20000
+PROMPT_TOOL_BUDGET = 28000
+
 SKILL_ROOTS = [
     ("opencode", HOME / ".config" / "opencode" / "skills"),
     ("agents", HOME / ".agents" / "skills"),
@@ -288,7 +294,8 @@ def scan_tools_full():
     if not data:
         return None
     ids = sorted({str(t.get("id")) for t in data.get("tools", []) if t.get("id")})
-    return {"ids": ids, "generated_at": data.get("generated_at", "")}
+    return {"ids": ids, "tools": data.get("tools", []),
+            "generated_at": data.get("generated_at", "")}
 
 
 def tool_namespace(tool_id: str) -> str:
@@ -468,12 +475,34 @@ def cmd_check(brief=False):
     skill_review = len(new_skills) + len(stale)
     agent_review = len(new_agents)
     mcp_review = len(new_mcp) + len(mcp_idle)
+    # Prompt cost: what the harness injects into every session.
+    opencode_skills = [s for s in skills if s["harness"] == "opencode"]
+    skill_chars = sum(int(s.get("desc_chars") or 0) for s in opencode_skills)
+    tool_list = (full or {}).get("tools", [])
+    tool_chars = sum(len(t.get("description") or "") for t in tool_list)
+    prompt_notes = []
+    if skill_chars > PROMPT_SKILL_BUDGET:
+        prompt_notes.append(
+            f"skill catalog is {skill_chars} chars over budget {PROMPT_SKILL_BUDGET} "
+            f"({len(opencode_skills)} skills); park unused skills")
+    if tool_chars > PROMPT_TOOL_BUDGET:
+        hot = {}
+        for t in tool_list:
+            space = t.get("namespace") or "?"
+            hot[space] = hot.get(space, 0) + len(t.get("description") or "")
+        top = ", ".join(f"{k} {v}" for k, v in
+                        sorted(hot.items(), key=lambda kv: -kv[1])[:3])
+        prompt_notes.append(
+            f"tool catalog is {tool_chars} chars over budget {PROMPT_TOOL_BUDGET} "
+            f"({len(tool_list)} tools; {top}); disable an unused server")
+
     skill_issues = len(missing_skills) + len(dup)
     agent_issues = len(agent_missing)
     mcp_issues = len(missing_mcp) + len(mcp_zero)
     tool_issues = len(tool_changes)
     issues = skill_issues + agent_issues + mcp_issues + tool_issues
-    warnings = len(long_desc) + skill_review + agent_review + mcp_review
+    warnings = (len(long_desc) + skill_review + agent_review + mcp_review
+                + len(prompt_notes))
 
     issue_detail = []
     if missing_skills:
@@ -503,9 +532,14 @@ def cmd_check(brief=False):
         print(f"agents: {len(agents)} (editable={len(editable)}, vendor={len(agents)-len(editable)}, new={len(new_agents)}, missing_skills={len(agent_missing)})")
         print(f"mcp: {len(mcp)} (enabled={sum(1 for x in mcp if x.get('enabled'))}, disabled={sum(1 for x in mcp if not x.get('enabled'))}, zero_tools={len(mcp_zero)})")
         print(f"tools: {(snap or {}).get('total', 0)} namespaces={len(ns)} changes={len(tool_changes)} new={len(new_tools)} missing={len(missing_tools)}")
+        print(f"prompt: skills {skill_chars / 1000:.1f}k ({len(opencode_skills)}) "
+              f"+ tools {tool_chars / 1000:.1f}k ({len(tool_list)}) "
+              f"= {(skill_chars + tool_chars) / 1000:.1f}k chars per session")
         print(f"issues: {issues} warnings: {warnings}")
         for line in issue_detail[:5]:
             print(f"  ! {line}")
+        for line in prompt_notes:
+            print(f"  ~ {line}")
         if not issues and warnings:
             print("  (warnings need a human decision, not a fix now)")
         return 0 if issues == 0 else 1
@@ -571,6 +605,15 @@ def cmd_check(brief=False):
     section("Tool snapshot changes", tool_changes, lambda x: x)
     section("New tools", new_tools, lambda x: f"`{x}`")
     section("Missing tools", missing_tools, lambda x: f"`{x}`")
+
+    lines.append("## Prompt budget")
+    lines.append("")
+    lines.append(f"- skills (opencode): {skill_chars} chars of description across "
+                 f"{len(opencode_skills)} entries — budget {PROMPT_SKILL_BUDGET}")
+    lines.append(f"- tools: {tool_chars} chars of description across {len(tool_list)} "
+                 f"tools — budget {PROMPT_TOOL_BUDGET}")
+    lines.append("")
+    section("Prompt budget notes", prompt_notes, lambda x: x)
 
     lines.append("## Notes")
     lines.append("")

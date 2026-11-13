@@ -232,13 +232,18 @@ Requires Python 3.8+; the scripts use only the standard library.
 ```bash
 # one call at session start: project card + health + open corrections + tool rules
 python scripts/session_context.py
+python scripts/session_context.py --tiny    # light tier: ~0.8k chars
 
 # then pick a tier: light (digest only) / task (+ project card) / deep (+ all files)
 
-python scripts/registry_check.py --check           # full registry report
+python scripts/registry_check.py --check           # full registry report + prompt budget
 python scripts/registry_check.py --refresh         # merge new items
 python scripts/memory_check.py                     # memory integrity, after close-out
 ```
+
+`registry_check.py` also measures the **prompt budget**: the skill catalog and the
+tool descriptions that the harness injects into every session, against the budgets
+in `docs/design.md`.
 
 Exit code `0` means nothing is broken; `1` means the report has an issue. Warnings
 (new asset, stale date, over-budget description, idle on-demand SAP server) do not

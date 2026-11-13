@@ -174,16 +174,23 @@ def grab_field(lines, label):
     return ""
 
 
-def card_block(card):
+def card_block(card, compact=False):
     text = read(card)
     lines = text.splitlines()
     project = card.parent.name
     name = title(text) or card.stem.upper()
     heading = f"{project} / {name}" if norm(project) != norm(name) else name
+    status = grab_field(lines, "Status")
+    next_step = grab_field(lines, "Next step")
+    if compact:
+        out(f"{heading} \u00b7 {flat(status, 150) or 'no status'}")
+        if next_step:
+            out(f"  next: {flat(next_step, 150)}")
+        return text
     out(f"PROJECT  {heading}")
     out(f"  card   {rel(card)}")
-    for label, key in (("status", "Status"), ("next", "Next step"), ("do not", "Do not")):
-        value = grab_field(lines, key)
+    for label, value in (("status", status), ("next", next_step),
+                         ("do not", grab_field(lines, "Do not"))):
         if value:
             out(f"  {label:6} {flat(value, FIELD_CUT)}")
     env = re.search(r"Working directory:\s*`([^`]+)`", text)
@@ -285,6 +292,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--brief", action="store_true", help="digest only (default)")
+    ap.add_argument("--tiny", action="store_true",
+                    help="light tier: project + status + next + open-correction count")
     ap.add_argument("--full", action="store_true", help="digest + file map + raw checks")
     ap.add_argument("--project", default="", help="project or program, e.g. DEMO/ZDEMO01")
     ap.add_argument("--no-checks", action="store_true", help="skip both scanners")
@@ -307,8 +316,27 @@ def main():
         out()
 
     if card is not None:
-        card_block(card)
+        card_block(card, compact=args.tiny)
         out()
+
+    if args.tiny:
+        total_open = len(open_corrections(0))
+        style = digest_block(USER_PROFILE)
+        if style:
+            for rule in style[:1]:
+                out(f"STYLE    {flat(rule, FIELD_CUT)}")
+        health, detail, _ = ("", [], ("", ""))
+        if not args.no_checks:
+            health, detail, _ = checks()
+        issues = re.search(r"(\d+) issues", health)
+        if issues and int(issues.group(1)) > 0:
+            out(f"HEALTH   {health}")
+            for scope, line in detail[:2]:
+                out(f"  ! {scope}: {line}")
+        if total_open:
+            out(f"OPEN     {total_open} correction(s) in {rel(CORRECTIONS)}")
+        out("FULL     python scripts/session_context.py   (task tier)")
+        return 0
 
     health, detail, raw = ("checks skipped", [], ("", ""))
     if not args.no_checks:

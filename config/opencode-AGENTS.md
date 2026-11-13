@@ -2,32 +2,19 @@
 
 ## SAP is on-demand only
 
-- Do NOT enable the `ds4-100` / `ds4-900` MCP servers (or call `sap_connect` /
-  `sap_connect_existing` / other SAP logon tools) at session start.
-- Opening opencode must never pop the "SAP logon - DEMO DEV
-  [NEW] (client 100)" or "(client 900)" PowerShell credential dialog.
-- Only connect to SAP when the user explicitly asks for SAP work
-  (e.g. "เข้า SAP", "เข้า DS4", "ทำงาน SAP", ABAP/RAP/CDS tasks
-  against a named SAP system).
-- When SAP work is requested:
-  1. Temporarily set only the requested server (`"ds4-100"` for client 100,
-     `"ds4-900"` for client 900) to `"enabled": true` in
-     `~/.config/opencode/opencode.json` — keep the other one `false`
-  2. Ask the user to restart/reconnect opencode once
-  3. The credential dialog will appear once; the user enters
-     username + password manually. Never store the password.
-  4. After the SAP work is done, set `"enabled": false` again
-     (both `ds4-100` and `ds4-900`) and ask the user to restart opencode.
-- For `sap-gui` work, first call `sap_list_connections`, then
-  `sap_connect_existing` if a session exists. If the session is
-  dropped, stop, notify the user, and ask them to log on to SAP
-  GUI manually before retrying once.
-- Do not store SAP usernames or passwords in files, `.env`, or
-  config, except the existing username-only memory files already
-  used by `luf-ds4-100.ps1` / `luf-ds4-900.ps1`
-  (`%APPDATA%\sap-ai-dev-toolkit\ds4-100-user.txt` /
-  `%APPDATA%\sap-ai-dev-toolkit\ds4-900-user.txt`).
-  Never write `SAP_PASSWORD` to disk.
+- Never enable the `ds4-100` / `ds4-900` MCP servers and never call `sap_connect` /
+  `sap_connect_existing` at session start. Opening opencode must never pop the SAP
+  credential dialog.
+- Connect only when the user explicitly asks for SAP work ("เข้า SAP", "เข้า DS4",
+  "ทำงาน SAP", an ABAP/RAP/CDS task on a named system and client).
+- **Before enabling a server**, read the procedure in
+  `abap-agent-workspace-opencode\memory\tool-map.md` §"SAP on-demand": which server
+  to enable, the one restart, who types the password, and how to turn it off again.
+- Never write `SAP_PASSWORD` (or any token) to disk. Usernames only, and only in
+  the existing `%APPDATA%\sap-ai-dev-toolkit\ds4-100-user.txt` / `ds4-900-user.txt`.
+- `sap-gui` work: call `sap_list_connections`, then `sap_connect_existing` if a
+  session exists. If the session dropped, stop and ask the user to log on manually
+  before retrying once.
 
 ## Workspace layout
 

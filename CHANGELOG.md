@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.1 — 2026-11-14
+
+**Measure the prompt, not just the memory.**
+
+- `registry_check.py` now reports a **prompt budget**: the injected skill catalog
+  (41.7k chars / 78 entries) and tool descriptions (31.5k / 211 tools) against
+  budgets of 20k and 28k, with the top namespaces named. Measured on 2026-11-13,
+  the two catalogs cost ~73k chars per session — 7x the memory files they replaced.
+- `session_context.py --tiny`: light tier in 0.8k chars (project, status, next step,
+  one style rule, open-correction count, health only when broken).
+- `memory_check.py` also guards the project-card size (budget 9k chars).
+- The global `AGENTS.md` SAP section is now rules + a pointer: the 13-line
+  enable/disable procedure moved to `memory/tool-map.md` §"SAP on-demand", where it
+  is read exactly when SAP work starts (4.99k → 4.42k chars, every session).
+- `docs/design.md` records the measured prompt budget per block; `memory/README.md`
+  points at it.
+- Fixed a variable shadowing bug (`ns`) that broke the full report in v0.4.
+
 ## v0.4 — 2026-11-13
 
 **Tiered context loading, and a gate that stops crying wolf.**

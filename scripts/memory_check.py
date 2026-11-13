@@ -13,6 +13,7 @@ Checks
   5. no credential-like strings in any memory file
   6. skill candidates marked draft/testing/active have a real skill folder
   7. project cards are reachable from INDEX.md (the navigation model)
+  8. a project card stays under its size budget
 
 Usage
   python scripts/memory_check.py            # full report
@@ -79,6 +80,10 @@ ROW_BUDGET = {
     "corrections.md": 240,
     "lessons.md": 240,
 }
+
+# A project card is read at the task tier. The budget is a growth guard, not a
+# target: if it fires, move dated findings to the project's own reports/.
+CARD_BUDGET = 9000
 
 CREDENTIAL_PATTERNS = [
     re.compile(r"(?i)\bpassw(or)?d\b\s*[:=]\s*\S"),
@@ -211,6 +216,28 @@ def check_row_length(warnings):
                                  "shorten the row and move detail to the card"))
 
 
+def check_cards(warnings):
+    root = MEM / "projects"
+    if not root.is_dir():
+        return
+    for card in sorted(root.glob("*/*.md")):
+        try:
+            size = len(card.read_text(encoding="utf-8"))
+        except OSError:
+            continue
+        if size > CARD_BUDGET:
+            warnings.append((WARN, rel_card(card),
+                             f"{size} chars (budget {CARD_BUDGET}); move dated "
+                             "findings to the project's reports/ and keep the card"))
+
+
+def rel_card(card):
+    try:
+        return card.relative_to(MEM).as_posix()
+    except ValueError:
+        return card.name
+
+
 def check_credentials(findings, warnings):
     for path in sorted(MEM.rglob("*.md")):
         try:
@@ -282,6 +309,7 @@ def main() -> int:
     check_files(findings)
     check_tables(findings, warnings)
     check_row_length(warnings)
+    check_cards(warnings)
     check_credentials(findings, warnings)
     check_skill_candidates(warnings)
     check_index(warnings)

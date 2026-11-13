@@ -1,6 +1,6 @@
 # Registry report
 
-Generated: 2026-11-13T16:42:04+00:00
+Generated: 2026-11-13T17:00:51+00:00
 
 ## Summary
 
@@ -96,6 +96,16 @@ _None._
 ## Missing tools
 
 _None._
+
+## Prompt budget
+
+- skills (opencode): 41748 chars of description across 78 entries — budget 20000
+- tools: 31524 chars of description across 211 tools — budget 28000
+
+## Prompt budget notes
+
+- skill catalog is 41748 chars over budget 20000 (78 skills); park unused skills
+- tool catalog is 31524 chars over budget 28000 (211 tools; sap-gui 10414, browser 5446, windows-mcp 3414); disable an unused server
 
 ## Notes
 

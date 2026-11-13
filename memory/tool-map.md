@@ -49,6 +49,24 @@
 | Desktop automation | open-computer-use / windows-mcp | — | only on explicit request |
 | Files / source search | `grep` / `glob` / `read` | shell | prefer dedicated tools |
 
+## SAP on-demand
+
+`ds4-100` (ADT, client 100) and `ds4-900` (SAP GUI, client 900) stay disabled; the
+credential dialog must never appear at startup. When a task really needs SAP:
+
+1. Set **only** the requested server to `"enabled": true` in
+   `~/.config/opencode/opencode.json`; keep the other one `false`.
+2. Ask the user to restart/reconnect opencode once. The dialog appears once and the
+   user types username + password. Never store the password.
+3. Do the work.
+4. Set both back to `"enabled": false` and ask the user to restart once more.
+
+`sap-gui`: `sap_list_connections` first, then `sap_connect_existing`. If the session
+dropped, stop and ask the user to log on in SAP GUI before retrying once.
+
+Policy file note: `%APPDATA%\mcp-sap-gui\policy.json` is read once at server start.
+Never kill an MCP process to force a reload — the namespace disappears (§Map).
+
 ## New MCP checklist
 
 - [ ] Scope is clear (read-only? which system/client?)

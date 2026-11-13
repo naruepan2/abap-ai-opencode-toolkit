@@ -17,10 +17,15 @@ before starting work:
 
 ```bash
 python scripts/session_context.py                          # brief (default)
+python scripts/session_context.py --tiny                   # light tier, ~0.8k chars
 python scripts/session_context.py --full                   # + file map + raw checks
 python scripts/session_context.py --project DEMO/ZDEMO01    # pin the card
 python scripts/session_context.py --no-checks              # skip both scanners
 ```
+
+`--tiny` prints only the project, its status and next step, one style rule, the
+open-correction count, and health **only when there is an issue** — use it for a
+question, an analysis, or a review, where the tool rules do not matter.
 
 The active card defaults to the most recently modified card under
 `memory/projects/*/`. Exit `0` means the digest printed; `1` means a required

@@ -84,6 +84,9 @@ future task.
 - One fact lives in exactly one file; other files point at it.
 - One row ≤240 chars. If it needs more, the detail goes to the project card and the
   row keeps the pointer.
+- A project card ≤9k chars; dated findings move to the project's own `reports/`.
+- The measured prompt budget for skills, tools, AGENTS and the digest lives in
+  `docs/design.md` §"Prompt budget" — check it before adding a new catalog entry.
 - A closed or promoted row older than 30 days moves to
   `memory/_archive/<file>-YYYY-MM.md` (git keeps the history). Keep the last 30
   days plus everything still `open`.

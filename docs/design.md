@@ -39,6 +39,25 @@ file, and a correction is *promoted* (its status changes) rather than copied int
 The digest still surfaces the **open** corrections on every session, so the ledger
 keeps doing its job without the full file being read.
 
+## Prompt budget (measured)
+
+Every session pays for what the harness injects before any work starts. Measured
+on 2026-11-13:
+
+| Block | Measured | Budget | Enforced by |
+|---|---|---|---|
+| Skill catalog (descriptions) | 41.7k chars / 78 entries | 20k | `registry_check.py` |
+| Tool descriptions | 31.5k chars / 211 tools | 28k | `registry_check.py` |
+| `AGENTS.md` chain | ~6.2k chars (6 files, 5 loaded) | — | one canonical copy per rule |
+| Session digest | 2.6k chars (2.5k brief, 0.8k `--tiny`) | 3k | `session_context.py` |
+| Project card | 8.1k chars (ZDEMO01) | 9k | `memory_check.py` |
+| `corrections.md` / `lessons.md` row | ≤209 chars | 240 | `memory_check.py` |
+
+The two catalog rows are the dominant cost and the only ones that can be reduced
+without losing anything: park skills that this workspace does not use, or disable
+an MCP server whose tools repeat another's. Never edit a vendor file to shrink a
+description.
+
 ## No-guess protocol
 
 - Unknown -> say unknown and propose a read-only check.
