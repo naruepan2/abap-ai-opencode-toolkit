@@ -10,8 +10,8 @@ From the workspace repository, run the digest instead of reading every file:
 
     python scripts\session_context.py
 
-It prints the active project's resume card, memory + registry health, the open
-corrections, and the curated tool rules. Then pick a tier:
+It prints the active project's resume card, memory + registry health, the open inbox
+rows, the knowledge inventory, and the curated tool rules. Then pick a tier:
 
 | Tier | When | Read |
 |---|---|---|
@@ -41,5 +41,6 @@ auto-fix, enable/disable an MCP server, or edit a registry without approval.
 # <project> rules
 
 Project memory lives in `memory/projects/<project>/<program>.md`. Read that card at
-session start and update its resume card at session end.
+session start and update its resume card at session end. A long task gets
+`plan-<task>.md` next to the program (`templates/plan.md`), pointed at by the card.
 ```

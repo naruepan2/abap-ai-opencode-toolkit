@@ -136,3 +136,8 @@ at its cap. Warnings do not fail the gate.
 not, business rules, code map, decisions, known unknowns, evidence. Template:
 `memory/projects/README.md`. A card declares `domains: [...]` so a task session loads
 only the knowledge it touches.
+
+A long task also gets a `plan-<task>.md` next to the program (template:
+`templates/plan.md`), and the card's `Plan:` line points at it. The plan carries the
+acceptance test, the contract, the approved scope and ≤12 todos — that is the
+checkpoint a long run resumes from.

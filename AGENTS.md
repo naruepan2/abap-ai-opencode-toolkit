@@ -35,6 +35,19 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   `memory/knowledge/<domain>.md` (`Seen +1`), add a new entry, promote it to an
   `AGENTS.md` line or a skill, or drop it as a one-off. Set the row `drained`, then
   update the project resume card. One batched edit per file, no re-read.
+- **Long runs get a plan.** For a task with more than a few steps, copy
+  `templates/plan.md` to the program folder as `plan-<task>.md` and get the plan
+  approved once. It carries the goal, the acceptance test (= stop condition), the four
+  contract answers, the approved scope, and ≤12 verifiable todos. The card points at it
+  (`Plan:`). Pre-arming there is what lets a long run proceed without stopping at
+  every write.
+- **Checkpoint every todo.** Tick it with one line of evidence and update the card's
+  Status / Next step. The plan file plus the digest is the resume point after a
+  context reset.
+- **A blocked step is a stop, not a retry.** Record `BLOCKED: <question>` in the plan,
+  report once, and wait; never loop a gate.
+- **Stop when** the acceptance test passes, two consecutive attempts fail, or the next
+  step leaves the approved scope.
 - Do not create a new log: the knowledge base grows by **editing** entries, not by
   appending rows. A rule that repeats belongs in a check, not in prose.
 - Do not edit vendor agents or skills. Only `*-by-pongg` files and newly created

@@ -24,6 +24,9 @@ Example: `memory/projects/DEMO/zmme011.md` for
 - Change type:            # bugfix | extend | change request
 - Production:             # not live | live (dev in sync?) | unknown
 - Target:                 # system, client, transport
+- Approved scope:         # what may be written / activated / transported, and by whom
+- Stop condition:         # the acceptance test that ends the work
+- Plan:                   # plan-<task>.md for a long task, or "none"
 
 ## Goal
 

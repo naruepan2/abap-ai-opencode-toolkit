@@ -198,6 +198,7 @@ scripts/
   memory_check.py         # read-only memory integrity check
 templates/
   AGENTS.md               # pointer block for a new machine
+  plan.md                 # plan + todo template for a long task
 docs/
   design.md               # why the teammate works this way
   lifecycle.md            # onboarding / offboarding agents, skills, MCP

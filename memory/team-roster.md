@@ -46,6 +46,19 @@ Hard limits:
 - A brief is 5 lines plus a pointer: goal, constraints, target, evidence required,
   stop conditions. Do not paste memory into a brief; point at the card.
 
+## A subagent has no channel to the user
+
+A child starts with a fresh context: the brief, plus the `AGENTS.md` chain for its
+directory. It cannot ask, cannot approve, and cannot enable a server. So:
+
+- The brief carries the four change-contract answers and the approved scope.
+- When it hits a gate (approval, save prompt, missing answer, dropped session, no
+  fallback) it stops and returns exactly `BLOCKED: <the question, one line>`, plus
+  what it already verified.
+- It never retries a blocked action and never substitutes a guess.
+- The lead turns a `BLOCKED` into either a user question or a decision, updates the
+  plan file, and only then re-briefs.
+
 ## Delegation rules
 
 1. Brief: goal, context, constraints, target, evidence required, output format,

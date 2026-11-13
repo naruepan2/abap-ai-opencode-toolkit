@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.5.3 — 2026-11-14
+
+**Plan + todo became the checkpoint of a long run.**
+
+- `templates/plan.md`: goal, acceptance test (= stop condition), the four contract
+  answers, the approved scope, ≤12 verifiable todos, and a one-line-per-tick log.
+  Four rules: one todo = one verifiable unit; approve once; the plan is a hypothesis;
+  ≤12 items.
+- `AGENTS.md` §Long runs: plan first and approve once, checkpoint every todo with
+  evidence, a blocked step is a stop not a retry, and three explicit stop conditions.
+- `memory/team-roster.md` §"A subagent has no channel to the user": the brief carries
+  the contract and scope, and a child returns `BLOCKED: <question>` instead of asking,
+  retrying or guessing.
+- Project card template gains `Approved scope`, `Stop condition` and `Plan:` (the two
+  live cards are untouched — another session is editing them).
+
 ## v0.5.2 — 2026-11-14
 
 **The change contract: four answers before the first edit.**
