@@ -1,15 +1,15 @@
 # Registry report
 
-Generated: 2026-11-13T10:19:33+00:00
+Generated: 2026-11-13T10:20:29+00:00
 
 ## Summary
 
-| Area | Count | Issues |
-|---|---|---|
-| Skills | 173 | 4 |
-| Agents | 18 | 0 |
-| MCP servers | 14 | 0 |
-| Tools | 181 | 0 |
+| Area | Count | Issues | Warnings |
+|---|---|---|---|
+| Skills | 173 | 0 | 4 |
+| Agents | 18 | 0 | 0 |
+| MCP servers | 14 | 0 | 0 |
+| Tools | 181 | 0 | 0 |
 
 ## Skills by harness
 

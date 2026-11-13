@@ -383,11 +383,12 @@ def cmd_check(brief=False):
         if reg_tools.get("total") and reg_tools.get("total") != snap["total"]:
             tool_changes.append(f"total: {reg_tools.get('total')} -> {snap['total']}")
 
-    issues = (
-        len(new_skills) + len(missing_skills) + len(dup) + len(long_desc) + len(stale)
-        + len(agent_missing) + len(new_agents) + len(new_mcp) + len(missing_mcp)
-        + len(mcp_zero) + len(tool_changes)
-    )
+    skill_issues = len(new_skills) + len(missing_skills) + len(dup) + len(stale)
+    agent_issues = len(new_agents) + len(agent_missing)
+    mcp_issues = len(new_mcp) + len(missing_mcp) + len(mcp_zero)
+    tool_issues = len(tool_changes)
+    issues = skill_issues + agent_issues + mcp_issues + tool_issues
+    warnings = len(long_desc)
 
     by_harness = {}
     for s in skills:
@@ -401,7 +402,7 @@ def cmd_check(brief=False):
         print(f"agents: {len(agents)} (editable={len(editable)}, vendor={len(agents)-len(editable)}, new={len(new_agents)}, missing_skills={len(agent_missing)})")
         print(f"mcp: {len(mcp)} (enabled={sum(1 for x in mcp if x.get('enabled'))}, disabled={sum(1 for x in mcp if not x.get('enabled'))}, zero_tools={len(mcp_zero)})")
         print(f"tools: {(snap or {}).get('total', 0)} namespaces={len(ns)} changes={len(tool_changes)}")
-        print(f"issues: {issues}")
+        print(f"issues: {issues} warnings: {warnings}")
         if mcp_zero:
             print("  zero tools: " + ", ".join(mcp_zero))
         return 0 if issues == 0 else 1
@@ -415,12 +416,12 @@ def cmd_check(brief=False):
     lines.append("")
     lines.append("## Summary")
     lines.append("")
-    lines.append("| Area | Count | Issues |")
-    lines.append("|---|---|---|")
-    lines.append(f"| Skills | {len(skills)} | {len(new_skills)+len(missing_skills)+len(dup)+len(long_desc)+len(stale)} |")
-    lines.append(f"| Agents | {len(agents)} | {len(new_agents)+len(agent_missing)} |")
-    lines.append(f"| MCP servers | {len(mcp)} | {len(new_mcp)+len(missing_mcp)+len(mcp_zero)} |")
-    lines.append(f"| Tools | {(snap or {}).get('total', 0)} | {len(tool_changes)} |")
+    lines.append("| Area | Count | Issues | Warnings |")
+    lines.append("|---|---|---|---|")
+    lines.append(f"| Skills | {len(skills)} | {skill_issues} | {warnings} |")
+    lines.append(f"| Agents | {len(agents)} | {agent_issues} | 0 |")
+    lines.append(f"| MCP servers | {len(mcp)} | {mcp_issues} | 0 |")
+    lines.append(f"| Tools | {(snap or {}).get('total', 0)} | {tool_issues} | 0 |")
     lines.append("")
     lines.append("## Skills by harness")
     lines.append("")
