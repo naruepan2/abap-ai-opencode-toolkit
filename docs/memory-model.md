@@ -75,7 +75,7 @@ rule as a knowledge entry: `memory/knowledge/working-method.md`.
 | Inbox | `memory/corrections.md` | ≤ 7 days, then archived | count only | bounded 40 rows |
 | Knowledge | `memory/knowledge/<domain>.md` | permanent, edited in place | by domain (task tier) | bounded per domain |
 | Playbook | `AGENTS.md` levels + skills | permanent | harness / on demand | slow |
-| Competency | `memory/competency.md` | updated monthly | digest | fixed size |
+| Competency | `memory/expertise.md` §"Competency by domain" | updated monthly | digest | fixed size |
 
 `lessons.md` disappears: **an entry in the knowledge base *is* the lesson.** Its
 history stays in git and in `memory/_archive/`.
@@ -141,14 +141,15 @@ the current model, where every session pays for every past incident.
 
 ## Competency map (how "senior" is visible)
 
-`memory/competency.md` is a small fixed table, reviewed monthly:
+The table lives in `memory/expertise.md` §"Competency by domain" (one fact, one file),
+reviewed monthly:
 
 | Domain | Level | Basis | Weak spot to watch |
 |---|---|---|---|
-| SAP GUI automation | practitioner | 4 high-confidence entries, 6 applications | focus-dependent actions |
-| ABAP BAPI contracts | apprentice | 3 entries, 1 high | split/BAPI return handling |
-| SAP data semantics | practitioner | 4 entries, all verified in tables | Z-table vs LIPS authority |
-| Working method | practitioner | 5 entries | root-cause completeness |
+| SAP GUI automation | practitioner | 5 entries, 2 rules are reflex | focus-dependent actions |
+| ABAP and APIs | practitioner | 6 entries, 2 shipped in code | split/BAPI return handling |
+| SAP data semantics | apprentice | 3 entries, all verified in tables | Z-table vs LIPS authority |
+| Working method | practitioner | 6 entries, 1 enforced by a check | the contract on an unfamiliar program |
 
 Levels: `aware` (knows the trap) → `apprentice` (has the rule) → `practitioner`
 (high confidence, reused) → `expert` (the rule is in AGENTS or a check, so it cannot
@@ -159,11 +160,11 @@ enforced behaviour — that is the real senior signal.
 
 | Phase | Work | Effort | Risk |
 |---|---|---|---|
-| P0 | This document + `memory/knowledge/README.md` + entry template | 20 min | none (additive) |
-| P1 | Seed 5 domain files from the 32 rows; dedupe to ~20 entries with seen-counts; move the old tables to `memory/_archive/v0-ledger/` | 1-2 h | low (git keeps everything, nothing deleted) |
-| P2 | Rewrite the close-out as the consolidation gate in `AGENTS.md` + `memory/README.md`; `memory_check.py` validates the entry schema, the per-domain cap and that the inbox is drained | 1 h | low (check first, rules second) |
-| P3 | `session_context.py` selects domain files from the project card; digest drops the corrections list in favour of the inbox count | 1 h | low |
-| P4 | `competency.md` + the monthly review (which entries were reused, which are stale) | 30 min/month | none |
+| P0 | This document + `memory/knowledge/README.md` + entry template | 20 min | done |
+| P1 | Seed 5 domain files from the 32 rows; dedupe; move the old tables to `memory/_archive/v0-ledger/` | 1-2 h | done |
+| P2 | Close-out as the consolidation gate; `memory_check.py` validates schema, caps, inbox | 1 h | done |
+| P3 | `session_context.py` selects domain files from the project card (`domains:`) | 30 min | open |
+| P4 | Monthly review of the competency table and the probes | 30 min/month | open |
 
 P0–P2 change no SAP work and are fully reversible. P1 is the only content move, and
 it is a **reorganisation, not a deletion**.

@@ -61,6 +61,24 @@ confidence, caps) and the registry prompt budget.
 
 The rest are handbook. That is the honest gap.
 
+## Competency by domain (reviewed monthly)
+
+Levels: `aware` (knows the trap) → `apprentice` (has the rule) → `practitioner`
+(high confidence, reused) → `expert` (the rule lives in AGENTS, a skill or a check, so
+it cannot be forgotten). **Expert is earned when the entry can be archived**, not when
+it is read often.
+
+| Domain | Level | Basis | Weak spot to watch |
+|---|---|---|---|
+| working-method | practitioner | 6 entries, 2 verified twice; 1 enforced by a check | the change contract on an unfamiliar program |
+| tooling | practitioner | 6 entries, 3 proven at runtime; 5 rules are reflex | MCP reload behaviour under a dropped session |
+| sap-gui | practitioner | 5 entries; 2 rules are reflex | focus-dependent actions, ALV tree limits |
+| sap-abap | practitioner | 6 entries, 2 shipped in code; `MATDOC` is reflex | split/BAPI return handling under a second case |
+| sap-data | apprentice | 3 entries, all verified in tables; none is reflex | Z-table vs `LIPS` authority in a new report |
+
+Review rule: a domain moves up only when its entries were *reused* without being read
+(a probe passed). Moves down when a probe fails. Update the row, do not add prose.
+
 ## Probes (run cold, in a fresh session, without naming the rule)
 
 Each probe fails or passes on the *first* action, not on the final answer. Pass =

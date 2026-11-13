@@ -192,9 +192,12 @@ def card_block(card, compact=False):
     out(f"PROJECT  {heading}")
     out(f"  card   {rel(card)}")
     for label, value in (("status", status), ("next", next_step),
-                         ("do not", grab_field(lines, "Do not"))):
-        if value:
-            out(f"  {label:6} {flat(value, FIELD_CUT)}")
+                         ("do not", grab_field(lines, "Do not")),
+                         ("plan", grab_field(lines, "Plan")),
+                         ("approved", grab_field(lines, "Approved scope")),
+                         ("stop", grab_field(lines, "Stop condition"))):
+        if value and norm(value) not in {"none", "na", "tbd"}:
+            out(f"  {label:8} {flat(value, FIELD_CUT)}")
     env = re.search(r"Working directory:\s*`([^`]+)`", text)
     if env:
         out(f"  dir    {env.group(1)}")

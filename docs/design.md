@@ -15,7 +15,7 @@ process.
 | Decisions | project card / `DECISIONS.md` | why a choice was made |
 | Inbox | `memory/corrections.md` | incidents not yet consolidated (≤7 days) |
 | **Knowledge** | `memory/knowledge/<domain>.md` | **the rule, its mechanism and its symptom** |
-| **Expertise** | `memory/expertise.md` | the end state, the three levels, the probes |
+| **Expertise & competency** | `memory/expertise.md` | the end state, the three levels, the per-domain levels, the probes |
 | Patterns | `memory/skill-candidates.md` | repeated work that may become a skill |
 | Preferences | `memory/user-profile.md` | language, style, risk rules |
 | Tool behavior | `memory/tool-map.md` | authoritative tool per task |

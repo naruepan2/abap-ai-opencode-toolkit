@@ -41,7 +41,7 @@ task ─► INBOX (one line per incident, disposable)
 | Inbox | `memory/corrections.md` | ≤7 days, then archived | digest count |
 | Knowledge | `memory/knowledge/<domain>.md` | permanent, edited in place | task (by domain) |
 | Playbook | `AGENTS.md` levels + skills | permanent | harness / on demand |
-| Competency | `memory/competency.md` | monthly | digest |
+| Competency | `memory/expertise.md` §"Competency by domain" | monthly | digest |
 
 `lessons.md` no longer exists: **a knowledge entry *is* the lesson.** The old ledger
 is kept at `memory/_archive/v0-ledger/` and in git.
