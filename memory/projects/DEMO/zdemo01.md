@@ -106,6 +106,9 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
   an unsplit DO holding exactly the requested qty is reused. Editable rows now
   carry `VBELN_VA`/`POSNR_VA` (the `MMT010` substructure has no SO key).
   Approved scope extension to `_select_option8` (recorded in `DECISIONS.md`).
+- v12: new ALV column `OPEN_SO_QTY` ("Open Sales Order Qty") between TF DEMO Qty
+  and Ex.WH.Stck. Value = `KWMENG - SUM(LIPS-LFIMG)` per SO item, on editable
+  rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
 
 ## Known unknowns (do not guess)
 
@@ -140,15 +143,17 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 279,440 bytes,
-  md5 `87957a68108cb7af9a6cba970fd3d488` (builder `build_v11.py`, 29 exact-match
-  edits, no leftover `lt_open_do` / `lt_lips_picked_complt` / `lt_vbap_key` /
-  `lt_split_chk` / `lt_dlv_pre`).
-- Deployed: `write-source include ZDEMO01_MODL --transport DS4K904935` (272,277
-  bytes) into task `DS4K904936` of request `DS4K904935`; `syntax-check program
-  ZDEMO01` -> 0 findings; `activate program ZDEMO01` -> success; active include
-  re-read equals v11 (7,164 lines, normalized md5
-  `ce20d1abd6c6a9464fb86239217fe06e`).
+- Built source: `patched_MODL_v11.abap`, 279,549 bytes,
+  md5 `1e2b6437c3888368c68f97742525c124` (builder `build_v11.py`, 31 exact-match
+  edits); `patched_VIEW.abap`, 56,968 bytes,
+  md5 `86a9307dfa7979c0b2bd530f51e3bcfc` (builder `build_view.py`, fetches the live
+  VIEW so the `i_soft_refresh` argument is kept).
+- Deployed: `write-source include ZDEMO01_VIEW` (55,537 bytes) and
+  `ZDEMO01_MODL` (272,384 bytes) into task `DS4K904936` of request `DS4K904935`;
+  `syntax-check program ZDEMO01` -> 0 findings; `activate program ZDEMO01` ->
+  success; both includes re-read identical to local (MODL 7,166 lines
+  `c3f3a8b9940d30e6ffcd110c9d3c46bb`, VIEW 1,431 lines
+  `4d3228443dd6db8484825161f409c494`).
 - `memory_check.py` reports 0 issues, 0 warnings.
 
 ## Files
