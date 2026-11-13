@@ -23,6 +23,28 @@ python scripts/registry_check.py --check --brief
 Exit code is `0` when there are no issues, `1` when the report has issues. That
 is a report signal, not a crash.
 
+## `memory_check.py`
+
+Read-only integrity check for the memory system. It never writes memory, promotes a
+skill, or edits an agent. Requires Python 3.8+; standard library only.
+
+```bash
+# full report
+python scripts/memory_check.py
+
+# one-line summary for a session start
+python scripts/memory_check.py --brief
+```
+
+It checks that the required memory files exist, that the `corrections.md`,
+`lessons.md`, and `skill-candidates.md` tables parse and match their declared
+columns, that every row carries evidence, that no credential-like string was
+recorded, that promoted skill candidates have a real skill folder, and that every
+project card is reachable from the portfolio `INDEX.md`.
+
+Exit code is `0` when there are no issues, `1` when there is at least one. Warnings
+(results that need a human decision) do not change the exit code.
+
 ## Tool snapshot
 
 `registries/tools-snapshot.json` and `registries/tools-full.json` are written by
