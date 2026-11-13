@@ -5,9 +5,14 @@
 
 ## Resume card
 
-- **Status:** v11 is **deployed and active** in client 100 (syntax check 0
+- **Status:** v12 is **deployed and active** in client 100 (syntax check 0
   findings). The runtime test in client 900 is pending; do not claim it passed
   until LIPS and ZMMT014 are read back.
+- **Deploy is pre-approved end-to-end** (user, 2026-11-14): write both includes
+  into `DS4K904935`, run `syntax-check program ZDEMO01`, and **activate
+  immediately when there are 0 findings** — do not stop for another approval.
+  Stop and fix only when a finding appears. Full procedure in `AGENTS.md`
+  §Deploy.
 - **Next step:** in client 900 run Option 8 for SO `1011099686` item `10` and
   confirm the ALV offers **30 KG** (not 60), shows the two `1041100095` lines,
   and that pressing Create DO creates a **second** DO for 30 (the existing split
