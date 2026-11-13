@@ -19,23 +19,37 @@ Last scan: 2026-11-13 · **issues: 0 · warnings: 4**.
 
 ## Workspace layout
 
-The sandbox root is `<portfolio>\SAP Projects`:
+The portfolio root is `<portfolio>`; the SAP workspace is
+`SAP Projects`:
 
 ```
-<portfolio>\SAP Projects\
-├── abap-agent-workspace-opencode\   # this repository: framework, memory, agents, skills
-└── Projects\
-    ├── _archive\                    # retired work
-    ├── _sandbox\                    # temporary experiments
-    └── DEMO\
-        └── ZDEMO01\                 # SAP program work
+<portfolio>\
+├── INDEX.md                        # small, shared read-only
+├── AGENTS.md                       # portfolio rules
+└── SAP Projects\
+    ├── AGENTS.md                   # SAP workspace rules
+    ├── abap-agent-workspace-opencode\   # this repository
+    └── Projects\
+        └── DEMO\
+            ├── AGENTS.md
+            ├── project.yaml
+            ├── _archive\           # this project's archive
+            ├── _sandbox\           # this project's experiments
+            └── ZDEMO01\
+                ├── AGENTS.md
+                ├── program.yaml
+                └── ...             # SAP program work
 ```
 
-New global folders go under the sandbox root. New SAP projects go under
-`Projects\<PROJECT>\<PROGRAM>\`. Use an uppercase project code and the SAP object
-name for the program folder. Every project and program folder has a `README.md`
-with system, clients, transport, status, and pointers. Retired work goes to
-`Projects\_archive`; temporary experiments go to `Projects\_sandbox`.
+New global folders go under the portfolio or workspace root as appropriate. New
+SAP projects go under `Projects\<PROJECT>\<PROGRAM>\`, with an uppercase project
+code and the SAP object name. Every project and program folder has
+`README.md`, `AGENTS.md`, and a small manifest. Each project owns its own
+`_archive`/`_sandbox`.
+
+**Access rule:** read/write inside the current project is allowed; read/write
+outside it requires explicit user permission. Never recursively scan
+`SAP Projects` or `<portfolio>`; use `INDEX.md` and the manifests.
 
 ## Team model
 
