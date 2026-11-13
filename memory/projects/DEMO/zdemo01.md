@@ -1,5 +1,7 @@
 # ZDEMO01
 
+domains: [sap-abap, sap-data]
+
 > Last updated: 2026-11-13 (OpenCode session, v11 built). Re-verify live state
 > before changing anything.
 

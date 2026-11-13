@@ -14,7 +14,11 @@ Example: `memory/projects/DEMO/zmme011.md` for
 ## Template
 
 ```markdown
-# <project>
+# <program>
+
+domains: [sap-abap, sap-data]   # knowledge files a task session loads for this program
+
+> Last updated: <date> (<session>). Re-verify live state before changing anything.
 
 ## Resume card
 - Status:

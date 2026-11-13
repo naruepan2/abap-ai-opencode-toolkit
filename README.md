@@ -113,7 +113,7 @@ sequenceDiagram
 
     U->>L: Goal, constraints, target
     L->>R: session_context digest (read-only)
-    R-->>L: card, health, open corrections, tool rules
+    R-->>L: card, health, inbox, knowledge inventory, tool rules
     L->>U: plan + approval gate (if write)
     U-->>L: approve / adjust
     L->>S: brief (goal, evidence, stop conditions)
@@ -194,6 +194,7 @@ plugins/
 scripts/
   README.md
   session_context.py      # one-call session digest (tiered context)
+  closeout.py             # end-of-task check: inbox, card, plan, knowledge dates
   registry_check.py       # read-only scanner
   memory_check.py         # read-only memory integrity check
 templates/
@@ -244,12 +245,13 @@ baseline, so turning them on or off does not create false drift.
 Requires Python 3.8+; the scripts use only the standard library.
 
 ```bash
-# one call at session start: project card + health + open corrections + tool rules
+# one call at session start: project card + health + open inbox + knowledge inventory
 python scripts/session_context.py
 python scripts/session_context.py --tiny    # light tier: ~0.8k chars
 
-# then pick a tier: light (digest only) / task (+ project card) / deep (+ all files)
+# then pick a tier: light (digest only) / task (+ card + the card's domains) / deep
 
+python scripts/closeout.py                         # end of task: 4 rot checks
 python scripts/registry_check.py --check           # full registry report + prompt budget
 python scripts/registry_check.py --refresh         # merge new items
 python scripts/memory_check.py                     # memory integrity, after close-out

@@ -1,9 +1,9 @@
 # Memory model: from a work log to expertise
 
-> Status: **adopted 2026-11-14** (P0–P2 implemented). The v0 ledger (dated
-> `corrections.md` / `lessons.md` tables) is migrated: the 24 rules live in
+> Status: **adopted 2026-11-14** (P0–P3 implemented). The v0 ledger (dated
+> `corrections.md` / `lessons.md` tables) is migrated: its rules live in
 > `memory/knowledge/`, the old tables are at `memory/_archive/v0-ledger/`, and
-> `corrections.md` is now the inbox. P3–P4 remain open.
+> `corrections.md` is now the inbox. P4 (the monthly review) is ongoing.
 > Supersedes the "one row per correction / per lesson" model.
 
 ## The problem with the current model
@@ -75,7 +75,7 @@ rule as a knowledge entry: `memory/knowledge/working-method.md`.
 | Inbox | `memory/corrections.md` | ≤ 7 days, then archived | count only | bounded 40 rows |
 | Knowledge | `memory/knowledge/<domain>.md` | permanent, edited in place | by domain (task tier) | bounded per domain |
 | Playbook | `AGENTS.md` levels + skills | permanent | harness / on demand | slow |
-| Competency | `memory/expertise.md` §"Competency by domain" | updated monthly | digest | fixed size |
+| Competency | `memory/expertise.md` §"Competency by domain" | updated monthly | monthly review | fixed size |
 
 `lessons.md` disappears: **an entry in the knowledge base *is* the lesson.** Its
 history stays in git and in `memory/_archive/`.
@@ -131,9 +131,9 @@ grows.
 ## What the session sees (prompt cost stays flat)
 
 ```
-digest (light)     project · status · next · inbox count · competency line
-digest (task)      + the project's domain files (selected, not all)
-digest (deep)      + every domain file + archive index
+digest (light)     project · status · next · one style rule · inbox count · knowledge count
+digest (task)      + the project's domain files (declared on the card, not all)
+digest (deep)      + every domain file + the archive index
 ```
 
 Knowledge therefore costs nothing until a task touches its domain — the opposite of
@@ -163,8 +163,8 @@ enforced behaviour — that is the real senior signal.
 | P0 | This document + `memory/knowledge/README.md` + entry template | 20 min | done |
 | P1 | Seed 5 domain files from the 32 rows; dedupe; move the old tables to `memory/_archive/v0-ledger/` | 1-2 h | done |
 | P2 | Close-out as the consolidation gate; `memory_check.py` validates schema, caps, inbox | 1 h | done |
-| P3 | `session_context.py` selects domain files from the project card (`domains:`) | 30 min | open |
-| P4 | Monthly review of the competency table and the probes | 30 min/month | open |
+| P3 | `session_context.py` selects domain files from the project card (`domains:`) | 30 min | done |
+| P4 | Monthly review of the competency table and the probes | 30 min/month | ongoing |
 
 P0–P2 change no SAP work and are fully reversible. P1 is the only content move, and
 it is a **reorganisation, not a deletion**.

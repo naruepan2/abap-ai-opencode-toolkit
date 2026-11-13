@@ -41,7 +41,7 @@ task ─► INBOX (one line per incident, disposable)
 | Inbox | `memory/corrections.md` | ≤7 days, then archived | digest count |
 | Knowledge | `memory/knowledge/<domain>.md` | permanent, edited in place | task (by domain) |
 | Playbook | `AGENTS.md` levels + skills | permanent | harness / on demand |
-| Competency | `memory/expertise.md` §"Competency by domain" | monthly | digest |
+| Competency | `memory/expertise.md` §"Competency by domain" | monthly | monthly review |
 
 `lessons.md` no longer exists: **a knowledge entry *is* the lesson.** The old ledger
 is kept at `memory/_archive/v0-ledger/` and in git.
@@ -67,8 +67,9 @@ For each open row, pick exactly one:
 | A script can catch it | add the check, keep a one-line entry |
 
 Then archive the drained rows when the inbox passes 40 rows or at month end:
-`memory/_archive/inbox-YYYY-MM.md`. One batched edit per file; the `memory_check`
-run is the verification, so do not re-read what you just wrote.
+`memory/_archive/inbox-YYYY-MM.md`. One batched edit per file; finish with
+`python scripts/closeout.py`, which checks the inbox, the card, the plan and the
+knowledge dates — so the close-out is verified, not remembered.
 
 ## Knowledge entry
 

@@ -176,7 +176,7 @@ def grab_field(lines, label):
     return ""
 
 
-def card_block(card, compact=False):
+def card_block(card, compact=False, pinned=True):
     text = read(card)
     lines = text.splitlines()
     project = card.parent.name
@@ -190,7 +190,7 @@ def card_block(card, compact=False):
             out(f"  next: {flat(next_step, 150)}")
         return text
     out(f"PROJECT  {heading}")
-    out(f"  card   {rel(card)}")
+    out(f"  card   {rel(card)}" + ("" if pinned else "  (newest; pass --project to pin)"))
     for label, value in (("status", status), ("next", next_step),
                          ("do not", grab_field(lines, "Do not")),
                          ("plan", grab_field(lines, "Plan")),
@@ -266,16 +266,32 @@ def knowledge_files():
     return [p for p in sorted(KNOWLEDGE_DIR.glob("*.md")) if p.name != "README.md"]
 
 
-def knowledge_line():
+def card_domains(text):
+    """Read 'domains: [a, b]' from a project card (declared competence scope)."""
+    match = re.search(r"^domains:\s*\[([^\]]*)\]", text, re.M | re.I)
+    if not match:
+        return []
+    return [d.strip().lower() for d in match.group(1).split(",") if d.strip()]
+
+
+def entries_in(path):
+    return len(re.findall(r"^## ", read(path), re.M))
+
+
+def knowledge_line(selected=None):
     found = knowledge_files()
     if not found:
         return ""
-    parts, total = [], 0
-    for path in found:
-        count = len(re.findall(r"^## ", read(path), re.M))
-        total += count
-        parts.append(f"{path.stem} {count}")
-    return f"{' \u00b7 '.join(parts)} ({total} entries)"
+    everything = sum(entries_in(p) for p in found)
+    wanted = {norm(s) for s in (selected or [])}
+    picked = [p for p in found if norm(p.stem) in wanted] if wanted else found
+    if not picked:
+        picked = found
+    parts = [f"{p.stem} {entries_in(p)}" for p in picked]
+    shown = sum(entries_in(p) for p in picked)
+    tail = (f" ({shown} of {everything} entries \u2014 this project's domains)"
+            if len(picked) < len(found) else f" ({shown} entries)")
+    return f"{' \u00b7 '.join(parts)}{tail}"
 
 
 def digest_block(path):
@@ -339,7 +355,8 @@ def main():
         out()
 
     if card is not None:
-        card_block(card, compact=args.tiny)
+        text = card_block(card, compact=args.tiny, pinned=bool(args.project))
+        domains = card_domains(text)
         out()
 
     if args.tiny:
@@ -358,7 +375,7 @@ def main():
                 out(f"  ! {scope}: {line}")
         if total_open:
             out(f"INBOX    {total_open} open row(s) in {rel(CORRECTIONS)}")
-        line = knowledge_line()
+        line = knowledge_line(domains if card is not None else None)
         if line:
             out(f"KNOW     {line}")
         out("FULL     python scripts/session_context.py   (task tier)")
@@ -392,7 +409,7 @@ def main():
             out(f"  ... {extra} more in {rel(CORRECTIONS)}")
         out()
 
-    line = knowledge_line()
+    line = knowledge_line(domains if card is not None else None)
     if line:
         out(f"KNOWLEDGE  {line}")
         out()
@@ -415,8 +432,10 @@ def main():
             out(f"  {rel(path):34} {len(text) / 1000:5.1f}k  {rows_in(text):3d} rows  {why}")
         for path in knowledge_files():
             text = read(path)
+            mark = "domain" if not domains or norm(path.stem) in {
+                norm(d) for d in domains} else "not loaded"
             out(f"  {rel(path):40} {len(text) / 1000:5.1f}k  "
-                f"{len(re.findall(r'^## ', text, re.M)):2d} entries  domain")
+                f"{len(re.findall(r'^## ', text, re.M)):2d} entries  {mark}")
         for extra_card in all_cards():
             text = read(extra_card)
             out(f"  {rel(extra_card):40} {len(text) / 1000:5.1f}k  card")

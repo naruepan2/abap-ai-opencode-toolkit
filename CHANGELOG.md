@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.5.5 — 2026-11-14
+
+**The close-out is verified, and a task loads only its own domains.**
+
+- `scripts/closeout.py`: the last call of a task. Read-only checks of the four things
+  that rot — the inbox (open rows, age >7d, cap 40), the project card (the four
+  contract answers, last update >14d), a referenced plan file (exists; open/blocked
+  todos) and knowledge entries (unconfirmed >180d). Exit 1 only when something is
+  broken (a plan is missing, a table does not parse).
+- `session_context.py` reads `domains: [a, b]` from the card and prints only those
+  knowledge files (`11 of 26 entries — this project's domains`); `--full` marks the
+  rest as `not loaded`. A digest that fell back to the newest card says so and
+  suggests `--project`.
+- Cards declare `domains:` (ZDEMO01: `sap-abap, sap-data`; HCL: `sap-gui, tooling`);
+  the card template carries the line.
+- `AGENTS.md`, `memory/README.md`, `scripts/README.md` and the layout now name
+  `closeout.py` as the close-out step.
+
 ## v0.5.4 — 2026-11-14
 
 **Delegation is a decision, not a habit.** The lead is a team lead, not a dispatcher.

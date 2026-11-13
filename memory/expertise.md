@@ -23,7 +23,7 @@ A rule that needs to be read is a *handbook*. A rule that cannot be forgotten is
 |---|---|---|---|
 | **Reflex** | printed into every session; no lookup | digest `STYLE` / `TOOL RULES` | 7 rules |
 | **Enforced** | a machine fails when it is broken | `AGENTS.md`, a check, a skill | 3 rules |
-| **Handbook** | correct only if the file is read | `memory/knowledge/<domain>.md` | 25 entries |
+| **Handbook** | correct only if the file is read | `memory/knowledge/<domain>.md` | 26 entries |
 
 The sets overlap: a digest line often summarises an entry, and that is the goal — the
 entry shrinks to a pointer once the reflex line carries the rule. The gap that matters
@@ -118,4 +118,4 @@ the cheapest to run and the most expensive to fail: it decides *what* the work i
 | 2026-11-14 | 0 (baseline defined) | — | 7 reflex rules, 3 enforced checks |
 
 A score of 9/9 cold is the target. It is not claimed today: no probe has been run,
-and 15 of the 25 handbook entries have no reflex line, check or skill behind them.
+and 15 of the 26 handbook entries have no reflex line, check or skill behind them.

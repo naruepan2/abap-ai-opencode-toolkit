@@ -34,7 +34,9 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
 - **At close-out, consolidate — one outcome per open row:** merge it into
   `memory/knowledge/<domain>.md` (`Seen +1`), add a new entry, promote it to an
   `AGENTS.md` line or a skill, or drop it as a one-off. Set the row `drained`, then
-  update the project resume card. One batched edit per file, no re-read.
+  update the project resume card. One batched edit per file, no re-read. Finish with
+  `python scripts/closeout.py` — it checks the inbox, the card, the plan and the
+  knowledge dates, and blocks only on something broken.
 - **Long runs get a plan.** For a task with more than a few steps, copy
   `templates/plan.md` to the program folder as `plan-<task>.md` and get the plan
   approved once. It carries the goal, the acceptance test (= stop condition), the four

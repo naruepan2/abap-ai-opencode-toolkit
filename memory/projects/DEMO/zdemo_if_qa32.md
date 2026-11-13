@@ -1,5 +1,7 @@
 # HCL_INTERFACE_QA32
 
+domains: [sap-gui, tooling]
+
 > Last updated: 2026-11-13 (OpenCode session). Re-verify live state before changing
 > anything.
 

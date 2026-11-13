@@ -31,6 +31,22 @@ The active card defaults to the most recently modified card under
 `memory/projects/*/`. Exit `0` means the digest printed; `1` means a required
 memory file is missing.
 
+## `closeout.py` — the last call of a task
+
+Read-only check of the four things that rot between sessions: the inbox (open rows,
+their age, the cap), the project card (the four change-contract answers and how old
+it is), a referenced plan file (exists; how many todos are open or blocked), and the
+knowledge entries (none unconfirmed for 180 days).
+
+```bash
+python scripts/closeout.py                          # newest card
+python scripts/closeout.py --project DEMO/ZDEMO01
+```
+
+Exit `0` means nothing is broken; `1` means a referenced plan is missing or a table
+does not parse. Warnings (an old open row, a missing contract answer, a blocked todo,
+a stale entry) are human decisions and do not fail the check.
+
 ## `registry_check.py`
 
 Read-only scanner for skills, agents, MCP servers, and the tool snapshot. It never
