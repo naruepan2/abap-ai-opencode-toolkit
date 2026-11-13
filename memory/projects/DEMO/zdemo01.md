@@ -103,8 +103,9 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
   rows exist only for the open remainder per batch; history of a deleted
   delivery is skipped; DO items missing from `ZMMT014` are shown from `LIPS`.
   A DO that is already split no longer blocks a new DO (partial delivery); only
-  an unsplit DO holding exactly the requested qty is reused. Approved scope
-  extension to `_select_option8` (recorded in `DECISIONS.md`).
+  an unsplit DO holding exactly the requested qty is reused. Editable rows now
+  carry `VBELN_VA`/`POSNR_VA` (the `MMT010` substructure has no SO key).
+  Approved scope extension to `_select_option8` (recorded in `DECISIONS.md`).
 
 ## Known unknowns (do not guess)
 
@@ -139,15 +140,15 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 278,916 bytes,
-  md5 `4d2a61c115adb7d4c1e0d9b6f0ed8350` (builder `build_v11.py`, 27 exact-match
+- Built source: `patched_MODL_v11.abap`, 279,046 bytes,
+  md5 `895ca5dcc1a276e90aee08790610d9fc` (builder `build_v11.py`, 28 exact-match
   edits, no leftover `lt_open_do` / `lt_lips_picked_complt` / `lt_vbap_key` /
   `lt_split_chk` / `lt_dlv_pre`).
-- Deployed: `write-source include ZDEMO01_MODL --transport DS4K904935` wrote
-  271,761 bytes into task `DS4K904936` (request `DS4K904935`, owner DEMOUSER,
-  status D); `syntax-check program ZDEMO01` -> 0 findings; `activate program
-  ZDEMO01` -> success; re-read of the active include equals v11 (7,156 lines,
-  normalized md5 `89599cb5ca9561c92cd879dd72261450`).
+- Deployed: `write-source include ZDEMO01_MODL --transport DS4K904935` (271,889
+  bytes) into task `DS4K904936` of request `DS4K904935`; `syntax-check program
+  ZDEMO01` -> 0 findings; `activate program ZDEMO01` -> success; active include
+  re-read equals v11 (7,158 lines, normalized md5
+  `b0b05860984cf36c7a8d3ac81997964a`).
 - `memory_check.py` reports 0 issues, 0 warnings.
 
 ## Files

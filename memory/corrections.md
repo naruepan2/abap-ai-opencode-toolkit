@@ -24,3 +24,4 @@
 | 2026-11-13 | Trusted ZMMT014 as the delivery source of truth | Read deliveries from LIPS/LIKP; ZMMT014 is display metadata | the mirror is not always written | code | DO 1041100095 | open |
 | 2026-11-13 | SORTed `lt_so_zmmt010` by flat `mblnr mjahr zeile` | `mmt010~*` is a substructure: use `mmt010-mblnr` and so on | wrong structure level | syntax gate | syntax line 1450 | open |
 | 2026-11-13 | Wrote memory rows as prose | One terse row under the budget; move detail to the card | no length rule | check | this row, `memory_check` | closed |
+| 2026-11-13 | Built editable rows from `ls_so_zmmt010-mmt010` only | Set `VBELN_VA`/`POSNR_VA` explicitly; the substructure carries no SO key | copied only the GR structure | code + test | ALV editable row had blank Sales Doc | open |
