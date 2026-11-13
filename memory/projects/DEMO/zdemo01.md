@@ -5,13 +5,13 @@
 
 ## Resume card
 
-- **Status:** v10 is deployed and working (DO + batch split). v11 is built but
-  **not deployed**; it changes the open-quantity source from `ZMMT014` to `LIPS`.
-- **Next step:** deploy `patched_MODL_v11.abap` to client 100, syntax check,
-  then in client 900 run Option 8 for SO `1011099686` item `10` and confirm the
-  ALV offers **30 KG** (not 60), shows the two `1041100095` lines, and that
-  pressing Create DO creates a **second** DO for 30 (the existing split DO must
-  not block it).
+- **Status:** v11 is **deployed and active** in client 100 (syntax check 0
+  findings). The runtime test in client 900 is pending; do not claim it passed
+  until LIPS and ZMMT014 are read back.
+- **Next step:** in client 900 run Option 8 for SO `1011099686` item `10` and
+  confirm the ALV offers **30 KG** (not 60), shows the two `1041100095` lines,
+  and that pressing Create DO creates a **second** DO for 30 (the existing split
+  DO must not block it).
 - **Do not:** edit SAP standard objects, vendor agents/skills, or claim a test
   passed without reading LIPS / ZMMT014 back.
 
@@ -143,10 +143,15 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 278,895 bytes,
-  md5 `5562b961dce830aae365638eb92334b9` (builder `build_v11.py`, 27 exact-match
+- Built source: `patched_MODL_v11.abap`, 278,916 bytes,
+  md5 `4d2a61c115adb7d4c1e0d9b6f0ed8350` (builder `build_v11.py`, 27 exact-match
   edits, no leftover `lt_open_do` / `lt_lips_picked_complt` / `lt_vbap_key` /
   `lt_split_chk` / `lt_dlv_pre`).
+- Deployed: `write-source include ZDEMO01_MODL --transport DS4K904935` wrote
+  271,761 bytes into task `DS4K904936` (request `DS4K904935`, owner DEMOUSER,
+  status D); `syntax-check program ZDEMO01` -> 0 findings; `activate program
+  ZDEMO01` -> success; re-read of the active include equals v11 (7,156 lines,
+  normalized md5 `89599cb5ca9561c92cd879dd72261450`).
 - `memory_check.py` reports 0 issues, 0 warnings.
 
 ## Files
