@@ -3,7 +3,8 @@
 ## `registry_check.py`
 
 Read-only scanner for skills, agents, MCP servers, and the tool snapshot. It never
-enables a server, promotes a skill, or edits an agent.
+enables a server, promotes a skill, or edits an agent. Requires Python 3.8+; uses
+only the standard library.
 
 ```bash
 # one-time baseline (writes registries/*.json)

@@ -33,6 +33,13 @@ appears twice (or once if the risk is high).
 - vendor agents/skills: read-only
 - new personal skills: allowed, but test on a real task before promoting
 
+## Registry check
+
+The workspace scanner lives in `scripts/registry_check.py`. It writes
+`memory/reports/registry-report.md` and never changes the system. Run
+`--check --brief` at session start; run `--refresh` only when new skills, agents,
+or MCP servers are installed.
+
 ## Where project memory lives
 
 For a real project, create `<project>/memory/` with:

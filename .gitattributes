@@ -1,0 +1,8 @@
+# Normalize line endings so Windows and other machines agree.
+* text=auto
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ps1 text eol=crlf

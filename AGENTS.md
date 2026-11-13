@@ -13,3 +13,5 @@ side of the AI teammate.
 - Never commit credentials or customer data.
 - Prefer evidence over guesses: if something is unknown, say so and propose a
   read-only check.
+- At session start, run `python scripts/registry_check.py --check --brief` and
+  show the summary only when it reports actionable issues.
