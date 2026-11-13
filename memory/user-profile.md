@@ -1,7 +1,16 @@
 # User profile — Pongg
 
-> Read this at session start. Keep it short, factual, and current.
-> This is a profile of preferences, not a log of conversations.
+> Keep this short, factual, and current. This is a profile of preferences, not a
+> log of conversations. The `Always` block is printed by `scripts/session_context.py`
+> on every session; the rest is read at the `task` tier and above.
+
+## Always (printed by the session digest)
+
+<!-- digest:start -->
+- ตอบภาษาเดียวกับที่ผู้ใช้พิมพ์ (ไทยเป็นหลัก) · สรุปสั้นก่อน แล้วค่อยรายละเอียด · ตารางดีกว่าย่อหน้ายาว
+- ห้ามเดา: ไม่รู้ให้บอกว่าไม่รู้ + เสนอ read-only check · ทุกข้อกล่าวอ้างต้องมี evidence
+- เสนอ 2-3 ทางเลือกพร้อมเหตุผลให้ผู้ใช้เลือก · งานเขียน SAP/transport ต้องมี target + อนุมัติก่อน
+<!-- digest:end -->
 
 ## Language
 

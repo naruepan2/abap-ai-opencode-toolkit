@@ -1,5 +1,36 @@
 # Changelog
 
+## v0.4 — 2026-11-13
+
+**Tiered context loading, and a gate that stops crying wolf.**
+
+- Added `scripts/session_context.py`: one call replaces eight file reads plus two
+  scanner runs. It prints the active project's resume card, memory and registry
+  health, the open corrections, the curated tool rules from the `digest` block in
+  `memory/tool-map.md`, and the size of every file that can be opened on demand.
+  Measured **1.8k chars (~450 tokens)** against **26.6k chars** for the previous
+  read-everything rule.
+- Session start is now tiered (`light` / `task` / `deep`) in the global `AGENTS.md`,
+  the workspace `AGENTS.md`, `memory/README.md`, `templates/AGENTS.md`, and
+  `docs/design.md`. Nothing was removed from the `deep` tier.
+- `registry_check.py` no longer reports designed states as failures:
+  - an `optional_namespaces` server (on-demand SAP) with zero tools is a warning,
+    not an issue, and is listed as "on-demand, idle (expected)";
+  - the tool total is compared with the optional namespaces removed on both sides,
+    so connecting/disconnecting SAP is not drift;
+  - new assets and stale validations are warnings; only broken things (missing
+    path, duplicate name, missing skill reference, missing server/tool, zero tools
+    on a non-optional server) fail the gate.
+  Result: a healthy idle session now exits `0` instead of `1` with three
+  false positives.
+- Added `promoted` to the allowed correction statuses in `memory_check.py`.
+- Memory lifecycle: a correction keeps `status: open` and is **promoted** (status
+  change + pointer), not copied into `lessons.md`; close-out is one batched edit
+  per file; closed/promoted rows older than 30 days move to `memory/_archive/`.
+- `team-roster.md`: added a delegation cost model — delegate only for read-only
+  work of ≥15 tool calls or >5k tokens of output, one SAP GUI actor, at most 2-3
+  children, and a brief of five lines plus a pointer.
+
 ## v0.3.2 — 2026-11-13
 
 - ZDEMO01 `_save_history` now reads `MATDOC` instead of `MKPF` + `MSEG`.

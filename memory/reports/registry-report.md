@@ -1,26 +1,26 @@
 # Registry report
 
-Generated: 2026-11-13T12:41:44+00:00
+Generated: 2026-11-13T16:42:04+00:00
 
 ## Summary
 
 | Area | Count | Issues | Warnings |
 |---|---|---|---|
-| Skills | 179 | 0 | 4 |
+| Skills | 180 | 0 | 5 |
 | Agents | 23 | 0 | 0 |
-| MCP servers | 15 | 0 | 0 |
-| Tools | 286 | 0 | 0 |
+| MCP servers | 15 | 0 | 1 |
+| Tools | 211 | 0 | 0 |
 
 ## Skills by harness
 
 - agents: 47
 - claude: 30
-- copilot: 24
+- copilot: 25
 - opencode: 78
 
 ## New skills
 
-_None._
+- `capture-lesson` (copilot) — ~\.copilot\skills\capture-lesson\SKILL.md
 
 ## Missing skill paths
 
@@ -60,9 +60,9 @@ _None._
 | `sap-gui` | opencode | yes | 59 |  |
 | `sap-docs` | opencode | yes | 9 |  |
 | `rosa` | opencode | yes | 7 |  |
-| `gsd-120` | opencode | no | n/a |  |
-| `ds4-100` | opencode | yes | 75 |  |
-| `ds4-900` | opencode | no | n/a |  |
+| `gsd-120` | opencode | no | 0 |  |
+| `ds4-100` | opencode | yes | 0 | on-demand, idle (expected) |
+| `ds4-900` | opencode | no | 0 |  |
 | `com.figma.mcp/mcp` | copilot | yes | n/a |  |
 | `io.github.ChromeDevTools/chrome-devtools-mcp` | copilot | yes | n/a |  |
 | `io.github.SAP/fiori-mcp-server` | copilot | yes | n/a |  |
@@ -80,6 +80,10 @@ _None._
 ## Enabled MCP servers with zero tools
 
 _None._
+
+## On-demand servers idle (expected, not an issue)
+
+- `ds4-100` — optional namespace
 
 ## Tool snapshot changes
 

@@ -13,9 +13,9 @@ This repository is the backup and the operating manual for a small AI teammate:
 It is harness-aware but not harness-locked: this repository is the **OpenCode**
 side. Copilot keeps its own separate setup, so the two can be compared.
 
-**Status:** v0.3 — memory, registries, the registry scanner, and the live tool
-snapshot plugin.
-Last scan: 2026-11-13 · **issues: 0 · warnings: 4**.
+**Status:** v0.4 — tiered context loading (one-call session digest), memory and
+registries, the registry scanner, and the live tool snapshot plugin.
+Last scan: 2026-11-13 · **issues: 0 · warnings: 6** (all review items, none broken).
 
 ## Workspace layout
 
@@ -111,8 +111,8 @@ sequenceDiagram
     participant M as Memory
 
     U->>L: Goal, constraints, target
-    L->>R: registry_check --brief (read-only)
-    R-->>L: issues / warnings
+    L->>R: session_context digest (read-only)
+    R-->>L: card, health, open corrections, tool rules
     L->>U: plan + approval gate (if write)
     U-->>L: approve / adjust
     L->>S: brief (goal, evidence, stop conditions)
@@ -183,7 +183,9 @@ plugins/
   tool-snapshot/          # OpenCode server plugin; writes the tool snapshot
 scripts/
   README.md
+  session_context.py      # one-call session digest (tiered context)
   registry_check.py       # read-only scanner
+  memory_check.py         # read-only memory integrity check
 templates/
   AGENTS.md               # pointer block for a new machine
 docs/
@@ -196,10 +198,10 @@ docs/
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 179 entries | opencode 78, agents 47, copilot 24, claude 30; cross-harness duplicates are expected |
+| Skills | 180 entries | opencode 78, agents 47, claude 30, copilot 25; cross-harness duplicates are expected |
 | Agents | 23 | 4 editable (`*-by-pongg`), 19 vendor |
 | MCP servers | 15 | 13 enabled, 2 disabled |
-| Tools | 286 | 10 namespaces; written by the plugin |
+| Tools | 211 / 286 | 9 namespaces while SAP is idle; +75 when `ds4-100` is connected |
 
 The `sap-ai-dev-toolkit` 0.9.9924 update added 6 Copilot skills and 5 Copilot
 agents (BTP, BW/DataSphere, Cloud ALM, DataSphere, process automation, DevOps
@@ -208,7 +210,8 @@ observability). They are vendor-owned and live in the Copilot registry only.
 **Known warnings (not actionable):** 4 vendor skill descriptions exceed 1,000
 characters — `abap-cloud-migration`, `badi-enhancement`,
 `sap-integration-wiki`, `sap-support-case`. They are vendor-owned; forking is the
-only way to shorten them.
+only way to shorten them. One newly installed skill and the idle `ds4-100` server
+are reported as warnings by design, not as issues.
 
 `ds4-100` is an on-demand SAP server: it is enabled only during SAP work, and
 `ds4-900` stays disabled. Both namespaces are marked optional in the tool
@@ -224,16 +227,22 @@ baseline, so turning them on or off does not create false drift.
 
 ## Quick use
 
-Requires Python 3.8+; the scanner uses only the standard library.
+Requires Python 3.8+; the scripts use only the standard library.
 
 ```bash
-python scripts/registry_check.py --check --brief   # session-start summary
-python scripts/registry_check.py --check           # full report
+# one call at session start: project card + health + open corrections + tool rules
+python scripts/session_context.py
+
+# then pick a tier: light (digest only) / task (+ project card) / deep (+ all files)
+
+python scripts/registry_check.py --check           # full registry report
 python scripts/registry_check.py --refresh         # merge new items
+python scripts/memory_check.py                     # memory integrity, after close-out
 ```
 
-Exit code `0` means no actionable issues; `1` means the report has issues. Warnings
-(vendor description length) do not fail the check.
+Exit code `0` means nothing is broken; `1` means the report has an issue. Warnings
+(new asset, stale date, over-budget description, idle on-demand SAP server) do not
+fail the check — they need a human decision, not a fix.
 
 The report is written to `memory/reports/registry-report.md`.
 
@@ -262,6 +271,8 @@ same task on both and record the scorecard in `docs/comparison.md`:
 - [x] Session-start registry brief (global `AGENTS.md`)
 - [x] Tool snapshot automation (OpenCode plugin `ctx.tool.list()`)
 - [x] Tool-level drift (new/missing tool IDs)
+- [x] Tiered context loading: `scripts/session_context.py` + `light/task/deep`
+- [x] Issue vs warning split so a healthy session exits 0
 - [ ] Skill and MCP onboarding gates
 - [ ] Compare OpenCode vs Copilot on the same task
 

@@ -12,6 +12,16 @@ Commands
   --brief     print a short summary instead of the full report
 
 The scanner never enables an MCP server, promotes a skill, or edits an agent.
+
+Issue vs warning
+  issue    something is broken now (missing path, duplicate name, agent pointing
+           at a missing skill, missing tool/server, zero tools for a server that
+           is not marked optional). Only issues fail the gate (exit 1).
+  warning  a human decision or a designed state: a newly installed asset, a stale
+           validation date, an over-budget description, or an on-demand server
+           that is idle. Warnings never change the exit code.
+  Namespaces listed in `optional_namespaces` (the on-demand SAP servers) are
+  excluded from tool drift and from the zero-tools issue on both sides.
 """
 
 import argparse
@@ -413,13 +423,19 @@ def cmd_check(brief=False):
                 if tool_namespace(t) not in optional
             ]
 
-    mcp_zero = []
+    mcp_zero, mcp_idle = [], []
     for s in mcp:
         if s["harness"] != "opencode" or not s.get("enabled"):
             continue
         count = ns.get(s["server"], 0)
         if snap is not None and count == 0:
-            mcp_zero.append(s["server"])
+            # An optional (on-demand) server is expected to have zero tools while
+            # idle; that is the designed state, not drift. Keep it visible as a
+            # warning so a genuinely broken server is still noticed.
+            if s["server"] in optional:
+                mcp_idle.append(s["server"])
+            else:
+                mcp_zero.append(s["server"])
 
     tool_changes = []
     if snap is None:
@@ -432,19 +448,48 @@ def cmd_check(brief=False):
                     continue
                 if base_ns.get(name) != ns.get(name):
                     tool_changes.append(f"{name}: {base_ns.get(name, 0)} -> {ns.get(name, 0)}")
-        if reg_tools.get("total") and reg_tools.get("total") != snap["total"]:
-            tool_changes.append(f"total: {reg_tools.get('total')} -> {snap['total']}")
+        if reg_tools.get("total"):
+            # Compare totals with the optional namespaces removed on both sides,
+            # otherwise connecting/disconnecting an on-demand server looks like
+            # drift on every session.
+            base_eff = reg_tools["total"] - sum(base_ns.get(n, 0) for n in optional)
+            cur_eff = snap["total"] - sum(ns.get(n, 0) for n in optional)
+            if base_eff != cur_eff:
+                tool_changes.append(f"total: {base_eff} -> {cur_eff}")
         for tool_id in new_tools:
             tool_changes.append(f"new tool: {tool_id}")
         for tool_id in missing_tools:
             tool_changes.append(f"missing tool: {tool_id}")
 
-    skill_issues = len(new_skills) + len(missing_skills) + len(dup) + len(stale)
-    agent_issues = len(new_agents) + len(agent_missing)
-    mcp_issues = len(new_mcp) + len(missing_mcp) + len(mcp_zero)
+    # Issues = something is broken now. Warnings = something needs a human
+    # decision (new asset, stale validation, long description, idle on-demand
+    # server). Only issues fail the gate, so a healthy session exits 0 and the
+    # agent does not spend a turn explaining a known state.
+    skill_review = len(new_skills) + len(stale)
+    agent_review = len(new_agents)
+    mcp_review = len(new_mcp) + len(mcp_idle)
+    skill_issues = len(missing_skills) + len(dup)
+    agent_issues = len(agent_missing)
+    mcp_issues = len(missing_mcp) + len(mcp_zero)
     tool_issues = len(tool_changes)
     issues = skill_issues + agent_issues + mcp_issues + tool_issues
-    warnings = len(long_desc)
+    warnings = len(long_desc) + skill_review + agent_review + mcp_review
+
+    issue_detail = []
+    if missing_skills:
+        issue_detail.append(f"{len(missing_skills)} missing skill path(s)")
+    if dup:
+        issue_detail.append(f"{len(dup)} duplicate skill name(s)")
+    if agent_missing:
+        issue_detail.append(f"{len(agent_missing)} agent(s) reference a missing skill")
+    if missing_mcp:
+        issue_detail.append(f"{len(missing_mcp)} missing MCP server(s)")
+    if mcp_zero:
+        issue_detail.append("zero tools: " + ", ".join(mcp_zero))
+    if missing_tools:
+        issue_detail.append(f"{len(missing_tools)} missing tool(s)")
+    if tool_changes:
+        issue_detail.append(f"tool drift: {len(tool_changes)} change(s)")
 
     by_harness = {}
     for s in skills:
@@ -459,8 +504,10 @@ def cmd_check(brief=False):
         print(f"mcp: {len(mcp)} (enabled={sum(1 for x in mcp if x.get('enabled'))}, disabled={sum(1 for x in mcp if not x.get('enabled'))}, zero_tools={len(mcp_zero)})")
         print(f"tools: {(snap or {}).get('total', 0)} namespaces={len(ns)} changes={len(tool_changes)} new={len(new_tools)} missing={len(missing_tools)}")
         print(f"issues: {issues} warnings: {warnings}")
-        if mcp_zero:
-            print("  zero tools: " + ", ".join(mcp_zero))
+        for line in issue_detail[:5]:
+            print(f"  ! {line}")
+        if not issues and warnings:
+            print("  (warnings need a human decision, not a fix now)")
         return 0 if issues == 0 else 1
 
     REPORTS.mkdir(parents=True, exist_ok=True)
@@ -474,9 +521,9 @@ def cmd_check(brief=False):
     lines.append("")
     lines.append("| Area | Count | Issues | Warnings |")
     lines.append("|---|---|---|---|")
-    lines.append(f"| Skills | {len(skills)} | {skill_issues} | {warnings} |")
-    lines.append(f"| Agents | {len(agents)} | {agent_issues} | 0 |")
-    lines.append(f"| MCP servers | {len(mcp)} | {mcp_issues} | 0 |")
+    lines.append(f"| Skills | {len(skills)} | {skill_issues} | {len(long_desc) + skill_review} |")
+    lines.append(f"| Agents | {len(agents)} | {agent_issues} | {agent_review} |")
+    lines.append(f"| MCP servers | {len(mcp)} | {mcp_issues} | {mcp_review} |")
     lines.append(f"| Tools | {(snap or {}).get('total', 0)} | {tool_issues} | 0 |")
     lines.append("")
     lines.append("## Skills by harness")
@@ -509,16 +556,18 @@ def cmd_check(brief=False):
     lines.append("| Server | Harness | Enabled | Tools | Note |")
     lines.append("|---|---|---|---|---|")
     for s in mcp:
-        count = ns.get(s["server"], None) if s["harness"] == "opencode" else None
+        count = ns.get(s["server"], 0) if s["harness"] == "opencode" and snap is not None else None
         note = ""
         if s["harness"] == "opencode" and s.get("enabled") and snap is not None and count == 0:
-            note = "zero tools - check config/credentials/session"
+            note = ("on-demand, idle (expected)" if s["server"] in optional
+                    else "zero tools - check config/credentials/session")
         lines.append(f"| `{s['server']}` | {s['harness']} | {'yes' if s.get('enabled') else 'no'} | {count if count is not None else 'n/a'} | {note} |")
     lines.append("")
 
     section("New MCP servers", new_mcp, lambda x: f"`{x['server']}` ({x['harness']})")
     section("Missing MCP servers", missing_mcp, lambda x: f"`{x['server']}` ({x['harness']})")
     section("Enabled MCP servers with zero tools", mcp_zero, lambda x: f"`{x}` — check config/credentials/session")
+    section("On-demand servers idle (expected, not an issue)", mcp_idle, lambda x: f"`{x}` — optional namespace")
     section("Tool snapshot changes", tool_changes, lambda x: x)
     section("New tools", new_tools, lambda x: f"`{x}`")
     section("Missing tools", missing_tools, lambda x: f"`{x}`")

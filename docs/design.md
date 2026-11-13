@@ -20,6 +20,25 @@ process.
 | Tool behavior | `memory/tool-map.md` | authoritative tool per task |
 | Outcomes | evidence logs / comparison | what worked, what did not |
 
+## Context tiers
+
+Memory is read at every session start, so its cost is paid on every task. The
+digest (`scripts/session_context.py`) prints what must be known *before* choosing a
+tier; everything else is read only when that tier calls for it.
+
+| Tier | When | Read | Cost |
+|---|---|---|---|
+| `light` | a question, an analysis, a review | the digest | ~0.5k tokens |
+| `task` | code, file, or SAP work | + the project card | ~2k |
+| `deep` | new project, incident, design | + every memory file | ~10k |
+
+Two rules keep the cost flat as the memory grows: one fact lives in exactly one
+file, and a correction is *promoted* (its status changes) rather than copied into
+`lessons.md`. Closed and promoted rows move to `memory/_archive/` after 30 days.
+
+The digest still surfaces the **open** corrections on every session, so the ledger
+keeps doing its job without the full file being read.
+
 ## No-guess protocol
 
 - Unknown -> say unknown and propose a read-only check.

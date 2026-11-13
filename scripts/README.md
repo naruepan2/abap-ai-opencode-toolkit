@@ -1,10 +1,35 @@
 # Scripts
 
+All three scripts are read-only, standard library only, Python 3.8+. None of them
+connects to SAP, calls an MCP tool, or edits an agent/skill.
+
+## `session_context.py` — the one call at session start
+
+Prints a compact digest (~1.8k chars) so the agent does not read eight files
+before starting work:
+
+- the active project's resume card (status / next step / do not / working dir)
+- memory and registry health, one line each (it runs both scanners for you)
+- the **open** corrections, with their fix level
+- the curated tool rules from the `digest` block in `memory/tool-map.md`
+- the size and row count of every file that can be opened on demand
+- git branch and uncommitted count
+
+```bash
+python scripts/session_context.py                          # brief (default)
+python scripts/session_context.py --full                   # + file map + raw checks
+python scripts/session_context.py --project DEMO/ZDEMO01    # pin the card
+python scripts/session_context.py --no-checks              # skip both scanners
+```
+
+The active card defaults to the most recently modified card under
+`memory/projects/*/`. Exit `0` means the digest printed; `1` means a required
+memory file is missing.
+
 ## `registry_check.py`
 
 Read-only scanner for skills, agents, MCP servers, and the tool snapshot. It never
-enables a server, promotes a skill, or edits an agent. Requires Python 3.8+; uses
-only the standard library.
+enables a server, promotes a skill, or edits an agent.
 
 ```bash
 # one-time baseline (writes registries/*.json)
@@ -20,30 +45,29 @@ python scripts/registry_check.py --check
 python scripts/registry_check.py --check --brief
 ```
 
-Exit code is `0` when there are no issues, `1` when the report has issues. That
-is a report signal, not a crash.
+Exit code is `0` when nothing is broken, `1` when there is an issue. The split
+matters:
+
+| Result | Meaning | Action |
+|---|---|---|
+| issue | broken now: missing path, duplicate name, agent pointing at a missing skill, missing tool/server, zero tools on a non-optional server | propose a fix |
+| warning | needs a human decision or is a designed state: new asset, stale validation, over-budget description, idle on-demand SAP server | none now |
+
+Namespaces in `optional_namespaces` (the on-demand SAP servers) are excluded from
+tool drift and from the zero-tools issue on both sides, so connecting or
+disconnecting SAP no longer looks like drift.
 
 ## `memory_check.py`
 
-Read-only integrity check for the memory system. It never writes memory, promotes a
-skill, or edits an agent. Requires Python 3.8+; standard library only.
+Read-only integrity check for the memory system: required files, table columns,
+row evidence, credential-like strings, allowed status values (`open`, `closed`,
+`wontfix`, `promoted`), promoted skill candidates with a real skill folder, and
+project cards reachable from the portfolio `INDEX.md`. Run it after a close-out.
 
 ```bash
-# full report
-python scripts/memory_check.py
-
-# one-line summary for a session start
-python scripts/memory_check.py --brief
+python scripts/memory_check.py            # full report
+python scripts/memory_check.py --brief    # one-line summary
 ```
-
-It checks that the required memory files exist, that the `corrections.md`,
-`lessons.md`, and `skill-candidates.md` tables parse and match their declared
-columns, that every row carries evidence, that no credential-like string was
-recorded, that promoted skill candidates have a real skill folder, and that every
-project card is reachable from the portfolio `INDEX.md`.
-
-Exit code is `0` when there are no issues, `1` when there is at least one. Warnings
-(results that need a human decision) do not change the exit code.
 
 ## Tool snapshot
 
@@ -54,8 +78,3 @@ in the OpenCode server, so it sees MCP and built-in tools without a manual step.
 The scanner compares the full tool IDs with the baseline in `registries/tools.json`
 and reports new or missing tools. Run `--refresh` only when you want to accept the
 new list into the baseline.
-
-## Safety
-
-The scanner only reads local files. It does not connect to SAP, call MCP tools, or
-write outside `registries/` and `memory/reports/`.

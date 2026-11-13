@@ -43,41 +43,54 @@
 - Access: read/write outside the current project requires explicit user
   permission; never recursively scan `SAP Projects` or `<portfolio>`
 
-## Memory (read at session start)
+## Memory (one call at session start)
 
-- User profile: `~/.config/opencode/memory/user-profile.md`
-- Lessons: `~/.config/opencode/memory/lessons.md`
-- Corrections ledger: `~/.config/opencode/memory/corrections.md`
-- Skill candidates: `~/.config/opencode/memory/skill-candidates.md`
-- Agent/skill ownership: `~/.config/opencode/memory/agent-registry.md`
-- Tool routing: `~/.config/opencode/memory/tool-map.md`
+Run, from `<portfolio>\SAP Projects\abap-agent-workspace-opencode`:
 
-Read the user profile, `corrections.md`, and the active project's
-`memory/active-context.md` at session start, so a known correction is not repeated.
+```powershell
+python scripts\session_context.py
+```
+
+It prints the active project's resume card, the memory + registry health, the open
+corrections, and the curated tool rules. Then pick a tier:
+
+| Tier | When | Read |
+|---|---|---|
+| `light` | a question, an analysis, a review | the digest only |
+| `task` | any code, file, or SAP work | digest + the active project card |
+| `deep` | new project, incident, design | digest + every memory file |
+
+The full files live in `~/.config/opencode/memory/` (a junction to the workspace
+`memory/`): `user-profile.md`, `lessons.md`, `corrections.md`, `tool-map.md`,
+`team-roster.md`, `skill-candidates.md`, `agent-registry.md`. Open one only when the
+tier calls for it; the digest already shows the open corrections, so a known
+correction is not repeated.
 
 **Capture at the moment of correction.** When the user corrects a mistake, add the
 row to `corrections.md` immediately — do not wait for task close-out, because a
-session can end mid-task. Record what the AI did, the correct behavior, the root
-cause, and the fix level (`architecture` → `type/check` → `lint/CI` → `test` →
-`memory/AGENTS` → `skill`).
+session can end mid-task. One line per column: what the AI did, the correct
+behavior, the root cause, the fix level (`architecture` → `type/check` → `lint/CI`
+→ `test` → `memory/AGENTS` → `skill`), evidence, status `open`.
 
-At task close-out, promote anything durable from `corrections.md` into `lessons.md`,
-and update the active project's `memory/active-context.md`. If a rule needs to bind
-the next session, put it in the `AGENTS.md` of the level where the mistake happened;
-use a skill only for a multi-step procedure that repeats.
+At task close-out, promote anything durable from `corrections.md` into `lessons.md`
+and set the source row to `promoted` (do not copy the same text into both), then
+update the active project's resume card. One edit per file, batched. If a rule needs
+to bind the next session, put it in the `AGENTS.md` of the level where the mistake
+happened; use a skill only for a multi-step procedure that repeats.
 
 Do not edit vendor agents/skills; only `*-by-pongg` files and newly created personal
 skills may be edited, and only after approval.
 
-### Registry check at session start
+### Checks
 
-If `<portfolio>\SAP Projects\abap-agent-workspace-opencode\scripts\registry_check.py`
-exists, run it once per session from that folder:
+The digest runs `scripts/registry_check.py --check --brief` and
+`scripts/memory_check.py --brief` for you.
 
-```powershell
-python scripts\registry_check.py --check --brief
-```
-
-If it reports issues (exit code 1), show the short summary and propose a fix. Do not
-auto-fix, enable/disable an MCP server, or edit a registry without approval. If it is
-clean, do not mention it.
+- An **issue** means something is broken now (missing path, duplicate name, agent
+  pointing at a missing skill, missing tool/server, zero tools on a server that is
+  not optional): show the short summary and propose a fix. Do not auto-fix, enable
+  or disable an MCP server, or edit a registry without approval.
+- A **warning** is a human decision or a designed state (a newly installed asset, a
+  stale validation date, an over-budget description, an idle on-demand SAP server).
+  Do not spend a turn on it.
+- `--refresh` only after installing a new skill, agent, or MCP server.

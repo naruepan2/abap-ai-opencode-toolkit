@@ -16,6 +16,18 @@
 5. **Record the choice.** If the choice was non-obvious, add a row here and a line
    in `lessons.md`.
 
+## Digest (printed by `scripts/session_context.py`)
+
+<!-- digest:start -->
+- Source/DDIC → ADT `get_source` / `get_table`; a PowerShell dump mangles Thai.
+- Table data: client 100 → ADT; client 900 → SE16. `SE16N` is policy-blocked.
+- S/4HANA: read `MATDOC`, not `MKPF` + `MSEG`.
+- SAP GUI: a custom toolbar button needs OS focus; a tree may be an ALV tree with no node API and no coordinate click.
+- MCP `policy.json` is read once at server start; never kill an MCP process to reload it (the namespace disappears).
+- SAP is on-demand: never connect at session start.
+- One call per fact, read-only, narrow (`columns_only`, `max_rows`).
+<!-- digest:end -->
+
 ## Map
 
 | Task | Preferred | Fallback | Notes |

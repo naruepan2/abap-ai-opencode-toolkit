@@ -54,7 +54,7 @@ TABLES = {
                      "fix_level", "evidence", "status"],
         "evidence_col": "evidence",
         "status_col": "status",
-        "status_allowed": {"open", "closed", "wontfix"},
+        "status_allowed": {"open", "closed", "wontfix", "promoted"},
     },
     "lessons.md": {
         "required": ["date", "what_happened", "evidence", "generalizable", "target"],
