@@ -9,7 +9,9 @@
   **not deployed**; it changes the open-quantity source from `ZMMT014` to `LIPS`.
 - **Next step:** deploy `patched_MODL_v11.abap` to client 100, syntax check,
   then in client 900 run Option 8 for SO `1011099686` item `10` and confirm the
-  ALV offers **30 KG** (not 60) and shows the two `1041100095` lines.
+  ALV offers **30 KG** (not 60), shows the two `1041100095` lines, and that
+  pressing Create DO creates a **second** DO for 30 (the existing split DO must
+  not block it).
 - **Do not:** edit SAP standard objects, vendor agents/skills, or claim a test
   passed without reading LIPS / ZMMT014 back.
 
@@ -55,6 +57,10 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
   availability is `ZMMT010-MENGE_PD - SUM(non-PGI delivery items of that batch)`.
 - Quantity checks (v11): GR pending qty, then `KWMENG`, then the live LIPS open
   quantity. The old `remain_kwmeng <> 0` bypass is gone — 0 blocks.
+- Partial delivery (v11): only an **unsplit** DO of exactly the requested qty is
+  reused; a DO that is already split never blocks a new DO.
+- Limit: a failed split whose DO already covers the whole order qty leaves no
+  editable row, so the retry must be done in VL02N.
 - History: one `ZMMT014` row per batch-split sub item; `PGI_FLAG = 'X'` after
   PGI; `ZMMT015` one row per 601 material document.
 
@@ -96,7 +102,9 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - v11: open quantity comes from `LIPS` + `LIKP`, not from `ZMMT014`. Editable
   rows exist only for the open remainder per batch; history of a deleted
   delivery is skipped; DO items missing from `ZMMT014` are shown from `LIPS`.
-  Approved scope extension to `_select_option8` (recorded in `DECISIONS.md`).
+  A DO that is already split no longer blocks a new DO (partial delivery); only
+  an unsplit DO holding exactly the requested qty is reused. Approved scope
+  extension to `_select_option8` (recorded in `DECISIONS.md`).
 
 ## Known unknowns (do not guess)
 
@@ -135,9 +143,10 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 280,863 bytes,
-  md5 `d88b9a893a79439c4800cdc6a6b02cbd` (builder `build_v11.py`, 15 exact-match
-  edits, no leftover `lt_open_do` / `lt_lips_picked_complt` / `lt_vbap_key`).
+- Built source: `patched_MODL_v11.abap`, 278,895 bytes,
+  md5 `5562b961dce830aae365638eb92334b9` (builder `build_v11.py`, 27 exact-match
+  edits, no leftover `lt_open_do` / `lt_lips_picked_complt` / `lt_vbap_key` /
+  `lt_split_chk` / `lt_dlv_pre`).
 - `memory_check.py` reports 0 issues, 0 warnings.
 
 ## Files
