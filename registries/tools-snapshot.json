@@ -1,10 +1,9 @@
 {
-  "generated_at": "2026-11-13T12:50:20.912Z",
+  "generated_at": "2026-11-13T13:59:24.737Z",
   "source": "opencode plugin ctx.tool.list",
-  "total": 286,
+  "total": 211,
   "namespaces": {
     "browse": 18,
-    "ds4-100": 75,
     "open-computer-use": 9,
     "playwright": 25,
     "rosa": 7,

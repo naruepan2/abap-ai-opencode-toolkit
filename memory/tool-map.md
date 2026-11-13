@@ -24,6 +24,9 @@
 | DDIC structure | ADT `get_table` / `get_structure` | SAP GUI SE11 | |
 | Table data (client 100) | ADT `get_table_contents` | SAP GUI SE16 | ADT destination is client-bound |
 | Table data (client 900) | SAP GUI SE16 | — | SE16N is policy-blocked; use SE16 |
+| ICF service config (SICF) | `sap-gui` **after selecting the parent node in the tree** | manual GUI click | Tree is an ALV tree: no node API (`Cannot read tree node keys`), no coordinate click. F5 without selection creates a *virtual host* instead |
+| ICF service verify | SE16 `ICFSERVICE`/`ICFHANDLER`/`ICFSERVLOC`/`TADIR` + `curl -k` (401 vs 404) | ADT `get_table_contents` | Works with no ADT connection |
+| MCP config change (`policy.json`) | restart `opencode-cli.exe serve --service` | — | Servers are held by that daemon; restarting the window does not reload them. Never kill an MCP process to force it |
 | ALV grid read | `sap-gui` `sap_read_table` | — | |
 | Selection screen | `sap-gui` `sap_get_screen_elements` | — | |
 | SAP GUI custom toolbar button | `sap-gui` `sap_press_button` **after the session window has OS focus** | ask the user to press it | A custom PAI button may not fire while the window is unfocused; ALV built-in buttons can still work |

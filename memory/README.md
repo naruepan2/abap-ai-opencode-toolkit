@@ -8,15 +8,29 @@
 
 1. `user-profile.md` — how Pongg communicates and decides
 2. `lessons.md` — what we already learned (don't repeat mistakes)
-3. `tool-map.md` — which MCP/tool owns which job
-4. Active project's `memory/active-context.md` (if it exists)
+3. `corrections.md` — the specific mistakes and what "right" looked like
+4. `tool-map.md` — which MCP/tool owns which job
+5. Active project's `memory/active-context.md` (if it exists)
+
+A lesson that is written but never read is not learning. `corrections.md` is on this
+list for exactly that reason — do not skip it.
+
+## Write immediately (do not wait for close-out)
+
+- **A user correction** → one row in `corrections.md`: what the AI did, the correct
+  behavior, the root cause, and the fix level. A session can end mid-task, so waiting
+  for close-out loses the correction.
+- A decision that cannot be cheaply reversed → project `memory/decisions.md` or
+  `reports/DECISIONS.md`
 
 ## Write at task close-out
 
-- A durable lesson → `lessons.md`
+- A durable lesson → `lessons.md` (promoted from a `corrections.md` row)
 - A repeated pattern → `skill-candidates.md`
 - A non-obvious tool choice → `tool-map.md`
-- A decision with consequences → project `memory/decisions.md` or `reports/DECISIONS.md`
+- A rule that must bind the next session → the `AGENTS.md` of the level where the
+  mistake happened (program → project → workspace). A skill is for a multi-step
+  procedure, not for a one-line rule.
 
 ## Promotion ladder
 
