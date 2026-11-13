@@ -148,15 +148,16 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 280,307 bytes,
-  md5 `a6bd1419093a156d7881de176e1be36f` (builder `build_v11.py`, 34 exact-match
+- Built source: `patched_MODL_v11.abap`, 279,549 bytes,
+  md5 `1e2b6437c3888368c68f97742525c124` (builder `build_v11.py`, 31 exact-match
   edits); `patched_VIEW.abap`, 57,479 bytes,
   md5 `2bda9c14f44361a07885e66e0a68d4bc` (builder `build_view.py`).
-- Deployed AND ACTIVE (verified via `?version=active`): MODL 7,182 lines
-  `ecfecf1aaeee38e2962e459df4a044fe`, VIEW 1,441 lines
+- Deployed AND ACTIVE (verified via `?version=active`): MODL 7,166 lines
+  `c3f3a8b9940d30e6ffcd110c9d3c46bb`, VIEW 1,441 lines
   `11dbc0c2f55ee62166243bb08f7a7328`; `syntax-check` 0 findings.
 - Runtime check (client 900, SO `1011099686`/10): `OPEN_SO_QTY` sits between
-  `MENGE_TF` and `MENGE_PD` and shows `30.000`; editable row has Sales Doc/Item
+  `MENGE_TF` and `MENGE_PD`, `30.000` on the editable row and `0.000` on the DO
+  lines (editable lines only, per user decision); editable row has Sales Doc/Item
   `1011099686`/`10`; DO `1041100095` lines show remark `PONG1 Remark`.
 - Activation trap: `activate program` alone left the includes inactive;
   `activate include ZDEMO01_MODL` and `ZDEMO01_VIEW` are required. `get-include`
