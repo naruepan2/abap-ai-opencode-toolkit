@@ -98,18 +98,10 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - `hist_flag` separates read-only history rows from actionable rows.
 - `ZMMT015` is also written by `ZMMFM_POST_DELV_TO_ZMMT010` on VL09/VL02N,
   keyed by the 602/653/655 document; the 601 rows here do not collide.
-- v7: existing-DO detection falls back to a direct `SELECT SINGLE` from LIPS;
-  `BAPI_OUTB_DELIVERY_CREATE_SLS` imports `NUM_DELIVERIES`; if `DELIVERY` is
-  empty after commit, the DO is recovered from LIPS; the batch-split BAPI gets a
-  main-item control row with `CHG_DELQTY = 'X'`.
-- v8: `lt_so_lips_pre` stores the SO key (`VGBEL/VGPOS`) plus the DO number
-  (`VBELN AS VBELN_VL`). Before this, the READ compared a DO number with an SO
-  number and always missed.
-- v9: `ZMMT014-UECHA` is read from `LIPS-UECHA` in both `_save_history` modes.
-  Messages 033 and 041 now use the full “Post Goods Issue”.
-- v10: `_save_history` reads `MATDOC` only. `MATDOC` carries the header fields
-  (`BUDAT`, `CPUDT`, `CPUTM`, `USNAM`, `BKTXT`) and the item fields, so the
-  `MKPF` read is removed.
+- v7-v10: DO recovery from LIPS when the BAPI returns no `DELIVERY`, the
+  `CHG_DELQTY` control row, SO key in `lt_so_lips_pre`, `ZMMT014-UECHA` from
+  `LIPS-UECHA`, `_save_history` reads `MATDOC` only. Detail in
+  `reports/DECISIONS.md`.
 - v11: open quantity comes from `LIPS` + `LIKP`, not from `ZMMT014`. Editable
   rows exist only for the open remainder per batch; history of a deleted
   delivery is skipped; DO items missing from `ZMMT014` are shown from `LIPS`.
@@ -120,6 +112,7 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - v12: new ALV column `OPEN_SO_QTY` ("Open Sales Order Qty") between TF DEMO Qty
   and Ex.WH.Stck. Value = `KWMENG - SUM(LIPS-LFIMG)` per SO item, on editable
   rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
+- v14: posted DOs (PGI_FLAG = 'X' / WBSTK = 'C') are no longer listed; `create_issue_no` now has a p_rad8 branch and is called after Create DO + Batch Split, before `_save_history` so ZMMT014 gets ISSNO. Base is `base_v13.abap` (live source with the user's edits).
 - v13.1: `menge_pd` in `ty_outtab8` is `TYPE lips-lfimg` (MENG13, no sign) so the ALV cannot take a minus; guard code removed, message 046 unused.
 - v13: hid `MENGE_GR`/`MENGE_PD_INITIAL`/`MENGE_INITIAL` in Option 8 (whitelist);
   editable rows leave Sales Doc/Item empty for the user to type; ticking the
