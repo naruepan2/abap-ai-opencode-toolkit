@@ -225,6 +225,11 @@ def check_skill_candidates(warnings):
                              f"'{name}' is marked '{status}' but no skill folder exists"))
 
 
+def norm_text(value: str) -> str:
+    """Compare names loosely: 'HCL Interface QA32' == 'hcl-interface-qa32'."""
+    return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+
 def check_index(warnings):
     cards = sorted((MEM / "projects").glob("*/*.md"))
     if not cards:
@@ -233,9 +238,9 @@ def check_index(warnings):
         warnings.append((WARN, "INDEX.md",
                          f"not found at {INDEX}; cannot verify project cards"))
         return
-    text = INDEX.read_text(encoding="utf-8", errors="replace").lower()
+    text = norm_text(INDEX.read_text(encoding="utf-8", errors="replace"))
     for card in cards:
-        if card.stem.lower() not in text:
+        if norm_text(card.stem) not in text:
             warnings.append((WARN, "INDEX.md",
                              f"project card '{card.parent.name}/{card.stem}' "
                              "is not listed"))
