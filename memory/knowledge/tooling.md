@@ -22,6 +22,20 @@
 - **Seen:** 2 · **Confidence:** high · **Last confirmed:** 2026-11-13
 - **Evidence:** client 900 session; `ICFSERVICE`/`LIPS` reads all went through `SE16`
 
+## Pin an MCP version; `--refresh` is not an update
+
+- **Rule:** pin every MCP the knowledge base depends on (`pkg==x.y.z`). Update it
+  deliberately: read the changelog, bump the pin, run `registry_check.py --refresh`,
+  then re-run the GUI probes. Never put `--refresh` in the launch command.
+- **Why:** `--refresh` re-downloads the package on every launch, and with a pin it
+  changes nothing except start time, network dependency and disk.
+- **Break it, and:** cached copies pile up in GB, every SAP GUI start needs the
+  network, and an unpinned tool can rename a tool that a knowledge entry relies on —
+  the rule then fails silently.
+- **Seen:** 1 · **Confidence:** high · **Last confirmed:** 2026-11-14
+- **Evidence:** PyPI latest = 0.6.0 = the pinned version; 36 `archive-v0` copies of
+  `mcp-sap-gui` at 3,321 MB inside a 4,956 MB uv cache
+
 ## Never recall a tool name from memory
 
 - **Rule:** take the tool name from the catalog, not from recollection —
