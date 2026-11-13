@@ -1,4 +1,4 @@
-# HCL Interface QA32
+# HCL_INTERFACE_QA32
 
 > Last updated: 2026-11-13 (OpenCode session). Re-verify live state before changing
 > anything.
