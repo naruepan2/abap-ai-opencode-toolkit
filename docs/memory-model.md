@@ -52,6 +52,22 @@ task
   └─► CHECK         something a script can catch → memory_check / registry_check
 ```
 
+## Task kickoff: the change contract
+
+Before the first edit, four answers — and if one is unknown, resolving it *is* the
+first task:
+
+| Question | What it decides |
+|---|---|
+| Is there a functional spec? Where? | the requirement. No FS → propose a one-page FS, never invent one |
+| Bug fix, feature extension, or change request? | bug fix → reproduce + smallest patch; extension → designed delta, backward compatible; CR → impact analysis + transport order |
+| Live on production? Dev object in sync? | live → compare dev with production first, plan regression; diverged → stop and report |
+| Target: system, client, transport? | where the change lands |
+
+The answers are recorded in the project card (`FS`, `Change type`, `Production`,
+`Target`), so the next session inherits the direction instead of re-deciding it. The
+rule as a knowledge entry: `memory/knowledge/working-method.md`.
+
 ## The four layers
 
 | Layer | Path | Lifetime | Read at | Growth |

@@ -11,6 +11,12 @@
   (four candidates listed in the project README). Do not change anything unasked.
 - **Do not:** press Store after a declined save gate, kill MCP processes, or claim a
   service is "not created" from a single failed popup.
+- **FS:** none recorded — the interface scope (`QA32`) is unclarified. Ask before
+  extending.
+- **Change type:** unknown — ask (a new ICF service exists; whether this is an
+  extension or a CR is not stated).
+- **Production:** unknown — ask (DS4 is DEV; no production transport recorded).
+- **Target:** DS4, client 100; transport not recorded.
 
 ## Goal
 

@@ -8,17 +8,21 @@
 - **Status:** v12 is **Deployed and active** in client 100 (syntax check 0
   findings). The runtime test in client 900 is pending; do not claim it passed
   until LIPS and ZMMT014 are read back.
-- **Deploy is pre-approved end-to-end** (user, 2026-11-14): write both includes
-  into `DS4K904935`, run `syntax-check program ZDEMO01`, and **activate
-  immediately when there are 0 findings** — do not stop for another approval.
-  Stop and fix only when a finding appears. Full procedure in `AGENTS.md`
-  §Deploy.
+- **Deploy is pre-approved end-to-end** (user, 2026-11-14): write both includes into
+  `DS4K904935`, syntax-check, and activate immediately at 0 findings — no further
+  approval; stop only on a finding. Procedure: `AGENTS.md` §Deploy.
 - **Next step:** in client 900 run Option 8 for SO `1011099686` item `10` and
   confirm the ALV offers **30 KG** (not 60), shows the two `1041100095` lines,
   and that pressing Create DO creates a **second** DO for 30 (the existing split
   DO must not block it).
 - **Do not:** edit SAP standard objects, vendor agents/skills, or claim a test
   passed without reading LIPS / ZMMT014 back.
+- **FS:** Option 8 of the FS; gaps and unconfirmed mappings are in §Known unknowns.
+- **Change type:** build → extension (v7–v12 are scope extensions of the same FS,
+  each recorded in `reports/DECISIONS.md`).
+- **Production:** unknown — ask (DS4 is DEV; no production system or sync check is
+  recorded). Compare the dev source with production before the first transport.
+- **Target:** DS4, client 100 (ADT) + client 900 (test); transport `DS4K904935`.
 
 ## Goal
 

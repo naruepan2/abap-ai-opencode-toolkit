@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.5.2 — 2026-11-14
+
+**The change contract: four answers before the first edit.**
+
+- New reflex gate (workspace `AGENTS.md` + global `AGENTS.md` + digest `STYLE`):
+  before creating or changing a program, ask for the **FS** (and where it is), the
+  **change type** (bug fix / feature extension / change request), **production**
+  status (+ dev sync), and the **target** (system, client, transport). Wait for the
+  answers; if one is unknown, resolving it is the first task.
+- Direction table added: bug fix = reproduce + smallest patch; extension = designed
+  delta, backward compatible; CR = impact analysis + transport order; live on
+  production = compare the dev source with production first, plan regression.
+- No FS is a finding, not a licence: propose a one-page FS for approval.
+- Project cards gain `FS`, `Change type`, `Production`, `Target`; both existing cards
+  filled in, with `unknown — ask` wherever the evidence does not exist.
+- Knowledge entry `working-method` §"Establish the change contract"; `docs/memory-model.md`
+  §"Task kickoff"; probe 9 added to `memory/expertise.md` (9 probes total).
+
 ## v0.5.1 — 2026-11-14
 
 **Expertise is the goal; notes are not.**

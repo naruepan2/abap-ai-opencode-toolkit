@@ -33,6 +33,23 @@
 - **Seen:** 1 · **Confidence:** medium · **Last confirmed:** 2026-11-13
 - **Evidence:** ZDEMO01 — preload key mismatch *and* a missing BAPI main-item row
 
+## Establish the change contract before touching code
+
+- **Rule:** before creating or editing a program, get four answers from the user:
+  **FS** (does one exist, where?), **change type** (bug fix / feature extension /
+  change request), **live on production** (yes/no, and is the dev object in sync),
+  and **target** (system, client, transport). Record them in the project card.
+- **Why:** each answer implies a different correct shape — minimal patch, designed
+  delta, or impact analysis. Without them you cannot tell which one you are doing,
+  and a "small improvement" becomes an unrequested refactor.
+- **Break it, and:** you patch a symptom the FS never described, or edit a dev object
+  that has already diverged from the production version — and the transport ships a
+  change nobody asked for.
+- **No FS is a finding, not a licence to invent one:** say so, and propose a one-page
+  FS (goal, inputs/outputs, business rules, edge cases) for approval before coding.
+- **Seen:** 1 · **Confidence:** high · **Last confirmed:** 2026-11-14
+- **Evidence:** user instruction 2026-11-14; `docs/memory-model.md` §task kickoff
+
 ## Diagnose from the symptom, not from memory
 
 - **Rule:** when a failure looks familiar, search `memory/knowledge/` for the symptom

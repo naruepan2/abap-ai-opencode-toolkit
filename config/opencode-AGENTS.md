@@ -30,6 +30,23 @@
 - Access: read/write outside the current project requires explicit user
   permission; never recursively scan `SAP Projects` or `<portfolio>`
 
+## Before creating or changing a program
+
+Ask, and wait, before the first edit:
+
+1. **Is there a functional spec?** Where? No FS → say so and propose a one-page FS
+   for approval; never invent the requirement.
+2. **Bug fix, feature extension, or change request?** Bug fix → reproduce, smallest
+   patch, no refactor. Extension → design the delta, stay backward compatible.
+   CR → impact analysis over every consumer, then transport order.
+3. **Is it live on production, and is the dev object in sync with it?** Live →
+   compare the dev source with production first, plan regression; diverged → stop and
+   report. Never test on production.
+4. **Target: system, client, transport?**
+
+Record the answers in the project card. If an answer is unknown, resolving it is the
+first task. The full table lives in the workspace `AGENTS.md`.
+
 ## Memory (one call at session start)
 
 Run, from `<portfolio>\SAP Projects\abap-agent-workspace-opencode`:

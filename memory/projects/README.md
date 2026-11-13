@@ -20,6 +20,10 @@ Example: `memory/projects/DEMO/zmme011.md` for
 - Status:
 - Next step:
 - Do not:
+- FS:                     # path or "none — proposed <date>"
+- Change type:            # bugfix | extend | change request
+- Production:             # not live | live (dev in sync?) | unknown
+- Target:                 # system, client, transport
 
 ## Goal
 

@@ -3,6 +3,23 @@
 This repository is the portable memory and registry workspace for the OpenCode
 side of the AI teammate.
 
+## Before creating or changing a program — the change contract
+
+Ask these four questions and **wait for the answers** before the first edit. They are
+cheap now and expensive later.
+
+| Question | Why it changes the direction |
+|---|---|
+| **Is there a functional spec? Where?** | The FS is the requirement. No FS → say so and propose a one-page FS (goal, inputs/outputs, rules, edge cases) for approval. Never invent the requirement. |
+| **Bug fix, feature extension, or change request?** | Bug fix → reproduce with evidence, smallest patch, no refactor. Extension → design the delta, keep existing behaviour and objects compatible. CR → impact analysis over every consumer, then the transport order. |
+| **Is it live on production? Is the dev object in sync?** | Live → the dev source must be compared with the production version first; plan regression and the transport path; never test on production. Diverged → stop and report. |
+| **Target: system, client, transport?** | A write without a target is not a change, it is an accident. |
+
+Record the four answers in the project resume card (`FS`, `Change type`, `Production`,
+`Target`). If any answer is unknown, that is the first task — not the code.
+
+## Working rules
+
 - **Session start is one call.** Run `python scripts/session_context.py` and pick a
   tier: `light` (question/analysis → digest only), `task` (code, file, or SAP work
   → digest + the project card + the project's knowledge domains), `deep` (new

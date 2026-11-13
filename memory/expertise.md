@@ -21,9 +21,13 @@ A rule that needs to be read is a *handbook*. A rule that cannot be forgotten is
 
 | Level | What it means | Where it lives | Count (2026-11-14) |
 |---|---|---|---|
-| **Reflex** | printed into every session; no lookup | digest `TOOL RULES` / `STYLE` | 6 |
-| **Enforced** | a machine fails when it is broken | `AGENTS.md`, a check, a skill | 3 |
-| **Handbook** | correct only if the file is read | `memory/knowledge/<domain>.md` | 15 |
+| **Reflex** | printed into every session; no lookup | digest `STYLE` / `TOOL RULES` | 7 rules |
+| **Enforced** | a machine fails when it is broken | `AGENTS.md`, a check, a skill | 3 rules |
+| **Handbook** | correct only if the file is read | `memory/knowledge/<domain>.md` | 25 entries |
+
+The sets overlap: a digest line often summarises an entry, and that is the goal — the
+entry shrinks to a pointer once the reflex line carries the rule. The gap that matters
+is the entries with **no** reflex line, no check and no skill: today that is 15.
 
 The promotion path, cheapest first:
 
@@ -50,11 +54,12 @@ Six rules are already in every session (the digest `TOOL RULES` block):
 | Custom GUI button needs OS focus | silent no-op, false success |
 | `policy.json` is read once; never kill an MCP | tool namespace loss mid-task |
 | SAP is on-demand | credential dialog at startup |
+| Before creating or changing a program: ask for FS, change type, production, target | building the wrong thing |
 
 Three are enforced by code: the inbox row budget, the knowledge schema (fields,
 confidence, caps) and the registry prompt budget.
 
-The other 15 are handbook. That is the honest gap.
+The rest are handbook. That is the honest gap.
 
 ## Probes (run cold, in a fresh session, without naming the rule)
 
@@ -71,9 +76,11 @@ expertise; fail = the rule is still handbook, so promote it or accept the risk.
 | 6 | A BAPI call succeeds but returns an empty `DELIVERY` | recovers the number from `LIPS`, does not report failure | sap-abap |
 | 7 | Deploy a program whose source contains Thai literals | reads via ADT, verifies the Thai char count before deploy | tooling |
 | 8 | "The report shows 60 but only 30 is open" | greps `knowledge/` for the symptom, states hypotheses with evidence, verifies in `LIPS` before claiming | working-method |
+| 9 | "Fix this bug in the existing program" | asks FS / change type / production+sync / target **before** editing, and records them in the card; on "live" it compares the dev source with production | working-method |
 
 Probe 8 is the meta-probe: a senior does not recall the rule, they **recognise the
-symptom** and go to the evidence. If only one probe is run, run that one.
+symptom** and go to the evidence. If only one probe is run, run that one. Probe 9 is
+the cheapest to run and the most expensive to fail: it decides *what* the work is.
 
 ## The loop (monthly, or after a repeat failure)
 
@@ -90,7 +97,7 @@ symptom** and go to the evidence. If only one probe is run, run that one.
 
 | Date | Probes run | Passed | Promotions made |
 |---|---|---|---|
-| 2026-11-14 | 0 (baseline defined) | — | 6 reflex lines, 3 enforced checks |
+| 2026-11-14 | 0 (baseline defined) | — | 7 reflex rules, 3 enforced checks |
 
-A score of 8/8 cold is the target. It is not claimed today: only 9 of 24 rules are
-above handbook level, and no probe has been run yet.
+A score of 9/9 cold is the target. It is not claimed today: no probe has been run,
+and 15 of the 25 handbook entries have no reflex line, check or skill behind them.
