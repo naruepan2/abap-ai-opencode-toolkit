@@ -112,7 +112,7 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - v12: new ALV column `OPEN_SO_QTY` ("Open Sales Order Qty") between TF DEMO Qty
   and Ex.WH.Stck. Value = `KWMENG - SUM(LIPS-LFIMG)` per SO item, on editable
   rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
-- v14: posted DOs (PGI_FLAG = 'X' / WBSTK = 'C') are no longer listed; `create_issue_no` now has a p_rad8 branch and is called after Create DO + Batch Split, before `_save_history` so ZMMT014 gets ISSNO. Base is `base_v13.abap` (live source with the user's edits).
+- v14: posted DOs (PGI_FLAG = 'X' / WBSTK = 'C') are no longer listed; `create_issue_no` now has a p_rad8 branch and is called after Create DO + Batch Split, before `_save_history` so ZMMT014 gets ISSNO. Base is `base_v13.abap` (live source with the user's edits). `delete_issue_no` has a commented p_rad8 skeleton only.
 - v13.1: `menge_pd` in `ty_outtab8` is `TYPE lips-lfimg` (MENG13, no sign) so the ALV cannot take a minus; guard code removed, message 046 unused.
 - v13: hid `MENGE_GR`/`MENGE_PD_INITIAL`/`MENGE_INITIAL` in Option 8 (whitelist);
   editable rows leave Sales Doc/Item empty for the user to type; ticking the
