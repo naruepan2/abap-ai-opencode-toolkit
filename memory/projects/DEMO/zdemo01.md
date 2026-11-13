@@ -139,7 +139,7 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 ## Files
 
-- Working directory: `<portfolio>\SAP Projects\ZDEMO01`
+- Working directory: `<portfolio>\SAP Projects\Projects\DEMO\ZDEMO01`
 - Deployed source: `patched_MODL_v10.abap`
 - Builder: `build_v10.py`
 - Decisions log: `reports/DECISIONS.md`

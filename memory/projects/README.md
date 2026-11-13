@@ -2,6 +2,15 @@
 
 One file per project. Keep it short and current.
 
+Mirror the SAP project layout:
+
+```
+memory/projects/<project>/<program>.md
+```
+
+Example: `memory/projects/DEMO/zmme011.md` for
+`<portfolio>\SAP Projects\Projects\DEMO\ZDEMO01`.
+
 ## Template
 
 ```markdown
