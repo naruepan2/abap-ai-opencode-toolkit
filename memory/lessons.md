@@ -13,6 +13,7 @@
 | 2026-11-13 | `BAPI_OUTB_DELIVERY_CREATE_SLS` สร้าง DO ได้แต่คืน `DELIVERY` ว่างเมื่อ `NUM_DELIVERIES > 1` | BAPI signature + DO 1041100092/18:06:31 | yes — import/check count, recover from LIPS | memory / future skill |
 | 2026-11-13 | Batch split ต้องมี main item ใน `ITEM_CONTROL` ด้วย `CHG_DELQTY = 'X'` เมื่อ main item ส่ง qty 0 | `lt_item_data`/`lt_item_control` debug | yes — BAPI contract | memory / future skill |
 | 2026-11-13 | ปุ่ม custom บน SAP GUI toolbar ไม่ทำงานถ้า session window ไม่มี OS focus; ปุ่ม ALV พื้นฐานยังทำงาน | `windows-mcp` USER_CONTROL + toolbar tests | yes — SAP GUI automation | tool-map |
+| 2026-11-13 | ใน S/4HANA ให้อ่าน `MATDOC` แทน `MKPF` + `MSEG` เพราะมีทั้ง header และ item fields ในตารางเดียว | MATDOC DDIC 350 fields; v10 deploy | yes — modern material document read | memory / future skill |
 
 ## How to add
 

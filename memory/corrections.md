@@ -14,3 +14,4 @@
 | 2026-11-13 | Added `CHG_DELQY` | `CHG_DELQTY` is the real component | field-name typo | syntax check gate | syntax check finding | closed |
 | 2026-11-13 | Thought the missing main-item control row alone caused the empty `LV_DELIVERY` | Two separate causes: preload key mismatch and BAPI create return | partial root cause | memory + code | LIPS/VBFA and debug data | closed |
 | 2026-11-13 | Tried to press a custom toolbar button while the SAP GUI window was unfocused | Bring the session to the foreground or ask the user to press it | SAP GUI focus requirement | tool-map | windows-mcp USER_CONTROL | closed |
+| 2026-11-13 | Kept the old `MKPF` + `MSEG` reads in a new S/4HANA method | Read `MATDOC` once; it carries header and item fields | legacy table choice | code + memory rule | MATDOC DDIC; v10 deploy | closed |

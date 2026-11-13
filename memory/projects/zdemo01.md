@@ -5,7 +5,7 @@
 
 ## Resume card
 
-- **Status:** v9 deployed and active. Runtime test is in progress by the user.
+- **Status:** v10 deployed and active. Runtime test is in progress by the user.
   Do not claim the split passed until LIPS and ZMMT014 are read back.
 - **Next step:** restart `ZDEMO01`, Option 8, SO `1011099686` item `10`,
   quantities `50 + 10`, then press Create DO and verify:
@@ -61,8 +61,8 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - `post_goods_issue_from_do` — Post Goods Issue, picking update, `ZMMT010`,
   `ZMMT014`/`ZMMT015` (`_save_history('P')`)
 - `_select_option8` — live data + `ZMMT014` history rows (`hist_flag`)
-- `_save_history` — shared persistence for `ZMMT014` and `ZMMT015`; fills
-  `ZMMT014-UECHA` from `LIPS-UECHA`
+- `_save_history` — shared persistence for `ZMMT014` and `ZMMT015`; reads
+  `MATDOC` (header + item fields) and fills `ZMMT014-UECHA` from `LIPS-UECHA`
 - Messages: `ZDEMO01_MSG` has 39 entries. 040 = existing DO; 041 = DO + split
   done, press Post Goods Issue; 042 = ZMMT014 write failed; 043 = ZMMT015 write
   failed; 044 = BAPI created more than one DO; 045 = DO created but number not
@@ -88,6 +88,10 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
   number and always missed.
 - v9: `ZMMT014-UECHA` is read from `LIPS-UECHA` in both `_save_history` modes.
   Messages 033 and 041 now use the full “Post Goods Issue”.
+- v10: `_save_history` reads `MATDOC` only. `MATDOC` carries the header fields
+  (`BUDAT`, `CPUDT`, `CPUTM`, `USNAM`, `BKTXT`) and the item fields
+  (`VBELN_IM`, `VBELP_IM`, `BWART`, material, plant, sloc, batch, quantity), so
+  the `MKPF` read is removed.
 
 ## Known unknowns (do not guess)
 
@@ -119,8 +123,9 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 ## Evidence
 
-- Deployed source: `patched_MODL_v9.abap`, 272,918 bytes,
-  md5 `2a3c88fbaf4710b190922ffe699c8eee`.
+- Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
+  md5 `41380b876a114c6a71668282112211a3`.
+- `_save_history` contains `FROM matdoc` and no `FROM mseg` / `FROM mkpf`.
 - `syntax-check program ZDEMO01` → 0 findings; activate → OK; no inactive objects.
 - Messages 033 and 041 updated; 044 and 045 added. Class has 39 entries.
 - Client 900 at last check: `ZMMT015` has one VL09/602 row.
@@ -135,6 +140,6 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 ## Files
 
 - Working directory: `<home>\AppData\Local\Temp\opencode\zmme011`
-- Deployed source: `patched_MODL_v9.abap`
-- Builder: `build_v9.py`
+- Deployed source: `patched_MODL_v10.abap`
+- Builder: `build_v10.py`
 - Decisions log: `reports/DECISIONS.md`

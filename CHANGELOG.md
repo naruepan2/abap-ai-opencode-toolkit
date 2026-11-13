@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.2 — 2026-11-13
+
+- ZDEMO01 `_save_history` now reads `MATDOC` instead of `MKPF` + `MSEG`.
+  Header fields (`BUDAT`, `CPUDT`, `CPUTM`, `USNAM`, `BKTXT`) and item fields
+  (`VBELN_IM`, `VBELP_IM`, `BWART`, material, plant, sloc, batch, quantity) come
+  from one table.
+- Deployment: `ZDEMO01_MODL` v10 (transport `DS4K904935`); syntax 0 findings,
+  active, no inactive objects.
+
 ## v0.3.1 — 2026-11-13
 
 - Scanner: flatten the V2 `mcp.servers` shape (the `browse` server is now in the
