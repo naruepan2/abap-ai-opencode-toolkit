@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-11-13T17:07:29.106Z",
+  "generated_at": "2026-11-13T17:40:14.979Z",
   "source": "opencode plugin ctx.tool.list",
-  "total": 111,
+  "total": 170,
   "namespaces": {
     "browse": 18,
     "open-computer-use": 9,
+    "sap-gui": 59,
     "windows-mcp": 19,
     "opencode": 20,
     "browser": 45

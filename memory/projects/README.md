@@ -41,6 +41,6 @@ Example: `memory/projects/DEMO/zmme011.md` for
 ## Rules
 
 - Update the resume card at the end of every session.
-- Move durable, cross-project lessons to `../lessons.md`.
-- Move repeated patterns to `../skill-candidates.md`.
+- Move durable, cross-project rules to `../knowledge/<domain>.md` (one entry per rule,
+  edit in place). Repeated patterns go to `../skill-candidates.md`.
 - No credentials, no customer data.

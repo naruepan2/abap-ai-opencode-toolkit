@@ -45,11 +45,11 @@ All six were general process mistakes, so each rule is recorded once, elsewhere:
 
 | Mistake | Rule lives in |
 |---|---|
-| Expected a window restart to reload MCP | `lessons.md`: `policy.json` is read once; restart the service daemon |
-| Killed the live MCP process | `lessons.md` + `tool-map.md`: the namespace disappears |
-| Assumed F5 needs no selection; then used the F9 wizard | this program's `AGENTS.md` §SICF rules |
-| Sent arrow keys through open-computer-use to SAP GUI | `tool-map.md`: keys go to the focused window |
-| Reported "not created" from a filter popup | `lessons.md`: verify in a table or over HTTP |
+| Expected a window restart to reload MCP | `knowledge/tooling.md`: `policy.json` is read once; restart the service daemon |
+| Killed the live MCP process | `knowledge/tooling.md`: the namespace disappears |
+| Assumed F5 needs no selection; then used the F9 wizard | `knowledge/sap-gui.md` + this program's `AGENTS.md` §SICF rules |
+| Sent arrow keys through open-computer-use to SAP GUI | `knowledge/tooling.md`: keys go to the focused window |
+| Reported "not created" from a filter popup | `knowledge/working-method.md`: verify in a table or over HTTP |
 
 What stays HCL-specific: the verified state table above, the procedure below, the
 verification recipe, and the access notes.

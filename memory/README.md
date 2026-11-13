@@ -1,99 +1,104 @@
 # Memory system (A-scope)
 
-> What this is: a small, durable memory that makes the AI know Pongg and the
-> project without re-explaining every session. It does **not** edit any vendor
-> agent or skill.
+> What this is: a small, durable memory that makes the AI know Pongg and the project
+> without re-explaining every session — and that **gets more expert instead of
+> longer**. Design and rationale: `docs/memory-model.md`.
 
 ## Read at session start — one call, then pick a tier
 
 ```powershell
-python scripts\session_context.py            # digest, ~1.8k chars
-python scripts\session_context.py --full     # digest + file map + raw checks
+python scripts\session_context.py            # digest, ~2.4k chars
+python scripts\session_context.py --tiny     # light tier, ~0.8k chars
+python scripts\session_context.py --full     # + file map + raw checks
 python scripts\session_context.py --project DEMO/ZDEMO01
 ```
 
-The digest prints: the active project's resume card (status / next step / do not),
-memory and registry health in one line each, the always-on style and evidence rules
-from `user-profile.md`, the **open corrections**, the curated tool rules, and the
-size of every file that can be opened on demand.
+The digest prints: the active project's resume card, memory and registry health, the
+always-on style rules, the **inbox** (incidents not yet consolidated), the **knowledge
+inventory** (entries per domain), the curated tool rules, and the size of every file
+that can be opened on demand.
 
 | Tier | When | Read |
 |---|---|---|
 | `light` | a question, an analysis, a review | the digest only |
-| `task` | any code, file, or SAP work | digest + the active project card |
-| `deep` | new project, incident, design | digest + every file below |
+| `task` | any code, file, or SAP work | digest + project card + the project's knowledge domains |
+| `deep` | new project, incident, design | digest + every memory file |
 
-Files on demand (the digest says when they matter):
-
-1. `user-profile.md` — how Pongg communicates and decides
-2. `lessons.md` — durable lessons (already promoted; do not repeat them)
-3. `corrections.md` — every correction, its root cause, and its fix level
-4. `tool-map.md` — which MCP/tool owns which job
-5. `team-roster.md` — who to delegate to, and when not to
-6. `skill-candidates.md`, `agent-registry.md` — patterns and ownership
-
-The digest always shows the **open** corrections, because a lesson that is written
-but never read is not learning. Reading the closed rows is a `deep` activity.
-
-Two files carry a `<!-- digest:start -->` … `<!-- digest:end -->` block:
-`user-profile.md` (style and evidence rules, true for every session) and
-`tool-map.md` (tool traps, true for every project). Edit that block, not the digest
-script, when a rule must appear on every session — and keep it to a few one-liners.
-
-## Write immediately (do not wait for close-out)
-
-- **A user correction** → one row in `corrections.md`, status `open`. One line per
-  column: what the AI did, the correct behavior, the root cause, the fix level, the
-  evidence. **≤240 chars for the whole row** — `memory_check.py` warns above that.
-  This is the one write that must happen mid-task, because a session can end
-  mid-task.
-- A decision that cannot be cheaply reversed → project `memory/decisions.md` or
-  `reports/DECISIONS.md`
-
-## Write at task close-out
-
-- A durable lesson → `lessons.md`, in **one** row (≤240 chars), then set the source
-  correction's status to `promoted` and point `evidence` at the lesson. Do not
-  restate the same fact in both files: the promotion replaces the open row, it does
-  not copy it.
-- Update the active project's resume card (status / next step / do not).
-- A repeated pattern → `skill-candidates.md` (rule of 2).
-- A non-obvious tool choice → a row in `tool-map.md`; add it to the `digest` block
-  only if it is easy to get wrong and true for every project.
-- A rule that must bind the next session → the `AGENTS.md` of the level where the
-  mistake happened (program → project → workspace). A skill is for a multi-step
-  procedure, not for a one-line rule.
-
-Close-out is one edit per file, batched. Do not re-read a file you just wrote; the
-`memory_check` run is the verification.
-
-## Promotion ladder
+## The model: incident → knowledge
 
 ```
-memory rule → AGENTS.md line → personal agent prompt → skill → script/check
+task ─► INBOX (one line per incident, disposable)
+          │
+          └─ close-out: consolidation gate
+                ├─► KNOWLEDGE  merge into the existing rule (Seen +1) or add one
+                ├─► PLAYBOOK   multi-step procedure → AGENTS.md line or a skill
+                ├─► CHECK      a script can catch it → memory_check / registry_check
+                └─► DROP       one-off with no generalisation
 ```
 
-Rule of 2: a lesson becomes a skill candidate only after the same correction
-appears twice (or once if the risk is high).
+| Layer | Path | Lifetime | Read at |
+|---|---|---|---|
+| Inbox | `memory/corrections.md` | ≤7 days, then archived | digest count |
+| Knowledge | `memory/knowledge/<domain>.md` | permanent, edited in place | task (by domain) |
+| Playbook | `AGENTS.md` levels + skills | permanent | harness / on demand |
+| Competency | `memory/competency.md` | monthly | digest |
+
+`lessons.md` no longer exists: **a knowledge entry *is* the lesson.** The old ledger
+is kept at `memory/_archive/v0-ledger/` and in git.
+
+## Write during work: the inbox
+
+- One row, **≤240 chars**, status `open`, the moment the user corrects you or a fact
+  is discovered the hard way. A session can end mid-task, so this cannot wait.
+- One line per column: what the AI did, the correct behavior, the root cause, the fix
+  level, the evidence. Detail belongs in the project card.
+- The inbox is a buffer. It is not a history and it is not read in full at start.
+
+## Close-out: the consolidation gate
+
+For each open row, pick exactly one:
+
+| Situation | Action |
+|---|---|
+| The rule already exists in a domain file | **merge**: edit that entry, `Seen +1`, raise confidence if it was verified again; set the row `drained` |
+| A new, general rule | **add** an entry (domain under cap); set the row `drained` |
+| A one-off ("I typed the wrong name") | **drop**; set the row `drained` |
+| A multi-step procedure | promote to a skill or an `AGENTS.md` line, keep a one-line entry |
+| A script can catch it | add the check, keep a one-line entry |
+
+Then archive the drained rows when the inbox passes 40 rows or at month end:
+`memory/_archive/inbox-YYYY-MM.md`. One batched edit per file; the `memory_check`
+run is the verification, so do not re-read what you just wrote.
+
+## Knowledge entry
+
+One rule per entry, no dates in the body except `last confirmed`, no status:
+
+```markdown
+## <the rule, imperative>
+
+- **Rule:** what to do, concrete and checkable
+- **Why:** the mechanism that makes it true
+- **Break it, and:** the symptom the next agent will see
+- **Seen:** 2 · **Confidence:** high · **Last confirmed:** 2026-11-13
+- **Evidence:** table, tool output, or project card section
+```
+
+Confidence: `low` (once, unverified) · `medium` (verified in a table/test/run) ·
+`high` (more than once, or it cost a real failure). `Seen` counts confirmations, not
+mentions.
 
 ## Size discipline
 
-The memory is read at every session start, so its size is the price of every
-future task.
+- **≤12 entries per domain.** At the cap, merge the lowest `Seen`/confidence entry
+  into a neighbour, or archive it to `memory/_archive/knowledge/`.
+- **≤40 inbox rows**, drained at close-out, archived monthly.
+- **One fact, one file.** Other files point at it; they never restate it.
+- **≤240 chars per inbox row; ≤9k chars per project card; ≤1.2k per knowledge entry.**
+- **A rule that repeats belongs in a check**, not in prose.
 
-- One fact lives in exactly one file; other files point at it.
-- One row ≤240 chars. If it needs more, the detail goes to the project card and the
-  row keeps the pointer.
-- A project card ≤9k chars; dated findings move to the project's own `reports/`.
-- The measured prompt budget for skills, tools, AGENTS and the digest lives in
-  `docs/design.md` §"Prompt budget" — check it before adding a new catalog entry.
-- A closed or promoted row older than 30 days moves to
-  `memory/_archive/<file>-YYYY-MM.md` (git keeps the history). Keep the last 30
-  days plus everything still `open`.
-- If `memory/*.md` passes ~8k chars, archive before adding.
-- `scripts/memory_check.py` fails on a broken table, a missing evidence cell, a
-  credential-like string, and an unknown status value — run it after a close-out,
-  not at session start.
+Measured prompt budget (skills, tools, AGENTS, digest, cards): `docs/design.md`
+§"Prompt budget".
 
 ## Ownership
 
@@ -103,22 +108,22 @@ future task.
 
 ## Registry check
 
-The workspace scanner lives in `scripts/registry_check.py`. It writes
-`memory/reports/registry-report.md` and never changes the system.
+`scripts/registry_check.py` writes `memory/reports/registry-report.md` and never
+changes the system.
 
 - `--check --brief` at session start (already inside `session_context.py`)
-- `--check` when you want the full report
-- `--refresh` only when new skills, agents, or MCP servers are installed
+- `--check` for the full report, including the prompt budget
+- `--refresh` only after installing a new skill, agent, or MCP server
 
 An **issue** means something is broken now (missing path, duplicate name, agent
-pointing at a missing skill, missing tool/server, zero tools on a server that is
-not optional). A **warning** is a human decision or a designed state: a newly
-installed asset, a stale validation date, an over-budget description, or an
-on-demand SAP server that is idle. Warnings do not fail the gate; do not spend a
-turn explaining them.
+pointing at a missing skill, missing tool/server, zero tools on a non-optional
+server), or a knowledge entry that breaks its schema. A **warning** is a human
+decision or a designed state: new asset, stale date, idle on-demand server, a domain
+at its cap. Warnings do not fail the gate.
 
 ## Where project memory lives
 
-For a real project, create `memory/projects/<PROJECT>/<program>.md` from
-`memory/projects/README.md`. The card is the resume point: status, next step, do
-not, business rules, code map, decisions, known unknowns, evidence.
+`memory/projects/<PROJECT>/<program>.md` — the resume card: status, next step, do
+not, business rules, code map, decisions, known unknowns, evidence. Template:
+`memory/projects/README.md`. A card declares `domains: [...]` so a task session loads
+only the knowledge it touches.

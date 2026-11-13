@@ -1,7 +1,10 @@
 # Memory model: from a work log to expertise
 
-> Status: proposal (2026-11-14). Nothing is migrated until this is approved.
-> Supersedes the "one row per correction / per lesson" model in `memory/README.md`.
+> Status: **adopted 2026-11-14** (P0–P2 implemented). The v0 ledger (dated
+> `corrections.md` / `lessons.md` tables) is migrated: the 24 rules live in
+> `memory/knowledge/`, the old tables are at `memory/_archive/v0-ledger/`, and
+> `corrections.md` is now the inbox. P3–P4 remain open.
+> Supersedes the "one row per correction / per lesson" model.
 
 ## The problem with the current model
 

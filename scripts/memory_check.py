@@ -6,14 +6,15 @@ The memory system only works if what is written can be read back and trusted.
 This script checks that, and never writes to memory or edits a skill/agent.
 
 Checks
-  1. required memory files exist
-  2. the Markdown tables parse and match their declared columns
-  3. every row carries evidence (a lesson without evidence is an opinion)
+  1. required memory files exist (including the knowledge base)
+  2. the inbox table parses and matches its declared columns
+  3. every inbox row carries evidence and a known status
   4. a row stays under its length budget (a long row is a recurring token cost)
-  5. no credential-like strings in any memory file
-  6. skill candidates marked draft/testing/active have a real skill folder
-  7. project cards are reachable from INDEX.md (the navigation model)
-  8. a project card stays under its size budget
+  5. every knowledge entry has Rule / Why / Seen / Confidence / Evidence, a valid
+     confidence value, and fits its domain cap
+  6. no credential-like strings in any memory file
+  7. skill candidates marked draft/testing/active have a real skill folder
+  8. project cards are reachable from INDEX.md and stay under their size budget
 
 Usage
   python scripts/memory_check.py            # full report
@@ -42,11 +43,11 @@ SKILL_ROOTS = [
 REQUIRED_FILES = [
     "README.md",
     "user-profile.md",
-    "lessons.md",
     "corrections.md",
     "skill-candidates.md",
     "agent-registry.md",
     "tool-map.md",
+    "knowledge/README.md",
 ]
 
 # file -> (declared column, required columns)
@@ -56,13 +57,7 @@ TABLES = {
                      "fix_level", "evidence", "status"],
         "evidence_col": "evidence",
         "status_col": "status",
-        "status_allowed": {"open", "closed", "wontfix", "promoted"},
-    },
-    "lessons.md": {
-        "required": ["date", "what_happened", "evidence", "generalizable", "target"],
-        "evidence_col": "evidence",
-        "status_col": None,
-        "status_allowed": set(),
+        "status_allowed": {"open", "drained"},
     },
     "skill-candidates.md": {
         "required": ["candidate", "trigger", "evidence", "target_level", "status"],
@@ -74,11 +69,19 @@ TABLES = {
 
 PROMOTED_STATUS = ("draft", "testing", "active")
 
+# The knowledge base is the durable memory. One entry per rule, capped per domain.
+KNOWLEDGE_DIR = MEM / "knowledge"
+DOMAIN_CAP = 12
+ENTRY_BUDGET = 1200
+ENTRY_FIELDS = ("rule", "why", "seen", "confidence", "evidence")
+ENTRY_OPTIONAL = ("break it, and",)
+CONFIDENCE = {"low", "medium", "high"}
+INBOX_CAP = 40
+
 # A memory row is read at every session start, so a long row is a recurring cost.
 # Over budget is a warning: shorten the row and move the detail to the card.
 ROW_BUDGET = {
     "corrections.md": 240,
-    "lessons.md": 240,
 }
 
 # A project card is read at the task tier. The budget is a growth guard, not a
@@ -216,6 +219,76 @@ def check_row_length(warnings):
                                  "shorten the row and move detail to the card"))
 
 
+def parse_entries(path):
+    """Split a knowledge file into (title, body) entries at '## ' headings."""
+    entries, title, body, fence = [], None, [], False
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return []
+    for line in lines:
+        if line.lstrip().startswith("```"):
+            fence = not fence
+        if not fence and line.startswith("## "):
+            if title is not None:
+                entries.append((title, "\n".join(body)))
+            title, body = line[3:].strip(), []
+        elif title is not None:
+            body.append(line)
+    if title is not None:
+        entries.append((title, "\n".join(body)))
+    return entries
+
+
+def check_knowledge(findings, warnings):
+    if not KNOWLEDGE_DIR.is_dir():
+        findings.append((ISSUE, "knowledge/", "the knowledge base directory is missing"))
+        return
+    domains = [p for p in sorted(KNOWLEDGE_DIR.glob("*.md")) if p.name != "README.md"]
+    if not domains:
+        findings.append((ISSUE, "knowledge/", "no domain file besides README.md"))
+        return
+
+    for path in domains:
+        entries = parse_entries(path)
+        if len(entries) > DOMAIN_CAP:
+            warnings.append((WARN, path.name,
+                             f"{len(entries)} entries (cap {DOMAIN_CAP}); merge the "
+                             "lowest Seen/confidence pair into a neighbour"))
+        for title, body in entries:
+            low = body.lower()
+            missing = [f for f in ENTRY_FIELDS if f"**{f}:**" not in low]
+            if missing:
+                findings.append((ISSUE, path.name,
+                                 f"entry '{title[:40]}' missing {', '.join(missing)}"))
+                continue
+            match = re.search(r"\*\*confidence:\*\*\s*([a-z]+)", low)
+            if match and match.group(1) not in CONFIDENCE:
+                findings.append((ISSUE, path.name,
+                                 f"entry '{title[:40]}' has confidence "
+                                 f"'{match.group(1)}', expected one of "
+                                 f"{sorted(CONFIDENCE)}"))
+            if not any(f"**{f}:**" in low for f in ENTRY_OPTIONAL):
+                warnings.append((WARN, path.name,
+                                 f"entry '{title[:40]}' has no 'Break it, and' line — "
+                                 "the next agent cannot recognise the symptom"))
+            if len(body) > ENTRY_BUDGET:
+                warnings.append((WARN, path.name,
+                                 f"entry '{title[:40]}' is {len(body)} chars "
+                                 f"(budget {ENTRY_BUDGET}); sharpen the rule"))
+
+
+def check_inbox(warnings):
+    path = MEM / "corrections.md"
+    if not path.is_file():
+        return
+    headers, rows = parse_table(path)
+    if len(rows) > INBOX_CAP:
+        warnings.append((WARN, "corrections.md",
+                         f"{len(rows)} rows in the inbox (cap {INBOX_CAP}); drain it "
+                         "to knowledge/ and archive the rest"))
+
+
 def check_cards(warnings):
     root = MEM / "projects"
     if not root.is_dir():
@@ -309,6 +382,8 @@ def main() -> int:
     check_files(findings)
     check_tables(findings, warnings)
     check_row_length(warnings)
+    check_knowledge(findings, warnings)
+    check_inbox(warnings)
     check_cards(warnings)
     check_credentials(findings, warnings)
     check_skill_candidates(warnings)

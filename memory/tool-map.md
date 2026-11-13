@@ -14,7 +14,7 @@
 4. **Least privilege + least token.** If two tools can answer, pick the one with
    lower privilege and smaller output.
 5. **Record the choice.** If the choice was non-obvious, add a row here and a line
-   in `lessons.md`.
+   in `knowledge/tooling.md`.
 
 ## Digest (printed by `scripts/session_context.py`)
 

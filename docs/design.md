@@ -11,12 +11,12 @@ process.
 
 | Layer | File | What it stores |
 |---|---|---|
-| Facts | `memory/projects/<name>.md` | environment, business rules, code map |
+| Facts | `memory/projects/<PROJECT>/<program>.md` | environment, business rules, code map |
 | Decisions | project card / `DECISIONS.md` | why a choice was made |
-| Corrections | `memory/corrections.md` | what the AI got wrong and the fix level |
+| Inbox | `memory/corrections.md` | incidents not yet consolidated (≤7 days) |
+| **Knowledge** | `memory/knowledge/<domain>.md` | **the rule, its mechanism and its symptom** |
 | Patterns | `memory/skill-candidates.md` | repeated work that may become a skill |
 | Preferences | `memory/user-profile.md` | language, style, risk rules |
-| Anti-patterns | `memory/lessons.md`, `AGENTS.md` | what not to do |
 | Tool behavior | `memory/tool-map.md` | authoritative tool per task |
 | Outcomes | evidence logs / comparison | what worked, what did not |
 
@@ -28,16 +28,17 @@ tier; everything else is read only when that tier calls for it.
 
 | Tier | When | Read | Cost |
 |---|---|---|---|
-| `light` | a question, an analysis, a review | the digest | ~0.5k tokens |
-| `task` | code, file, or SAP work | + the project card | ~2k |
+| `light` | a question, an analysis, a review | the digest | ~0.6k tokens |
+| `task` | code, file, or SAP work | + the project card + that project's knowledge domains | ~2.5k |
 | `deep` | new project, incident, design | + every memory file | ~10k |
 
-Two rules keep the cost flat as the memory grows: one fact lives in exactly one
-file, and a correction is *promoted* (its status changes) rather than copied into
-`lessons.md`. Closed and promoted rows move to `memory/_archive/` after 30 days.
+Three rules keep the cost flat as the memory grows: one fact lives in exactly one
+file; an incident is **consolidated** into an existing entry (or dropped) instead of
+appended; and a project declares its domains, so a task loads only the knowledge it
+touches. The inbox is archived monthly. See `docs/memory-model.md`.
 
-The digest still surfaces the **open** corrections on every session, so the ledger
-keeps doing its job without the full file being read.
+The digest still surfaces the **open inbox rows** on every session, so a correction
+is not repeated while it waits for consolidation.
 
 ## Prompt budget (measured)
 
@@ -49,9 +50,10 @@ on 2026-11-13:
 | Skill catalog (descriptions) | 41.7k chars / 78 entries | 20k | `registry_check.py` |
 | Tool descriptions | 16.1k chars / 111 tools | 28k | `registry_check.py` |
 | `AGENTS.md` chain | ~6.2k chars (6 files, 5 loaded) | — | one canonical copy per rule |
-| Session digest | 2.6k chars (2.6k brief, 0.8k `--tiny`) | 3k | `session_context.py` |
+| Session digest | 2.4k chars (2.4k brief, 0.8k `--tiny`) | 3k | `session_context.py` |
 | Project card | 8.1k chars (ZDEMO01) | 9k | `memory_check.py` |
-| `corrections.md` / `lessons.md` row | ≤209 chars | 240 | `memory_check.py` |
+| Inbox row | ≤240 chars | 240 | `memory_check.py` |
+| Knowledge entry | ≤1.2k chars, ≤12 per domain | per domain | `memory_check.py` |
 
 Measured before/after the 2026-11-14 tool diet: 211 tools / 31.5k chars → **111 /
 16.1k**, by moving `sap-gui` (59), `playwright` (25) and `sap-docs` (9) to on-demand

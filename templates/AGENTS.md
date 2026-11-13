@@ -19,11 +19,12 @@ corrections, and the curated tool rules. Then pick a tier:
 | `task` | any code, file, or SAP work | digest + the project card |
 | `deep` | new project, incident, design | digest + every memory file |
 
-Capture a correction in `corrections.md` the moment it happens (status `open`).
-At task close-out, promote durable lessons to `lessons.md`, set the source row to
-`promoted`, and update the project card. Do not edit vendor agents or skills; only
-`*-by-pongg` files and newly created personal skills may be edited, and only after
-approval.
+Capture a correction in `corrections.md` the moment it happens (status `open`, ≤240
+chars). At task close-out, consolidate each row into `knowledge/<domain>.md` — merge
+into the existing rule (`Seen +1`), add a new entry, promote to `AGENTS.md`/a skill,
+or drop it — and set the row `drained`. The knowledge base grows by editing entries,
+never by appending a log. Do not edit vendor agents or skills; only `*-by-pongg`
+files and newly created personal skills may be edited, and only after approval.
 ```
 
 ## Checks at session start

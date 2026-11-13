@@ -50,13 +50,14 @@ DIGEST_END = "<!-- digest:end -->"
 
 FILES_ON_DEMAND = [
     ("user-profile.md", "how Pongg communicates and decides"),
-    ("lessons.md", "durable lessons (already promoted)"),
-    ("corrections.md", "every correction and its fix level"),
+    ("corrections.md", "inbox: incidents not yet consolidated"),
     ("tool-map.md", "authoritative tool per task"),
-    ("skill-candidates.md", "repeated patterns not yet a skill"),
     ("team-roster.md", "who to delegate to, and when not to"),
+    ("skill-candidates.md", "repeated patterns not yet a skill"),
     ("agent-registry.md", "which agent/skill is editable"),
 ]
+
+KNOWLEDGE_DIR = MEM / "knowledge"
 
 
 def out(text=""):
@@ -255,6 +256,24 @@ def open_corrections(limit):
     return items[:limit] if limit else items
 
 
+def knowledge_files():
+    if not KNOWLEDGE_DIR.is_dir():
+        return []
+    return [p for p in sorted(KNOWLEDGE_DIR.glob("*.md")) if p.name != "README.md"]
+
+
+def knowledge_line():
+    found = knowledge_files()
+    if not found:
+        return ""
+    parts, total = [], 0
+    for path in found:
+        count = len(re.findall(r"^## ", read(path), re.M))
+        total += count
+        parts.append(f"{path.stem} {count}")
+    return f"{' \u00b7 '.join(parts)} ({total} entries)"
+
+
 def digest_block(path):
     """Read a curated bullet list between the digest markers."""
     text = read(path)
@@ -334,7 +353,10 @@ def main():
             for scope, line in detail[:2]:
                 out(f"  ! {scope}: {line}")
         if total_open:
-            out(f"OPEN     {total_open} correction(s) in {rel(CORRECTIONS)}")
+            out(f"INBOX    {total_open} open row(s) in {rel(CORRECTIONS)}")
+        line = knowledge_line()
+        if line:
+            out(f"KNOW     {line}")
         out("FULL     python scripts/session_context.py   (task tier)")
         return 0
 
@@ -358,12 +380,17 @@ def main():
     if total_open:
         shown = len(items)
         extra = total_open - shown
-        out(f"OPEN CORRECTIONS {total_open}" + (f" (showing {shown})" if extra > 0 else ""))
+        out(f"INBOX {total_open} open" + (f" (showing {shown})" if extra > 0 else ""))
         for behavior, level in items:
             tag = f"[{level}] " if level else ""
             out(f"  - {tag}{flat(behavior, CORRECTION_CUT)}")
         if extra > 0:
             out(f"  ... {extra} more in {rel(CORRECTIONS)}")
+        out()
+
+    line = knowledge_line()
+    if line:
+        out(f"KNOWLEDGE  {line}")
         out()
 
     rules = digest_block(TOOL_MAP)
@@ -382,9 +409,13 @@ def main():
                 continue
             text = read(path)
             out(f"  {rel(path):34} {len(text) / 1000:5.1f}k  {rows_in(text):3d} rows  {why}")
+        for path in knowledge_files():
+            text = read(path)
+            out(f"  {rel(path):40} {len(text) / 1000:5.1f}k  "
+                f"{len(re.findall(r'^## ', text, re.M)):2d} entries  domain")
         for extra_card in all_cards():
             text = read(extra_card)
-            out(f"  {rel(extra_card):34} {len(text) / 1000:5.1f}k  card")
+            out(f"  {rel(extra_card):40} {len(text) / 1000:5.1f}k  card")
         out()
 
         reg_raw, mem_raw = raw

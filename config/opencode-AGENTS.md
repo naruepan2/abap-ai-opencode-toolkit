@@ -48,24 +48,23 @@ corrections, and the curated tool rules. Then pick a tier:
 | `deep` | new project, incident, design | digest + every memory file |
 
 The full files live in `~/.config/opencode/memory/` (a junction to the workspace
-`memory/`): `user-profile.md`, `lessons.md`, `corrections.md`, `tool-map.md`,
-`team-roster.md`, `skill-candidates.md`, `agent-registry.md`. Open one only when the
-tier calls for it; the digest already shows the open corrections, so a known
-correction is not repeated.
+`memory/`): `user-profile.md`, `corrections.md` (the inbox), `tool-map.md`,
+`team-roster.md`, `skill-candidates.md`, `agent-registry.md`, and the durable
+`knowledge/<domain>.md`. Open one only when the tier calls for it; the digest already
+shows the open inbox rows, so a known correction is not repeated.
 
 **Capture at the moment of correction.** When the user corrects a mistake, add the
 row to `corrections.md` immediately — do not wait for task close-out, because a
 session can end mid-task. One line per column: what the AI did, the correct
 behavior, the root cause, the fix level (`architecture` → `type/check` → `lint/CI`
 → `test` → `memory/AGENTS` → `skill`), evidence, status `open`. **One row of at most
-240 characters** — the detail belongs in the project card, and a fact that already
-lives in a lesson, a tool-map row, or an `AGENTS.md` line is a pointer, not a copy.
+240 characters** — the detail belongs in the project card.
 
-At task close-out, promote anything durable from `corrections.md` into `lessons.md`
-and set the source row to `promoted` (do not copy the same text into both), then
-update the active project's resume card. One edit per file, batched. If a rule needs
-to bind the next session, put it in the `AGENTS.md` of the level where the mistake
-happened; use a skill only for a multi-step procedure that repeats.
+At task close-out, **consolidate** each open row into exactly one outcome: merge it
+into `memory/knowledge/<domain>.md` and raise `Seen`, add a new entry, promote it to
+an `AGENTS.md` line or a skill, or drop it as a one-off. Set the row `drained` and
+update the project resume card. The knowledge base grows by *editing* entries, never
+by appending a log. One edit per file, batched.
 
 Do not edit vendor agents/skills; only `*-by-pongg` files and newly created personal
 skills may be edited, and only after approval.

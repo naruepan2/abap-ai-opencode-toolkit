@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.5 — 2026-11-14
+
+**Memory became a knowledge base instead of a work log.** Design: `docs/memory-model.md`.
+
+- `memory/knowledge/` — 24 entries across 5 domains (`working-method`, `tooling`,
+  `sap-gui`, `sap-abap`, `sap-data`). One entry per rule with Rule / Why / Break it /
+  Seen / Confidence / Evidence, edited in place. Growth is a merge, not an append.
+- `corrections.md` is now the **inbox**: ≤240 chars per incident, status
+  `open` → `drained`, archived monthly. It is a buffer, not a ledger.
+- `lessons.md` is retired; a knowledge entry *is* the lesson. Both old tables are
+  kept at `memory/_archive/v0-ledger/` (the 4 rows still marked `open` were
+  implemented in ZDEMO01 v11/v12 and are recorded in the card).
+- The close-out is a **consolidation gate** with four outcomes (merge / add /
+  promote / drop), written into `AGENTS.md`, `config/opencode-AGENTS.md`,
+  `memory/README.md` and `templates/AGENTS.md`.
+- `memory_check.py` validates the entry schema (fields, confidence values), the
+  per-domain cap (12), the entry size (1.2k), the inbox cap (40) and the row/scheme
+  budgets. The knowledge check is negative-tested: a missing field fails with exit 1.
+- `session_context.py` prints the inbox count and the knowledge inventory per domain
+  instead of the corrections list (~2.4k chars brief, 0.8k `--tiny`).
+- Project cards and `tool-map.md` now point at knowledge entries instead of
+  `lessons.md`.
+
 ## v0.4.2 — 2026-11-14
 
 **Tool diet: 211 → 111 tools, 73.3k → 57.9k chars per session.**
