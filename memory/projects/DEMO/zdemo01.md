@@ -5,7 +5,7 @@
 
 ## Resume card
 
-- **Status:** v12 is **deployed and active** in client 100 (syntax check 0
+- **Status:** v12 is **Deployed and active** in client 100 (syntax check 0
   findings). The runtime test in client 900 is pending; do not claim it passed
   until LIPS and ZMMT014 are read back.
 - **Deploy is pre-approved end-to-end** (user, 2026-11-14): write both includes
@@ -148,17 +148,19 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 279,549 bytes,
-  md5 `1e2b6437c3888368c68f97742525c124` (builder `build_v11.py`, 31 exact-match
-  edits); `patched_VIEW.abap`, 56,968 bytes,
-  md5 `86a9307dfa7979c0b2bd530f51e3bcfc` (builder `build_view.py`, fetches the live
-  VIEW so the `i_soft_refresh` argument is kept).
-- Deployed: `write-source include ZDEMO01_VIEW` (55,537 bytes) and
-  `ZDEMO01_MODL` (272,384 bytes) into task `DS4K904936` of request `DS4K904935`;
-  `syntax-check program ZDEMO01` -> 0 findings; `activate program ZDEMO01` ->
-  success; both includes re-read identical to local (MODL 7,166 lines
-  `c3f3a8b9940d30e6ffcd110c9d3c46bb`, VIEW 1,431 lines
-  `4d3228443dd6db8484825161f409c494`).
+- Built source: `patched_MODL_v11.abap`, 280,307 bytes,
+  md5 `a6bd1419093a156d7881de176e1be36f` (builder `build_v11.py`, 34 exact-match
+  edits); `patched_VIEW.abap`, 57,479 bytes,
+  md5 `2bda9c14f44361a07885e66e0a68d4bc` (builder `build_view.py`).
+- Deployed AND ACTIVE (verified via `?version=active`): MODL 7,182 lines
+  `ecfecf1aaeee38e2962e459df4a044fe`, VIEW 1,441 lines
+  `11dbc0c2f55ee62166243bb08f7a7328`; `syntax-check` 0 findings.
+- Runtime check (client 900, SO `1011099686`/10): `OPEN_SO_QTY` sits between
+  `MENGE_TF` and `MENGE_PD` and shows `30.000`; editable row has Sales Doc/Item
+  `1011099686`/`10`; DO `1041100095` lines show remark `PONG1 Remark`.
+- Activation trap: `activate program` alone left the includes inactive;
+  `activate include ZDEMO01_MODL` and `ZDEMO01_VIEW` are required. `get-include`
+  returns the inactive source, so verification must use `?version=active`.
 - `memory_check.py` reports 0 issues, 0 warnings.
 
 ## Files

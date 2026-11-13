@@ -27,3 +27,4 @@
 | 2026-11-13 | Built editable rows from `ls_so_zmmt010-mmt010` only | Set `VBELN_VA`/`POSNR_VA` explicitly; the substructure carries no SO key | copied only the GR structure | code + test | ALV editable row had blank Sales Doc | open |
 | 2026-11-14 | Left REMARK blank on LIPS-derived DO rows | Fall back to ZMMT010 by batch when no ZMMT014 row | row had no DEMO source | code | 1041100095 blank vs ZMMT010 `PONG1 Remark` | open |
 | 2026-11-14 | Asked for approval after a clean syntax check | Activate immediately when 0 findings; stop only on a finding | deploy treated as two approvals | memory/AGENTS | user instruction | open |
+| 2026-11-14 | Trusted `get-include` + `activate program` alone | Compare `?version=active`; activate each include, then the program | CLI returns the inactive source | memory/AGENTS | report ran old code until includes were active | open |
