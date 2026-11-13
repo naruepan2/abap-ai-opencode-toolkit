@@ -25,7 +25,7 @@ and only after approval.
 If the workspace repository exists, run the read-only scanner once per session:
 
 ```powershell
-cd $env:USERPROFILE\abap-agent-workspace-opencode
+cd "<portfolio>\SAP Projects\abap-agent-workspace-opencode"
 python scripts\registry_check.py --check --brief
 ```
 

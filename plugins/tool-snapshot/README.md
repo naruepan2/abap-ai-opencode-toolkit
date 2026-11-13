@@ -23,9 +23,9 @@ Add the plugin directory to the global `opencode.json`:
 {
   "plugins": [
     {
-      "package": "C:/Users/narue/abap-agent-workspace-opencode/plugins/tool-snapshot",
+      "package": "D:/Opencode Projects/SAP Projects/abap-agent-workspace-opencode/plugins/tool-snapshot",
       "options": {
-        "workspace": "C:/Users/narue/abap-agent-workspace-opencode"
+        "workspace": "D:/Opencode Projects/SAP Projects/abap-agent-workspace-opencode"
       }
     }
   ]
