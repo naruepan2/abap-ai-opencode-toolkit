@@ -90,6 +90,8 @@ child defines its own (siblings: `4-WAYS`, `ASRS`, `SALESFORCE`, `SLPROTOCOL`, `
 
 - `sap-gui` transaction policy: preset `default` blocks SICF; allow it with
   `%APPDATA%\mcp-sap-gui\policy.json` = `{"allow": ["SICF"]}` and **restart the
-  opencode service**.
+  opencode service**. **The file was deleted on 2026-11-13** at the user's request,
+  so SICF is blocked again from the next MCP start — re-create it only for SICF work
+  and delete it afterwards.
 - ADT MCP `ds4-100` was unavailable for most of this session; `SE16` + `SMICM` were
   the working read paths.
