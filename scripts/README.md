@@ -25,11 +25,13 @@ is a report signal, not a crash.
 
 ## Tool snapshot
 
-`registries/tools-snapshot.json` is a compact namespace count from the live
-OpenCode catalog (total tools + tools per namespace). It is captured outside this
-script because MCP tool enumeration needs the live agent session.
+`registries/tools-snapshot.json` and `registries/tools-full.json` are written by
+the OpenCode plugin at `plugins/tool-snapshot`. The plugin calls `ctx.tool.list()`
+in the OpenCode server, so it sees MCP and built-in tools without a manual step.
 
-Update it when the MCP configuration changes, then run `--check` again.
+The scanner compares the full tool IDs with the baseline in `registries/tools.json`
+and reports new or missing tools. Run `--refresh` only when you want to accept the
+new list into the baseline.
 
 ## Safety
 

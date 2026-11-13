@@ -1,21 +1,21 @@
 # Registry report
 
-Generated: 2026-11-13T10:20:29+00:00
+Generated: 2026-11-13T10:37:31+00:00
 
 ## Summary
 
 | Area | Count | Issues | Warnings |
 |---|---|---|---|
-| Skills | 173 | 0 | 4 |
-| Agents | 18 | 0 | 0 |
+| Skills | 179 | 0 | 4 |
+| Agents | 23 | 0 | 0 |
 | MCP servers | 14 | 0 | 0 |
-| Tools | 181 | 0 | 0 |
+| Tools | 193 | 0 | 0 |
 
 ## Skills by harness
 
 - agents: 47
 - claude: 30
-- copilot: 18
+- copilot: 24
 - opencode: 78
 
 ## New skills
@@ -81,6 +81,14 @@ _None._
 _None._
 
 ## Tool snapshot changes
+
+_None._
+
+## New tools
+
+_None._
+
+## Missing tools
 
 _None._
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T10:19:32+00:00",
+  "generated_at": "2026-11-13T10:35:35+00:00",
   "agents": [
     {
       "id": "abap-developer",
@@ -109,7 +109,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "c711f1e578f3266d556e309a7b224e07b0829ed5d29e35b1e3dabe4bfdc2747a",
+      "hash": "2790765361ca64dca1d452525a9a8cf8c7e3e8950b46851df61fc76604faf820",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -186,6 +186,62 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "sap-btp-infrastructure-admin",
+      "name": "SAP BTP Infrastructure Admin",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\sap-btp-infrastructure-admin.agent.md",
+      "owner": "vendor",
+      "editable": false,
+      "mode": "",
+      "skills": [],
+      "description": "Audit and operate SAP BTP core platform setup with the sap-ai-btp MCP server: account hierarchy, entitlements and quotas, Service Manager instances and service keys, destinations, trust, Cloud Connectors and principal propagation checks.",
+      "hash": "2c401038adab21564a67dd425823f57fb360c4972e5c9acea7887d29fac0057d",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-bw-datasphere-migration-specialist",
+      "name": "SAP BW Datasphere Migration Specialist",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\sap-bw-datasphere-migration-specialist.agent.md",
+      "owner": "vendor",
+      "editable": false,
+      "mode": "",
+      "skills": [],
+      "description": "Migrate SAP BW models and data products to SAP Datasphere end to end: BW inventory through the ABAP destination server, Data Product Generator or rebuild path, Datasphere object creation and deployment, loads, and BW-versus-Datasphere reconciliation.",
+      "hash": "1a328be468bec7bbfc274d9b08c55d9d6bf4835261fd9c8ac4f8cdf55729899c",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-datasphere-developer",
+      "name": "SAP Datasphere Developer",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\sap-datasphere-developer.agent.md",
+      "owner": "vendor",
+      "editable": false,
+      "mode": "",
+      "skills": [],
+      "description": "Build and operate SAP Datasphere content and administration end to end with the sap-ai-datasphere MCP server: modeling objects, packages, loads, data products, consumption and SQL checks, spaces, users, roles and connections.",
+      "hash": "c542fea796059c922433854bd61064fe2f85586bf833559356bcdd4803d08e76",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-devops-observability-specialist",
+      "name": "SAP DevOps & Observability Specialist",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\sap-devops-observability-specialist.agent.md",
+      "owner": "vendor",
+      "editable": false,
+      "mode": "",
+      "skills": [],
+      "description": "Monitor, triage and track deployments across SAP landscapes with the sap-ai-cloud-alm MCP server: Integration & Exception Monitoring, health and alert hotspots per DEV/TEST/PROD tier, incident triage correlated with live CPI message processing logs and ABAP SLG1 application logs, feature and transpo",
+      "hash": "95ea72d874971eb5d2fdf754d89816b17ca15f06ed1904a3d8f9a55b7bae6290",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
       "id": "sap-integration-architect",
       "name": "SAP Integration Architect",
       "harness": "copilot",
@@ -210,6 +266,20 @@
       "skills": [],
       "description": "Execute the approved SAP Integration Suite lifecycle — reuse, configure, save and validate releases, snapshot, deploy or verify native promotion, monitor, diagnose, and separately recover or retire consumers.",
       "hash": "05292cf5afd5a1bf7a14ce78ee195fd9a2565a1cd587db64326c02e4a869c5b2",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-process-automation-developer",
+      "name": "SAP Process Automation Developer",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\sap-process-automation-developer.agent.md",
+      "owner": "vendor",
+      "editable": false,
+      "mode": "",
+      "skills": [],
+      "description": "Inspect, test and operate SAP Build Process Automation end to end with the sap-ai-process-automation MCP server: process definitions, workflow instances and contexts, stuck and failed instances, user-task queues and the user inbox, decisions, API triggers, automations, process visibility, administra",
+      "hash": "848bd5b14afd0275de1ea2426b8e24334f23220e9590b68344278d8bfa168de7",
       "status": "active",
       "last_validated": "2026-11-13"
     },

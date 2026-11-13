@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T10:19:32+00:00",
+  "generated_at": "2026-11-13T10:35:35+00:00",
   "skills": [
     {
       "id": "abap-debugging",
@@ -1432,6 +1432,28 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "btp-platform-administration",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\btp-platform-administration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "3b4dcf03710b85347455536ab2505727b7232994766042cd767585c1d7ef5a6c",
+      "desc_chars": 286,
+      "description": "Audit and operate SAP BTP core platform administration with the sap-ai-btp MCP server: global account hierarchy, entitlements and quotas, Service Manager service instances and service keys, destinations, identity and destination trust, Cloud Connectors and principal propagation checks.",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "bw-datasphere-migration",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\bw-datasphere-migration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "d915778226d598387f1e8741946ad8662a66bf8ef04aef9ec2e0bac8becfd72b",
+      "desc_chars": 228,
+      "description": "Plan and run SAP BW to SAP Datasphere migrations: inventory BW models through the ABAP destination server, choose the Data Product Generator or rebuild path, map objects, baseline BW figures, and reconcile results in Datasphere.",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
       "id": "cds-development",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\cds-development\\SKILL.md",
@@ -1450,6 +1472,39 @@
       "hash": "2962098a54a10bc1a1f770fea9180ddfa693a50befb7004d1bf93aa02652268e",
       "desc_chars": 164,
       "description": "Design SAP extensions using Clean Core principles, released extension points, side-by-side patterns, and explicit risk classification for non-standard alternatives.",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "cloud-alm-operations",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\cloud-alm-operations\\SKILL.md",
+      "owner": "vendor",
+      "hash": "849ecc9f44c57c7a3051ad1aa7f1815fa0607bbfd13788ca03c00e3e33e460e6",
+      "desc_chars": 355,
+      "description": "Monitor, triage and track SAP landscapes with the sap-ai-cloud-alm MCP server: Integration & Exception Monitoring records and analytics, health and alert hotspots per DEV/TEST/PROD tier, incident triage correlated with CPI message processing logs and ABAP SLG1 logs, feature and transport deployment ",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "datasphere-administration",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\datasphere-administration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "2daf085a540d746bd8e883cfe34a03911c1d53be7fd7943c91ad2fd4bbee6e4b",
+      "desc_chars": 220,
+      "description": "Administer SAP Datasphere through the sap-ai-datasphere MCP server: spaces and space users, database users, workload priorities, global and scoped roles, users, connections, TLS certificates, and task-scheduling consent.",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "datasphere-development",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\datasphere-development\\SKILL.md",
+      "owner": "vendor",
+      "hash": "6c2d5d719edad0b8030e741329d876e47d71592444741fd5c058d43306283f8d",
+      "desc_chars": 210,
+      "description": "Model, deploy, load and verify SAP Datasphere content with the sap-ai-datasphere MCP server: CSN objects of every type, packages, task chains, replication flows, data products, consumption queries and Open SQL.",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -1502,9 +1557,20 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\mcp-surface-audit\\SKILL.md",
       "owner": "vendor",
-      "hash": "c4f648e2cdbc438ab4f36a9b13659b559e3d5558071cfbbc500577c49344eac0",
+      "hash": "523895df37a1a19faaa7701927a205ea7978ccf73af9cb87a90a666b0aad9e63",
       "desc_chars": 446,
       "description": "Rebuild the real SAP/ABAP MCP tool surface from live config and extension manifests, then fix routing drift. Use when a new MCP server or ABAP extension is installed, when the agent picks the wrong server for a task, when a tool name referenced by an agent or skill no longer resolves, or when asked ",
+      "status": "active",
+      "last_validated": "2026-11-13"
+    },
+    {
+      "id": "process-automation-development",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\process-automation-development\\SKILL.md",
+      "owner": "vendor",
+      "hash": "3d1fbf2dfd7768bd2b72b6421ea527ed6d5e5f95858afb2b90d0a2b634dd5277",
+      "desc_chars": 334,
+      "description": "Inspect, test and operate SAP Build Process Automation with the sap-ai-process-automation MCP server: process definitions, workflow instances, contexts, logs and errors, stuck instances, user tasks and the user inbox, decisions, API triggers, automations, process visibility, administration jobs, pro",
       "status": "active",
       "last_validated": "2026-11-13"
     },

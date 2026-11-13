@@ -13,7 +13,8 @@ This repository is the backup and the operating manual for a small AI teammate:
 It is harness-aware but not harness-locked: this repository is the **OpenCode**
 side. Copilot keeps its own separate setup, so the two can be compared.
 
-**Status:** v0.2 — memory, registries, and the registry scanner.
+**Status:** v0.3 — memory, registries, the registry scanner, and the live tool
+snapshot plugin.
 Last scan: 2026-11-13 · **issues: 0 · warnings: 4**.
 
 ## Team model
@@ -140,8 +141,11 @@ registries/
   agents.json             # agent inventory
   skills.json             # skill inventory
   mcp-servers.json        # configured MCP servers
-  tools.json              # tool-catalog baseline
+  tools.json              # tool-catalog baseline (ids + namespaces)
   tools-snapshot.json     # latest captured snapshot
+  tools-full.json         # latest full tool list (id, name, namespace)
+plugins/
+  tool-snapshot/          # OpenCode server plugin; writes the tool snapshot
 scripts/
   README.md
   registry_check.py       # read-only scanner
@@ -157,10 +161,14 @@ docs/
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 173 entries | opencode 78, agents 47, copilot 18, claude 30; cross-harness duplicates are expected |
-| Agents | 18 | 4 editable (`*-by-pongg`), 14 vendor |
+| Skills | 179 entries | opencode 78, agents 47, copilot 24, claude 30; cross-harness duplicates are expected |
+| Agents | 23 | 4 editable (`*-by-pongg`), 19 vendor |
 | MCP servers | 14 | 11 enabled, 3 disabled |
-| Tools | 181 | 8 namespaces |
+| Tools | 193 | 8 namespaces; written by the plugin |
+
+The `sap-ai-dev-toolkit` 0.9.9924 update added 6 Copilot skills and 5 Copilot
+agents (BTP, BW/DataSphere, Cloud ALM, DataSphere, process automation, DevOps
+observability). They are vendor-owned and live in the Copilot registry only.
 
 **Known warnings (not actionable):** 4 vendor skill descriptions exceed 1,000
 characters — `abap-cloud-migration`, `badi-enhancement`,
@@ -193,6 +201,11 @@ Exit code `0` means no actionable issues; `1` means the report has issues. Warni
 
 The report is written to `memory/reports/registry-report.md`.
 
+The tool snapshot is written automatically by `plugins/tool-snapshot` when
+OpenCode loads and when the tool catalog changes. There is no manual snapshot
+step; commit the updated `registries/tools-snapshot.json` and
+`registries/tools-full.json` when they change.
+
 ## Compare Copilot vs OpenCode
 
 The two harnesses stay separate: no shared memory, no shared registries. Run the
@@ -211,7 +224,8 @@ same task on both and record the scorecard in `docs/comparison.md`:
 - [x] `scripts/registry_check.py` — skills / MCP / tools drift report
 - [x] `registries/*.json` — machine-readable snapshot
 - [x] Session-start registry brief (global `AGENTS.md`)
-- [ ] Tool snapshot automation (OpenCode session hook)
+- [x] Tool snapshot automation (OpenCode plugin `ctx.tool.list()`)
+- [x] Tool-level drift (new/missing tool IDs)
 - [ ] Skill and MCP onboarding gates
 - [ ] Compare OpenCode vs Copilot on the same task
 

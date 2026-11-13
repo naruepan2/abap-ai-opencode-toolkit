@@ -261,15 +261,24 @@ def scan_tools_snapshot():
     }
 
 
-def merge_baseline(items, key_fields, old_items, status_default="active"):
+def scan_tools_full():
+    path = REG / "tools-full.json"
+    data = load_json(path, None)
+    if not data:
+        return None
+    ids = sorted({str(t.get("id")) for t in data.get("tools", []) if t.get("id")})
+    return {"ids": ids, "generated_at": data.get("generated_at", "")}
+
+
+def merge_baseline(items, key_fields, old_items, new_status="active"):
     old = {tuple(str(x.get(k, "")) for k in key_fields): x for x in old_items}
     out = []
     for item in items:
         key = tuple(str(item.get(k, "")) for k in key_fields)
         prev = old.get(key, {})
         row = dict(item)
-        row["status"] = prev.get("status", status_default)
-        row["last_validated"] = prev.get("last_validated", TODAY.isoformat() if status_default == "active" else None)
+        row["status"] = prev.get("status", new_status)
+        row["last_validated"] = prev.get("last_validated", TODAY.isoformat() if new_status == "active" else None)
         out.append(row)
     return out
 
@@ -282,15 +291,18 @@ def cmd_init(refresh=False):
     agents = scan_agents()
     mcp = scan_mcp()
 
-    skills = merge_baseline(skills, ("harness", "id", "path"), skills_old, "active")
-    agents = merge_baseline(agents, ("harness", "id", "path"), agents_old, "active")
+    new_status = "new" if refresh else "active"
+    skills = merge_baseline(skills, ("harness", "id", "path"), skills_old, new_status)
+    agents = merge_baseline(agents, ("harness", "id", "path"), agents_old, new_status)
 
     snap = scan_tools_snapshot()
+    full = scan_tools_full()
     tools = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "source": "live tools.search snapshot",
+        "source": "live tool catalog snapshot",
         "total": snap["total"] if snap else 0,
         "namespaces": snap["namespaces"] if snap else {},
+        "tool_ids": full["ids"] if full else [],
     }
 
     write_json(REG / "skills.json", {
@@ -315,6 +327,7 @@ def cmd_check(brief=False):
     agents = scan_agents()
     mcp = scan_mcp()
     snap = scan_tools_snapshot()
+    full = scan_tools_full()
 
     reg_skills = load_json(REG / "skills.json", {}).get("skills", [])
     reg_agents = load_json(REG / "agents.json", {}).get("agents", [])
@@ -338,6 +351,8 @@ def cmd_check(brief=False):
     ]
     stale = []
     for s in reg_skills:
+        if s.get("status") == "new":
+            continue
         lv = s.get("last_validated")
         if not lv:
             stale.append(s)
@@ -363,6 +378,15 @@ def cmd_check(brief=False):
     missing_mcp = [x for x in reg_mcp if (x["harness"], x["server"]) not in current_mcp_keys]
 
     ns = (snap or {}).get("namespaces", {})
+    new_tools = []
+    missing_tools = []
+    if full is not None:
+        base_ids = set(reg_tools.get("tool_ids", []) or [])
+        cur_ids = set(full["ids"])
+        if base_ids:
+            new_tools = sorted(cur_ids - base_ids)
+            missing_tools = sorted(base_ids - cur_ids)
+
     mcp_zero = []
     for s in mcp:
         if s["harness"] != "opencode" or not s.get("enabled"):
@@ -382,6 +406,10 @@ def cmd_check(brief=False):
                     tool_changes.append(f"{name}: {base_ns.get(name, 0)} -> {ns.get(name, 0)}")
         if reg_tools.get("total") and reg_tools.get("total") != snap["total"]:
             tool_changes.append(f"total: {reg_tools.get('total')} -> {snap['total']}")
+        for tool_id in new_tools:
+            tool_changes.append(f"new tool: {tool_id}")
+        for tool_id in missing_tools:
+            tool_changes.append(f"missing tool: {tool_id}")
 
     skill_issues = len(new_skills) + len(missing_skills) + len(dup) + len(stale)
     agent_issues = len(new_agents) + len(agent_missing)
@@ -401,7 +429,7 @@ def cmd_check(brief=False):
         print(f"  new={len(new_skills)} missing={len(missing_skills)} dup={len(dup)} long_desc={len(long_desc)} stale={len(stale)}")
         print(f"agents: {len(agents)} (editable={len(editable)}, vendor={len(agents)-len(editable)}, new={len(new_agents)}, missing_skills={len(agent_missing)})")
         print(f"mcp: {len(mcp)} (enabled={sum(1 for x in mcp if x.get('enabled'))}, disabled={sum(1 for x in mcp if not x.get('enabled'))}, zero_tools={len(mcp_zero)})")
-        print(f"tools: {(snap or {}).get('total', 0)} namespaces={len(ns)} changes={len(tool_changes)}")
+        print(f"tools: {(snap or {}).get('total', 0)} namespaces={len(ns)} changes={len(tool_changes)} new={len(new_tools)} missing={len(missing_tools)}")
         print(f"issues: {issues} warnings: {warnings}")
         if mcp_zero:
             print("  zero tools: " + ", ".join(mcp_zero))
@@ -464,6 +492,8 @@ def cmd_check(brief=False):
     section("Missing MCP servers", missing_mcp, lambda x: f"`{x['server']}` ({x['harness']})")
     section("Enabled MCP servers with zero tools", mcp_zero, lambda x: f"`{x}` — check config/credentials/session")
     section("Tool snapshot changes", tool_changes, lambda x: x)
+    section("New tools", new_tools, lambda x: f"`{x}`")
+    section("Missing tools", missing_tools, lambda x: f"`{x}`")
 
     lines.append("## Notes")
     lines.append("")

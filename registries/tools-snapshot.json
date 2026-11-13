@@ -1,16 +1,15 @@
 {
-  "generated_at": "2026-11-13T10:13:01+00:00",
-  "source": "opencode tools.search",
-  "note": "Baseline namespace counts captured from the live OpenCode tool catalog. Update by re-running the snapshot step.",
-  "total": 181,
+  "generated_at": "2026-11-13T10:34:21.601Z",
+  "source": "opencode plugin ctx.tool.list",
+  "total": 193,
   "namespaces": {
-    "browser": 45,
     "open-computer-use": 9,
-    "opencode": 8,
     "playwright": 25,
     "rosa": 7,
     "sap-docs": 9,
     "sap-gui": 59,
-    "windows-mcp": 19
+    "windows-mcp": 19,
+    "opencode": 20,
+    "browser": 45
   }
 }
