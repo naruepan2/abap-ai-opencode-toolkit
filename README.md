@@ -211,14 +211,15 @@ docs/
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 140 entries | opencode 49, agents 47, claude 30, copilot 14; 29 Basis/DB skills parked, 11 stale Copilot entries dropped |
+| Skills | 122 entries | opencode 31, agents 47, claude 30, copilot 14; 47 vendor skills parked outside the catalog |
 | Agents | 23 | 4 editable (`*-by-pongg`), 19 vendor |
 | MCP servers | 14 | 8 enabled, 6 disabled; SAP, GUI, docs, Playwright are on-demand, `rosa` removed |
 | Tools | 111 | 5 namespaces; measured 211 before the 2026-11-14 diet |
 
-Prompt cost measured 2026-11-14: **41.9k chars per session** (skills 25.8k + tools
-16.1k), down from 73.3k. See `docs/design.md` §"Prompt budget". Parked skills and how
-to restore them: `~\.config\opencode\skills-parked\RESTORE.md`.
+Prompt cost measured 2026-11-14: **36.0k chars per session** (skills 19.8k + tools
+16.1k), down from 73.3k — both catalogs inside budget. See `docs/design.md`
+§"Prompt budget". Parked skills and how to restore them:
+`~\.config\opencode\skills-parked\RESTORE.md`.
 
 The `sap-ai-dev-toolkit` 0.9.9924 update added 6 Copilot skills and 5 Copilot
 agents (BTP, BW/DataSphere, Cloud ALM, DataSphere, process automation, DevOps

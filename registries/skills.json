@@ -1,28 +1,6 @@
 {
-  "generated_at": "2026-11-13T19:30:05+00:00",
+  "generated_at": "2026-11-13T19:37:03+00:00",
   "skills": [
-    {
-      "id": "abap-debugging",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\abap-debugging\\SKILL.md",
-      "owner": "vendor",
-      "hash": "335f3a326db1d032927f96d9b4a63fc3c2958c63341adbb2de59bfb0f1be0564",
-      "desc_chars": 404,
-      "description": "Diagnose ABAP runtime failures using application logs, source/reference inspection, safe data reads, and authorized debugger sessions; runtime call relationships must be derived from source inspection (FindReferences/GetContext) because no call-graph tool is exposed, and dump/trace evidence must com",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "abap-development",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\abap-development\\SKILL.md",
-      "owner": "vendor",
-      "hash": "660ec35c12ab6e9a164889c2abc2dc300f30539d0666021538ea873d5188e79e",
-      "desc_chars": 160,
-      "description": "Implement or change ABAP programs, classes, interfaces, function groups, reports, and existing ABAP behavior. Use for ABAP feature work, fixes, and refactoring.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
     {
       "id": "abap-runtime-analysis",
       "harness": "opencode",
@@ -222,61 +200,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "abap-testing-quality",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\abap-testing-quality\\SKILL.md",
-      "owner": "vendor",
-      "hash": "cc283d540180ead502813e0ed6ccd517e704cdca820b26efd3e9d2ec106160af",
-      "desc_chars": 175,
-      "description": "Design ABAP Unit behavior tests and validate ABAP changes with lint, editor diagnostics, syntax checks, and ATC. Use for test creation, quality reviews, and change validation.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "aicore-sdk-java",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\aicore-sdk-java\\SKILL.md",
-      "owner": "vendor",
-      "hash": "ac651a8baeadf260b6025c639ec04d6a8cb5c14933a8c0c6766eb91b74b47d5b",
-      "desc_chars": 572,
-      "description": "Generate working Java boilerplate for SAP GenAI Hub using the SAP AI SDK for Java (com.sap.ai.sdk). Covers chat completion, streaming, multi-turn conversations, prompt templates, content filtering, data masking, embeddings, RAG/grounding, prompt registry, and Spring Boot streaming. WHEN: user asks f",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "aicore-sdk-js",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\aicore-sdk-js\\SKILL.md",
-      "owner": "vendor",
-      "hash": "a0f6805c722d11fc1d62ba1eabc14f40df8f6e2f35b6c9acf6b11c1e3d3e5a9a",
-      "desc_chars": 928,
-      "description": "Generate working TypeScript/JavaScript boilerplate for SAP GenAI Hub using @sap-ai-sdk/orchestration, @sap-ai-sdk/foundation-models, @sap-ai-sdk/openai (native OpenAI SDK), @sap-ai-sdk/langchain (LangChain), @sap-ai-sdk/document-grounding (RAG), @sap-ai-sdk/prompt-registry, @sap-ai-sdk/llm-batch (ba",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "cds-development",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\cds-development\\SKILL.md",
-      "owner": "vendor",
-      "hash": "120ab21b183a6eee5212b4aba319f52291b8e1dc988d2d8500e43402b36f35b3",
-      "desc_chars": 129,
-      "description": "Implement, change, or analyze ABAP CDS data definitions and their dependencies or consumers. Use for DDLS and CDS modeling tasks.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "clean-core-extensibility",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\clean-core-extensibility\\SKILL.md",
-      "owner": "vendor",
-      "hash": "2962098a54a10bc1a1f770fea9180ddfa693a50befb7004d1bf93aa02652268e",
-      "desc_chars": 164,
-      "description": "Design SAP extensions using Clean Core principles, released extension points, side-by-side patterns, and explicit risk classification for non-standard alternatives.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "hana-cloud-inspection",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\hana-cloud-inspection\\SKILL.md",
@@ -306,61 +229,6 @@
       "hash": "397c8a6593621025b242d8b4baf54e5288b8d7f122151d9d0ae54e9b5282389d",
       "desc_chars": 200,
       "description": "Validate HANA Cloud CAP and HDI changes locally, inspect deployment plans and diffs, and prepare a safe user-run deployment handoff. Use before deploying database artifacts or assessing a HANA change.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "integration-suite-delivery",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\integration-suite-delivery\\SKILL.md",
-      "owner": "vendor",
-      "hash": "27b16e934488254a895b7266a026fa5bcd590225e000b5cefc7585643e633eca",
-      "desc_chars": 244,
-      "description": "Build and operate SAP Integration Suite scenarios — Cloud Integration iFlows, value mappings, script collections, security material, Partner Directory and monitoring, and API Management providers, proxies, policies, products and key value maps.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "memory-management",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\memory-management\\SKILL.md",
-      "owner": "vendor",
-      "hash": "add35c3390e087c044848456fefe6887c3b10c82b1c37df5ace9025681357429",
-      "desc_chars": 435,
-      "description": "Use when starting or ending a work session, making a project or SAP-relevant decision, completing a task, or when the user says \"remember this\", \"save context\", \"what did we decide\", \"update memory\", or asks about past decisions. Maintains one structured memory/ folder per project, anchored to the p",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "open-computer-use",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\open-computer-use\\SKILL.md",
-      "owner": "vendor",
-      "hash": "c0df28270e2ee84eeee139b81a8bbe98d3e74e12b7e0c6f6ed398932faa6ea49",
-      "desc_chars": 308,
-      "description": "Platform-neutral guidance for using Open Computer Use, the open-source Computer Use MCP server and CLI for macOS, Linux, and Windows. Use when an agent needs to install, verify, troubleshoot, configure, or operate Open Computer Use through its native CLI, stdio MCP server, or direct Computer Use too",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "rap-development",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\rap-development\\SKILL.md",
-      "owner": "vendor",
-      "hash": "c14c59c299de458e3d3aedfcfed4080dbdd06b4efcd9f1cf4acfeb9d18b3c058",
-      "desc_chars": 146,
-      "description": "Develop SAP RAP business objects, behavior, projections, and OData services. Use when implementing or changing RAP models and service publication.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "rap-service-delivery",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\rap-service-delivery\\SKILL.md",
-      "owner": "vendor",
-      "hash": "3fdc4a4c8cbb71e35b4437dfe4d82c1c58e5044b5d94568556e036ea0068b3a4",
-      "desc_chars": 199,
-      "description": "Validate and deliver SAP RAP OData services, behavior implementations, service bindings, activation, publication, and runtime checks. Use with RAP service exposure or end-to-end RAP validation tasks.",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -431,39 +299,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-fiori-ios",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-fiori-ios\\SKILL.md",
-      "owner": "vendor",
-      "hash": "0d1d1cbfa9eb1821b907b57b2668a03328b9f8843bea9197a52ec413bdf1f526",
-      "desc_chars": 564,
-      "description": "SAP Fiori for iOS Design Skill — Converts Figma designs from the Fiori iOS UI Kit into SwiftUI prototypes with animations and interactions. Use this skill when a designer provides a Figma node ID or component name and wants working SwiftUI code, when asking which Fiori iOS component to use, when map",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-health-triage",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-health-triage\\SKILL.md",
-      "owner": "vendor",
-      "hash": "bf55d44a89f8ed5ce869cc041654bb143c48393a9025973c4e03bdc9d11da370",
-      "desc_chars": 740,
-      "description": "First-response health check and triage for a NetWeaver / S/4HANA system from the OS shell — is it up, is it healthy, and if not, why. Uses SAPControl read-only diagnostics (GetProcessList, ABAPReadSyslog for SM21, ABAPGetWPTable, dev traces, CCMS alerts), sappfpar, disp+work, dpmon and filesystem ch",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-integration-architect",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-integration-architect\\SKILL.md",
-      "owner": "vendor",
-      "hash": "903065411d6c17113e74e1e13608ec6ff6314494ca7f7c0a52aca84976f86a01",
-      "desc_chars": 275,
-      "description": "Architect SAP Integration Suite solutions — choose API Management, Cloud Integration, or both; design connectivity, per-hop security, error handling, monitoring, naming and versioning; assess the live CPI/APIM tenant; and produce an approved build plan with exact tool calls.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "sap-log-reference",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-log-reference\\SKILL.md",
@@ -486,28 +321,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "sap-sdlc-orchestration",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-sdlc-orchestration\\SKILL.md",
-      "owner": "vendor",
-      "hash": "0f65e6f852722f84efecab45ee769ce37779925df141a9b9428b967b4b3de21d",
-      "desc_chars": 186,
-      "description": "Orchestrate the SAP delivery lifecycle from requirement analysis through design, delegated implementation, validation, transport preparation, release readiness, and operational handover.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-standard-api-analysis",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-standard-api-analysis\\SKILL.md",
-      "owner": "vendor",
-      "hash": "850082701264c4159b5b46a6d7b15680f998032193d7062bf45b929cab73e15a",
-      "desc_chars": 167,
-      "description": "Assess requirements against SAP standard capabilities, released APIs, standard CDS/RAP/OData interfaces, and existing implementation options before custom development.",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
       "id": "sap-support-case",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-support-case\\SKILL.md",
@@ -515,17 +328,6 @@
       "hash": "870089d4d2ee7f7547972ee57951d45f5c126b53ec61d973777072ed21eb576e",
       "desc_chars": 1221,
       "description": "Raise an SAP support case (incident) properly — earn it first by exhausting the supported remedies, route it to the right component using SAP's own routing KBAs rather than the component name the error text happens to print, gather the IDs SAP will ask for (correlation ID, formation/job ID, troubles",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-transport-release",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-transport-release\\SKILL.md",
-      "owner": "vendor",
-      "hash": "100fa219f120f6f3bc2af326a3ca00c6fc83da03313870d9d75406755c5d96aa",
-      "desc_chars": 163,
-      "description": "Prepare ABAP changes for SAP transport and verify request contents, dependencies, tests, and activation. Use for transport preparation or release-related requests.",
       "status": "active",
       "last_validated": "2026-11-13"
     },

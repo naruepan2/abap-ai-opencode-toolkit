@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.5.8 — 2026-11-14
+
+**Second wave: 18 duplicates and unused families parked. Fixed prompt 41.9k → 36.0k.**
+
+- Parked: `rap-development`, `rap-service-delivery`, `cds-development`,
+  `abap-development`, `abap-debugging`, `abap-testing-quality`, `sap-transport-release`,
+  `sap-health-triage`, `sap-sdlc-orchestration`, `sap-standard-api-analysis`,
+  `clean-core-extensibility`, `memory-management`, `open-computer-use`,
+  `aicore-sdk-java`, `aicore-sdk-js`, `sap-fiori-ios`, `sap-integration-architect`,
+  `integration-suite-delivery`. Each one is either a thinner duplicate of a skill that
+  stays, or a family with no path in this workspace.
+- Skills 49 → 31 entries / 25.8k → **19.8k chars**, now **inside the 20k budget**; the
+  catalog warning is gone. Warnings 5 → 4 (only the unfixable vendor descriptions).
+- Two waves total 47 skills / 21,909 chars out of every session. `RESTORE.md` covers
+  both, with the reason per skill and restore-by-family commands.
+- `design.md` records the three measured steps (73.3k → 57.9k → 41.9k → 36.0k).
+
 ## v0.5.7 — 2026-11-14
 
 **29 Basis/DB skills parked: fixed prompt 57.9k → 41.9k chars (−27.6%).**

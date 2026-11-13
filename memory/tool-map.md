@@ -85,10 +85,10 @@ Never kill an MCP process to force a reload — the namespace disappears (§Map)
 | `sap-docs` | disabled | SAP documentation search (remote), 9 tools | lookup only; `sap-docs` is not needed to code | `"enabled": true` + restart |
 | `rosa` | **removed** | SAP Cloudification Repository: `sap_search_objects`, `sap_get_object_details` (Clean Core Level), `sap_find_successor`, `sap_check_clean_core_compliance`, `sap_list_object_types`, `sap_list_versions`, `sap_get_statistics` | never used (no row here, no lesson) and the `atc-cloudification` skill covers the same job | add `"rosa": {"type":"local","command":["cmd","/c","npx","-y","@rosa-mcp/server"],"enabled":true}` under `mcp`, restart, then add `rosa` to `optional_namespaces` in `registries/tools.json` |
 
-**Parked skills:** 29 Basis/DB/infra skills were moved out of the loaded catalog on
-2026-11-14 (15,950 chars of description, ~4k tokens per session). The list, the reason
-per family and the one-line restore are in
-`~\.config\opencode\skills-parked\RESTORE.md`. After restoring any of them, run
+**Parked skills:** 47 vendor skills were moved out of the loaded catalog on 2026-11-14
+(21,909 chars of description, ~5.5k tokens per session): 29 Basis/DB/infra and 18
+duplicates or unused families. The list, the reason per skill and the one-line restore
+are in `~\.config\opencode\skills-parked\RESTORE.md`. After restoring any of them, run
 `python scripts/registry_check.py --refresh`.
 
 Anything re-enabled must be added to `optional_namespaces` so turning it on and off

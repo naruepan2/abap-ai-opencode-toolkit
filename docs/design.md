@@ -48,7 +48,7 @@ on 2026-11-13:
 
 | Block | Measured | Budget | Enforced by |
 |---|---|---|---|
-| Skill catalog (descriptions) | **25.8k chars / 49 entries** | 20k | `registry_check.py` |
+| Skill catalog (descriptions) | **19.8k chars / 31 entries** | 20k | `registry_check.py` |
 | Tool descriptions | 16.1k chars / 111 tools | 28k | `registry_check.py` |
 | `AGENTS.md` chain (5 files loaded in ZDEMO01) | **15.1k chars** (global 5.2k, workspace 4.2k, ZDEMO01 3.2k, DEMO 1.2k, SAP Projects 1.3k) | — | one canonical copy per rule |
 | Session digest | 2.6k chars (2.6k brief, 0.8k `--tiny`) | 3k | `session_context.py` |
@@ -56,20 +56,18 @@ on 2026-11-13:
 | Inbox row | ≤240 chars | 240 | `memory_check.py` |
 | Knowledge entry | ≤1.2k chars, ≤12 per domain | per domain | `memory_check.py` |
 
-Measured 2026-11-14, in two steps:
+Measured 2026-11-14, in three steps:
 
 | Change | Tools | Skills | Fixed prompt |
 |---|---|---|---|
 | baseline | 211 / 31.5k | 78 / 41.7k | 73.3k |
 | SAP/GUI/docs/Playwright on-demand, `rosa` removed | 111 / 16.1k | 78 / 41.7k | 57.9k |
-| 29 Basis/DB skills parked | 111 / 16.1k | **49 / 25.8k** | **41.9k** |
+| 29 Basis/DB skills parked | 111 / 16.1k | 49 / 25.8k | 41.9k |
+| 18 duplicates and unused families parked | 111 / 16.1k | **31 / 19.8k** | **36.0k** |
 
-The skill catalog is still the largest block and 5.8k over budget; the next candidates
-are the duplicate pairs (`rap` / `rap-development` / `rap-service-delivery`,
-`cds-development` / `cds-view-entities`, `sap-troubleshooting` / `sap-health-triage`)
-and the unused family (`aicore-sdk-java`, `aicore-sdk-js`, `sap-fiori-ios`,
-`sap-integration-architect`, `integration-suite-delivery`). Park, never edit a vendor
-file.
+Both catalogs are now inside budget. The only remaining warnings are four vendor
+descriptions over the 1,000-char per-skill budget, which cannot be shortened without
+forking the vendor file — leave them.
 
 ## No-guess protocol
 

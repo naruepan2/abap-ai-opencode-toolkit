@@ -1,12 +1,12 @@
 # Registry report
 
-Generated: 2026-11-13T19:30:05+00:00
+Generated: 2026-11-13T19:37:03+00:00
 
 ## Summary
 
 | Area | Count | Issues | Warnings |
 |---|---|---|---|
-| Skills | 140 | 0 | 4 |
+| Skills | 122 | 0 | 4 |
 | Agents | 23 | 0 | 0 |
 | MCP servers | 14 | 0 | 0 |
 | Tools | 111 | 0 | 0 |
@@ -16,7 +16,7 @@ Generated: 2026-11-13T19:30:05+00:00
 - agents: 47
 - claude: 30
 - copilot: 14
-- opencode: 49
+- opencode: 31
 
 ## New skills
 
@@ -98,12 +98,12 @@ _None._
 
 ## Prompt budget
 
-- skills (opencode): 25798 chars of description across 49 entries — budget 20000
+- skills (opencode): 19839 chars of description across 31 entries — budget 20000
 - tools: 16111 chars of description across 111 tools — budget 28000
 
 ## Prompt budget notes
 
-- skill catalog is 25798 chars over budget 20000 (49 skills); park unused skills
+_None._
 
 ## Notes
 
