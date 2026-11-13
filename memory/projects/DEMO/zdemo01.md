@@ -140,15 +140,15 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 
 - Deployed source: `patched_MODL_v10.abap`, 272,187 bytes,
   md5 `41380b876a114c6a71668282112211a3`; syntax check 0 findings; active.
-- Built source: `patched_MODL_v11.abap`, 279,046 bytes,
-  md5 `895ca5dcc1a276e90aee08790610d9fc` (builder `build_v11.py`, 28 exact-match
+- Built source: `patched_MODL_v11.abap`, 279,440 bytes,
+  md5 `87957a68108cb7af9a6cba970fd3d488` (builder `build_v11.py`, 29 exact-match
   edits, no leftover `lt_open_do` / `lt_lips_picked_complt` / `lt_vbap_key` /
   `lt_split_chk` / `lt_dlv_pre`).
-- Deployed: `write-source include ZDEMO01_MODL --transport DS4K904935` (271,889
+- Deployed: `write-source include ZDEMO01_MODL --transport DS4K904935` (272,277
   bytes) into task `DS4K904936` of request `DS4K904935`; `syntax-check program
   ZDEMO01` -> 0 findings; `activate program ZDEMO01` -> success; active include
-  re-read equals v11 (7,158 lines, normalized md5
-  `b0b05860984cf36c7a8d3ac81997964a`).
+  re-read equals v11 (7,164 lines, normalized md5
+  `ce20d1abd6c6a9464fb86239217fe06e`).
 - `memory_check.py` reports 0 issues, 0 warnings.
 
 ## Files
