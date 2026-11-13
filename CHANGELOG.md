@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.2 — 2026-11-14
+
+**Tool diet: 211 → 111 tools, 73.3k → 57.9k chars per session.**
+
+- `sap-gui` (59 tools), `playwright` (25) and `sap-docs` (9) moved to on-demand
+  (`enabled: false`). `sap-gui` costs nothing extra in workflow: SAP work already
+  needs one enable + restart for `ds4-100`.
+- `rosa` removed from `opencode.json`. It is the SAP Cloudification Repository MCP
+  (`npx @rosa-mcp/server`: Clean Core level, successor lookup, compliance check);
+  never used here and the `atc-cloudification` skill covers the job. The exact
+  restore snippet is in `memory/tool-map.md` §"Disabled or removed servers".
+- `ds4-100` was left enabled in the steady state; both SAP clients are now off, as
+  the on-demand rule requires.
+- `optional_namespaces` now lists `sap-gui`, `sap-docs`, `playwright` so toggling
+  them is not reported as drift.
+- Measured after the change: tools 16.1k chars / 111 tools, under the 28k budget.
+  The skill catalog (41.7k / 78) is now the only block over budget.
+
 ## v0.4.1 — 2026-11-14
 
 **Measure the prompt, not just the memory.**

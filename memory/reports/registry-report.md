@@ -1,15 +1,15 @@
 # Registry report
 
-Generated: 2026-11-13T17:00:51+00:00
+Generated: 2026-11-13T17:08:52+00:00
 
 ## Summary
 
 | Area | Count | Issues | Warnings |
 |---|---|---|---|
-| Skills | 180 | 0 | 5 |
+| Skills | 180 | 0 | 4 |
 | Agents | 23 | 0 | 0 |
-| MCP servers | 15 | 0 | 1 |
-| Tools | 211 | 0 | 0 |
+| MCP servers | 14 | 0 | 0 |
+| Tools | 111 | 0 | 0 |
 
 ## Skills by harness
 
@@ -20,7 +20,7 @@ Generated: 2026-11-13T17:00:51+00:00
 
 ## New skills
 
-- `capture-lesson` (copilot) — ~\.copilot\skills\capture-lesson\SKILL.md
+_None._
 
 ## Missing skill paths
 
@@ -54,14 +54,13 @@ _None._
 | Server | Harness | Enabled | Tools | Note |
 |---|---|---|---|---|
 | `browse` | opencode | yes | 18 |  |
-| `playwright` | opencode | yes | 25 |  |
+| `playwright` | opencode | no | 0 |  |
 | `open-computer-use` | opencode | yes | 9 |  |
 | `windows-mcp` | opencode | yes | 19 |  |
-| `sap-gui` | opencode | yes | 59 |  |
-| `sap-docs` | opencode | yes | 9 |  |
-| `rosa` | opencode | yes | 7 |  |
+| `sap-gui` | opencode | no | 0 |  |
+| `sap-docs` | opencode | no | 0 |  |
 | `gsd-120` | opencode | no | 0 |  |
-| `ds4-100` | opencode | yes | 0 | on-demand, idle (expected) |
+| `ds4-100` | opencode | no | 0 |  |
 | `ds4-900` | opencode | no | 0 |  |
 | `com.figma.mcp/mcp` | copilot | yes | n/a |  |
 | `io.github.ChromeDevTools/chrome-devtools-mcp` | copilot | yes | n/a |  |
@@ -83,7 +82,7 @@ _None._
 
 ## On-demand servers idle (expected, not an issue)
 
-- `ds4-100` — optional namespace
+_None._
 
 ## Tool snapshot changes
 
@@ -100,12 +99,11 @@ _None._
 ## Prompt budget
 
 - skills (opencode): 41748 chars of description across 78 entries — budget 20000
-- tools: 31524 chars of description across 211 tools — budget 28000
+- tools: 16111 chars of description across 111 tools — budget 28000
 
 ## Prompt budget notes
 
 - skill catalog is 41748 chars over budget 20000 (78 skills); park unused skills
-- tool catalog is 31524 chars over budget 28000 (211 tools; sap-gui 10414, browser 5446, windows-mcp 3414); disable an unused server
 
 ## Notes
 

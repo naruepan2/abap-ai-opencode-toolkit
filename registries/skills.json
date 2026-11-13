@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T12:41:44+00:00",
+  "generated_at": "2026-11-13T17:07:32+00:00",
   "skills": [
     {
       "id": "abap-debugging",
@@ -1454,6 +1454,17 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "capture-lesson",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\capture-lesson\\SKILL.md",
+      "owner": "vendor",
+      "hash": "70cb3610fd978f6418b3c5437e3328bedf3af5ec587ea55204fd6ca28b05a1b5",
+      "desc_chars": 491,
+      "description": "Turn a session finding into a durable artifact by choosing the right destination, showing the exact diff, and waiting for approval. Use when a session revealed something worth keeping — a tool or server behaviour, an environment gotcha, a correction the user made, a preference, or a procedure worth ",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "cds-development",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\cds-development\\SKILL.md",
@@ -1557,7 +1568,7 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\mcp-surface-audit\\SKILL.md",
       "owner": "vendor",
-      "hash": "523895df37a1a19faaa7701927a205ea7978ccf73af9cb87a90a666b0aad9e63",
+      "hash": "1d86f96b889364cc315ffbf9b6d74cdec493902bb85c95e8f1115723f2720863",
       "desc_chars": 446,
       "description": "Rebuild the real SAP/ABAP MCP tool surface from live config and extension manifests, then fix routing drift. Use when a new MCP server or ABAP extension is installed, when the agent picks the wrong server for a task, when a tool name referenced by an agent or skill no longer resolves, or when asked ",
       "status": "active",

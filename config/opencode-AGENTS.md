@@ -2,9 +2,9 @@
 
 ## SAP is on-demand only
 
-- Never enable the `ds4-100` / `ds4-900` MCP servers and never call `sap_connect` /
-  `sap_connect_existing` at session start. Opening opencode must never pop the SAP
-  credential dialog.
+- Never enable the `ds4-100` / `ds4-900` / `sap-gui` / `sap-docs` / `playwright`
+  MCP servers and never call `sap_connect` / `sap_connect_existing` at session
+  start. Opening opencode must never pop the SAP credential dialog.
 - Connect only when the user explicitly asks for SAP work ("เข้า SAP", "เข้า DS4",
   "ทำงาน SAP", an ABAP/RAP/CDS task on a named system and client).
 - **Before enabling a server**, read the procedure in

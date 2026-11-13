@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T12:41:44+00:00",
+  "generated_at": "2026-11-13T17:07:32+00:00",
   "servers": [
     {
       "server": "browse",
@@ -15,7 +15,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": true,
+      "enabled": false,
       "command_kind": "cmd",
       "url_host": ""
     },
@@ -42,7 +42,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": true,
+      "enabled": false,
       "command_kind": "cmd",
       "url_host": ""
     },
@@ -51,18 +51,9 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "remote",
-      "enabled": true,
+      "enabled": false,
       "command_kind": "",
       "url_host": "mcp-sap-docs.marianzeis.de"
-    },
-    {
-      "server": "rosa",
-      "harness": "opencode",
-      "source": "opencode.json",
-      "type": "local",
-      "enabled": true,
-      "command_kind": "cmd",
-      "url_host": ""
     },
     {
       "server": "gsd-120",
@@ -78,7 +69,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": true,
+      "enabled": false,
       "command_kind": "powershell",
       "url_host": ""
     },

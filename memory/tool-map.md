@@ -30,6 +30,9 @@
 
 ## Map
 
+> Tool names below are the *capability*. If a server is off (SAP GUI, ADT, docs,
+> Playwright), enable it per §"SAP on-demand" or §"Disabled or removed servers".
+
 | Task | Preferred | Fallback | Notes |
 |---|---|---|---|
 | Read ABAP source | ADT `get_source` | `sap-adt-cli get-include` | ADT returns proper UTF-8; CLI dump can mangle Thai |
@@ -51,21 +54,39 @@
 
 ## SAP on-demand
 
-`ds4-100` (ADT, client 100) and `ds4-900` (SAP GUI, client 900) stay disabled; the
-credential dialog must never appear at startup. When a task really needs SAP:
+`ds4-100` (ADT, client 100), `ds4-900` (SAP GUI, client 900) and `sap-gui` (GUI
+automation) are all **off** in the steady state. The credential dialog must never
+appear at startup. When a task really needs SAP:
 
-1. Set **only** the requested server to `"enabled": true` in
-   `~/.config/opencode/opencode.json`; keep the other one `false`.
+1. In `~/.config/opencode/opencode.json` set **only** what the task needs to
+   `"enabled": true` — `ds4-100` for source/DDIC reads, `sap-gui` for transactions
+   and ALV, `sap-docs` for documentation lookups. Keep the rest `false`.
 2. Ask the user to restart/reconnect opencode once. The dialog appears once and the
    user types username + password. Never store the password.
 3. Do the work.
-4. Set both back to `"enabled": false` and ask the user to restart once more.
+4. Set everything back to `"enabled": false` and ask the user to restart once more.
+
+Measure on 2026-11-14: moving `sap-gui` (59 tools), `playwright` (25), `sap-docs` (9)
+and `rosa` (7) out of the always-on set took the tool catalog from **211 tools /
+31.5k chars to 111 / 16.1k** — a saving paid on every session.
 
 `sap-gui`: `sap_list_connections` first, then `sap_connect_existing`. If the session
 dropped, stop and ask the user to log on in SAP GUI before retrying once.
 
 Policy file note: `%APPDATA%\mcp-sap-gui\policy.json` is read once at server start.
 Never kill an MCP process to force a reload — the namespace disappears (§Map).
+
+## Disabled or removed servers (restore on demand)
+
+| Server | State | What it is | Why | Restore |
+|---|---|---|---|---|
+| `sap-gui` | disabled | SAP GUI automation, 59 tools | only needed during SAP GUI work; 10.4k chars of prompt | `"enabled": true` + restart |
+| `playwright` | disabled | Playwright browser MCP, 25 tools | `browse` already drives the user's real browser | `"enabled": true` + restart |
+| `sap-docs` | disabled | SAP documentation search (remote), 9 tools | lookup only; `sap-docs` is not needed to code | `"enabled": true` + restart |
+| `rosa` | **removed** | SAP Cloudification Repository: `sap_search_objects`, `sap_get_object_details` (Clean Core Level), `sap_find_successor`, `sap_check_clean_core_compliance`, `sap_list_object_types`, `sap_list_versions`, `sap_get_statistics` | never used (no row here, no lesson) and the `atc-cloudification` skill covers the same job | add `"rosa": {"type":"local","command":["cmd","/c","npx","-y","@rosa-mcp/server"],"enabled":true}` under `mcp`, restart, then add `rosa` to `optional_namespaces` in `registries/tools.json` |
+
+Anything re-enabled must be added to `optional_namespaces` so turning it on and off
+does not look like drift.
 
 ## New MCP checklist
 
