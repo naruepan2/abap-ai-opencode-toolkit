@@ -24,27 +24,50 @@
 
 ## When delegating pays off
 
-A subagent starts with an empty context: it must be briefed, and it re-reads what
-it needs. That cost is fixed per spawn, so delegation is a **context** tool first
-and a **speed** tool second — wall-clock only improves when the lead has
-independent work to do while the child runs.
+**Default: do it yourself.** The lead is a team lead, not a dispatcher — a sub-agent
+is a tool for a specific shape of work, not a ritual per task.
+
+A subagent starts with an empty context: it must be briefed, it re-reads what it
+needs, and the lead must verify what comes back. That cost is fixed **per spawn**, so
+it is paid whether the child saves time or not.
+
+The arithmetic that decides it:
+
+```
+wall-clock ≈ max(parallel branch) + spawn + verify     — only if the lead has
+                                                          independent work meanwhile
+sequential work:  wall-clock = sum(every step) + spawn + verify   → strictly worse
+```
+
+So the criterion is **parallelisable vs sequential**, not "many vs few". With N
+children on truly independent work the wall-clock approaches the longest branch; with
+N children on a chain it approaches the sum plus N overheads. In this workspace the
+change itself is serial (one owner per object, one SAP GUI actor), so only the
+investigation around it can overlap — which caps the realistic speedup well below N×.
 
 | Delegate | Do it inline |
 |---|---|
 | read-only, expected ≥15 tool calls | ≤5 tool calls |
 | output would exceed ~5k tokens (where-used, log, trace, a 30-file read) | one file, one small edit |
-| independent resources that can run in parallel | anything that shares one resource |
-| a second pair of eyes on a finished result | a decision the user already made |
+| genuinely independent sub-problems (different system, different folder) | a continuous chain: each step needs the previous result |
+| a second pair of eyes on a finished result | anything that needs this conversation's tacit context |
+| | memory writes, close-out, decisions the user already made |
+
+Two more reasons a small, sequential task gets **slower** when delegated: the child
+re-reads the same files the lead already has in context, and the lead still has to
+check the evidence before trusting it. A child is not a shortcut around understanding.
 
 Hard limits:
 
 - **One SAP GUI actor.** `sap-gui` is a single COM session with OS focus; two
   agents fight for the window. ADT (HTTP) reads may run in parallel; SAP writes,
   activations, and transports stay serialized.
-- At most 2-3 children at once.
+- At most 2-3 children at once, and only if each has a distinct answer to produce.
 - The lead writes memory and owns the verdict; a child returns evidence.
 - A brief is 5 lines plus a pointer: goal, constraints, target, evidence required,
   stop conditions. Do not paste memory into a brief; point at the card.
+- If the next step depends on a child's result, do that step inline — delegation
+  cannot pipeline a chain.
 
 ## A subagent has no channel to the user
 

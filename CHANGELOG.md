@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.5.4 — 2026-11-14
+
+**Delegation is a decision, not a habit.** The lead is a team lead, not a dispatcher.
+
+- `memory/team-roster.md`: default is now **do it yourself**. States the arithmetic —
+  wall-clock = longest parallel branch + spawn + verify only when the lead has
+  independent work; sequential work gains nothing and pays the overhead.
+- Criterion changed from "how much work" to **parallelisable vs sequential**; added
+  "do it inline" cases (continuous chains, tacit conversation context, memory writes,
+  decisions already made) and the rule that a step depending on a child's result is
+  done inline.
+- Two named costs a small task pays when delegated: the child re-reads files the lead
+  already has, and the lead must verify the evidence anyway.
+
 ## v0.5.3 — 2026-11-14
 
 **Plan + todo became the checkpoint of a long run.**
