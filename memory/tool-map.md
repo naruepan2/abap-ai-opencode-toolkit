@@ -1,0 +1,40 @@
+# Tool map — which tool for which job
+
+> Goal: one authoritative source per fact, least privilege, least token.
+> Add new MCPs here before using them broadly. Mark overlaps as
+> `preferred` / `fallback` / `deprecated`.
+
+## Rules (in order)
+
+1. **System of record first.** Source/DDIC → ADT. Runtime data → SAP GUI or ADT
+   data preview. Runtime logs/dumps → ARC-1 / ST22. Web → browser.
+2. **Read-only and narrow.** Use filters, `columns_only`, `max_rows`, object-
+   specific reads. Avoid full table dumps.
+3. **One call per fact.** No parallel duplicate calls to different tools.
+4. **Least privilege + least token.** If two tools can answer, pick the one with
+   lower privilege and smaller output.
+5. **Record the choice.** If the choice was non-obvious, add a row here and a line
+   in `lessons.md`.
+
+## Map
+
+| Task | Preferred | Fallback | Notes |
+|---|---|---|---|
+| Read ABAP source | ADT `get_source` | `sap-adt-cli get-include` | ADT returns proper UTF-8; CLI dump can mangle Thai |
+| DDIC structure | ADT `get_table` / `get_structure` | SAP GUI SE11 | |
+| Table data (client 100) | ADT `get_table_contents` | SAP GUI SE16 | ADT destination is client-bound |
+| Table data (client 900) | SAP GUI SE16 | — | SE16N is policy-blocked; use SE16 |
+| ALV grid read | `sap-gui` `sap_read_table` | — | |
+| Selection screen | `sap-gui` `sap_get_screen_elements` | — | |
+| Dumps | ARC-1 ST22 / SAP GUI ST22 | — | |
+| Transport list | ADT transport tools | `sap-adt-cli` | |
+| Web / UI | `browser` | Playwright MCP | |
+| Desktop automation | open-computer-use / windows-mcp | — | only on explicit request |
+| Files / source search | `grep` / `glob` / `read` | shell | prefer dedicated tools |
+
+## New MCP checklist
+
+- [ ] Scope is clear (read-only? which system/client?)
+- [ ] Does it overlap an existing tool? If yes, mark preferred/fallback.
+- [ ] Add a row above with the task it owns.
+- [ ] Do not auto-enable it at session start.

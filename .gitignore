@@ -1,0 +1,24 @@
+# Secrets and local files
+.env
+.env.*
+*.secret
+*.key
+*.pem
+credentials*
+**/credentials*
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs and OS files
+*.log
+Thumbs.db
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Local-only snapshots
+tools-snapshot.local.json
