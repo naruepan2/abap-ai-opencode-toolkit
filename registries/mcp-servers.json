@@ -1,0 +1,131 @@
+{
+  "generated_at": "2026-11-13T10:13:01+00:00",
+  "servers": [
+    {
+      "server": "playwright",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "cmd",
+      "url_host": ""
+    },
+    {
+      "server": "open-computer-use",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "cmd",
+      "url_host": ""
+    },
+    {
+      "server": "windows-mcp",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "windows-mcp.exe",
+      "url_host": ""
+    },
+    {
+      "server": "sap-gui",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "cmd",
+      "url_host": ""
+    },
+    {
+      "server": "sap-docs",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "remote",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": "mcp-sap-docs.marianzeis.de"
+    },
+    {
+      "server": "rosa",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "cmd",
+      "url_host": ""
+    },
+    {
+      "server": "gsd-120",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": false,
+      "command_kind": "cmd",
+      "url_host": ""
+    },
+    {
+      "server": "ds4-100",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "powershell",
+      "url_host": ""
+    },
+    {
+      "server": "ds4-900",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": false,
+      "command_kind": "powershell",
+      "url_host": ""
+    },
+    {
+      "server": "com.figma.mcp/mcp",
+      "harness": "copilot",
+      "source": "mcp-config.json",
+      "type": "unknown",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": ""
+    },
+    {
+      "server": "io.github.ChromeDevTools/chrome-devtools-mcp",
+      "harness": "copilot",
+      "source": "mcp-config.json",
+      "type": "unknown",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": ""
+    },
+    {
+      "server": "io.github.SAP/fiori-mcp-server",
+      "harness": "copilot",
+      "source": "mcp-config.json",
+      "type": "unknown",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": ""
+    },
+    {
+      "server": "io.github.UI5/mcp-server",
+      "harness": "copilot",
+      "source": "mcp-config.json",
+      "type": "unknown",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": ""
+    },
+    {
+      "server": "arc-1",
+      "harness": "copilot",
+      "source": "mcp-config.json",
+      "type": "unknown",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": ""
+    }
+  ]
+}

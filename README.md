@@ -55,11 +55,22 @@ docs/                     # design and lifecycle notes
    `AGENTS.md` at this repository).
 3. Add the pointer block from `templates/AGENTS.md` to the global `AGENTS.md`.
 
+## Quick use
+
+```bash
+python scripts/registry_check.py --check --brief   # session-start summary
+python scripts/registry_check.py --check           # full report
+python scripts/registry_check.py --refresh         # merge new items
+```
+
+The report is written to `memory/reports/registry-report.md`.
+
 ## Roadmap
 
 - [x] Bootstrap memory snapshot and project card
-- [ ] `scripts/registry_check.py` — skills / MCP / tools drift report
-- [ ] `registries/*.json` — machine-readable snapshot
+- [x] `scripts/registry_check.py` — skills / MCP / tools drift report
+- [x] `registries/*.json` — machine-readable snapshot
+- [ ] Tool snapshot automation (OpenCode session hook)
 - [ ] Skill and MCP onboarding gates
 - [ ] Compare OpenCode vs Copilot on the same task
 
