@@ -118,6 +118,7 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - v12: new ALV column `OPEN_SO_QTY` ("Open Sales Order Qty") between TF DEMO Qty
   and Ex.WH.Stck. Value = `KWMENG - SUM(LIPS-LFIMG)` per SO item, on editable
   rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
+- v13.1: negative qty guard - `set_check_data_changed` handles MENGE_PD, message 046; create skips `menge_pd <= 0`.
 - v13: hid `MENGE_GR`/`MENGE_PD_INITIAL`/`MENGE_INITIAL` in Option 8 (whitelist);
   editable rows leave Sales Doc/Item empty for the user to type; ticking the
   select checkbox no longer clears the status message.
