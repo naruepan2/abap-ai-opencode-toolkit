@@ -26,6 +26,8 @@
 | Table data (client 900) | SAP GUI SE16 | — | SE16N is policy-blocked; use SE16 |
 | ALV grid read | `sap-gui` `sap_read_table` | — | |
 | Selection screen | `sap-gui` `sap_get_screen_elements` | — | |
+| SAP GUI custom toolbar button | `sap-gui` `sap_press_button` **after the session window has OS focus** | ask the user to press it | A custom PAI button may not fire while the window is unfocused; ALV built-in buttons can still work |
+| SAP GUI cell edit | `sap_modify_cell` for display; controller button (Select All) or user edit for model changes | — | Cell edits may not reach the custom PAI handler |
 | Dumps | ARC-1 ST22 / SAP GUI ST22 | — | |
 | Transport list | ADT transport tools | `sap-adt-cli` | |
 | Web / UI | `browser` | Playwright MCP | |

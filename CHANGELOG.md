@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.3.1 — 2026-11-13
+
+- Scanner: flatten the V2 `mcp.servers` shape (the `browse` server is now in the
+  MCP registry) and support `optional_namespaces` in the tool baseline.
+- Marked `ds4-100` / `ds4-900` optional so enabling an on-demand SAP server does
+  not produce false tool drift.
+- Captured the ZDEMO01 v7–v9 debugging lessons: preload key mismatch (DO vs SO),
+  `BAPI_OUTB_DELIVERY_CREATE_SLS` `NUM_DELIVERIES`, batch-split main-item
+  control, `ZMMT014-UECHA`, and the SAP GUI custom-button focus caveat.
+- Deployment: `ZDEMO01_MODL` v9 (transport `DS4K904935`); messages 033/041 now
+  use “Post Goods Issue”, messages 044/045 added.
+
 ## v0.3 — 2026-11-13
 
 - Added `plugins/tool-snapshot`: an OpenCode server plugin that writes

@@ -1,20 +1,23 @@
 # ZDEMO01
 
-> Last updated: 2026-11-13 (session with OpenCode). Re-verify live state before
+> Last updated: 2026-11-13 (OpenCode session, v9). Re-verify live state before
 > changing anything.
 
 ## Resume card
 
-- **Status:** v6 deployed and active; runtime test pending because SAP GUI was
-  disconnected.
-- **Next step:** log on to SAP GUI client 900, then run T1–T5 (below).
+- **Status:** v9 deployed and active. Runtime test is in progress by the user.
+  Do not claim the split passed until LIPS and ZMMT014 are read back.
+- **Next step:** restart `ZDEMO01`, Option 8, SO `1011099686` item `10`,
+  quantities `50 + 10`, then press Create DO and verify:
+  - LIPS `1041100092`: main item and sub items
+  - ZMMT014: two rows with `UECHA = 000010`
 - **Do not:** edit SAP standard objects, vendor agents/skills, or claim a test
-  passed without running it.
+  passed without reading the result.
 
 ## Goal
 
 FS Option 8 — create a Delivery Order at the external storage location, split it
-by batch, then post goods issue (PGI), and keep the history in `ZMMT014` /
+by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 `ZMMT015`.
 
 ## Constraints
@@ -39,7 +42,8 @@ by batch, then post goods issue (PGI), and keep the history in `ZMMT014` /
 ## Business rules
 
 - Option 8 creates one DO per shipping point.
-- Batch split sub items are `9xxxxx`; the main item keeps `UECHA = '000000'`.
+- Batch-split sub items are `9xxxxx`; the main item keeps `UECHA = '000000'`.
+- `ZMMT014-UECHA` carries the parent: a sub item row points to its main item.
 - Re-run guard: if `LIPS-UECHA <> '000000'`, the DO is already split → msg 041.
 - Picking auto-update: `WS_DELIVERY_UPDATE_2` with `UPDATE_PICKING = 'X'` and
   `VBPOK_TAB` (`PIKMG` = `LIPS-LFIMG`); re-read twice; still incomplete → msg 032.
@@ -52,13 +56,17 @@ by batch, then post goods issue (PGI), and keep the history in `ZMMT014` /
 
 ## Code map
 
-- `create_delivery_document` — DO creation, batch split, `ZMMT014` (`_save_history('D')`)
-- `post_goods_issue_from_do` — PGI, picking update, `ZMMT010`, `ZMMT014`/`ZMMT015`
-  (`_save_history('P')`)
+- `create_delivery_document` — DO creation, batch split, `ZMMT014`
+  (`_save_history('D')`)
+- `post_goods_issue_from_do` — Post Goods Issue, picking update, `ZMMT010`,
+  `ZMMT014`/`ZMMT015` (`_save_history('P')`)
 - `_select_option8` — live data + `ZMMT014` history rows (`hist_flag`)
-- `_save_history` — shared persistence for `ZMMT014` and `ZMMT015`
-- Messages: `ZDEMO01_MSG` has 37 entries; 040 = existing DO, 041 = DO + split done,
-  042 = ZMMT014 write failed, 043 = ZMMT015 write failed.
+- `_save_history` — shared persistence for `ZMMT014` and `ZMMT015`; fills
+  `ZMMT014-UECHA` from `LIPS-UECHA`
+- Messages: `ZDEMO01_MSG` has 39 entries. 040 = existing DO; 041 = DO + split
+  done, press Post Goods Issue; 042 = ZMMT014 write failed; 043 = ZMMT015 write
+  failed; 044 = BAPI created more than one DO; 045 = DO created but number not
+  found.
 
 ## Decisions
 
@@ -71,6 +79,15 @@ by batch, then post goods issue (PGI), and keep the history in `ZMMT014` /
   (`PGI_FLAG <> 'X'` and `LIKP-KOSTK <> 'C'`).
 - `ZMMT015` is also written by `ZMMFM_POST_DELV_TO_ZMMT010` on VL09/VL02N,
   keyed by the 602/653/655 document; the 601 rows here do not collide.
+- v7: existing-DO detection falls back to a direct `SELECT SINGLE` from LIPS;
+  `BAPI_OUTB_DELIVERY_CREATE_SLS` imports `NUM_DELIVERIES`; if `DELIVERY` is
+  empty after commit, the DO is recovered from LIPS; the batch-split BAPI gets a
+  main-item control row with `CHG_DELQTY = 'X'`.
+- v8: `lt_so_lips_pre` now stores the SO key (`VGBEL/VGPOS`) plus the DO number
+  (`VBELN AS VBELN_VL`). Before this, the READ compared a DO number with an SO
+  number and always missed.
+- v9: `ZMMT014-UECHA` is read from `LIPS-UECHA` in both `_save_history` modes.
+  Messages 033 and 041 now use the full “Post Goods Issue”.
 
 ## Known unknowns (do not guess)
 
@@ -82,23 +99,42 @@ by batch, then post goods issue (PGI), and keep the history in `ZMMT014` /
 6. FS gaps: `ZMMT014` mapping is empty; `ZMMT013` has no definition; `BUDAT` is
    declared twice; ใบเบิก `MENGE_TF_P` is never populated by Option 8.
 
+## Latest debugging findings
+
+- DO `1041100092` was created on 13.11.2026 at 18:06:31. VBFA has one delivery
+  for SO `1011099686` / item `10`.
+- LIPS for `1041100092` at that point: only main item `000010`, `LFIMG = 60`,
+  `UECHA = 000000`, `KOSTA = A`, `VGBEL = 1011099686`, `VGPOS = 000010`.
+  No sub items.
+- `lt_so_lips_pre` was populated with `LIPS-VBELN/POSNR` (the DO number/item)
+  but read with `ls_so_first-ref_doc/ref_item` (the SO number/item). The preload
+  always missed and the code fell through to the direct SELECT.
+- `BAPI_OUTB_DELIVERY_CREATE_SLS` may create a DO but return an empty `DELIVERY`
+  when `NUM_DELIVERIES > 1`. The code now imports and checks the count.
+- The batch-split BAPI needs the main item in `ITEM_CONTROL` with
+  `CHG_DELQTY = 'X'`; the field is `CHG_DELQTY` (not `CHG_DELQY`).
+- SAP GUI custom toolbar buttons may not fire when the session window lacks OS
+  focus. ALV built-in buttons (Select All / Deselect All) can still respond.
+  Use a user click or focus the window before pressing a custom button.
+
 ## Evidence
 
-- Deployed source: `patched_MODL_v6.abap`, 270,193 bytes,
-  md5 `142254bc0cb1056463bf3936acba7fa5`.
+- Deployed source: `patched_MODL_v9.abap`, 272,918 bytes,
+  md5 `2a3c88fbaf4710b190922ffe699c8eee`.
 - `syntax-check program ZDEMO01` → 0 findings; activate → OK; no inactive objects.
-- Deployed source has 1,986 Thai characters (encoding intact).
-- Client 900 at last check: `LIKP`/`LIPS` empty; `ZMMT015` has one VL09/602 row.
-- Pending tests T1–T5:
-  1. Create DO 30 (2 batches) → `ZMMT014` 2 rows, `PGI_FLAG` blank.
-  2. Create DO again → live rows only; remaining quantity creatable.
-  3. PGI → `ZMMT014.PGI_FLAG = 'X'` + 601 doc; `ZMMT015` `TCODE = ZDEMO01`.
-  4. Re-enter → history green (031) + remaining live rows.
-  5. PGI again → 031, no second material document, no duplicate `ZMMT015`.
+- Messages 033 and 041 updated; 044 and 045 added. Class has 39 entries.
+- Client 900 at last check: `ZMMT015` has one VL09/602 row.
+- Pending tests:
+  1. Create DO / split `1041100092` with 50 + 10.
+  2. Read LIPS: expect sub items `900001 = 50`, `900002 = 10`, and verify the
+     main item quantity the BAPI leaves behind.
+  3. Read ZMMT014: expect two rows with `UECHA = 000010`, `PGI_FLAG` blank.
+  4. Post Goods Issue; verify ZMMT014 PGI fields and ZMMT015 601 rows.
+  5. Re-run Post Goods Issue; expect msg 031 and no duplicate material document.
 
 ## Files
 
 - Working directory: `<home>\AppData\Local\Temp\opencode\zmme011`
-- Deployed source: `patched_MODL_v6.abap`
-- Builder: `build_v6.py`
+- Deployed source: `patched_MODL_v9.abap`
+- Builder: `build_v9.py`
 - Decisions log: `reports/DECISIONS.md`

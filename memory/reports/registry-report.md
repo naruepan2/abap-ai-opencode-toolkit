@@ -1,6 +1,6 @@
 # Registry report
 
-Generated: 2026-11-13T10:37:31+00:00
+Generated: 2026-11-13T12:41:44+00:00
 
 ## Summary
 
@@ -8,8 +8,8 @@ Generated: 2026-11-13T10:37:31+00:00
 |---|---|---|---|
 | Skills | 179 | 0 | 4 |
 | Agents | 23 | 0 | 0 |
-| MCP servers | 14 | 0 | 0 |
-| Tools | 193 | 0 | 0 |
+| MCP servers | 15 | 0 | 0 |
+| Tools | 286 | 0 | 0 |
 
 ## Skills by harness
 
@@ -53,6 +53,7 @@ _None._
 
 | Server | Harness | Enabled | Tools | Note |
 |---|---|---|---|---|
+| `browse` | opencode | yes | 18 |  |
 | `playwright` | opencode | yes | 25 |  |
 | `open-computer-use` | opencode | yes | 9 |  |
 | `windows-mcp` | opencode | yes | 19 |  |
@@ -60,7 +61,7 @@ _None._
 | `sap-docs` | opencode | yes | 9 |  |
 | `rosa` | opencode | yes | 7 |  |
 | `gsd-120` | opencode | no | n/a |  |
-| `ds4-100` | opencode | no | n/a |  |
+| `ds4-100` | opencode | yes | 75 |  |
 | `ds4-900` | opencode | no | n/a |  |
 | `com.figma.mcp/mcp` | copilot | yes | n/a |  |
 | `io.github.ChromeDevTools/chrome-devtools-mcp` | copilot | yes | n/a |  |

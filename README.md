@@ -163,8 +163,8 @@ docs/
 |---|---|---|
 | Skills | 179 entries | opencode 78, agents 47, copilot 24, claude 30; cross-harness duplicates are expected |
 | Agents | 23 | 4 editable (`*-by-pongg`), 19 vendor |
-| MCP servers | 14 | 11 enabled, 3 disabled |
-| Tools | 193 | 8 namespaces; written by the plugin |
+| MCP servers | 15 | 13 enabled, 2 disabled |
+| Tools | 286 | 10 namespaces; written by the plugin |
 
 The `sap-ai-dev-toolkit` 0.9.9924 update added 6 Copilot skills and 5 Copilot
 agents (BTP, BW/DataSphere, Cloud ALM, DataSphere, process automation, DevOps
@@ -175,8 +175,9 @@ characters — `abap-cloud-migration`, `badi-enhancement`,
 `sap-integration-wiki`, `sap-support-case`. They are vendor-owned; forking is the
 only way to shorten them.
 
-`ds4-100` is intentionally disabled: SAP is on-demand. Re-enable it only when SAP
-work is requested, then restart OpenCode and enter the credentials manually.
+`ds4-100` is an on-demand SAP server: it is enabled only during SAP work, and
+`ds4-900` stays disabled. Both namespaces are marked optional in the tool
+baseline, so turning them on or off does not create false drift.
 
 ## Quick start on a new machine
 

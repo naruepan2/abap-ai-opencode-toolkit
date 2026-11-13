@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-11-13T10:35:35+00:00",
+  "generated_at": "2026-11-13T12:41:44+00:00",
   "servers": [
+    {
+      "server": "browse",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": true,
+      "command_kind": "browse.exe",
+      "url_host": ""
+    },
     {
       "server": "playwright",
       "harness": "opencode",
@@ -69,7 +78,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": false,
+      "enabled": true,
       "command_kind": "powershell",
       "url_host": ""
     },

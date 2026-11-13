@@ -213,7 +213,18 @@ def scan_agents():
 def scan_mcp():
     found = []
     cfg = load_json(OPENCODE_CONFIG, {})
-    for server, val in (cfg.get("mcp") or {}).items():
+    mcp = cfg.get("mcp") or {}
+    servers = {}
+    # V2 may nest remote/local definitions under "servers".
+    nested = mcp.get("servers")
+    if isinstance(nested, dict):
+        servers.update(nested)
+    for server, val in mcp.items():
+        if server == "servers":
+            continue
+        servers[server] = val
+
+    for server, val in servers.items():
         if not isinstance(val, dict):
             continue
         cmd = val.get("command")
@@ -270,6 +281,11 @@ def scan_tools_full():
     return {"ids": ids, "generated_at": data.get("generated_at", "")}
 
 
+def tool_namespace(tool_id: str) -> str:
+    match = re.match(r"^([a-z0-9-]+)[._]", tool_id, re.I)
+    return match.group(1) if match else "opencode"
+
+
 def merge_baseline(items, key_fields, old_items, new_status="active"):
     old = {tuple(str(x.get(k, "")) for k in key_fields): x for x in old_items}
     out = []
@@ -297,12 +313,15 @@ def cmd_init(refresh=False):
 
     snap = scan_tools_snapshot()
     full = scan_tools_full()
+    prev_tools = load_json(REG / "tools.json", {})
+    optional = prev_tools.get("optional_namespaces", ["ds4-100", "ds4-900"])
     tools = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "live tool catalog snapshot",
         "total": snap["total"] if snap else 0,
         "namespaces": snap["namespaces"] if snap else {},
         "tool_ids": full["ids"] if full else [],
+        "optional_namespaces": optional,
     }
 
     write_json(REG / "skills.json", {
@@ -378,14 +397,21 @@ def cmd_check(brief=False):
     missing_mcp = [x for x in reg_mcp if (x["harness"], x["server"]) not in current_mcp_keys]
 
     ns = (snap or {}).get("namespaces", {})
+    optional = set(reg_tools.get("optional_namespaces", []) or [])
     new_tools = []
     missing_tools = []
     if full is not None:
         base_ids = set(reg_tools.get("tool_ids", []) or [])
         cur_ids = set(full["ids"])
         if base_ids:
-            new_tools = sorted(cur_ids - base_ids)
-            missing_tools = sorted(base_ids - cur_ids)
+            new_tools = [
+                t for t in sorted(cur_ids - base_ids)
+                if tool_namespace(t) not in optional
+            ]
+            missing_tools = [
+                t for t in sorted(base_ids - cur_ids)
+                if tool_namespace(t) not in optional
+            ]
 
     mcp_zero = []
     for s in mcp:
@@ -402,6 +428,8 @@ def cmd_check(brief=False):
         base_ns = reg_tools.get("namespaces", {}) if isinstance(reg_tools, dict) else {}
         if base_ns:
             for name in sorted(set(base_ns) | set(ns)):
+                if name in optional:
+                    continue
                 if base_ns.get(name) != ns.get(name):
                     tool_changes.append(f"{name}: {base_ns.get(name, 0)} -> {ns.get(name, 0)}")
         if reg_tools.get("total") and reg_tools.get("total") != snap["total"]:
