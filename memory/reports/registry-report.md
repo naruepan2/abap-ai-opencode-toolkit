@@ -1,6 +1,6 @@
 # Registry report
 
-Generated: 2026-11-13T10:13:56+00:00
+Generated: 2026-11-13T10:19:33+00:00
 
 ## Summary
 
@@ -8,7 +8,7 @@ Generated: 2026-11-13T10:13:56+00:00
 |---|---|---|
 | Skills | 173 | 4 |
 | Agents | 18 | 0 |
-| MCP servers | 14 | 1 |
+| MCP servers | 14 | 0 |
 | Tools | 181 | 0 |
 
 ## Skills by harness
@@ -60,7 +60,7 @@ _None._
 | `sap-docs` | opencode | yes | 9 |  |
 | `rosa` | opencode | yes | 7 |  |
 | `gsd-120` | opencode | no | n/a |  |
-| `ds4-100` | opencode | yes | n/a |  |
+| `ds4-100` | opencode | no | n/a |  |
 | `ds4-900` | opencode | no | n/a |  |
 | `com.figma.mcp/mcp` | copilot | yes | n/a |  |
 | `io.github.ChromeDevTools/chrome-devtools-mcp` | copilot | yes | n/a |  |
@@ -78,7 +78,7 @@ _None._
 
 ## Enabled MCP servers with zero tools
 
-- `ds4-100` — check config/credentials/session
+_None._
 
 ## Tool snapshot changes
 

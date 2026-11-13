@@ -20,6 +20,18 @@ skills; only `*-by-pongg` files and newly created personal skills may be edited,
 and only after approval.
 ```
 
+## Registry check at session start
+
+If the workspace repository exists, run the read-only scanner once per session:
+
+```powershell
+cd $env:USERPROFILE\abap-agent-workspace-opencode
+python scripts\registry_check.py --check --brief
+```
+
+Show the short summary only when it reports issues (exit code 1). Do not auto-fix,
+enable/disable an MCP server, or edit a registry without approval.
+
 ## Project-level template
 
 ```markdown

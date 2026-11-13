@@ -70,6 +70,7 @@ The report is written to `memory/reports/registry-report.md`.
 - [x] Bootstrap memory snapshot and project card
 - [x] `scripts/registry_check.py` — skills / MCP / tools drift report
 - [x] `registries/*.json` — machine-readable snapshot
+- [x] Session-start registry brief (global `AGENTS.md`)
 - [ ] Tool snapshot automation (OpenCode session hook)
 - [ ] Skill and MCP onboarding gates
 - [ ] Compare OpenCode vs Copilot on the same task
