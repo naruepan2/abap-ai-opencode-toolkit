@@ -12,7 +12,7 @@
       }
     },
     "DEMO/ZDEMO01": {
-      "spec_version": "1.0",
+      "spec_version": "1.1",
       "status": "active",
       "files": {
         "source/FS_ZDEMO01_V4.0_20261018.md": {
@@ -20,8 +20,8 @@
           "bytes": 135251
         },
         "spec.md": {
-          "sha256": "78df30c5784ce74fe149a5ef1d9d09becb090f6c3a472046d6b4f80b2ff89b79",
-          "bytes": 9594
+          "sha256": "ed136c86129a76f79f14bf92fe3b8efb635c9c4bd84bb7c7c8400a46553d9e26",
+          "bytes": 10287
         }
       }
     }

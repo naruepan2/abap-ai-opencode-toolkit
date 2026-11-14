@@ -1,14 +1,14 @@
 ---
 program: ZDEMO01
 project: DEMO
-spec_version: 1.0
+spec_version: 1.1
 status: active
 fs_version: V4.0
 fs_date: 2026-10-18
 fs_file: spec/source/FS_ZDEMO01_V4.0_20261018.md
 fs_original_name: "IPLATFORMANCE_DEMO_FS_MM_ZDEMO01_Split batch at External WH and Report_V4.0_20261018.md"
 scope: FS Option 8 only - create DO, batch split, issue no., PGI at the external storage location
-implemented_version: v20
+implemented_version: v21
 owner: Pongg
 updated: 2026-11-14
 ---
@@ -47,7 +47,7 @@ recorded; `pending` = not built; `out-of-scope`.
 | ID | Requirement (one line, testable) | FS | Status | Since |
 |---|---|---|---|---|
 | REQ-01 | Entering a Sales Order lists `ZMMT010` rows whose `MATNR`/`WERKS`/`LGORT` match `VBAP` and `MENGE_PD > 0` | L1459-1469 | implemented | v10 |
-| REQ-02 | The user enters SO / SO item / quantity per batch row; the quantity is editable and cannot exceed the external-warehouse stock | L1469, DEV-02 | implemented | v11 |
+| REQ-02 | The user enters SO / SO item / quantity per batch row; the quantity is editable and cannot exceed the external-warehouse stock; once that row's DO and batch split succeed the quantity (`Ex.WH.Stck`) turns display-only | L1469, DEV-02, DEV-06 | implemented | v11 |
 | REQ-03 | Create an outbound Delivery Order referencing the Sales Order, with batch-split sub items under one main item; the sub-item quantities sum to the main item quantity | L1471 | implemented | v6 |
 | REQ-04 | Group by plant, storage location and material; the main item carries the total; different batches become sub items `900001`, `900002`, ... | L1473-1476 | implemented | v6 |
 | REQ-05 | Create the DO with `BAPI_OUTB_DELIVERY_CREATE_SLS` (`SHIP_POINT` = `VBAP-VSTEL`, `DUE_DATE` = `SY-DATUM`, `REF_DOC`/`REF_ITEM`, `DLV_QTY` = main-item total, `SALES_UNIT` = `VBAP-ZIEME`) and commit with `WAIT = X` only when no E/A message | L1482-1502 | implemented | v6 |
@@ -76,6 +76,7 @@ do not report it as passed.
 | AC-08 | Given a posted DO, when Option 8 is executed, then the posted delivery is no longer listed | REQ-01 | client 900, 2026-11-14 (v14) |
 | AC-09 | Given a quantity above the open quantity, when Create DO runs, then it is blocked by the GR-pending / KWMENG / live-LIPS checks (no bypass at 0) | REQ-02 | client 900, v11 |
 | AC-10 | Given an SO item with no `ZMMT010` row, when Option 8 runs and Create DO is pressed, then the program reports the condition and does not dump with `GETWA_NOT_ASSIGNED` | REQ-01 | built v20, runtime Pending |
+| AC-11 | Given a row whose DO and batch split succeeded, when the ALV refreshes, then `Ex.WH.Stck` on that row is display-only while rows without a DO stay editable | REQ-02 | built v21, runtime Pending |
 
 ## 5. Deviations from the FS (approved)
 
@@ -85,6 +86,7 @@ do not report it as passed.
 | DEV-02 | Open quantity from `ZMMT010-MENGE_PD > 0` (L1467) | `KWMENG - SUM(LIPS-LFIMG)` per SO item; the editable row is the open remainder per batch | D11.1-D11.4, 2026-11-13 |
 | DEV-03 | No extra ALV column | `OPEN_SO_QTY` between TF DEMO Qty and Ex.WH.Stck, editable rows only | v12, user-approved 2026-11-14 |
 | DEV-04 | FS does not say to hide posted deliveries | Posted DOs (`PGI_FLAG = 'X'` / `WBSTK = 'C'`) are removed from the list | D14.1, 2026-11-14 |
+| DEV-06 | FS L1469 lets the user edit the GI quantity freely | The row's quantity (`Ex.WH.Stck`) is locked as soon as its DO + batch split succeed, so the ALV cannot drift from the delivery it created | user request 2026-11-14, v21 |
 
 ## 6. Open questions (do not guess)
 
@@ -111,4 +113,5 @@ not part of the contract and can be deleted. The table below is the source of tr
 
 | Spec | Date | Change |
 |---|---|---|
+| 1.1 | 2026-11-14 | REQ-02: `Ex.WH.Stck` (`MENGE_PD`) becomes display-only per row once its DO + batch split succeed (DEV-06, AC-11); implemented v21 |
 | 1.0 | 2026-11-14 | First spec from FS V4.0 (moved to `spec/source/`), v1-v20 decisions, and the current ALV behaviour |

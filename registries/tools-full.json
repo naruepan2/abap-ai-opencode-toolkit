@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T04:44:23.412Z",
-  "total": 111,
+  "generated_at": "2026-11-14T06:20:46.706Z",
+  "total": 320,
   "tools": [
     {
       "id": "browse_execute",
@@ -111,6 +111,906 @@
       "description": "Close tabs agents opened that nobody has used for a while (no agent command and not visited by the user). Tabs the user shared or pinned, the active tab, tabs playing audio, recording, or waiting for "
     },
     {
+      "id": "ds4-100_activate",
+      "name": "activate",
+      "namespace": "ds4-100",
+      "description": "Activate an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_activate_multiple",
+      "name": "activate_multiple",
+      "namespace": "ds4-100",
+      "description": "Activate multiple ABAP objects in a single ADT request, resolving mutual dependencies between them (same behaviour as Eclipse ADT). Use when includes and their main program must be activated together."
+    },
+    {
+      "id": "ds4-100_apply_abap_change_set",
+      "name": "apply_abap_change_set",
+      "namespace": "ds4-100",
+      "description": "Apply a staged ABAP change set after re-reading every target and confirming its source still matches the reviewed version. Call only after the user approves the proposal. [destination: DEMO DEV [NE"
+    },
+    {
+      "id": "ds4-100_check_transport_readiness",
+      "name": "check_transport_readiness",
+      "namespace": "ds4-100",
+      "description": "Collect a transport request and dependency, inactive-object, ABAP Unit, and ATC evidence bundle. Only registered read/check tools are accepted; inspect findings before handoff. [destination: DEMO DS4 D"
+    },
+    {
+      "id": "ds4-100_compare_source",
+      "name": "compare_source",
+      "namespace": "ds4-100",
+      "description": "Compare source code of two objects and return unified diff. Supports all object types from GetSource. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_create_object",
+      "name": "create_object",
+      "namespace": "ds4-100",
+      "description": "Create a new ABAP object. Supports: PROG/P (program), CLAS/OC (class), INTF/OI (interface), PROG/I (include), FUGR/F (function group), FUGR/FF (function module), DEVC/K (package), DDLS/DF (CDS view), "
+    },
+    {
+      "id": "ds4-100_create_package",
+      "name": "create_package",
+      "namespace": "ds4-100",
+      "description": "Create a new ABAP package. Local packages ($*) work by default. Transportable packages require --enable-transports flag and transport parameter. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_create_table",
+      "name": "create_table",
+      "namespace": "ds4-100",
+      "description": "Create a DDIC transparent table from a simple JSON definition. Handles full workflow: create → set source → activate. Supports common ABAP types: CHAR, NUMC, INT4, DEC, STRING, TIMESTAMPL, UUID, etc. "
+    },
+    {
+      "id": "ds4-100_create_transport",
+      "name": "create_transport",
+      "namespace": "ds4-100",
+      "description": "Create a new transport request. Requires --enable-transports flag and not --transport-read-only. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_debugger_attach",
+      "name": "debugger_attach",
+      "namespace": "ds4-100",
+      "description": "Attach to a debuggee that has hit a breakpoint. Use the debuggee_id from DebuggerListen result. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_debugger_detach",
+      "name": "debugger_detach",
+      "namespace": "ds4-100",
+      "description": "Detach from the current debug session and release the debuggee. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_debugger_get_stack",
+      "name": "debugger_get_stack",
+      "namespace": "ds4-100",
+      "description": "Get the current call stack during a debug session. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_debugger_get_variables",
+      "name": "debugger_get_variables",
+      "namespace": "ds4-100",
+      "description": "Read variables at the current stop. With no argument it returns the stopped frame's own variables with their values; pass a composite id (from a previous answer) to expand a structure or table, or nam"
+    },
+    {
+      "id": "ds4-100_debugger_step",
+      "name": "debugger_step",
+      "namespace": "ds4-100",
+      "description": "Perform a step operation in the debugger. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_delete_empty_ddls",
+      "name": "delete_empty_ddls",
+      "namespace": "ds4-100",
+      "description": "Delete only an empty Z/Y DDLS shell. The source is read first and deletion is refused unless it is blank. Requires confirmation exactly equal to DELETE EMPTY DDLS <OBJECT_NAME>. [destination: DEMO DS4 "
+    },
+    {
+      "id": "ds4-100_edit_source",
+      "name": "edit_source",
+      "namespace": "ds4-100",
+      "description": "Surgical string replacement on ABAP source code. Matches the Edit tool pattern for local files. Workflow: GetSource → FindReplace → SyntaxCheck → Lock → Update → Unlock → Activate. Example: EditSource"
+    },
+    {
+      "id": "ds4-100_find_definition",
+      "name": "find_definition",
+      "namespace": "ds4-100",
+      "description": "Navigate to the definition of a symbol at a given position in source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_find_references",
+      "name": "find_references",
+      "namespace": "ds4-100",
+      "description": "Find all references to an ABAP object or symbol [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_generate_rap_regression_suite",
+      "name": "generate_rap_regression_suite",
+      "namespace": "ds4-100",
+      "description": "Read an OData service metadata document and return a reusable, read-only smoke suite for its entity sets. Only the connected destination is contacted. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_api_release_state",
+      "name": "get_api_release_state",
+      "namespace": "ds4-100",
+      "description": "Check API release state for S/4HANA Clean Core / ABAP Cloud compatibility. Returns whether an object is released for cloud development and key user apps. Use SearchObject first to get the object URI. "
+    },
+    {
+      "id": "ds4-100_get_application_log",
+      "name": "get_application_log",
+      "namespace": "ds4-100",
+      "description": "Read SAP application log (SLG1) entries. Results are newest first and limited to 100 by default; set messages=true to include log message details. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_breakpoints",
+      "name": "get_breakpoints",
+      "namespace": "ds4-100",
+      "description": "List the breakpoints this session registered. ADT does not report breakpoints belonging to other clients, so this is not a system-wide list. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_cds_dependencies",
+      "name": "get_cds_dependencies",
+      "namespace": "ds4-100",
+      "description": "Retrieve CDS view FORWARD dependencies (tables/views this CDS reads FROM). Returns tree of base objects. Does NOT return reverse dependencies (where-used). Use with GetSource(DDLS) to read CDS source "
+    },
+    {
+      "id": "ds4-100_get_cds_element_info",
+      "name": "get_cds_element_info",
+      "namespace": "ds4-100",
+      "description": "Retrieve metadata for all elements (fields) of a CDS view. Returns field names, types, annotations, and semantic information from the DDL source. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_cds_impact_analysis",
+      "name": "get_cds_impact_analysis",
+      "namespace": "ds4-100",
+      "description": "Retrieve CDS view REVERSE dependencies (where-used / downstream consumers). Returns all objects that consume/reference the given CDS view. Complement of GetCDSDependencies which shows forward dependen"
+    },
+    {
+      "id": "ds4-100_get_class",
+      "name": "get_class",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP class source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_class_components",
+      "name": "get_class_components",
+      "namespace": "ds4-100",
+      "description": "Get the structure of a class - lists all methods, attributes, events, and other components with their visibility and properties [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_class_include",
+      "name": "get_class_include",
+      "namespace": "ds4-100",
+      "description": "Retrieve source code of a class include (definitions, implementations, macros, testclasses) [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_class_info",
+      "name": "get_class_info",
+      "namespace": "ds4-100",
+      "description": "Get class metadata without full source: methods, attributes, interfaces, superclass, abstract/final status. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_connection_info",
+      "name": "get_connection_info",
+      "namespace": "ds4-100",
+      "description": "Get current MCP connection info: user, URL, client. Useful for debugging and understanding current session context. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_context",
+      "name": "get_context",
+      "namespace": "ds4-100",
+      "description": "Analyze ABAP source dependencies and return compressed public API contracts (prologue). Produces a compact summary of all referenced classes, interfaces, and function modules — showing only their publ"
+    },
+    {
+      "id": "ds4-100_get_features",
+      "name": "get_features",
+      "namespace": "ds4-100",
+      "description": "Probe SAP system for available features. Returns status of optional capabilities like abapGit, RAP/OData, AMDP debugging, UI5/BSP, and CTS transports. Use this to understand what features are availabl"
+    },
+    {
+      "id": "ds4-100_get_function",
+      "name": "get_function",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP Function Module source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_function_group",
+      "name": "get_function_group",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP Function Group source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_inactive_objects",
+      "name": "get_inactive_objects",
+      "namespace": "ds4-100",
+      "description": "Get all inactive objects for the current user - objects that have been modified but not yet activated [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_include",
+      "name": "get_include",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP Include Source Code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_installed_components",
+      "name": "get_installed_components",
+      "namespace": "ds4-100",
+      "description": "List installed software components with version information [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_interface",
+      "name": "get_interface",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP interface source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_messages",
+      "name": "get_messages",
+      "namespace": "ds4-100",
+      "description": "Get all messages from an ABAP message class (SE91). Returns message number, text for all messages in the class. Use SearchObject to find message classes first. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_package",
+      "name": "get_package",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP package details [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_program",
+      "name": "get_program",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP program source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_source",
+      "name": "get_source",
+      "namespace": "ds4-100",
+      "description": "Unified tool for reading ABAP source code across different object types. Replaces GetProgram, GetClass, GetInterface, GetFunction, GetInclude, GetFunctionGroup, GetClassInclude. [destination: DEMO DS4 "
+    },
+    {
+      "id": "ds4-100_get_structure",
+      "name": "get_structure",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP Structure [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_system_info",
+      "name": "get_system_info",
+      "namespace": "ds4-100",
+      "description": "Get SAP system information (system ID, release, kernel, database) [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_table",
+      "name": "get_table",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP table structure [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_table_contents",
+      "name": "get_table_contents",
+      "namespace": "ds4-100",
+      "description": "Retrieve contents of an ABAP table. For simple queries use table_name + max_rows. For filtered queries use sql_query parameter with ABAP SQL syntax (use ASCENDING/DESCENDING, not ASC/DESC). [destinati"
+    },
+    {
+      "id": "ds4-100_get_transport",
+      "name": "get_transport",
+      "namespace": "ds4-100",
+      "description": "Get detailed transport information including objects and tasks. Requires --enable-transports OR --allow-transportable-edits flag. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_transport_info",
+      "name": "get_transport_info",
+      "namespace": "ds4-100",
+      "description": "Get transport information for an ABAP object (requires --enable-transports flag). Returns available transports and lock status. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_type_info",
+      "name": "get_type_info",
+      "namespace": "ds4-100",
+      "description": "Retrieve ABAP type information [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_get_user_transports",
+      "name": "get_user_transports",
+      "namespace": "ds4-100",
+      "description": "Get the transport requests of a user from the transport organizer (requires --enable-transports): workbench and customizing, modifiable and released, with tasks and objects, grouped by target and CTS "
+    },
+    {
+      "id": "ds4-100_grep_objects",
+      "name": "grep_objects",
+      "namespace": "ds4-100",
+      "description": "Unified tool for searching regex patterns in single or multiple ABAP objects. Replaces GrepObject. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_grep_packages",
+      "name": "grep_packages",
+      "namespace": "ds4-100",
+      "description": "Unified tool for searching regex patterns across single or multiple packages with optional recursive subpackage search. Replaces GrepPackage. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_lint_abap",
+      "name": "lint_abap",
+      "namespace": "ds4-100",
+      "description": "Run abaplint on caller-supplied source files in memory; does not read workspace files or call SAP."
+    },
+    {
+      "id": "ds4-100_lint_abap_project",
+      "name": "lint_abap_project",
+      "namespace": "ds4-100",
+      "description": "Run read-only abaplint checks over serialized ABAP objects under the configured workspace root. Loads the project config and local dependency folders when present; does not call SAP, write files, or a"
+    },
+    {
+      "id": "ds4-100_list_dependencies",
+      "name": "list_dependencies",
+      "namespace": "ds4-100",
+      "description": "List available dependency packages that can be installed via InstallAbapGit. Shows abapGit editions and other optional dependencies. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_list_transports",
+      "name": "list_transports",
+      "namespace": "ds4-100",
+      "description": "List transport requests of a user as flat rows: workbench and customizing, modifiable and released by default (request_status D limits it to modifiable). Requires --enable-transports OR --allow-transp"
+    },
+    {
+      "id": "ds4-100_lock_object",
+      "name": "lock_object",
+      "namespace": "ds4-100",
+      "description": "Acquire an edit lock on an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_plan_abap_cloud_migration",
+      "name": "plan_abap_cloud_migration",
+      "namespace": "ds4-100",
+      "description": "Check SAP release-state evidence for a bounded set of object URIs and prioritize objects that need migration review. It reports SAP evidence without inventing replacement APIs. [destination: DEMO DS4 D"
+    },
+    {
+      "id": "ds4-100_prepare_abap_change_set",
+      "name": "prepare_abap_change_set",
+      "namespace": "ds4-100",
+      "description": "Stage a reviewable multi-object ABAP change set. This only reads current sources and stores the proposal in memory; it does not edit SAP. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_pretty_print",
+      "name": "pretty_print",
+      "namespace": "ds4-100",
+      "description": "Format ABAP source code using the pretty printer [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_publish_service_binding",
+      "name": "publish_service_binding",
+      "namespace": "ds4-100",
+      "description": "Publish a service binding to make it available as OData service [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_run_atc_check",
+      "name": "run_atc_check",
+      "namespace": "ds4-100",
+      "description": "Run ATC (ABAP Test Cockpit) code quality check on an object. Returns findings with priority, check title, message, and location. Priority: 1=Error, 2=Warning, 3=Info. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_run_query",
+      "name": "run_query",
+      "namespace": "ds4-100",
+      "description": "Execute a freestyle SQL query against the SAP database. IMPORTANT: Uses ABAP SQL syntax, NOT standard SQL. Use ASCENDING/DESCENDING instead of ASC/DESC. Use max_rows parameter instead of LIMIT. GROUP "
+    },
+    {
+      "id": "ds4-100_run_rap_regression_suite",
+      "name": "run_rap_regression_suite",
+      "namespace": "ds4-100",
+      "description": "Run a saved RAP OData GET-only suite against this destination. Requests stay under the supplied OData service root; request bodies and custom authorization headers are not supported. [destination: DEMO"
+    },
+    {
+      "id": "ds4-100_run_unit_tests",
+      "name": "run_unit_tests",
+      "namespace": "ds4-100",
+      "description": "Run ABAP Unit tests for an object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_search_object",
+      "name": "search_object",
+      "namespace": "ds4-100",
+      "description": "Search for ABAP objects using quick search [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_set_breakpoint",
+      "name": "set_breakpoint",
+      "namespace": "ds4-100",
+      "description": "Set an external breakpoint through SAP's ADT resources. Kinds: 'line' (an object and a line), 'statement' (an ABAP keyword), 'exception' (an exception class). The line is the line in the source as vsp"
+    },
+    {
+      "id": "ds4-100_syntax_check",
+      "name": "syntax_check",
+      "namespace": "ds4-100",
+      "description": "Check ABAP source code for syntax errors [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_ui5_get_app",
+      "name": "ui5_get_app",
+      "namespace": "ds4-100",
+      "description": "Get details of a UI5/Fiori BSP application including file structure. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_ui5_get_file_content",
+      "name": "ui5_get_file_content",
+      "namespace": "ds4-100",
+      "description": "Get content of a specific file within a UI5/Fiori BSP application. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_ui5_list_apps",
+      "name": "ui5_list_apps",
+      "namespace": "ds4-100",
+      "description": "List UI5/Fiori BSP applications. Use query parameter for filtering with wildcards (*). [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_unlock_object",
+      "name": "unlock_object",
+      "namespace": "ds4-100",
+      "description": "Release an edit lock on an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_unpublish_service_binding",
+      "name": "unpublish_service_binding",
+      "namespace": "ds4-100",
+      "description": "Unpublish a service binding [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-100_update_table",
+      "name": "update_table",
+      "namespace": "ds4-100",
+      "description": "Update and activate an existing Z/Y DDIC table from replacement DDL. The current DDL is re-read and compared with expected_source; VSP checks its source hash again under lock. Requires confirmation ex"
+    },
+    {
+      "id": "ds4-100_write_source",
+      "name": "write_source",
+      "namespace": "ds4-100",
+      "description": "Unified tool for writing ABAP source code with automatic create/update detection. Supports PROG, CLAS, INTF, INCL, RAP types (DDLS, BDEF, SRVD), and updates to existing DDIC tables (TABL). New tables "
+    },
+    {
+      "id": "ds4-900_activate",
+      "name": "activate",
+      "namespace": "ds4-900",
+      "description": "Activate an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_activate_multiple",
+      "name": "activate_multiple",
+      "namespace": "ds4-900",
+      "description": "Activate multiple ABAP objects in a single ADT request, resolving mutual dependencies between them (same behaviour as Eclipse ADT). Use when includes and their main program must be activated together."
+    },
+    {
+      "id": "ds4-900_apply_abap_change_set",
+      "name": "apply_abap_change_set",
+      "namespace": "ds4-900",
+      "description": "Apply a staged ABAP change set after re-reading every target and confirming its source still matches the reviewed version. Call only after the user approves the proposal. [destination: DEMO DEV [NE"
+    },
+    {
+      "id": "ds4-900_check_transport_readiness",
+      "name": "check_transport_readiness",
+      "namespace": "ds4-900",
+      "description": "Collect a transport request and dependency, inactive-object, ABAP Unit, and ATC evidence bundle. Only registered read/check tools are accepted; inspect findings before handoff. [destination: DEMO DS4 D"
+    },
+    {
+      "id": "ds4-900_compare_source",
+      "name": "compare_source",
+      "namespace": "ds4-900",
+      "description": "Compare source code of two objects and return unified diff. Supports all object types from GetSource. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_create_object",
+      "name": "create_object",
+      "namespace": "ds4-900",
+      "description": "Create a new ABAP object. Supports: PROG/P (program), CLAS/OC (class), INTF/OI (interface), PROG/I (include), FUGR/F (function group), FUGR/FF (function module), DEVC/K (package), DDLS/DF (CDS view), "
+    },
+    {
+      "id": "ds4-900_create_package",
+      "name": "create_package",
+      "namespace": "ds4-900",
+      "description": "Create a new ABAP package. Local packages ($*) work by default. Transportable packages require --enable-transports flag and transport parameter. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_create_table",
+      "name": "create_table",
+      "namespace": "ds4-900",
+      "description": "Create a DDIC transparent table from a simple JSON definition. Handles full workflow: create → set source → activate. Supports common ABAP types: CHAR, NUMC, INT4, DEC, STRING, TIMESTAMPL, UUID, etc. "
+    },
+    {
+      "id": "ds4-900_create_transport",
+      "name": "create_transport",
+      "namespace": "ds4-900",
+      "description": "Create a new transport request. Requires --enable-transports flag and not --transport-read-only. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_debugger_attach",
+      "name": "debugger_attach",
+      "namespace": "ds4-900",
+      "description": "Attach to a debuggee that has hit a breakpoint. Use the debuggee_id from DebuggerListen result. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_debugger_detach",
+      "name": "debugger_detach",
+      "namespace": "ds4-900",
+      "description": "Detach from the current debug session and release the debuggee. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_debugger_get_stack",
+      "name": "debugger_get_stack",
+      "namespace": "ds4-900",
+      "description": "Get the current call stack during a debug session. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_debugger_get_variables",
+      "name": "debugger_get_variables",
+      "namespace": "ds4-900",
+      "description": "Read variables at the current stop. With no argument it returns the stopped frame's own variables with their values; pass a composite id (from a previous answer) to expand a structure or table, or nam"
+    },
+    {
+      "id": "ds4-900_debugger_step",
+      "name": "debugger_step",
+      "namespace": "ds4-900",
+      "description": "Perform a step operation in the debugger. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_delete_empty_ddls",
+      "name": "delete_empty_ddls",
+      "namespace": "ds4-900",
+      "description": "Delete only an empty Z/Y DDLS shell. The source is read first and deletion is refused unless it is blank. Requires confirmation exactly equal to DELETE EMPTY DDLS <OBJECT_NAME>. [destination: DEMO DS4 "
+    },
+    {
+      "id": "ds4-900_edit_source",
+      "name": "edit_source",
+      "namespace": "ds4-900",
+      "description": "Surgical string replacement on ABAP source code. Matches the Edit tool pattern for local files. Workflow: GetSource → FindReplace → SyntaxCheck → Lock → Update → Unlock → Activate. Example: EditSource"
+    },
+    {
+      "id": "ds4-900_find_definition",
+      "name": "find_definition",
+      "namespace": "ds4-900",
+      "description": "Navigate to the definition of a symbol at a given position in source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_find_references",
+      "name": "find_references",
+      "namespace": "ds4-900",
+      "description": "Find all references to an ABAP object or symbol [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_generate_rap_regression_suite",
+      "name": "generate_rap_regression_suite",
+      "namespace": "ds4-900",
+      "description": "Read an OData service metadata document and return a reusable, read-only smoke suite for its entity sets. Only the connected destination is contacted. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_api_release_state",
+      "name": "get_api_release_state",
+      "namespace": "ds4-900",
+      "description": "Check API release state for S/4HANA Clean Core / ABAP Cloud compatibility. Returns whether an object is released for cloud development and key user apps. Use SearchObject first to get the object URI. "
+    },
+    {
+      "id": "ds4-900_get_application_log",
+      "name": "get_application_log",
+      "namespace": "ds4-900",
+      "description": "Read SAP application log (SLG1) entries. Results are newest first and limited to 100 by default; set messages=true to include log message details. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_breakpoints",
+      "name": "get_breakpoints",
+      "namespace": "ds4-900",
+      "description": "List the breakpoints this session registered. ADT does not report breakpoints belonging to other clients, so this is not a system-wide list. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_cds_dependencies",
+      "name": "get_cds_dependencies",
+      "namespace": "ds4-900",
+      "description": "Retrieve CDS view FORWARD dependencies (tables/views this CDS reads FROM). Returns tree of base objects. Does NOT return reverse dependencies (where-used). Use with GetSource(DDLS) to read CDS source "
+    },
+    {
+      "id": "ds4-900_get_cds_element_info",
+      "name": "get_cds_element_info",
+      "namespace": "ds4-900",
+      "description": "Retrieve metadata for all elements (fields) of a CDS view. Returns field names, types, annotations, and semantic information from the DDL source. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_cds_impact_analysis",
+      "name": "get_cds_impact_analysis",
+      "namespace": "ds4-900",
+      "description": "Retrieve CDS view REVERSE dependencies (where-used / downstream consumers). Returns all objects that consume/reference the given CDS view. Complement of GetCDSDependencies which shows forward dependen"
+    },
+    {
+      "id": "ds4-900_get_class",
+      "name": "get_class",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP class source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_class_components",
+      "name": "get_class_components",
+      "namespace": "ds4-900",
+      "description": "Get the structure of a class - lists all methods, attributes, events, and other components with their visibility and properties [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_class_include",
+      "name": "get_class_include",
+      "namespace": "ds4-900",
+      "description": "Retrieve source code of a class include (definitions, implementations, macros, testclasses) [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_class_info",
+      "name": "get_class_info",
+      "namespace": "ds4-900",
+      "description": "Get class metadata without full source: methods, attributes, interfaces, superclass, abstract/final status. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_connection_info",
+      "name": "get_connection_info",
+      "namespace": "ds4-900",
+      "description": "Get current MCP connection info: user, URL, client. Useful for debugging and understanding current session context. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_context",
+      "name": "get_context",
+      "namespace": "ds4-900",
+      "description": "Analyze ABAP source dependencies and return compressed public API contracts (prologue). Produces a compact summary of all referenced classes, interfaces, and function modules — showing only their publ"
+    },
+    {
+      "id": "ds4-900_get_features",
+      "name": "get_features",
+      "namespace": "ds4-900",
+      "description": "Probe SAP system for available features. Returns status of optional capabilities like abapGit, RAP/OData, AMDP debugging, UI5/BSP, and CTS transports. Use this to understand what features are availabl"
+    },
+    {
+      "id": "ds4-900_get_function",
+      "name": "get_function",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP Function Module source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_function_group",
+      "name": "get_function_group",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP Function Group source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_inactive_objects",
+      "name": "get_inactive_objects",
+      "namespace": "ds4-900",
+      "description": "Get all inactive objects for the current user - objects that have been modified but not yet activated [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_include",
+      "name": "get_include",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP Include Source Code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_installed_components",
+      "name": "get_installed_components",
+      "namespace": "ds4-900",
+      "description": "List installed software components with version information [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_interface",
+      "name": "get_interface",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP interface source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_messages",
+      "name": "get_messages",
+      "namespace": "ds4-900",
+      "description": "Get all messages from an ABAP message class (SE91). Returns message number, text for all messages in the class. Use SearchObject to find message classes first. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_package",
+      "name": "get_package",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP package details [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_program",
+      "name": "get_program",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP program source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_source",
+      "name": "get_source",
+      "namespace": "ds4-900",
+      "description": "Unified tool for reading ABAP source code across different object types. Replaces GetProgram, GetClass, GetInterface, GetFunction, GetInclude, GetFunctionGroup, GetClassInclude. [destination: DEMO DS4 "
+    },
+    {
+      "id": "ds4-900_get_structure",
+      "name": "get_structure",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP Structure [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_system_info",
+      "name": "get_system_info",
+      "namespace": "ds4-900",
+      "description": "Get SAP system information (system ID, release, kernel, database) [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_table",
+      "name": "get_table",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP table structure [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_table_contents",
+      "name": "get_table_contents",
+      "namespace": "ds4-900",
+      "description": "Retrieve contents of an ABAP table. For simple queries use table_name + max_rows. For filtered queries use sql_query parameter with ABAP SQL syntax (use ASCENDING/DESCENDING, not ASC/DESC). [destinati"
+    },
+    {
+      "id": "ds4-900_get_transport",
+      "name": "get_transport",
+      "namespace": "ds4-900",
+      "description": "Get detailed transport information including objects and tasks. Requires --enable-transports OR --allow-transportable-edits flag. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_transport_info",
+      "name": "get_transport_info",
+      "namespace": "ds4-900",
+      "description": "Get transport information for an ABAP object (requires --enable-transports flag). Returns available transports and lock status. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_type_info",
+      "name": "get_type_info",
+      "namespace": "ds4-900",
+      "description": "Retrieve ABAP type information [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_get_user_transports",
+      "name": "get_user_transports",
+      "namespace": "ds4-900",
+      "description": "Get the transport requests of a user from the transport organizer (requires --enable-transports): workbench and customizing, modifiable and released, with tasks and objects, grouped by target and CTS "
+    },
+    {
+      "id": "ds4-900_grep_objects",
+      "name": "grep_objects",
+      "namespace": "ds4-900",
+      "description": "Unified tool for searching regex patterns in single or multiple ABAP objects. Replaces GrepObject. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_grep_packages",
+      "name": "grep_packages",
+      "namespace": "ds4-900",
+      "description": "Unified tool for searching regex patterns across single or multiple packages with optional recursive subpackage search. Replaces GrepPackage. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_lint_abap",
+      "name": "lint_abap",
+      "namespace": "ds4-900",
+      "description": "Run abaplint on caller-supplied source files in memory; does not read workspace files or call SAP."
+    },
+    {
+      "id": "ds4-900_lint_abap_project",
+      "name": "lint_abap_project",
+      "namespace": "ds4-900",
+      "description": "Run read-only abaplint checks over serialized ABAP objects under the configured workspace root. Loads the project config and local dependency folders when present; does not call SAP, write files, or a"
+    },
+    {
+      "id": "ds4-900_list_dependencies",
+      "name": "list_dependencies",
+      "namespace": "ds4-900",
+      "description": "List available dependency packages that can be installed via InstallAbapGit. Shows abapGit editions and other optional dependencies. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_list_transports",
+      "name": "list_transports",
+      "namespace": "ds4-900",
+      "description": "List transport requests of a user as flat rows: workbench and customizing, modifiable and released by default (request_status D limits it to modifiable). Requires --enable-transports OR --allow-transp"
+    },
+    {
+      "id": "ds4-900_lock_object",
+      "name": "lock_object",
+      "namespace": "ds4-900",
+      "description": "Acquire an edit lock on an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_plan_abap_cloud_migration",
+      "name": "plan_abap_cloud_migration",
+      "namespace": "ds4-900",
+      "description": "Check SAP release-state evidence for a bounded set of object URIs and prioritize objects that need migration review. It reports SAP evidence without inventing replacement APIs. [destination: DEMO DS4 D"
+    },
+    {
+      "id": "ds4-900_prepare_abap_change_set",
+      "name": "prepare_abap_change_set",
+      "namespace": "ds4-900",
+      "description": "Stage a reviewable multi-object ABAP change set. This only reads current sources and stores the proposal in memory; it does not edit SAP. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_pretty_print",
+      "name": "pretty_print",
+      "namespace": "ds4-900",
+      "description": "Format ABAP source code using the pretty printer [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_publish_service_binding",
+      "name": "publish_service_binding",
+      "namespace": "ds4-900",
+      "description": "Publish a service binding to make it available as OData service [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_run_atc_check",
+      "name": "run_atc_check",
+      "namespace": "ds4-900",
+      "description": "Run ATC (ABAP Test Cockpit) code quality check on an object. Returns findings with priority, check title, message, and location. Priority: 1=Error, 2=Warning, 3=Info. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_run_query",
+      "name": "run_query",
+      "namespace": "ds4-900",
+      "description": "Execute a freestyle SQL query against the SAP database. IMPORTANT: Uses ABAP SQL syntax, NOT standard SQL. Use ASCENDING/DESCENDING instead of ASC/DESC. Use max_rows parameter instead of LIMIT. GROUP "
+    },
+    {
+      "id": "ds4-900_run_rap_regression_suite",
+      "name": "run_rap_regression_suite",
+      "namespace": "ds4-900",
+      "description": "Run a saved RAP OData GET-only suite against this destination. Requests stay under the supplied OData service root; request bodies and custom authorization headers are not supported. [destination: DEMO"
+    },
+    {
+      "id": "ds4-900_run_unit_tests",
+      "name": "run_unit_tests",
+      "namespace": "ds4-900",
+      "description": "Run ABAP Unit tests for an object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_search_object",
+      "name": "search_object",
+      "namespace": "ds4-900",
+      "description": "Search for ABAP objects using quick search [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_set_breakpoint",
+      "name": "set_breakpoint",
+      "namespace": "ds4-900",
+      "description": "Set an external breakpoint through SAP's ADT resources. Kinds: 'line' (an object and a line), 'statement' (an ABAP keyword), 'exception' (an exception class). The line is the line in the source as vsp"
+    },
+    {
+      "id": "ds4-900_syntax_check",
+      "name": "syntax_check",
+      "namespace": "ds4-900",
+      "description": "Check ABAP source code for syntax errors [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_ui5_get_app",
+      "name": "ui5_get_app",
+      "namespace": "ds4-900",
+      "description": "Get details of a UI5/Fiori BSP application including file structure. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_ui5_get_file_content",
+      "name": "ui5_get_file_content",
+      "namespace": "ds4-900",
+      "description": "Get content of a specific file within a UI5/Fiori BSP application. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_ui5_list_apps",
+      "name": "ui5_list_apps",
+      "namespace": "ds4-900",
+      "description": "List UI5/Fiori BSP applications. Use query parameter for filtering with wildcards (*). [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_unlock_object",
+      "name": "unlock_object",
+      "namespace": "ds4-900",
+      "description": "Release an edit lock on an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_unpublish_service_binding",
+      "name": "unpublish_service_binding",
+      "namespace": "ds4-900",
+      "description": "Unpublish a service binding [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ds4-900_update_table",
+      "name": "update_table",
+      "namespace": "ds4-900",
+      "description": "Update and activate an existing Z/Y DDIC table from replacement DDL. The current DDL is re-read and compared with expected_source; VSP checks its source hash again under lock. Requires confirmation ex"
+    },
+    {
+      "id": "ds4-900_write_source",
+      "name": "write_source",
+      "namespace": "ds4-900",
+      "description": "Unified tool for writing ABAP source code with automatic create/update detection. Supports PROG, CLAS, INTF, INCL, RAP types (DDLS, BDEF, SRVD), and updates to existing DDIC tables (TABL). New tables "
+    },
+    {
       "id": "open-computer-use_click",
       "name": "click",
       "namespace": "open-computer-use",
@@ -163,6 +1063,360 @@
       "name": "type_text",
       "namespace": "open-computer-use",
       "description": "Type literal text using keyboard input. This tool is part of plugin `Computer Use`."
+    },
+    {
+      "id": "sap-gui_sap_click_tree_link",
+      "name": "sap_click_tree_link",
+      "namespace": "sap-gui",
+      "description": "Click a hyperlink in a tree node item.\n\nFor SPRO/customizing trees, click on the execute icon column\n(typically item_name='2') to run an activity. Use sap_read_tree\nto see which columns have link-type"
+    },
+    {
+      "id": "sap-gui_sap_collapse_tree_node",
+      "name": "sap_collapse_tree_node",
+      "namespace": "sap-gui",
+      "description": "Collapse a folder node in a tree control (e.g. SPRO/customizing tree)."
+    },
+    {
+      "id": "sap-gui_sap_connect",
+      "name": "sap_connect",
+      "namespace": "sap-gui",
+      "description": "Connect to an SAP system by its name in SAP Logon Pad.\n\nCredentials are resolved from a .env file (SAP_USER, SAP_PASSWORD,\nSAP_CLIENT, SAP_LANGUAGE) so passwords never appear in MCP tool calls.\nParame"
+    },
+    {
+      "id": "sap-gui_sap_connect_existing",
+      "name": "sap_connect_existing",
+      "namespace": "sap-gui",
+      "description": "Connect to an already open SAP session. Use this when SAP is already logged in.\n\nThis is the most common starting point. connection_index=0 and session_index=0\nconnect to the first open session. Also "
+    },
+    {
+      "id": "sap-gui_sap_disconnect",
+      "name": "sap_disconnect",
+      "namespace": "sap-gui",
+      "description": "Disconnect from the current SAP session and release the binding.\n\nCloses only the sessions this MCP session opened: the one sap_connect\nlogged on in and any /o window opened from it. Sessions that wer"
+    },
+    {
+      "id": "sap-gui_sap_double_click_cell",
+      "name": "sap_double_click_cell",
+      "namespace": "sap-gui",
+      "description": "Double-click a cell in a table/grid (often opens details or drills down).\n\nRow is zero-based. Column is the column name (from sap_read_table\nor sap_get_column_info). Works on both ALV and TableControl"
+    },
+    {
+      "id": "sap-gui_sap_double_click_tree_item",
+      "name": "sap_double_click_tree_item",
+      "namespace": "sap-gui",
+      "description": "Double-click a specific item (column cell) in a tree node row.\n\nitem_name is the column name (e.g., 'Column1', 'Column2').\nUse sap_read_tree to discover column names for the tree."
+    },
+    {
+      "id": "sap-gui_sap_double_click_tree_node",
+      "name": "sap_double_click_tree_node",
+      "namespace": "sap-gui",
+      "description": "Double-click a node in a tree control (often opens details or drills down).\n\nIn SPRO/customizing trees, this may open documentation (hypertext)\nrather than executing the activity. Use sap_click_tree_l"
+    },
+    {
+      "id": "sap-gui_sap_execute_transaction",
+      "name": "sap_execute_transaction",
+      "namespace": "sap-gui",
+      "description": "Execute (start/run) an SAP transaction code (tcode), e.g. MM03, VA01, SM30.\n\nNavigates to the transaction's initial screen. Always check the\nscreen info in the response to understand what screen you l"
+    },
+    {
+      "id": "sap-gui_sap_expand_tree_node",
+      "name": "sap_expand_tree_node",
+      "namespace": "sap-gui",
+      "description": "Expand a folder node in a tree control to reveal its children.\n\nAfter expanding, use sap_get_tree_node_children or sap_read_tree\nto see the newly visible child nodes."
+    },
+    {
+      "id": "sap-gui_sap_find_tree_node_by_path",
+      "name": "sap_find_tree_node_by_path",
+      "namespace": "sap-gui",
+      "description": "Find a tree node key by its path.\n\nE.g., '2\\1\\2' = 2nd child of root, then 1st child, then 2nd."
+    },
+    {
+      "id": "sap-gui_sap_get_alv_toolbar",
+      "name": "sap_get_alv_toolbar",
+      "namespace": "sap-gui",
+      "description": "Get all toolbar buttons from an ALV grid.\n\nReturns button IDs, texts, and types. Use this to discover available\nactions (sort, filter, export, etc.) before pressing them with\nsap_press_alv_toolbar_but"
+    },
+    {
+      "id": "sap-gui_sap_get_cell_info",
+      "name": "sap_get_cell_info",
+      "namespace": "sap-gui",
+      "description": "Get detailed cell metadata from an ALV grid.\n\nReturns value, changeable, cell_type (Normal, CheckBox, ValueList,\nButton, ...), state (Normal, Error, Warning, Info: why a cell was\nrejected), f4_help, h"
+    },
+    {
+      "id": "sap-gui_sap_get_column_info",
+      "name": "sap_get_column_info",
+      "namespace": "sap-gui",
+      "description": "Get detailed column info from an ALV grid or table control.\n\nReturns column names, titles and tooltips; for an ALV grid also each\ncolumn's data_type (string, date, decimal, ...) and key flag, for a ta"
+    },
+    {
+      "id": "sap-gui_sap_get_combobox_entries",
+      "name": "sap_get_combobox_entries",
+      "namespace": "sap-gui",
+      "description": "List all entries in a combobox/dropdown.\n\nReturns key-value pairs so you know which values are valid."
+    },
+    {
+      "id": "sap-gui_sap_get_current_cell",
+      "name": "sap_get_current_cell",
+      "namespace": "sap-gui",
+      "description": "Get the currently focused cell position in an ALV grid or table control."
+    },
+    {
+      "id": "sap-gui_sap_get_popup_window",
+      "name": "sap_get_popup_window",
+      "namespace": "sap-gui",
+      "description": "Check if a popup/modal dialog is open (wnd[1], wnd[2], etc.).\n\nReturns the popup's title, text content, and available buttons so\nyou know how to respond. Also classifies the popup and suggests a\nsafe "
+    },
+    {
+      "id": "sap-gui_sap_get_screen_elements",
+      "name": "sap_get_screen_elements",
+      "namespace": "sap-gui",
+      "description": "Discover all elements on the current SAP screen.\n\nUseful for finding field IDs when working with a new screen.\n\nUse type_filter and changeable_only to reduce response size on\ncomplex screens (e.g. typ"
+    },
+    {
+      "id": "sap-gui_sap_get_screen_info",
+      "name": "sap_get_screen_info",
+      "namespace": "sap-gui",
+      "description": "Get current SAP screen info: transaction, program, screen number, window\ntitle, and status bar message (success/error/warning text).\n\nReads from ``session.ActiveWindow`` so the response always reflect"
+    },
+    {
+      "id": "sap-gui_sap_get_session_info",
+      "name": "sap_get_session_info",
+      "namespace": "sap-gui",
+      "description": "Get information about the current SAP session (system, client, user, transaction, screen).\n\nAlso the SAP GUI release (sap_gui_version) and scripting_read_only: when\ntrue, the SAP server allows read-on"
+    },
+    {
+      "id": "sap-gui_sap_get_table_control_row_info",
+      "name": "sap_get_table_control_row_info",
+      "namespace": "sap-gui",
+      "description": "Get row metadata (selectable, selected) from a GuiTableControl.\n\nIf rows is omitted, queries all visible rows.\nDoes NOT work on ALV grids."
+    },
+    {
+      "id": "sap-gui_sap_get_toolbar_buttons",
+      "name": "sap_get_toolbar_buttons",
+      "namespace": "sap-gui",
+      "description": "List all buttons on the system toolbar (tbar[0]) and app toolbar (tbar[1]).\n\nReturns button IDs, text, tooltip, and enabled state. This is for\nstandard SAP toolbars, NOT ALV (use sap_get_alv_toolbar f"
+    },
+    {
+      "id": "sap-gui_sap_get_transaction_guide",
+      "name": "sap_get_transaction_guide",
+      "namespace": "sap-gui",
+      "description": "Return a generic, read-first guide for a supported SAP transaction.\n\nAvailable transactions:\n- **/SCWM/MON**: EWM Warehouse Monitor with tree navigation and ALV results.\n- **SM30**: table/view mainten"
+    },
+    {
+      "id": "sap-gui_sap_get_tree_node_children",
+      "name": "sap_get_tree_node_children",
+      "namespace": "sap-gui",
+      "description": "Get direct children of a tree node. Much faster than read_tree for\nstep-by-step navigation of deep trees (e.g., SPRO).\n\nOmit node_key or pass empty string for root-level nodes.\nSet expand=true to expa"
+    },
+    {
+      "id": "sap-gui_sap_get_workflow_guide",
+      "name": "sap_get_workflow_guide",
+      "namespace": "sap-gui",
+      "description": "Return step-by-step guidance for a common SAP workflow.\n\nAvailable workflows:\n- **search_help**: F4 search help on a field. `target` = field ID.\n- **table_export**: Paginated table export. `target` = "
+    },
+    {
+      "id": "sap-gui_sap_handle_popup",
+      "name": "sap_handle_popup",
+      "namespace": "sap-gui",
+      "description": "Read and optionally act on the current popup/modal dialog.\n\nUse when active_window shows wnd[1] or higher. Combines popup\ninspection and response in a single call.\n\nActions:\n- read: return popup conte"
+    },
+    {
+      "id": "sap-gui_sap_list_connections",
+      "name": "sap_list_connections",
+      "namespace": "sap-gui",
+      "description": "List all open SAP connections and sessions.\n\nCovers SAP Logon plus SAP Business Client / embedded SAP GUI sessions\n(`host`: saplogon | sapguiserver). A connection with no sessions and\n`scripting_disab"
+    },
+    {
+      "id": "sap-gui_sap_modify_cell",
+      "name": "sap_modify_cell",
+      "namespace": "sap-gui",
+      "description": "Modify the value of a cell in an ALV grid or table control.\n\nOnly works on editable cells. Use sap_get_cell_info to check if\na cell is changeable before attempting to modify it."
+    },
+    {
+      "id": "sap-gui_sap_press_alv_toolbar_button",
+      "name": "sap_press_alv_toolbar_button",
+      "namespace": "sap-gui",
+      "description": "Press a toolbar button on an ALV grid (e.g., sort, filter, export).\n\nUse sap_get_alv_toolbar to find button IDs. A menu button (Menu /\nButtonAndMenu) opens its menu and the response lists menu_items ("
+    },
+    {
+      "id": "sap-gui_sap_press_button",
+      "name": "sap_press_button",
+      "namespace": "sap-gui",
+      "description": "Press (click) a pushbutton or toolbar button on the current SAP screen.\n\nReturns screen info after the press so you can detect navigation or popups.\nUse sap_get_toolbar_buttons to discover toolbar but"
+    },
+    {
+      "id": "sap-gui_sap_press_column_header",
+      "name": "sap_press_column_header",
+      "namespace": "sap-gui",
+      "description": "Click a column header in an ALV grid (triggers sort). Does NOT work on GuiTableControl."
+    },
+    {
+      "id": "sap-gui_sap_preview",
+      "name": "sap_preview",
+      "namespace": "sap-gui",
+      "description": "Render a preview card of the current SAP screen for the user:\nscreenshot, session/transaction info, status bar, and the values the\nagent is about to write (pending_fields). Call before significant\nwri"
+    },
+    {
+      "id": "sap-gui_sap_read_field",
+      "name": "sap_read_field",
+      "namespace": "sap-gui",
+      "description": "Read the value of a field on the current SAP screen.\n\nReturns value, type, changeable status, and labels (left/right).\nFor a dropdown, value is the selected entry's text and key its key.\nFor a radio b"
+    },
+    {
+      "id": "sap-gui_sap_read_list",
+      "name": "sap_read_list",
+      "namespace": "sap-gui",
+      "description": "Read a classic ABAP list (WRITE output of a report) as lines of text.\n\nUse it when a report shows a plain list rather than an ALV grid (program\nSAPMSSY0, screen 120), and for F4 hit lists in a popup ("
+    },
+    {
+      "id": "sap-gui_sap_read_shell_content",
+      "name": "sap_read_shell_content",
+      "namespace": "sap-gui",
+      "description": "Read content from a GuiShell subtype (e.g., HTMLViewer).\n\nAn HTML viewer's page text and URL are readable only with the Internet\nExplorer browser control; with the Edge control (SAP GUI 7.70+ default,"
+    },
+    {
+      "id": "sap-gui_sap_read_table",
+      "name": "sap_read_table",
+      "namespace": "sap-gui",
+      "description": "Read rows from a table on the current screen — ALV grid (report/list\noutput) or TableControl (SM30 maintenance view, customizing screens).\n\nAuto-detects the table type. The response includes a 'table_"
+    },
+    {
+      "id": "sap-gui_sap_read_textedit",
+      "name": "sap_read_textedit",
+      "namespace": "sap-gui",
+      "description": "Read the content of a multiline text editor (GuiTextedit) —\nlong texts, notes, comments, document text.\n\nReturns full text and line count. Use max_lines to cap output for\nlarge text editors (0 = all l"
+    },
+    {
+      "id": "sap-gui_sap_read_tree",
+      "name": "sap_read_tree",
+      "namespace": "sap-gui",
+      "description": "Read data from a tree control (TableTreeControl, ColumnTreeControl, etc.).\n\nReturns node hierarchy with texts and column values. For large trees\n(e.g., SPRO with 1000+ nodes), use sap_get_tree_node_ch"
+    },
+    {
+      "id": "sap-gui_sap_screenshot",
+      "name": "sap_screenshot",
+      "namespace": "sap-gui",
+      "description": "Take a screenshot of the current SAP window.\n\nUse as a fallback when structured tools (sap_get_screen_elements,\nsap_read_field, sap_read_table) return empty or confusing results,\ne.g., on Web Dynpro s"
+    },
+    {
+      "id": "sap-gui_sap_scroll_table_control",
+      "name": "sap_scroll_table_control",
+      "namespace": "sap-gui",
+      "description": "Scroll a GuiTableControl to a specific row position.\n\nDoes NOT work on ALV grids (they handle scrolling internally).\nFor reading data at a specific offset, prefer sap_read_table with\nstart_row paramet"
+    },
+    {
+      "id": "sap-gui_sap_search_tree_nodes",
+      "name": "sap_search_tree_nodes",
+      "namespace": "sap-gui",
+      "description": "Search for tree nodes by text. Returns matches with full ancestor paths.\n\nUseful for finding nodes in deep trees where the same label appears\nin multiple branches. Case-insensitive substring match.\nOp"
+    },
+    {
+      "id": "sap-gui_sap_select_all_rows",
+      "name": "sap_select_all_rows",
+      "namespace": "sap-gui",
+      "description": "Select all rows in an ALV grid. Does NOT work on GuiTableControl."
+    },
+    {
+      "id": "sap-gui_sap_select_all_table_control_columns",
+      "name": "sap_select_all_table_control_columns",
+      "namespace": "sap-gui",
+      "description": "Select or deselect all columns in a GuiTableControl. Does NOT work on ALV grids."
+    },
+    {
+      "id": "sap-gui_sap_select_alv_context_menu_item",
+      "name": "sap_select_alv_context_menu_item",
+      "namespace": "sap-gui",
+      "description": "Select an item from an opened ALV context menu.\n\nFirst use sap_press_alv_toolbar_button on a Menu button to open it,\nthen use this to select an item. Alternatively, pass toolbar_button_id\nto open the "
+    },
+    {
+      "id": "sap-gui_sap_select_checkbox",
+      "name": "sap_select_checkbox",
+      "namespace": "sap-gui",
+      "description": "Select or deselect a checkbox on the current SAP screen.\n\nSet selected=false to uncheck. Use sap_get_screen_elements with\ntype_filter='GuiCheckBox' to find checkbox IDs."
+    },
+    {
+      "id": "sap-gui_sap_select_combobox_entry",
+      "name": "sap_select_combobox_entry",
+      "namespace": "sap-gui",
+      "description": "Select an entry in a combobox/dropdown by its key or display value text.\n\nAccepts either the technical key or the visible display text.\nUse sap_get_combobox_entries first to see all valid options.\nF4 "
+    },
+    {
+      "id": "sap-gui_sap_select_menu",
+      "name": "sap_select_menu",
+      "namespace": "sap-gui",
+      "description": "Select a menu item from the menu bar or a submenu.\n\nExample: 'wnd[0]/mbar/menu[1]/menu[0]'.\nUse sap_get_screen_elements on 'wnd[0]/mbar' to discover menu structure.\nReturns screen info after selection"
+    },
+    {
+      "id": "sap-gui_sap_select_multiple_rows",
+      "name": "sap_select_multiple_rows",
+      "namespace": "sap-gui",
+      "description": "Select multiple rows at once in an ALV grid or table control.\n\nPass a list of row indices (e.g., [0, 2, 5])."
+    },
+    {
+      "id": "sap-gui_sap_select_radio_button",
+      "name": "sap_select_radio_button",
+      "namespace": "sap-gui",
+      "description": "Select a radio button on the current SAP screen.\n\nUse sap_get_screen_elements with type_filter='GuiRadioButton'\nto find radio button IDs on the current screen."
+    },
+    {
+      "id": "sap-gui_sap_select_tab",
+      "name": "sap_select_tab",
+      "namespace": "sap-gui",
+      "description": "Select a tab in a tab strip control.\n\nReturns screen info after selection (tab content changes).\nTab IDs typically look like 'wnd[0]/usr/tabsTABSTRIP/tabpTAB01'."
+    },
+    {
+      "id": "sap-gui_sap_select_table_row",
+      "name": "sap_select_table_row",
+      "namespace": "sap-gui",
+      "description": "Select a row in a table/grid.\n\nWorks on both ALV grids and table controls. Row index is zero-based.\nFor ALV: uses absolute row index. For TableControl: scrolls to make\nthe row visible first if needed."
+    },
+    {
+      "id": "sap-gui_sap_select_tree_node",
+      "name": "sap_select_tree_node",
+      "namespace": "sap-gui",
+      "description": "Select a node in a tree control.\n\nHighlights the node without opening it. For SPRO-style trees,\nuse sap_click_tree_link on the execute icon column instead."
+    },
+    {
+      "id": "sap-gui_sap_send_key",
+      "name": "sap_send_key",
+      "namespace": "sap-gui",
+      "description": "Press a keyboard key / function key in the SAP window (sendVKey).\n\nCommon keys: Enter (confirm), F1 (Help), F3 (Back), F4 (search help /\nvalue help), F5 (Refresh), F8 (Execute), F11 (Save), F12 (Cance"
+    },
+    {
+      "id": "sap-gui_sap_set_batch_fields",
+      "name": "sap_set_batch_fields",
+      "namespace": "sap-gui",
+      "description": "Fill in multiple input fields at once (dict of field_id to value).\n\nUse this to fill a form or selection screen in one call — more\nefficient than repeated sap_set_field calls. Table-control cells work"
+    },
+    {
+      "id": "sap-gui_sap_set_confirmation_points",
+      "name": "sap_set_confirmation_points",
+      "namespace": "sap-gui",
+      "description": "Choose which SAP operations need the user's explicit approval first.\n\nReplaces this session's set of confirmation points. When a point is\nactive, every matching tool call pauses and asks the user to a"
+    },
+    {
+      "id": "sap-gui_sap_set_current_cell",
+      "name": "sap_set_current_cell",
+      "namespace": "sap-gui",
+      "description": "Set the current (focused) cell in an ALV grid or table control.\n\nUseful before pressing toolbar buttons that act on the current cell."
+    },
+    {
+      "id": "sap-gui_sap_set_field",
+      "name": "sap_set_field",
+      "namespace": "sap-gui",
+      "description": "Set (type/enter) a value into an input field on the current SAP screen.\n\nWorks on GuiTextField and GuiCTextField input fields, and on dropdowns\n(GuiComboBox, ID prefix cmb): there value picks the entr"
+    },
+    {
+      "id": "sap-gui_sap_set_focus",
+      "name": "sap_set_focus",
+      "namespace": "sap-gui",
+      "description": "Set focus to any screen element by its ID.\n\nSome SAP actions require focus on a specific element before they work\n(e.g., F4 search help on a field). Use this to set focus before\nsending keys with sap_"
+    },
+    {
+      "id": "sap-gui_sap_set_textedit",
+      "name": "sap_set_textedit",
+      "namespace": "sap-gui",
+      "description": "Write text into a multiline text editor (GuiTextedit) —\nlong texts, notes, comments, document text."
     },
     {
       "id": "windows-mcp_App",

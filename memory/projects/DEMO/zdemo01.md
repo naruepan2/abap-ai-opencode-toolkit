@@ -2,15 +2,15 @@
 
 domains: [sap-abap, sap-data]
 
-> Last updated: 2026-11-14 (OpenCode session, v20 built). Re-verify live state
+> Last updated: 2026-11-14 (OpenCode session, v21 built). Re-verify live state
 > before changing anything.
 
 ## Resume card
 
-- **Status:** v20 is **Deployed and active** in client 100 (syntax check 0
+- **Status:** v21 is **Deployed and active** in client 100 (syntax check 0
   findings). The runtime test in client 900 is pending; do not claim it passed
   until LIPS and ZMMT014 are read back.
-- **FS:** V4.0 `spec\source\FS_ZDEMO01_V4.0_20261018.md`; contract `spec.md` (12 REQ/10 AC/13 Q).
+- **FS:** V4.0 `spec\source\FS_ZDEMO01_V4.0_20261018.md`; contract `spec.md` v1.1 (12 REQ/11 AC/13 Q).
 - **Deploy is pre-approved end-to-end** (user, 2026-11-14): write both includes into
   `DS4K904935`, syntax-check, and activate immediately at 0 findings — no further
   approval; stop only on a finding. Procedure: `AGENTS.md` §Deploy.
@@ -112,8 +112,9 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 - v12: new ALV column `OPEN_SO_QTY` ("Open Sales Order Qty") between TF DEMO Qty
   and Ex.WH.Stck. Value = `KWMENG - SUM(LIPS-LFIMG)` per SO item, on editable
   rows only, no total. Header set in `ZDEMO01_VIEW` (user approved touching it).
-- v14: posted DOs (PGI_FLAG = 'X' / WBSTK = 'C') are no longer listed; `create_issue_no` now has a p_rad8 branch and is called after Create DO + Batch Split, before `_save_history` so ZMMT014 gets ISSNO. Base is `base_v13.abap` (live source with the user's edits). `ty_outtab8` now has `is_deleteline`.
-- v15-v20: one `WS_DELIVERY_UPDATE_2` for pick + PGI (`wabuc` + `update_picking` + VBPOK with `UMVKZ`/`UMVKN` and `VBELN`/`POSNN` = `LIPS-VGBEL/VGPOS`); 601 read from `MATDOC`; `CLEAR` on unassigned field symbols removed (dump); working types renamed to `matdoc`. 026/027/032 no longer emitted.
+- v14: posted DOs (`PGI_FLAG = 'X'` / `WBSTK = 'C'`) no longer listed; `create_issue_no` p_rad8 branch runs after Create DO + Batch Split so ZMMT014 gets ISSNO. Base `base_v13.abap`.
+- v21: after a successful DO + batch split the row's `Ex.WH.Stck` (`MENGE_PD`) gets a disabled cell style; other rows stay editable, only the qty is locked.
+- v15-v20: one `WS_DELIVERY_UPDATE_2` for pick + PGI (`wabuc` + `update_picking` + VBPOK with `UMVKZ`/`UMVKN`, `VBELN`/`POSNN` = `LIPS-VGBEL/VGPOS`); 601 from `MATDOC`; unassigned-field-symbol `CLEAR` removed (dump); types renamed `matdoc`.
 - v13.1: `menge_pd` in `ty_outtab8` is `TYPE lips-lfimg` (MENG13, no sign) so the ALV cannot take a minus; guard code removed, message 046 unused.
 - v13: hid `MENGE_GR`/`MENGE_PD_INITIAL`/`MENGE_INITIAL` in Option 8 (whitelist);
   editable rows leave Sales Doc/Item empty for the user to type; ticking the
