@@ -25,6 +25,24 @@
   point at v20 and at the spec. The historical status list is left for the owning
   session to close out.
 
+Follow-ups the same day (user approved all three options):
+
+- **A - card closed out:** `memory/projects/DEMO/zmme011.md` now says v20, points at
+  `spec.md` and the FS, and stays inside the 9,000-char budget (8,993).
+- **B - HCL draft spec:** `HCL_INTERFACE_QA32/spec.md` (4 REQ, 4 AC, 5 Q, status
+  `draft`, `fs_file: none`) built only from verified facts; the Q table is the
+  scope. `closeout.py` treats `none`/`na`/`tbd` as "no FS" instead of a broken path.
+- **C - FS revision guard:** the digest line now shows the FS version
+  (`SPEC v1.0 · FS V4.0 · 12 req ...`), and `closeout.py` warns when the FS file is
+  newer than `spec.md`, or when `fs_version` does not match the version in the
+  file name.
+- **Read policy** (the question behind it: do not pay for the spec every turn):
+  once per session per program, then only the REQ/AC/Q row in play; skip it for
+  navigation, status questions and formatting-only changes. Table in
+  `docs/design.md` § "When the spec is read", one line in both `AGENTS.md`, and a
+  `working-method` knowledge entry. No new skill or subagent - a guardrail that
+  must always fire belongs in `AGENTS.md`, not in an opt-in skill.
+
 ## v0.5.9 — 2026-11-14
 
 **`sap-ai-dev-toolkit` 0.9.9924 → 0.9.9926.**

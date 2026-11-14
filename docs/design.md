@@ -77,8 +77,41 @@ Enforcement:
 - `closeout.py` checks the front matter, that `fs_file` exists, and that the REQ
   and AC tables parse; a program without a spec is a warning (lazy migration), a
   malformed spec is an issue.
-- The session digest prints one line (`SPEC v1.0 - 12 req (5 pending-test), 10 ac,
-  12 open q`) so the contract is discoverable without loading it.
+- The session digest prints one line (`SPEC v1.0 · FS V4.0 - 12 req (5 pending-test),
+  10 ac, 13 open q`) so the contract is discoverable without loading it.
+
+## When the spec is read (and when it is not)
+
+One read per session per program. The file is ~110 lines / ~9 KB (~2.3k tokens) - cheap
+once, wasteful every turn.
+
+| Situation | Read it? | What |
+|---|---|---|
+| First touch of the program in a session | **yes, once** | the whole `spec.md` |
+| The next turn of the same change | no | it is already in context |
+| A later session continuing the same change | yes | only the REQ/AC/Q rows you work on |
+| A bug that may be a requirement gap | yes | the AC for that behaviour + open Q |
+| The spec changed during the session | yes | the changed REQ/AC rows |
+| After a context compaction in a long run | yes | only the REQ/AC you are on |
+| Before transport or close-out | yes | AC evidence + Q still open |
+| Navigation, "where is X", status question | no | the digest `SPEC` line |
+| Formatting, typo, no behaviour change | no | - |
+
+The trigger is **behaviour**, not the file: read when you are about to change what
+the program does, or to claim a test passed. If the work is "where is this / what is
+the status", the digest already answers it.
+
+Why not a skill or a subagent:
+
+| Mechanism | Cost | Why it is the wrong/right tool |
+|---|---|---|
+| `AGENTS.md` line (used) | ~1 line, always present | the guardrail must fire even when the agent does not think to load a skill |
+| Skill | description always, body on demand | skills are opt-in by description match; a "read the spec" skill is a one-line procedure |
+| Subagent | a whole session | delegation is for parallel work, not for reading 9 KB |
+
+If spec **authoring** later grows into a real procedure (ambiguity review, FS
+line mapping, approval gates), it becomes a personal skill (`spec-author`), not a
+change to a vendor skill. The template already covers the writing itself.
 
 ## Prompt budget (measured)
 

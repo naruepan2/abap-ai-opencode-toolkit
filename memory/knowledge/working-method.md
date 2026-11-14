@@ -35,7 +35,8 @@
 
 ## Establish the change contract before touching code
 
-- **Rule:** before creating or editing a program, get four answers from the user:
+- **Rule:** before creating or editing a program, read its `spec.md` if it exists,
+  then get four answers from the user:
   **FS** (does one exist, where?), **change type** (bug fix / feature extension /
   change request), **live on production** (yes/no, and is the dev object in sync),
   and **target** (system, client, transport). Record them in the project card.
@@ -69,3 +70,16 @@
 - **Break it, and:** the same correction is re-learned a third time.
 - **Seen:** 2 · **Confidence:** high · **Last confirmed:** 2026-11-14
 - **Evidence:** `memory_check.py` row budget and status schema replaced prose rules
+
+## Read the spec once per session, then only the row you need
+
+- **Rule:** on the first touch of a program in a session, read `spec.md` once. Do
+  not read it again on every turn; later, open only the REQ/AC/Q row being worked
+  on. Skip it for navigation, a status question, or a formatting-only change.
+- **Why:** the file stays in context after one read. Re-reading pays ~2.3k tokens
+  for information already held, and the digest already carries the counts.
+- **Break it, and:** each turn loses 2-3k tokens of working room, or the spec is
+  skipped on the one turn a requirement actually changed.
+- **Seen:** 1 · **Confidence:** high · **Last confirmed:** 2026-11-14
+- **Evidence:** ZDEMO01 spec 110 lines / 8,987 chars; digest SPEC line 96 chars;
+  the FS itself is ~34k tokens

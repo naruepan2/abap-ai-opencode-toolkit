@@ -211,7 +211,10 @@ def spec_line(card):
             acs += 1
         elif re.match(r"^Q-\d+$", cells[0], re.I) and cells[-1].lower() == "open":
             open_q += 1
-    return (f"v{meta.get('spec_version', '?')} \u00b7 {reqs} req "
+    fs_ver = meta.get("fs_version", "").strip()
+    fs_part = (f"FS {fs_ver} \u00b7 "
+               if fs_ver.lower() not in {"", "none", "na"} else "")
+    return (f"v{meta.get('spec_version', '?')} \u00b7 {fs_part}{reqs} req "
             f"({pending} pending-test) \u00b7 {acs} ac \u00b7 {open_q} open q "
             f"\u00b7 read spec.md before a change")
 

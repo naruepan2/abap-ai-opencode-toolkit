@@ -27,6 +27,8 @@ The contract we build and test against.
 Rules:
 - The FS under `spec/source/` is immutable. A new FS = a new file + a new
   `fs_version`; never edit the old one.
+- No FS yet: `fs_version: none`, `fs_file: none`, `status: draft`, and the Open
+  questions table **is** the scope (see `HCL_INTERFACE_QA32`).
 - One requirement per row, testable by a human in a client. If it cannot be
   tested, it is not a requirement - move it to Open questions.
 - Reference the FS by line (`L1459`) or section, not by paraphrase alone.

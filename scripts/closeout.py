@@ -300,10 +300,23 @@ def check_spec(findings, warnings, card):
     if missing:
         findings.append((ISSUE, "spec",
                          "front matter missing: " + ", ".join(missing)))
-    fs_file = meta.get("fs_file", "")
-    if fs_file and not (base / fs_file).is_file():
-        findings.append((ISSUE, "spec",
-                         f"fs_file '{fs_file}' does not exist under {base.name}"))
+    fs_file = meta.get("fs_file", "").strip()
+    fs_path = base / fs_file if fs_file else None
+    if fs_file and norm(fs_file) not in {"none", "na", "tbd"}:
+        if not fs_path.is_file():
+            findings.append((ISSUE, "spec",
+                             f"fs_file '{fs_file}' does not exist under {base.name}"))
+        else:
+            if fs_path.stat().st_mtime > path.stat().st_mtime + 60:
+                warnings.append((WARN, "spec",
+                                 "the FS file is newer than spec.md; confirm the new "
+                                 "revision is reflected before the next change"))
+            version = meta.get("fs_version", "").strip().lstrip("Vv")
+            token = re.search(r"[Vv](\d+(?:\.\d+)*)", fs_path.name)
+            if version and token and version != token.group(1):
+                warnings.append((WARN, "spec",
+                                 f"fs_version {meta.get('fs_version')} does not match "
+                                 f"the file name ({token.group(0)})"))
 
     tables = all_tables(text)
     req_table = find_table(tables, "id", "fs", "status")

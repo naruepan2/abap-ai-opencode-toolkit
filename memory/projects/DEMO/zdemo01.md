@@ -2,14 +2,15 @@
 
 domains: [sap-abap, sap-data]
 
-> Last updated: 2026-11-13 (OpenCode session, v11 built). Re-verify live state
+> Last updated: 2026-11-14 (OpenCode session, v20 built). Re-verify live state
 > before changing anything.
 
 ## Resume card
 
-- **Status:** v12 is **Deployed and active** in client 100 (syntax check 0
+- **Status:** v20 is **Deployed and active** in client 100 (syntax check 0
   findings). The runtime test in client 900 is pending; do not claim it passed
   until LIPS and ZMMT014 are read back.
+- **FS:** V4.0 `spec\source\FS_ZDEMO01_V4.0_20261018.md`; contract `spec.md` (12 REQ/10 AC/13 Q).
 - **Deploy is pre-approved end-to-end** (user, 2026-11-14): write both includes into
   `DS4K904935`, syntax-check, and activate immediately at 0 findings — no further
   approval; stop only on a finding. Procedure: `AGENTS.md` §Deploy.
@@ -19,8 +20,7 @@ domains: [sap-abap, sap-data]
   DO must not block it).
 - **Do not:** edit SAP standard objects, vendor agents/skills, or claim a test
   passed without reading LIPS / ZMMT014 back.
-- **FS:** Option 8 of the FS; gaps and unconfirmed mappings are in §Known unknowns.
-- **Change type:** build → extension (v7–v12 are scope extensions of the same FS,
+- **Change type:** build → extension (v7–v20 are scope extensions of the same FS,
   each recorded in `reports/DECISIONS.md`).
 - **Production:** unknown — ask (DS4 is DEV; no production system or sync check is
   recorded). Compare the dev source with production before the first transport.
