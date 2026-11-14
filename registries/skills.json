@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:29:31+00:00",
+  "generated_at": "2026-11-14T16:33:29+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -251,17 +251,6 @@
       "hash": "54abfcff6b33f64e85c3db599b36c6fdc8829aa2ad4f1ba808b7156982e10ea6",
       "desc_chars": 701,
       "description": "Performs structured pre-release security and quality review of SAP ABAP programs across 9 dimensions (SEC, AUTH, DATA, PERF, STD, INTERFACE, CHANGE, COMP, FUNC), producing a formal sign-off-ready Markdown assessment report. Trigger when the user asks to review, audit, assess, or check ABAP code befo",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-adt-cli",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-engineering\\sap-adt-cli\\SKILL.md",
-      "owner": "vendor",
-      "hash": "513e0113cf3fbe40e7cc247e2dfb3e74e0591237627c6abed96fff21c9cd2be4",
-      "desc_chars": 76,
-      "description": "Read/write ABAP source and metadata via SAP ADT REST API: programs, classes,",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -1067,6 +1056,17 @@
       "description": "Rebuild the real SAP/ABAP MCP tool surface from live config and extension manifests, then fix routing drift. Use when a new MCP server or ABAP extension is installed, when the agent picks the wrong server for a task, when a tool name referenced by an agent or skill no longer resolves, or when asked ",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "new-program",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\new-program\\SKILL.md",
+      "owner": "vendor",
+      "hash": "2e4878accf81d1f14fbcbec6ec26de19c3974cdb5bf7cac60d72bba80fef5d56",
+      "desc_chars": 476,
+      "description": "Scaffold the local record for a new SAP project or a new program inside an existing project — project.yaml, README, program.yaml, spec index — without guessing a SID, client, or transport. Use when asked to \"start a new project\", \"new program\", \"add a program to this project\", \"สร้างโปรแกรมใหม่\", \"เ",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "process-automation-development",

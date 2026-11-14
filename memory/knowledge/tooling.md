@@ -36,6 +36,20 @@
 - **Evidence:** PyPI latest = 0.6.0 = the pinned version; 36 `archive-v0` copies of
   `mcp-sap-gui` at 3,321 MB inside a 4,956 MB uv cache
 
+## One ADT path: the MCP, not the parked CLI
+
+- **Rule:** do ADT work through the MCP (`ds4-100` for code, `ds4-900` for test). The
+  `sap-adt` CLI and its skill are parked; do not reinstate them while the MCP is
+  live. If the MCP is retired, remove the overlap and re-run the probes first.
+- **Why:** two write paths mean two credential stores and two sets of rules; the CLI
+  left a `~/.sap-adt-cli` profile with `allow_write: true` and a stored OS
+  credential after its binary was gone.
+- **Break it, and:** a future install silently inherits a pre-authorized write
+  profile nobody is watching.
+- **Seen:** 1 · **Confidence:** high · **Last confirmed:** 2026-11-14
+- **Evidence:** profile `luf-ds4-dev` + `cmdkey` target `sap-adt-cli` removed
+  2026-11-14; `skills-parked/sap-adt-cli`; MCP `ds4-100` / `ds4-900` remain
+
 ## Never recall a tool name from memory
 
 - **Rule:** take the tool name from the catalog, not from recollection —

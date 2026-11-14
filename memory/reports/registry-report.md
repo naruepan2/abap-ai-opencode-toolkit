@@ -1,6 +1,6 @@
 # Registry report
 
-Generated: 2026-11-13T20:29:31+00:00
+Generated: 2026-11-14T16:33:29+00:00
 
 ## Summary
 
@@ -15,8 +15,8 @@ Generated: 2026-11-13T20:29:31+00:00
 
 - agents: 47
 - claude: 30
-- copilot: 26
-- opencode: 31
+- copilot: 27
+- opencode: 30
 
 ## New skills
 
@@ -98,7 +98,7 @@ _None._
 
 ## Prompt budget
 
-- skills (opencode): 19839 chars of description across 31 entries — budget 20000
+- skills (opencode): 19763 chars of description across 30 entries — budget 20000
 - tools: 16111 chars of description across 111 tools — budget 28000
 
 ## Prompt budget notes

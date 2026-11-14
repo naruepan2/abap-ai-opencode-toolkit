@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.5.15 — 2026-11-14
+
+**One ADT path: the MCP; the old CLI is parked.**
+
+- `skills/sap-engineering/sap-adt-cli` → `skills-parked/` (48 parked now). Catalog
+  31 → 30 skills, prompt 36.0k → 35.9k.
+- Removed the orphaned `~/.sap-adt-cli` profile (`luf-ds4-dev`, `allow_write: true`)
+  and the Windows credential target `sap-adt-cli`; the binary was already gone, so
+  the profile was a pre-authorized write path with no owner.
+- Added a `tooling` knowledge entry: ADT via MCP `ds4-100` / `ds4-900`; the CLI is a
+  fallback only, and reinstating it needs the overlap removed and the probes re-run.
+- `RESTORE.md` records why it is parked and how to bring it back.
+
 ## v0.5.14 — 2026-11-14
 
 **The program-file rules now live in the repository itself.**
