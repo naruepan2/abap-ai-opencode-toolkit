@@ -176,6 +176,46 @@ def grab_field(lines, label):
     return ""
 
 
+def spec_line(card):
+    """One line for the program spec next to the card, or '' when there is none."""
+    text = read(card)
+    base = None
+    match = re.search(r"Working directory:\s*`([^`]+)`", text)
+    if match:
+        base = Path(match.group(1))
+    else:
+        base = REPO.parent / "Projects" / card.parent.name / card.stem.upper()
+    path = base / "spec.md"
+    if not path.is_file():
+        return ""
+    body = read(path)
+    meta = {}
+    if body.startswith("---"):
+        end = body.find("\n---", 3)
+        for line in body[3:end].splitlines():
+            if ":" in line:
+                key, value = line.split(":", 1)
+                meta[key.strip().lower()] = value.strip().strip('"')
+    reqs = pending = acs = open_q = 0
+    for line in body.splitlines():
+        if not line.strip().startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if not cells:
+            continue
+        if re.match(r"^REQ-\d+$", cells[0], re.I):
+            reqs += 1
+            if len(cells) >= 2 and cells[-2].lower() in {"pending", "pending-test"}:
+                pending += 1
+        elif re.match(r"^AC-\d+$", cells[0], re.I):
+            acs += 1
+        elif re.match(r"^Q-\d+$", cells[0], re.I) and cells[-1].lower() == "open":
+            open_q += 1
+    return (f"v{meta.get('spec_version', '?')} \u00b7 {reqs} req "
+            f"({pending} pending-test) \u00b7 {acs} ac \u00b7 {open_q} open q "
+            f"\u00b7 read spec.md before a change")
+
+
 def card_block(card, compact=False, pinned=True):
     text = read(card)
     lines = text.splitlines()
@@ -357,6 +397,9 @@ def main():
     if card is not None:
         text = card_block(card, compact=args.tiny, pinned=bool(args.project))
         domains = card_domains(text)
+        line = spec_line(card)
+        if line:
+            out(f"SPEC     {line}")
         out()
 
     if args.tiny:

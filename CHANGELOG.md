@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.5.10 — 2026-11-14
+
+**One `spec.md` per program: the contract the FS never was.**
+
+- Added `templates/spec.md`: front matter (`program`, `spec_version`, `status`,
+  `fs_version`, `fs_file`, `implemented_version`, `updated`) plus REQ / AC / DEV / Q
+  tables, with the rule that the FS under `spec/source/` is immutable.
+- ZDEMO01 migrated: the FS markdown moved from the Desktop to
+  `Projects/DEMO/ZDEMO01/spec/source/FS_ZDEMO01_V4.0_20261018.md` (135,251 bytes,
+  md5 unchanged), and `spec.md` now distils 12 requirements, 10 acceptance
+  criteria, 4 approved deviations and 12 open questions from FS V4.0 + v1-v20.
+- `closeout.py`: new spec check - front matter, `fs_file` exists, REQ/AC tables
+  parse, unique IDs, allowed statuses, FS reference per requirement, stale spec
+  warning. Output line: `spec v1.0: 12 req (5 pending-test), 10 ac, 12 open q`.
+- `session_context.py`: one digest line (`SPEC ...`) so the contract is visible at
+  session start without loading it (~90 chars).
+- Rules updated in the global `AGENTS.md`, the SAP workspace `AGENTS.md`, and both
+  project/program `AGENTS.md`: read the spec before the first edit; no spec on an
+  older program → write one at the next change; never invent a requirement.
+- Why program-level, not project-level, and why not the Kiro three-file layout:
+  `docs/design.md` § "Program spec".
+- The ZDEMO01 `program.yaml` / `README.md` pointers were stale (v11/v12); they now
+  point at v20 and at the spec. The historical status list is left for the owning
+  session to close out.
+
 ## v0.5.9 — 2026-11-14
 
 **`sap-ai-dev-toolkit` 0.9.9924 → 0.9.9926.**

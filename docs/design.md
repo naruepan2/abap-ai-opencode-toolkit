@@ -41,6 +41,45 @@ touches. The inbox is archived monthly. See `docs/memory-model.md`.
 The digest still surfaces the **open inbox rows** on every session, so a correction
 is not repeated while it waits for consolidation.
 
+## Program spec
+
+Granularity is the **program**, not the project. The FS is signed for a program, the
+code changes are in a program, and the test evidence is per program. A project keeps
+`README.md` + `project.yaml`; a project-wide `spec.md` is allowed only when the
+project itself is the deliverable (a cross-program initiative).
+
+Four files, four questions - no duplication:
+
+| File | Question | Owner |
+|---|---|---|
+| `spec.md` | What must be true, and how do we know it is done | requirement |
+| `AGENTS.md` | How we work (constraints, deploy, editable objects) | process |
+| `reports/DECISIONS.md` | Why a choice was made (with evidence) | history |
+| `templates/plan.md` | In what order, for a long run | execution |
+
+`spec.md` is a thin, checkable contract: YAML front matter (`program`,
+`spec_version`, `status`, `fs_version`, `fs_file`, `implemented_version`,
+`updated`), then REQ / AC / DEV / Q tables. The customer FS moves to
+`spec/source/` and is immutable; a new FS is a new file and a new `fs_version`.
+Each REQ cites the FS by line, so a reviewer can trace the code back without
+re-reading a 1,700-line document.
+
+This is deliberately **not** the Kiro three-file layout (`requirements.md`,
+`design.md`, `tasks.md`). Design already lives in `reports/DECISIONS.md` and task
+order in `templates/plan.md`; copying them into a spec would double both the
+maintenance and the tokens for no new information.
+
+Enforcement:
+
+- Global `AGENTS.md` reads the spec before the first edit; project and program
+  `AGENTS.md` put it in the session-start list.
+- `templates/spec.md` is the only template an agent needs to start.
+- `closeout.py` checks the front matter, that `fs_file` exists, and that the REQ
+  and AC tables parse; a program without a spec is a warning (lazy migration), a
+  malformed spec is an issue.
+- The session digest prints one line (`SPEC v1.0 - 12 req (5 pending-test), 10 ac,
+  12 open q`) so the contract is discoverable without loading it.
+
 ## Prompt budget (measured)
 
 Every session pays for what the harness injects before any work starts. Measured

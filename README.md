@@ -48,6 +48,14 @@ code and the SAP object name. Every project and program folder has
 `README.md`, `AGENTS.md`, and a small manifest. Each project owns its own
 `_archive`/`_sandbox`.
 
+Every program also carries `spec.md` - the contract we build and test against
+(requirements, acceptance criteria, approved deviations, open questions) - and
+`spec\source\`, which holds the customer FS as received and is never edited. The
+spec is written at the program level, because that is where a requirement is
+signed off; the project keeps only `README.md` + `project.yaml` unless the project
+itself is the deliverable. Template: `templates/spec.md`. Check:
+`scripts\closeout.py`.
+
 **Access rule:** read/write inside the current project is allowed; read/write
 outside it requires explicit user permission. Never recursively scan
 `SAP Projects` or `<portfolio>`; use `INDEX.md` and the manifests.

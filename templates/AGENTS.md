@@ -35,6 +35,28 @@ short summary and propose a fix. A **warning** is a human decision or a designed
 state (new asset, stale date, idle on-demand SAP server) — no turn needed. Do not
 auto-fix, enable/disable an MCP server, or edit a registry without approval.
 
+## Program-level spec template
+
+```markdown
+# <program> rules
+
+## Session start
+
+1. Read `program.yaml`.
+2. Read `spec.md` - requirements, acceptance criteria, deviations, open questions.
+   It is the contract; `README.md` is the status history.
+3. Confirm the SAP target and scope.
+4. Ask before reading or writing anything outside `<program>`.
+
+## Spec
+
+The customer FS is `spec/source/<file>` (immutable). Change a `REQ`/`AC` in
+`spec.md` before changing code; a deviation needs a decision reference and the
+user's approval. `python scripts\closeout.py --project <PROJECT>/<PROGRAM>` checks
+the front matter, the FS file, and the REQ/AC tables.
+```
+
+
 ## Project-level template
 
 ```markdown
