@@ -1,14 +1,14 @@
 ---
 program: ZDEMO01
 project: DEMO
-spec_version: 1.2
+spec_version: 1.3
 status: active
 fs_version: V4.0
 fs_date: 2026-10-18
 fs_file: spec/source/FS_ZDEMO01_V4.0_20261018.md
 fs_original_name: "IPLATFORMANCE_DEMO_FS_MM_ZDEMO01_Split batch at External WH and Report_V4.0_20261018.md"
 scope: FS Option 8 only - create DO, batch split, issue no., PGI at the external storage location
-implemented_version: v22
+implemented_version: v23
 owner: Pongg
 updated: 2026-11-14
 ---
@@ -86,7 +86,7 @@ do not report it as passed.
 |---|---|---|---|
 | DEV-01 | `UPDATE_PICKING` and `VBPOK_TAB` stay blank (L1591, L1593), while L1575 says the picking quantity on the sub items must be updated first | One `WS_DELIVERY_UPDATE_2` with `UPDATE_PICKING = 'X'` and `VBPOK` rows (`PIKMG`, `UMVKZ`/`UMVKN`, SO ref) | D15.1/D15.3, 2026-11-14; removes the picked-but-not-posted state. Runtime Pending |
 | DEV-02 | Open quantity from `ZMMT010-MENGE_PD > 0` (L1467) | `KWMENG - SUM(LIPS-LFIMG)` per SO item; the editable row is the open remainder per batch | D11.1-D11.4, 2026-11-13 |
-| DEV-03 | No extra ALV column | `OPEN_SO_QTY` between TF DEMO Qty and Ex.WH.Stck, editable rows only | v12, user-approved 2026-11-14 |
+| DEV-03 | No extra ALV column | `OPEN_SO_QTY` in the Option 8 list, after `Ex.WH.Stck` (order per the client-900 screen, v23), editable rows only | v12/v23, user-approved 2026-11-14 |
 | DEV-04 | FS does not say to hide posted deliveries | Posted DOs (`PGI_FLAG = 'X'` / `WBSTK = 'C'`) are removed from the list | D14.1, 2026-11-14 |
 | DEV-06 | FS L1469 lets the user edit the GI quantity freely | The row's editable cells (`Sale Order`, `Sale Order Item`, `Ex.WH.Stck`) are locked as soon as its DO + batch split succeed, so the ALV cannot drift from the delivery it created | user request 2026-11-14, v21/v22 |
 
@@ -115,6 +115,7 @@ not part of the contract and can be deleted. The table below is the source of tr
 
 | Spec | Date | Change |
 |---|---|---|
+| 1.3 | 2026-11-14 | REQ-02 unchanged; Option 8 column order re-aligned to the client-900 screen (DEV-03 position); v23 VIEW only |
 | 1.2 | 2026-11-14 | REQ-02: all three editable cells lock per row after DO + batch split; new REQ-13/AC-12: Post Goods Issue refused (msg `023`) without a DO; v22 |
 | 1.1 | 2026-11-14 | REQ-02: `Ex.WH.Stck` (`MENGE_PD`) becomes display-only per row once its DO + batch split succeed (DEV-06, AC-11); implemented v21 |
 | 1.0 | 2026-11-14 | First spec from FS V4.0 (moved to `spec/source/`), v1-v20 decisions, and the current ALV behaviour |
