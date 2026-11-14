@@ -50,10 +50,11 @@ code and the SAP object name. Every project and program folder has
 
 Every program also carries `spec.md` - the contract we build and test against
 (requirements, acceptance criteria, approved deviations, open questions) - and
-`spec\source\`, which holds the customer FS as received and is never edited. The
-spec is written at the program level, because that is where a requirement is
-signed off; the project keeps only `README.md` + `project.yaml` unless the project
-itself is the deliverable. Template: `templates/spec.md`. Check:
+`CHANGELOG.md`, one row per deploy covering the window before a TR is released.
+The FS lives in `spec\source\`, is never edited, and is never committed. The spec
+is written at the program level, because that is where a requirement is signed off;
+the project keeps only `README.md` + `project.yaml` unless the project itself is the
+deliverable. Templates: `templates/spec.md`, `templates/CHANGELOG.md`. Check:
 `scripts\closeout.py`.
 
 `Projects\` is not a git repository, so the specs are mirrored into this one:

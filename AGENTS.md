@@ -10,13 +10,24 @@ cheap now and expensive later.
 
 | Question | Why it changes the direction |
 |---|---|
-| **Is there a functional spec? Where?** | The FS is the requirement. No FS → say so and propose a one-page FS (goal, inputs/outputs, rules, edge cases) for approval. Never invent the requirement. |
+| **Read the program `spec.md` and the FS it points at.** | The spec is the requirement; no spec → write one from `templates/spec.md`; no FS → say so and propose a one-page FS for approval. Never invent the requirement. |
 | **Bug fix, feature extension, or change request?** | Bug fix → reproduce with evidence, smallest patch, no refactor. Extension → design the delta, keep existing behaviour and objects compatible. CR → impact analysis over every consumer, then the transport order. |
 | **Is it live on production? Is the dev object in sync?** | Live → the dev source must be compared with the production version first; plan regression and the transport path; never test on production. Diverged → stop and report. |
 | **Target: system, client, transport?** | A write without a target is not a change, it is an accident. |
 
 Record the four answers in the project resume card (`FS`, `Change type`, `Production`,
 `Target`). If any answer is unknown, that is the first task — not the code.
+
+## Program files (spec + changelog)
+
+- `spec.md` is per **program**: REQ / AC / approved deviations / open questions. The
+  customer FS lives in `spec/source/`, is immutable, and is **never committed**.
+  Read it once per session, then only the row in play. Template: `templates/spec.md`.
+- `CHANGELOG.md` is one table row per deploy (`Ver | Date | What changed | Verified`).
+  It covers the window SAP does not: version management snapshots a TR only when it
+  is **released**. At release, collapse the block to one line.
+- `scripts/closeout.py` checks both (spec tables, changelog vs `implemented_version`);
+  `scripts/specs_sync.py --write` mirrors spec + changelog into `specs/` - never the FS.
 
 ## Working rules
 

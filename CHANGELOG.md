@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.5.14 — 2026-11-14
+
+**The program-file rules now live in the repository itself.**
+
+- `AGENTS.md` gains "Program files (spec + changelog)": the spec/FS/changelog rules,
+  the read-once policy and the mirror command. The change contract now starts by
+  reading `spec.md` instead of asking whether one exists.
+- Why: `SAP Projects\AGENTS.md` and the global OpenCode `AGENTS.md` are outside this
+  repository, so a clone did not carry the rule; the design was documented but the
+  operating instruction was not versioned.
+- README layout now mentions `CHANGELOG.md` and the "FS is never committed" rule.
+
 ## v0.5.13 — 2026-11-14
 
 **Changelog slimmed to the gap SAP actually leaves.**
