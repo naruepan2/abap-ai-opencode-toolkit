@@ -56,6 +56,18 @@ signed off; the project keeps only `README.md` + `project.yaml` unless the proje
 itself is the deliverable. Template: `templates/spec.md`. Check:
 `scripts\closeout.py`.
 
+`Projects\` is not a git repository, so the specs are mirrored into this one:
+
+```
+specs\<PROJECT>\<PROGRAM>\spec.md
+specs\<PROJECT>\<PROGRAM>\source\<FS>.md
+specs\manifest.json            # version, status, sha256 per file
+```
+
+The mirror is generated - edit the program copy, then
+`python scripts\specs_sync.py --write`; `closeout.py` warns when it is stale. Read
+the program copy, not the mirror.
+
 **Access rule:** read/write inside the current project is allowed; read/write
 outside it requires explicit user permission. Never recursively scan
 `SAP Projects` or `<portfolio>`; use `INDEX.md` and the manifests.

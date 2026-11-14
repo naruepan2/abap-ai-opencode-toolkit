@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.5.11 — 2026-11-14
+
+**Specs and FS mirrored into the repository, with a drift check.**
+
+- `scripts/specs_sync.py`: copies every `Projects/*/*/spec.md` and its
+  `spec/source/*` into `specs/<PROJECT>/<PROGRAM>/`, writes a deterministic
+  `specs/manifest.json` (version, status, sha256, bytes), supports `--list`,
+  `--check` (default, exit 1 on drift) and `--write`.
+- `closeout.py` imports the check and warns when the mirror is stale, so a spec
+  edit that is not mirrored is caught before the session ends.
+- `specs/README.md` states the rules: read the program copy, never edit the
+  mirror, keep the repository private (the FS contains customer data).
+- Why a mirror rather than `git init` on `Projects/`: the program folder is
+  16 MB / 354 files of source dumps; the specs are 141 KB.
+- `Projects/DEMO/ZDEMO01/reports/FS_QUESTIONS.md`: the 13 open questions in Thai,
+  ready to send to the FS owner, with a blank answer table. `spec.md` links it.
+
 ## v0.5.10 — 2026-11-14
 
 **One `spec.md` per program: the contract the FS never was.**

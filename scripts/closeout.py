@@ -26,6 +26,11 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
+try:  # sibling module; present when the script is run from scripts\
+    from specs_sync import check as check_mirror
+except ImportError:  # imported from elsewhere, or the script is missing
+    check_mirror = None
+
 REPO = Path(__file__).resolve().parent.parent
 MEM = REPO / "memory"
 CARD_DIR = MEM / "projects"
@@ -392,6 +397,11 @@ def main():
     card = check_card(findings, warnings, pick_card(args.project))
     plan = check_plan(findings, warnings, card)
     spec = check_spec(findings, warnings, card)
+    mirror = check_mirror() if check_mirror else None
+    if mirror and mirror["drift"]:
+        warnings.append((WARN, "mirror",
+                         f"{len(mirror['drift'])} spec file(s) differ from specs/; run "
+                         "python scripts/specs_sync.py --write"))
     knowledge = check_knowledge(warnings)
 
     name = "no card"
@@ -417,6 +427,8 @@ def main():
         out(f"  spec       v{spec['version']}: {spec['reqs']} req "
             f"({spec['pending']} pending-test), {spec['acs']} ac, "
             f"{spec['open_q']} open q")
+    if mirror and not mirror["drift"]:
+        out(f"  mirror     {mirror['programs']} programs, in sync")
     if knowledge:
         out(f"  knowledge  {knowledge['entries']} entries in "
             f"{knowledge['domains']} domains, {knowledge['stale']} stale")

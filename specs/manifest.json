@@ -1,0 +1,29 @@
+{
+  "generated_by": "scripts/specs_sync.py",
+  "programs": {
+    "DEMO/HCL_INTERFACE_QA32": {
+      "spec_version": "0.1",
+      "status": "draft",
+      "files": {
+        "spec.md": {
+          "sha256": "8dd58b784794c5e144400d80b12b971e1de951addf58385ac34adfaeaf1d9939",
+          "bytes": 3737
+        }
+      }
+    },
+    "DEMO/ZDEMO01": {
+      "spec_version": "1.0",
+      "status": "active",
+      "files": {
+        "source/FS_ZDEMO01_V4.0_20261018.md": {
+          "sha256": "537ec009870fdcc46ffc11fe01531846d5614f4d273a9552014edc2da2f49905",
+          "bytes": 135251
+        },
+        "spec.md": {
+          "sha256": "ee71aa240be4e2fdf2e80fdc1bda2aa82b47e85f330479e017b08bbded9f7193",
+          "bytes": 9498
+        }
+      }
+    }
+  }
+}

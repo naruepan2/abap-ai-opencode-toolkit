@@ -35,6 +35,8 @@ Rules:
 - Change a requirement here **before** changing code.
 - Keep this file under ~200 lines. Detail goes to `AGENTS.md` (rules),
   `DECISIONS.md` (why) and the memory card (session state).
+- After editing, run `python scripts\specs_sync.py --write`; `closeout.py` warns
+  when the `specs/` mirror is stale.
 
 ## 1. Purpose
 

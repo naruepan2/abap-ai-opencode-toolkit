@@ -77,6 +77,9 @@ Enforcement:
 - `closeout.py` checks the front matter, that `fs_file` exists, and that the REQ
   and AC tables parse; a program without a spec is a warning (lazy migration), a
   malformed spec is an issue.
+- `scripts/specs_sync.py` mirrors every spec and FS into `specs/` with a sha256
+  manifest (the program folder is not a git repository). `closeout.py` warns when
+  the mirror is stale, so the backup cannot rot silently.
 - The session digest prints one line (`SPEC v1.0 · FS V4.0 - 12 req (5 pending-test),
   10 ac, 13 open q`) so the contract is discoverable without loading it.
 
