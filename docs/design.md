@@ -48,14 +48,21 @@ code changes are in a program, and the test evidence is per program. A project k
 `README.md` + `project.yaml`; a project-wide `spec.md` is allowed only when the
 project itself is the deliverable (a cross-program initiative).
 
-Four files, four questions - no duplication:
+Five files, five questions - no duplication:
 
 | File | Question | Owner |
 |---|---|---|
 | `spec.md` | What must be true, and how do we know it is done | requirement |
+| `CHANGELOG.md` | What shipped, and which file rolls it back | release |
 | `AGENTS.md` | How we work (constraints, deploy, editable objects) | process |
 | `reports/DECISIONS.md` | Why a choice was made (with evidence) | history |
 | `templates/plan.md` | In what order, for a long run | execution |
+
+`CHANGELOG.md` is one table row per deploy, not a prose log: version, one-line
+change, files, artifact + md5, active md5, verification. It is the only file that
+answers "roll back to what?". `DECISIONS.md` keeps the why; the changelog never
+repeats it. The failure mode is real: ZDEMO01 reached v20 while the card and README
+still said v12, and the v12/v13 artifacts no longer existed.
 
 `spec.md` is a thin, checkable contract: YAML front matter (`program`,
 `spec_version`, `status`, `fs_version`, `fs_file`, `implemented_version`,

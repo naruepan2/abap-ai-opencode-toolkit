@@ -60,13 +60,14 @@ itself is the deliverable. Template: `templates/spec.md`. Check:
 
 ```
 specs\<PROJECT>\<PROGRAM>\spec.md
-specs\<PROJECT>\<PROGRAM>\source\<FS>.md
+specs\<PROJECT>\<PROGRAM>\CHANGELOG.md
 specs\manifest.json            # version, status, sha256 per file
 ```
 
-The mirror is generated - edit the program copy, then
-`python scripts\specs_sync.py --write`; `closeout.py` warns when it is stale. Read
-the program copy, not the mirror.
+The customer FS is **not** mirrored - it is the customer's document, and this
+repository must not carry customer data. The mirror is generated: edit the program
+copy, then `python scripts\specs_sync.py --write`; `closeout.py` warns when it is
+stale. Read the program copy, not the mirror.
 
 **Access rule:** read/write inside the current project is allowed; read/write
 outside it requires explicit user permission. Never recursively scan

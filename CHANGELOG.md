@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.5.12 — 2026-11-14
+
+**A deploy changelog per program, and the FS stays out of git.**
+
+- `templates/CHANGELOG.md`: one table row per deploy (version, change, files,
+  artifact + md5, active md5, verification) plus the rollback recipe. The why stays
+  in `reports/DECISIONS.md`; this file is not a prose log.
+- ZDEMO01 `CHANGELOG.md` backfills v12-v20. It records the real gap: the v12/v13
+  artifacts were overwritten and their builders are gone, so the oldest
+  artifact-backed version is v14 (the newest runtime-verified is v13).
+- `closeout.py`: parses the changelog, warns when a named artifact no longer
+  exists (rollback broken) or when `implemented_version` differs from the newest
+  row (the v12-vs-v20 rot).
+- `specs_sync.py` now mirrors `CHANGELOG.md` too - and **stops mirroring
+  `spec/source/`**. The customer FS is the customer's document; the workspace rule
+  is "never commit customer data". Spec and changelog are our own text.
+- `spec.md` §7 renamed "Spec change log" so it cannot be confused with the deploy
+  changelog; the program `AGENTS.md` deploy step now requires one row.
+
 ## v0.5.11 — 2026-11-14
 
 **Specs and FS mirrored into the repository, with a drift check.**

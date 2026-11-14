@@ -16,7 +16,8 @@ updated: 2026-11-14
 # ZDEMO01 - spec (FS Option 8)
 
 The contract we build and test against. `AGENTS.md` holds the rules, `reports/DECISIONS.md`
-holds the why, `templates/plan.md` holds the order of work. This file holds **what** and
+holds the why, `CHANGELOG.md` holds what shipped and which file rolls it back,
+`templates/plan.md` holds the order of work. This file holds **what** and
 **how we know it is done**. Change a requirement here before changing code.
 
 ## 1. Purpose

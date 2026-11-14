@@ -374,8 +374,51 @@ def check_spec(findings, warnings, card):
         warnings.append((WARN, "spec",
                          f"spec.md not updated in {age} days; re-verify it against "
                          "the live behaviour"))
-    return {"path": path, "version": meta.get("spec_version", "?"),
+    return {"path": path, "base": base, "version": meta.get("spec_version", "?"),
+            "implemented": meta.get("implemented_version", ""),
             "reqs": reqs, "pending": pending, "acs": acs, "open_q": open_q}
+
+
+def check_changelog(findings, warnings, spec):
+    if spec is None:
+        return None
+    base = spec["base"]
+    implemented = (spec.get("implemented") or "").strip()
+    path = base / "CHANGELOG.md"
+    if not path.is_file():
+        if implemented and norm(implemented) not in {"-", "none"}:
+            warnings.append((WARN, "changelog",
+                             f"no CHANGELOG.md in {base.name}; add one row per deploy "
+                             "(templates/CHANGELOG.md)"))
+        return None
+    table = find_table(all_tables(read(path)), "ver", "artifact", "active_md5")
+    if table is None:
+        findings.append((ISSUE, "changelog",
+                         "no table (Ver / Artifact / Active MD5)"))
+        return None
+    headers, rows = table
+    ver_at = headers.index("ver")
+    art_at = headers.index("artifact")
+    artifacts = []
+    for row in rows:
+        if len(row) != len(headers) or not row[ver_at].strip():
+            continue
+        match = re.search(r"([\w.\-]+\.abap)", row[art_at])
+        artifacts.append(match.group(1) if match else "")
+    if not artifacts:
+        findings.append((ISSUE, "changelog", "the table has no rows"))
+        return None
+    newest = rows[0][ver_at].strip()
+    missing = [name for name in artifacts if name and not (base / name).is_file()]
+    if missing:
+        warnings.append((WARN, "changelog",
+                         "rollback artifact missing: " + ", ".join(missing[:3])))
+    if implemented and norm(implemented) not in {"-", "none"} \
+            and norm(implemented) != norm(newest):
+        warnings.append((WARN, "changelog",
+                         f"spec implemented_version {implemented} != newest "
+                         f"changelog row {newest}"))
+    return {"version": newest, "rows": len(artifacts), "missing": len(missing)}
 
 
 # ------------------------------------------------------------------------- main
@@ -397,6 +440,7 @@ def main():
     card = check_card(findings, warnings, pick_card(args.project))
     plan = check_plan(findings, warnings, card)
     spec = check_spec(findings, warnings, card)
+    changelog = check_changelog(findings, warnings, spec)
     mirror = check_mirror() if check_mirror else None
     if mirror and mirror["drift"]:
         warnings.append((WARN, "mirror",
@@ -427,6 +471,9 @@ def main():
         out(f"  spec       v{spec['version']}: {spec['reqs']} req "
             f"({spec['pending']} pending-test), {spec['acs']} ac, "
             f"{spec['open_q']} open q")
+    if changelog:
+        out(f"  changelog  {changelog['version']}: {changelog['rows']} rows, "
+            f"{changelog['missing']} artifact missing")
     if mirror and not mirror["drift"]:
         out(f"  mirror     {mirror['programs']} programs, in sync")
     if knowledge:

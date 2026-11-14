@@ -68,11 +68,11 @@ def collect():
         program_dir = spec.parent
         key = f"{program_dir.parent.name}/{program_dir.name}"
         files = {"spec.md": spec}
-        source = program_dir / "spec" / "source"
-        if source.is_dir():
-            for path in sorted(source.iterdir()):
-                if path.is_file():
-                    files[f"source/{path.name}"] = path
+        changelog = program_dir / "CHANGELOG.md"
+        if changelog.is_file():
+            files["CHANGELOG.md"] = changelog
+        # spec/source (the customer FS) is deliberately NOT mirrored: it is the
+        # customer's document and this repository must not carry customer data.
         meta = front_matter(spec)
         found[key] = {
             "spec_version": meta.get("spec_version", "?"),
