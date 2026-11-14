@@ -53,16 +53,18 @@ Five files, five questions - no duplication:
 | File | Question | Owner |
 |---|---|---|
 | `spec.md` | What must be true, and how do we know it is done | requirement |
-| `CHANGELOG.md` | What shipped, and which file rolls it back | release |
+| `CHANGELOG.md` | What shipped since the last released TR | release |
 | `AGENTS.md` | How we work (constraints, deploy, editable objects) | process |
 | `reports/DECISIONS.md` | Why a choice was made (with evidence) | history |
 | `templates/plan.md` | In what order, for a long run | execution |
 
-`CHANGELOG.md` is one table row per deploy, not a prose log: version, one-line
-change, files, artifact + md5, active md5, verification. It is the only file that
-answers "roll back to what?". `DECISIONS.md` keeps the why; the changelog never
-repeats it. The failure mode is real: ZDEMO01 reached v20 while the card and README
-still said v12, and the v12/v13 artifacts no longer existed.
+`CHANGELOG.md` is one table row per deploy, not a prose log: version, date,
+one-line change, verification. It covers the window SAP does not: SAP version
+management snapshots a TR only when it is **released**, so until then the system
+holds only the current code. When the TR is released, the block collapses to one
+line (`TR ... released ... - v1-vN`) and SAP becomes the record; the file never
+grows past one transport. The failure mode is real: ZDEMO01 reached v20 while the
+card and README still said v12.
 
 `spec.md` is a thin, checkable contract: YAML front matter (`program`,
 `spec_version`, `status`, `fs_version`, `fs_file`, `implemented_version`,

@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.5.13 — 2026-11-14
+
+**Changelog slimmed to the gap SAP actually leaves.**
+
+- Four columns: `Ver | Date | What changed | Verified`. Dropped the artifact,
+  md5 and rollback recipe - SAP version management snapshots a TR only when it is
+  **released**, so this file covers the unreleased window; the bytes stay in
+  `DECISIONS.md` and the build files.
+- At release the block collapses to one line (`TR ... released ... - v1-vN`), so
+  the file never grows past one transport.
+- `closeout.py` now only checks the newest row against the spec
+  `implemented_version` (the v12-vs-v20 drift); the artifact check is gone.
+
 ## v0.5.12 — 2026-11-14
 
 **A deploy changelog per program, and the FS stays out of git.**

@@ -391,34 +391,25 @@ def check_changelog(findings, warnings, spec):
                              f"no CHANGELOG.md in {base.name}; add one row per deploy "
                              "(templates/CHANGELOG.md)"))
         return None
-    table = find_table(all_tables(read(path)), "ver", "artifact", "active_md5")
+    table = find_table(all_tables(read(path)), "ver", "verified")
     if table is None:
         findings.append((ISSUE, "changelog",
-                         "no table (Ver / Artifact / Active MD5)"))
+                         "no table (Ver / Date / What changed / Verified)"))
         return None
     headers, rows = table
     ver_at = headers.index("ver")
-    art_at = headers.index("artifact")
-    artifacts = []
-    for row in rows:
-        if len(row) != len(headers) or not row[ver_at].strip():
-            continue
-        match = re.search(r"([\w.\-]+\.abap)", row[art_at])
-        artifacts.append(match.group(1) if match else "")
-    if not artifacts:
+    versions = [row[ver_at].strip() for row in rows
+                if len(row) == len(headers) and row[ver_at].strip()]
+    if not versions:
         findings.append((ISSUE, "changelog", "the table has no rows"))
         return None
-    newest = rows[0][ver_at].strip()
-    missing = [name for name in artifacts if name and not (base / name).is_file()]
-    if missing:
-        warnings.append((WARN, "changelog",
-                         "rollback artifact missing: " + ", ".join(missing[:3])))
+    newest = versions[0]
     if implemented and norm(implemented) not in {"-", "none"} \
             and norm(implemented) != norm(newest):
         warnings.append((WARN, "changelog",
                          f"spec implemented_version {implemented} != newest "
                          f"changelog row {newest}"))
-    return {"version": newest, "rows": len(artifacts), "missing": len(missing)}
+    return {"version": newest, "rows": len(versions)}
 
 
 # ------------------------------------------------------------------------- main
@@ -472,8 +463,7 @@ def main():
             f"({spec['pending']} pending-test), {spec['acs']} ac, "
             f"{spec['open_q']} open q")
     if changelog:
-        out(f"  changelog  {changelog['version']}: {changelog['rows']} rows, "
-            f"{changelog['missing']} artifact missing")
+        out(f"  changelog  {changelog['version']}: {changelog['rows']} rows")
     if mirror and not mirror["drift"]:
         out(f"  mirror     {mirror['programs']} programs, in sync")
     if knowledge:
