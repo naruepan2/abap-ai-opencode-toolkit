@@ -1,14 +1,14 @@
 ---
 program: ZDEMO01
 project: DEMO
-spec_version: 1.1
+spec_version: 1.2
 status: active
 fs_version: V4.0
 fs_date: 2026-10-18
 fs_file: spec/source/FS_ZDEMO01_V4.0_20261018.md
 fs_original_name: "IPLATFORMANCE_DEMO_FS_MM_ZDEMO01_Split batch at External WH and Report_V4.0_20261018.md"
 scope: FS Option 8 only - create DO, batch split, issue no., PGI at the external storage location
-implemented_version: v21
+implemented_version: v22
 owner: Pongg
 updated: 2026-11-14
 ---
@@ -47,7 +47,7 @@ recorded; `pending` = not built; `out-of-scope`.
 | ID | Requirement (one line, testable) | FS | Status | Since |
 |---|---|---|---|---|
 | REQ-01 | Entering a Sales Order lists `ZMMT010` rows whose `MATNR`/`WERKS`/`LGORT` match `VBAP` and `MENGE_PD > 0` | L1459-1469 | implemented | v10 |
-| REQ-02 | The user enters SO / SO item / quantity per batch row; the quantity is editable and cannot exceed the external-warehouse stock; once that row's DO and batch split succeed the quantity (`Ex.WH.Stck`) turns display-only | L1469, DEV-02, DEV-06 | implemented | v11 |
+| REQ-02 | The user enters SO / SO item / quantity per batch row; the quantity is editable and cannot exceed the external-warehouse stock; once that row's DO and batch split succeed all three editable cells (`Sale Order`, `Sale Order Item`, `Ex.WH.Stck`) turn display-only | L1469, DEV-02, DEV-06 | implemented | v11 |
 | REQ-03 | Create an outbound Delivery Order referencing the Sales Order, with batch-split sub items under one main item; the sub-item quantities sum to the main item quantity | L1471 | implemented | v6 |
 | REQ-04 | Group by plant, storage location and material; the main item carries the total; different batches become sub items `900001`, `900002`, ... | L1473-1476 | implemented | v6 |
 | REQ-05 | Create the DO with `BAPI_OUTB_DELIVERY_CREATE_SLS` (`SHIP_POINT` = `VBAP-VSTEL`, `DUE_DATE` = `SY-DATUM`, `REF_DOC`/`REF_ITEM`, `DLV_QTY` = main-item total, `SALES_UNIT` = `VBAP-ZIEME`) and commit with `WAIT = X` only when no E/A message | L1482-1502 | implemented | v6 |
@@ -58,6 +58,7 @@ recorded; `pending` = not built; `out-of-scope`.
 | REQ-10 | After the goods issue, subtract `MATDOC-MENGE` (BWART 601) from `ZMMT010-MENGE_PD` and add it to `MENGE_GI` | L1595-1599 | pending-test | v6 |
 | REQ-11 | Write the 601 material document lines to `ZMMT014` (one row per batch-split sub item) and the material document to `ZMMT015` | L1601 | pending-test | v6 |
 | REQ-12 | VL09 reversal and VL02N goods return (602/653/655) update `ZMMT013-MENGE_GI` and the `ZMMT014` history | L96-118 | out-of-scope | - |
+| REQ-13 | Post Goods Issue is refused with message `023` unless the selected rows carry both a Delivery Order and its batch split (`VBELN_VL` and `POSNR_VL`); rows without them are flagged and never posted | L1577 | implemented | v22 |
 
 ## 4. Acceptance criteria
 
@@ -76,7 +77,8 @@ do not report it as passed.
 | AC-08 | Given a posted DO, when Option 8 is executed, then the posted delivery is no longer listed | REQ-01 | client 900, 2026-11-14 (v14) |
 | AC-09 | Given a quantity above the open quantity, when Create DO runs, then it is blocked by the GR-pending / KWMENG / live-LIPS checks (no bypass at 0) | REQ-02 | client 900, v11 |
 | AC-10 | Given an SO item with no `ZMMT010` row, when Option 8 runs and Create DO is pressed, then the program reports the condition and does not dump with `GETWA_NOT_ASSIGNED` | REQ-01 | built v20, runtime Pending |
-| AC-11 | Given a row whose DO and batch split succeeded, when the ALV refreshes, then `Ex.WH.Stck` on that row is display-only while rows without a DO stay editable | REQ-02 | built v21, runtime Pending |
+| AC-11 | Given a row whose DO and batch split succeeded, when the ALV refreshes, then `Sale Order`, `Sale Order Item` and `Ex.WH.Stck` on that row are display-only while rows without a DO stay editable | REQ-02 | built v21, runtime Pending |
+| AC-12 | Given only rows with no DO selected, when Post Goods Issue is pressed, then message `023` is shown, the rows go red, and no delivery is posted; a mixed selection posts only the rows that have a DO | REQ-13 | built v22, runtime Pending |
 
 ## 5. Deviations from the FS (approved)
 
@@ -86,7 +88,7 @@ do not report it as passed.
 | DEV-02 | Open quantity from `ZMMT010-MENGE_PD > 0` (L1467) | `KWMENG - SUM(LIPS-LFIMG)` per SO item; the editable row is the open remainder per batch | D11.1-D11.4, 2026-11-13 |
 | DEV-03 | No extra ALV column | `OPEN_SO_QTY` between TF DEMO Qty and Ex.WH.Stck, editable rows only | v12, user-approved 2026-11-14 |
 | DEV-04 | FS does not say to hide posted deliveries | Posted DOs (`PGI_FLAG = 'X'` / `WBSTK = 'C'`) are removed from the list | D14.1, 2026-11-14 |
-| DEV-06 | FS L1469 lets the user edit the GI quantity freely | The row's quantity (`Ex.WH.Stck`) is locked as soon as its DO + batch split succeed, so the ALV cannot drift from the delivery it created | user request 2026-11-14, v21 |
+| DEV-06 | FS L1469 lets the user edit the GI quantity freely | The row's editable cells (`Sale Order`, `Sale Order Item`, `Ex.WH.Stck`) are locked as soon as its DO + batch split succeed, so the ALV cannot drift from the delivery it created | user request 2026-11-14, v21/v22 |
 
 ## 6. Open questions (do not guess)
 
@@ -113,5 +115,6 @@ not part of the contract and can be deleted. The table below is the source of tr
 
 | Spec | Date | Change |
 |---|---|---|
+| 1.2 | 2026-11-14 | REQ-02: all three editable cells lock per row after DO + batch split; new REQ-13/AC-12: Post Goods Issue refused (msg `023`) without a DO; v22 |
 | 1.1 | 2026-11-14 | REQ-02: `Ex.WH.Stck` (`MENGE_PD`) becomes display-only per row once its DO + batch split succeed (DEV-06, AC-11); implemented v21 |
 | 1.0 | 2026-11-14 | First spec from FS V4.0 (moved to `spec/source/`), v1-v20 decisions, and the current ALV behaviour |
