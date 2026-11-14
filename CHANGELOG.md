@@ -14,8 +14,9 @@
   mirror, keep the repository private (the FS contains customer data).
 - Why a mirror rather than `git init` on `Projects/`: the program folder is
   16 MB / 354 files of source dumps; the specs are 141 KB.
-- `Projects/DEMO/ZDEMO01/reports/FS_QUESTIONS.md`: the 13 open questions in Thai,
-  ready to send to the FS owner, with a blank answer table. `spec.md` links it.
+- `Projects/DEMO/ZDEMO01/reports/FS_QUESTIONS.md`: **optional** Thai copy of the 13
+  open questions for the FS owner, with a blank answer table. Not part of the
+  contract; safe to delete. `spec.md` links it as optional.
 
 ## v0.5.10 — 2026-11-14
 

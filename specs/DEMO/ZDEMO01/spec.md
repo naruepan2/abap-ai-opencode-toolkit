@@ -88,7 +88,8 @@ do not report it as passed.
 
 ## 6. Open questions (do not guess)
 
-Thai wording ready to send to the FS owner: `reports/FS_QUESTIONS.md`.
+Optional helper: a Thai copy for the FS owner in `reports/FS_QUESTIONS.md`; it is
+not part of the contract and can be deleted. The table below is the source of truth.
 
 | ID | Question | Impact | State |
 |---|---|---|---|
