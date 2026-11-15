@@ -66,15 +66,16 @@ if ($DryRun) {
     exit 0
 }
 
-$cred = Get-Credential -UserName $p.user -Message "SAP $Profile - store in Windows Credential Manager"
-if ($null -eq $cred) {
+[Console]::Beep(1200, 250)
+$result = [SapCred]::Prompt($target, 'SAP sign-in', "Store the SAP password for $Profile ($($p.user)) in Windows Credential Manager.", $p.user)
+if ($null -eq $result) {
     [Console]::Error.WriteLine('cancelled; nothing stored')
     exit 1
 }
 
-$password = $cred.GetNetworkCredential().Password
-if ([SapCred]::Write($target, $cred.UserName, $password)) {
-    Write-Output "stored $target for $($cred.UserName)"
+$password = $result[1]
+if ([SapCred]::Write($target, $result[0], $password)) {
+    Write-Output "stored $target for $($result[0])"
     exit 0
 }
 $code = [Runtime.InteropServices.Marshal]::GetLastWin32Error()

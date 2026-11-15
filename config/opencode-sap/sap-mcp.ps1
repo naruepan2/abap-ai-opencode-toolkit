@@ -1,9 +1,10 @@
 ﻿# sap-mcp.ps1 - one launcher for the ADT MCP engines, one connection profile.
 #
 # The MCP entry chooses the engine; the profile holds URL/user/client/CA once.
-# Nothing credential-like is written to disk: the password is asked for by the
-# standard Windows credential dialog at every server start and lives only in the
-# process environment.
+# Nothing credential-like is written to disk: the password comes from SAP_PASSWORD,
+# then Windows Credential Manager, then a top-most dialog that stores what you type
+# (so the next start is silent). The keychain entry is a DPAPI-protected generic
+# credential named sap-mcp:<profile>.
 #
 #   powershell -NoProfile -ExecutionPolicy Bypass -File sap-mcp.ps1 `
 #       -Profile luf-ds4-100 -Engine ai-dev
@@ -14,11 +15,22 @@ param(
     [Parameter(Mandatory = $true)][string]$Profile,
     [Parameter(Mandatory = $true)][ValidateSet('ai-dev', 'arc1')][string]$Engine,
     [switch]$AllowWrites,
-    [switch]$DryRun
+    [switch]$DryRun,
+    [switch]$PromptTest
 )
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'sap-cred.ps1')
+
+function Show-SapPrompt {
+    param([string]$ProfileName, [string]$UserName, [string]$EngineName, [string]$SystemUrl)
+
+    [Console]::Beep(1200, 250)
+    $message = "SAP $ProfileName ($EngineName)`r`n$UserName - $SystemUrl"
+    $result = [SapCred]::Prompt("sap-mcp:$ProfileName", 'SAP sign-in', $message, $UserName)
+    if ($null -eq $result) { return $null }
+    return $result[1]
+}
 
 $profilesPath = Join-Path $PSScriptRoot 'profiles.json'
 if (-not (Test-Path $profilesPath)) {
@@ -30,6 +42,16 @@ $p = $all.$Profile
 if ($null -eq $p) {
     [Console]::Error.WriteLine("unknown profile: $Profile")
     exit 1
+}
+
+if ($PromptTest) {
+    $entered = Show-SapPrompt $Profile $p.user $Engine ([string]$p.url)
+    if ($null -eq $entered) {
+        [Console]::Error.WriteLine('prompt cancelled; nothing stored')
+        exit 1
+    }
+    [Console]::Error.WriteLine("prompt ok: $($entered.Length) characters, not stored")
+    exit 0
 }
 
 $target = "sap-mcp:$Profile"
@@ -53,13 +75,41 @@ if ($env:SAP_PASSWORD) {
         if ($DryRun) {
             $password = '<would-prompt>'
         } else {
-            [Console]::Beep(1200, 250)
-            $cred = Get-Credential -UserName $p.user -Message "SAP $Profile ($Engine)"
-            if ($null -eq $cred) {
-                [Console]::Error.WriteLine('credential dialog cancelled; server not started')
-                exit 1
+            # Only one dialog per profile: a second directory starts the same server
+            # and must wait for the first one to store the credential instead of
+            # opening a duplicate window.
+            $mutex = New-Object System.Threading.Mutex($false, "Local\sap-mcp-prompt-$Profile")
+            $haveLock = $false
+            try {
+                try {
+                    $haveLock = $mutex.WaitOne([TimeSpan]::FromSeconds(110))
+                } catch [System.Threading.AbandonedMutexException] {
+                    $haveLock = $true
+                }
+                $storedUser = $null
+                $stored = [SapCred]::ReadPassword($target, [ref]$storedUser)
+                if ($stored -and (-not $storedUser -or $storedUser -eq $p.user)) {
+                    $password = $stored
+                    $passwordSource = 'credential-manager'
+                } elseif (-not $haveLock) {
+                    [Console]::Error.WriteLine('credential dialog is open in another window and did not finish; server not started')
+                    exit 1
+                } else {
+                    $entered = Show-SapPrompt $Profile $p.user $Engine ([string]$p.url)
+                    if ($null -eq $entered) {
+                        [Console]::Error.WriteLine('credential dialog cancelled; server not started')
+                        exit 1
+                    }
+                    $password = $entered
+                    if ([SapCred]::Write($target, $p.user, $entered)) {
+                        $passwordSource = 'dialog+stored'
+                        [Console]::Error.WriteLine("password stored as $target; the next start will not ask")
+                    }
+                }
+            } finally {
+                if ($haveLock) { $mutex.ReleaseMutex() }
+                $mutex.Dispose()
             }
-            $password = $cred.GetNetworkCredential().Password
         }
     }
 }

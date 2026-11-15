@@ -5,6 +5,7 @@
 #   [SapCred]::ReadPassword($target, [ref]$user)   -> password or $null
 #   [SapCred]::Write($target, $user, $password)     -> bool
 #   [SapCred]::Delete($target)                      -> bool
+#   [SapCred]::Prompt($target, $caption, $msg, $user) -> { user, password } or $null
 Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
@@ -40,6 +41,56 @@ public static class SapCred
 
     [DllImport("advapi32.dll")]
     public static extern void CredFree(IntPtr credential);
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    public struct CREDUI_INFO
+    {
+        public int cbSize;
+        public IntPtr hwndParent;
+        public string pszMessageText;
+        public string pszCaptionText;
+        public IntPtr hbmBanner;
+    }
+
+    [DllImport("credui.dll", CharSet = CharSet.Unicode)]
+    public static extern int CredUIPromptForCredentials(
+        ref CREDUI_INFO pUiInfo,
+        string pszTargetName,
+        IntPtr Reserved,
+        int dwAuthError,
+        StringBuilder pszUserName,
+        int ulUserNameBufferSize,
+        StringBuilder pszPassword,
+        int ulPasswordBufferSize,
+        ref bool pfSave,
+        int dwFlags);
+
+    const int CREDUI_FLAGS_DO_NOT_PERSIST = 0x2;
+    const int CREDUI_FLAGS_ALWAYS_SHOW_USER = 0x80;
+    const int CREDUI_FLAGS_GENERIC_CREDENTIALS = 0x40000;
+
+    /// The native Windows credential dialog. Returns { user, password } or null.
+    /// DO_NOT_PERSIST keeps the OS out of the vault: the launcher stores the value
+    /// itself so both paths use one format.
+    public static string[] Prompt(string target, string caption, string message, string user)
+    {
+        CREDUI_INFO info = new CREDUI_INFO();
+        info.cbSize = Marshal.SizeOf(typeof(CREDUI_INFO));
+        info.hwndParent = IntPtr.Zero;
+        info.pszCaptionText = caption;
+        info.pszMessageText = message;
+        info.hbmBanner = IntPtr.Zero;
+
+        StringBuilder u = new StringBuilder(256);
+        if (user != null) u.Append(user);
+        StringBuilder p = new StringBuilder(256);
+        bool save = false;
+        int flags = CREDUI_FLAGS_GENERIC_CREDENTIALS | CREDUI_FLAGS_ALWAYS_SHOW_USER | CREDUI_FLAGS_DO_NOT_PERSIST;
+
+        int rc = CredUIPromptForCredentials(ref info, target, IntPtr.Zero, 0, u, 256, p, 256, ref save, flags);
+        if (rc != 0) return null;
+        return new string[] { u.ToString(), p.ToString() };
+    }
 
     public static string ReadPassword(string target, out string user)
     {

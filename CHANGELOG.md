@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.6.1 — 2026-11-15
+
+**The SAP password prompt is the native Windows dialog, and MCP startup waits for it.**
+
+- `sap-cred.ps1` gains `Prompt()` (`CredUIPromptForCredentials`, generic credentials
+  + do-not-persist). `sap-mcp.ps1` and `store-sap-secret.ps1` use it instead of
+  `Get-Credential`, so the window is the Windows sign-in dialog (`SAP sign-in`), not a
+  hand-built form.
+- First start of a profile: dialog -> password -> stored in the keychain -> the next
+  start is silent. A `Local\sap-mcp-prompt-<profile>` mutex makes two directories share
+  one dialog instead of opening two.
+- `opencode.json`: `mcp.timeout: { startup: 180000, catalog: 60000 }`. The legacy
+  `mcp.<name>` entry shape accepts only an integer `timeout`; an object there makes the
+  whole entry disappear — the object belongs at `mcp.timeout`.
+- `sap-mcp.ps1 -PromptTest` shows the dialog without connecting and never stores.
+- Found on the live machine: `SAP_PASSWORD` is also set as a Windows user environment
+  variable, which bypasses the keychain and exposes the password to every process.
+  Remove it once the keychain or the dialog is in use.
+
 ## v0.6.0 — 2026-11-15
 
 **The toolkit is installable: the instance moved out of git.**
