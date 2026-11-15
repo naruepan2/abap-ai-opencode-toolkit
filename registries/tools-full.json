@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T07:20:49.139Z",
-  "total": 120,
+  "generated_at": "2026-11-15T07:29:32.063Z",
+  "total": 119,
   "tools": [
     {
       "id": "arc1-ds4-100_SAPContext",
@@ -13,12 +13,6 @@
       "name": "SAPDiagnose",
       "namespace": "arc1-ds4-100",
       "description": "ABAP diagnostics:\n- \"syntax\": check objects[] (CLAS/INTF/PROG/DDLS; version active/inactive). Single: prefer SAPRead SYNTAX.\n- \"unittest\": harmless ABAP Unit for CLAS/PROG/FUGR or DEVC (exact; include"
-    },
-    {
-      "id": "arc1-ds4-100_SAPGit",
-      "name": "SAPGit",
-      "namespace": "arc1-ds4-100",
-      "description": "Git reads and gated abapGit workflows. gCTS mutations are quarantined. abapGit mutations need write/Git gates and allowedPackages ROOT/** or *; clone/pull evidence is unverified. external_info is gate"
     },
     {
       "id": "arc1-ds4-100_SAPLint",

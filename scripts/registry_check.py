@@ -237,7 +237,11 @@ def scan_mcp():
     if isinstance(nested, dict):
         servers.update(nested)
     for server, val in mcp.items():
-        if server == "servers":
+        if server in ("servers", "timeout"):
+            continue
+        if not isinstance(val, dict):
+            continue
+        if not (val.get("command") or val.get("url") or val.get("type")):
             continue
         servers[server] = val
 

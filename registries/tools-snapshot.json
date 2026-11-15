@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-15T07:20:49.139Z",
+  "generated_at": "2026-11-15T07:29:32.063Z",
   "source": "opencode plugin ctx.tool.list",
-  "total": 120,
+  "total": 119,
   "namespaces": {
-    "arc1-ds4-100": 9,
+    "arc1-ds4-100": 8,
     "browse": 18,
     "open-computer-use": 9,
     "windows-mcp": 19,
