@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.5.16 — 2026-11-15
+
+**Live toolset check: know which ADT server is actually connected.**
+
+- `scripts/tools_now.py` reads the snapshot plugin's `registries/tools-full.json`
+  and prints the live ADT namespaces, client role, available capabilities and the
+  recommended path (`write=` / `verify=` / `analyse=`). It works before and after
+  a toggle because the plugin refreshes on `mcp.*` / `tool.*` / `session.*` events
+  (2 s, throttled to 60 s).
+- `--check --expect <namespace>` fails when a namespace did not connect, when no
+  ADT server is live, or when two code writers are enabled; `--json` is available
+  for scripts.
+- Roles are explicit: `arc1-*` is read-only, `ai-dev-*` / `ds4-*` / `gsd-*` is a
+  writer on clients 100/110/120, and client 900 is the verify client.
+- The snapshot timestamp is "last change", not a heartbeat: a quiet system keeps
+  an old timestamp without being stale.
+- `memory/tool-map.md` records the pre-call check.
+
 ## v0.5.15 — 2026-11-14
 
 **One ADT path: the MCP; the old CLI is parked.**
