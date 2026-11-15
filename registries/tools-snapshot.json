@@ -1,8 +1,10 @@
 {
-  "generated_at": "2026-11-15T07:29:32.063Z",
+  "generated_at": "2026-11-15T07:38:16.357Z",
   "source": "opencode plugin ctx.tool.list",
-  "total": 119,
+  "directory": "<portfolio>\\SAP Projects",
+  "total": 194,
   "namespaces": {
+    "ai-dev-ds4-100": 75,
     "arc1-ds4-100": 8,
     "browse": 18,
     "open-computer-use": 9,

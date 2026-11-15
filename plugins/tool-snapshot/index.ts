@@ -23,6 +23,13 @@ export default Plugin.define({
         ctx.location.directory,
     );
     const registries = path.join(workspace, "registries");
+    // OpenCode connects MCP servers per open directory. Two windows (e.g. the SAP
+    // workspace and C:\Users\you) therefore produce different tool sets, and both
+    // used to write the same files. Only the workspace that owns this toolkit
+    // publishes, so the numbers in registries/ describe one known directory.
+    const canonical = path.resolve(path.dirname(workspace));
+    const directory = path.resolve(String(ctx.location.directory ?? canonical));
+    const publish = directory === canonical;
     let lastRun = 0;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let running = false;
@@ -49,6 +56,12 @@ export default Plugin.define({
       if (running) return;
       running = true;
       try {
+        if (!publish) {
+          console.log(
+            `[tool-snapshot] ${directory} is not ${canonical}; registries left alone`,
+          );
+          return;
+        }
         const tools = (await ctx.tool.list()) as ToolInfo[];
         const namespaces: Record<string, number> = {};
         for (const tool of tools) {
@@ -60,6 +73,7 @@ export default Plugin.define({
         const nextSnapshot = {
           generated_at,
           source: "opencode plugin ctx.tool.list",
+          directory,
           total: tools.length,
           namespaces,
         };
@@ -86,6 +100,7 @@ export default Plugin.define({
         if (!prevFull || !same(prevFull.tools, nextTools)) {
           await write("tools-full.json", {
             generated_at,
+            directory,
             total: tools.length,
             tools: nextTools,
           });

@@ -1,7 +1,458 @@
 {
-  "generated_at": "2026-11-15T07:29:32.063Z",
-  "total": 119,
+  "generated_at": "2026-11-15T07:38:16.357Z",
+  "directory": "<portfolio>\\SAP Projects",
+  "total": 194,
   "tools": [
+    {
+      "id": "ai-dev-ds4-100_activate",
+      "name": "activate",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Activate an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_activate_multiple",
+      "name": "activate_multiple",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Activate multiple ABAP objects in a single ADT request, resolving mutual dependencies between them (same behaviour as Eclipse ADT). Use when includes and their main program must be activated together."
+    },
+    {
+      "id": "ai-dev-ds4-100_apply_abap_change_set",
+      "name": "apply_abap_change_set",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Apply a staged ABAP change set after re-reading every target and confirming its source still matches the reviewed version. Call only after the user approves the proposal. [destination: DEMO DEV [NE"
+    },
+    {
+      "id": "ai-dev-ds4-100_check_transport_readiness",
+      "name": "check_transport_readiness",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Collect a transport request and dependency, inactive-object, ABAP Unit, and ATC evidence bundle. Only registered read/check tools are accepted; inspect findings before handoff. [destination: DEMO DS4 D"
+    },
+    {
+      "id": "ai-dev-ds4-100_compare_source",
+      "name": "compare_source",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Compare source code of two objects and return unified diff. Supports all object types from GetSource. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_create_object",
+      "name": "create_object",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Create a new ABAP object. Supports: PROG/P (program), CLAS/OC (class), INTF/OI (interface), PROG/I (include), FUGR/F (function group), FUGR/FF (function module), DEVC/K (package), DDLS/DF (CDS view), "
+    },
+    {
+      "id": "ai-dev-ds4-100_create_package",
+      "name": "create_package",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Create a new ABAP package. Local packages ($*) work by default. Transportable packages require --enable-transports flag and transport parameter. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_create_table",
+      "name": "create_table",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Create a DDIC transparent table from a simple JSON definition. Handles full workflow: create → set source → activate. Supports common ABAP types: CHAR, NUMC, INT4, DEC, STRING, TIMESTAMPL, UUID, etc. "
+    },
+    {
+      "id": "ai-dev-ds4-100_create_transport",
+      "name": "create_transport",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Create a new transport request. Requires --enable-transports flag and not --transport-read-only. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_debugger_attach",
+      "name": "debugger_attach",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Attach to a debuggee that has hit a breakpoint. Use the debuggee_id from DebuggerListen result. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_debugger_detach",
+      "name": "debugger_detach",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Detach from the current debug session and release the debuggee. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_debugger_get_stack",
+      "name": "debugger_get_stack",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get the current call stack during a debug session. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_debugger_get_variables",
+      "name": "debugger_get_variables",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Read variables at the current stop. With no argument it returns the stopped frame's own variables with their values; pass a composite id (from a previous answer) to expand a structure or table, or nam"
+    },
+    {
+      "id": "ai-dev-ds4-100_debugger_step",
+      "name": "debugger_step",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Perform a step operation in the debugger. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_delete_empty_ddls",
+      "name": "delete_empty_ddls",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Delete only an empty Z/Y DDLS shell. The source is read first and deletion is refused unless it is blank. Requires confirmation exactly equal to DELETE EMPTY DDLS <OBJECT_NAME>. [destination: DEMO DS4 "
+    },
+    {
+      "id": "ai-dev-ds4-100_edit_source",
+      "name": "edit_source",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Surgical string replacement on ABAP source code. Matches the Edit tool pattern for local files. Workflow: GetSource → FindReplace → SyntaxCheck → Lock → Update → Unlock → Activate. Example: EditSource"
+    },
+    {
+      "id": "ai-dev-ds4-100_find_definition",
+      "name": "find_definition",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Navigate to the definition of a symbol at a given position in source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_find_references",
+      "name": "find_references",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Find all references to an ABAP object or symbol [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_generate_rap_regression_suite",
+      "name": "generate_rap_regression_suite",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Read an OData service metadata document and return a reusable, read-only smoke suite for its entity sets. Only the connected destination is contacted. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_api_release_state",
+      "name": "get_api_release_state",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Check API release state for S/4HANA Clean Core / ABAP Cloud compatibility. Returns whether an object is released for cloud development and key user apps. Use SearchObject first to get the object URI. "
+    },
+    {
+      "id": "ai-dev-ds4-100_get_application_log",
+      "name": "get_application_log",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Read SAP application log (SLG1) entries. Results are newest first and limited to 100 by default; set messages=true to include log message details. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_breakpoints",
+      "name": "get_breakpoints",
+      "namespace": "ai-dev-ds4-100",
+      "description": "List the breakpoints this session registered. ADT does not report breakpoints belonging to other clients, so this is not a system-wide list. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_cds_dependencies",
+      "name": "get_cds_dependencies",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve CDS view FORWARD dependencies (tables/views this CDS reads FROM). Returns tree of base objects. Does NOT return reverse dependencies (where-used). Use with GetSource(DDLS) to read CDS source "
+    },
+    {
+      "id": "ai-dev-ds4-100_get_cds_element_info",
+      "name": "get_cds_element_info",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve metadata for all elements (fields) of a CDS view. Returns field names, types, annotations, and semantic information from the DDL source. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_cds_impact_analysis",
+      "name": "get_cds_impact_analysis",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve CDS view REVERSE dependencies (where-used / downstream consumers). Returns all objects that consume/reference the given CDS view. Complement of GetCDSDependencies which shows forward dependen"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_class",
+      "name": "get_class",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP class source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_class_components",
+      "name": "get_class_components",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get the structure of a class - lists all methods, attributes, events, and other components with their visibility and properties [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_class_include",
+      "name": "get_class_include",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve source code of a class include (definitions, implementations, macros, testclasses) [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_class_info",
+      "name": "get_class_info",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get class metadata without full source: methods, attributes, interfaces, superclass, abstract/final status. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_connection_info",
+      "name": "get_connection_info",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get current MCP connection info: user, URL, client. Useful for debugging and understanding current session context. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_context",
+      "name": "get_context",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Analyze ABAP source dependencies and return compressed public API contracts (prologue). Produces a compact summary of all referenced classes, interfaces, and function modules — showing only their publ"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_features",
+      "name": "get_features",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Probe SAP system for available features. Returns status of optional capabilities like abapGit, RAP/OData, AMDP debugging, UI5/BSP, and CTS transports. Use this to understand what features are availabl"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_function",
+      "name": "get_function",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP Function Module source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_function_group",
+      "name": "get_function_group",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP Function Group source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_inactive_objects",
+      "name": "get_inactive_objects",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get all inactive objects for the current user - objects that have been modified but not yet activated [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_include",
+      "name": "get_include",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP Include Source Code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_installed_components",
+      "name": "get_installed_components",
+      "namespace": "ai-dev-ds4-100",
+      "description": "List installed software components with version information [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_interface",
+      "name": "get_interface",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP interface source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_messages",
+      "name": "get_messages",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get all messages from an ABAP message class (SE91). Returns message number, text for all messages in the class. Use SearchObject to find message classes first. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_package",
+      "name": "get_package",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP package details [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_program",
+      "name": "get_program",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP program source code [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_source",
+      "name": "get_source",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Unified tool for reading ABAP source code across different object types. Replaces GetProgram, GetClass, GetInterface, GetFunction, GetInclude, GetFunctionGroup, GetClassInclude. [destination: DEMO DS4 "
+    },
+    {
+      "id": "ai-dev-ds4-100_get_structure",
+      "name": "get_structure",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP Structure [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_system_info",
+      "name": "get_system_info",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get SAP system information (system ID, release, kernel, database) [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_table",
+      "name": "get_table",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP table structure [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_table_contents",
+      "name": "get_table_contents",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve contents of an ABAP table. For simple queries use table_name + max_rows. For filtered queries use sql_query parameter with ABAP SQL syntax (use ASCENDING/DESCENDING, not ASC/DESC). [destinati"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_transport",
+      "name": "get_transport",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get detailed transport information including objects and tasks. Requires --enable-transports OR --allow-transportable-edits flag. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_transport_info",
+      "name": "get_transport_info",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get transport information for an ABAP object (requires --enable-transports flag). Returns available transports and lock status. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_type_info",
+      "name": "get_type_info",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Retrieve ABAP type information [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_get_user_transports",
+      "name": "get_user_transports",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get the transport requests of a user from the transport organizer (requires --enable-transports): workbench and customizing, modifiable and released, with tasks and objects, grouped by target and CTS "
+    },
+    {
+      "id": "ai-dev-ds4-100_grep_objects",
+      "name": "grep_objects",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Unified tool for searching regex patterns in single or multiple ABAP objects. Replaces GrepObject. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_grep_packages",
+      "name": "grep_packages",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Unified tool for searching regex patterns across single or multiple packages with optional recursive subpackage search. Replaces GrepPackage. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_lint_abap",
+      "name": "lint_abap",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Run abaplint on caller-supplied source files in memory; does not read workspace files or call SAP."
+    },
+    {
+      "id": "ai-dev-ds4-100_lint_abap_project",
+      "name": "lint_abap_project",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Run read-only abaplint checks over serialized ABAP objects under the configured workspace root. Loads the project config and local dependency folders when present; does not call SAP, write files, or a"
+    },
+    {
+      "id": "ai-dev-ds4-100_list_dependencies",
+      "name": "list_dependencies",
+      "namespace": "ai-dev-ds4-100",
+      "description": "List available dependency packages that can be installed via InstallAbapGit. Shows abapGit editions and other optional dependencies. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_list_transports",
+      "name": "list_transports",
+      "namespace": "ai-dev-ds4-100",
+      "description": "List transport requests of a user as flat rows: workbench and customizing, modifiable and released by default (request_status D limits it to modifiable). Requires --enable-transports OR --allow-transp"
+    },
+    {
+      "id": "ai-dev-ds4-100_lock_object",
+      "name": "lock_object",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Acquire an edit lock on an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_plan_abap_cloud_migration",
+      "name": "plan_abap_cloud_migration",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Check SAP release-state evidence for a bounded set of object URIs and prioritize objects that need migration review. It reports SAP evidence without inventing replacement APIs. [destination: DEMO DS4 D"
+    },
+    {
+      "id": "ai-dev-ds4-100_prepare_abap_change_set",
+      "name": "prepare_abap_change_set",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Stage a reviewable multi-object ABAP change set. This only reads current sources and stores the proposal in memory; it does not edit SAP. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_pretty_print",
+      "name": "pretty_print",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Format ABAP source code using the pretty printer [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_publish_service_binding",
+      "name": "publish_service_binding",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Publish a service binding to make it available as OData service [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_run_atc_check",
+      "name": "run_atc_check",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Run ATC (ABAP Test Cockpit) code quality check on an object. Returns findings with priority, check title, message, and location. Priority: 1=Error, 2=Warning, 3=Info. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_run_query",
+      "name": "run_query",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Execute a freestyle SQL query against the SAP database. IMPORTANT: Uses ABAP SQL syntax, NOT standard SQL. Use ASCENDING/DESCENDING instead of ASC/DESC. Use max_rows parameter instead of LIMIT. GROUP "
+    },
+    {
+      "id": "ai-dev-ds4-100_run_rap_regression_suite",
+      "name": "run_rap_regression_suite",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Run a saved RAP OData GET-only suite against this destination. Requests stay under the supplied OData service root; request bodies and custom authorization headers are not supported. [destination: DEMO"
+    },
+    {
+      "id": "ai-dev-ds4-100_run_unit_tests",
+      "name": "run_unit_tests",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Run ABAP Unit tests for an object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_search_object",
+      "name": "search_object",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Search for ABAP objects using quick search [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_set_breakpoint",
+      "name": "set_breakpoint",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Set an external breakpoint through SAP's ADT resources. Kinds: 'line' (an object and a line), 'statement' (an ABAP keyword), 'exception' (an exception class). The line is the line in the source as vsp"
+    },
+    {
+      "id": "ai-dev-ds4-100_syntax_check",
+      "name": "syntax_check",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Check ABAP source code for syntax errors [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_ui5_get_app",
+      "name": "ui5_get_app",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get details of a UI5/Fiori BSP application including file structure. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_ui5_get_file_content",
+      "name": "ui5_get_file_content",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Get content of a specific file within a UI5/Fiori BSP application. [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_ui5_list_apps",
+      "name": "ui5_list_apps",
+      "namespace": "ai-dev-ds4-100",
+      "description": "List UI5/Fiori BSP applications. Use query parameter for filtering with wildcards (*). [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_unlock_object",
+      "name": "unlock_object",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Release an edit lock on an ABAP object [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_unpublish_service_binding",
+      "name": "unpublish_service_binding",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Unpublish a service binding [destination: DEMO DEV [NEW]]"
+    },
+    {
+      "id": "ai-dev-ds4-100_update_table",
+      "name": "update_table",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Update and activate an existing Z/Y DDIC table from replacement DDL. The current DDL is re-read and compared with expected_source; VSP checks its source hash again under lock. Requires confirmation ex"
+    },
+    {
+      "id": "ai-dev-ds4-100_write_source",
+      "name": "write_source",
+      "namespace": "ai-dev-ds4-100",
+      "description": "Unified tool for writing ABAP source code with automatic create/update detection. Supports PROG, CLAS, INTF, INCL, RAP types (DDLS, BDEF, SRVD), and updates to existing DDIC tables (TABL). New tables "
+    },
     {
       "id": "arc1-ds4-100_SAPContext",
       "name": "SAPContext",
