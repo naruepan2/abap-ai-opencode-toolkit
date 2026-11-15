@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T04:57:01+00:00",
+  "generated_at": "2026-11-15T19:00:50+00:00",
   "servers": [
     {
       "server": "browse",
@@ -69,7 +69,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": false,
+      "enabled": true,
       "command_kind": "powershell",
       "url_host": ""
     },
@@ -78,7 +78,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": false,
+      "enabled": true,
       "command_kind": "powershell",
       "url_host": ""
     },
@@ -87,7 +87,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": false,
+      "enabled": true,
       "command_kind": "powershell",
       "url_host": ""
     },
