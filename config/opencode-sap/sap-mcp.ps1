@@ -114,6 +114,17 @@ if ($env:SAP_PASSWORD) {
     }
 }
 
+# Always say where the password came from: a stale SAP_PASSWORD in the parent
+# process silently overrides the keychain, and that is invisible in the MCP logs.
+[Console]::Error.WriteLine("sap-mcp: profile=$Profile engine=$Engine password=$passwordSource")
+if ($passwordSource -eq 'env') {
+    $storedUser = $null
+    $stored = [SapCred]::ReadPassword($target, [ref]$storedUser)
+    if ($stored -and $stored -ne $password) {
+        [Console]::Error.WriteLine("warning: SAP_PASSWORD differs from the credential stored for $target; the environment wins. Unset SAP_PASSWORD to use the keychain.")
+    }
+}
+
 $env:SAP_URL = [string]$p.url
 $env:SAP_USER = [string]$p.user
 $env:SAP_PASSWORD = $password
