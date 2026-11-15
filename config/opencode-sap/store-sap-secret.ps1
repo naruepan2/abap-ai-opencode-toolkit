@@ -12,6 +12,7 @@ param(
     [string]$Profile,
     [switch]$List,
     [switch]$Remove,
+    [switch]$NoVerify,
     [switch]$DryRun
 )
 
@@ -49,6 +50,32 @@ if ($null -eq $p) {
 
 $target = TargetOf $Profile
 
+function Test-SapAuth([string]$Url, [string]$UserName, [string]$Password, [string]$Client) {
+    $pair = '{0}:{1}' -f $UserName, $Password
+    $basic = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($pair))
+    $probe = $Url.TrimEnd('/') + '/sap/bc/adt/discovery?sap-client=' + $Client
+    try {
+        $null = Invoke-WebRequest -Uri $probe -Headers @{ Authorization = "Basic $basic" } -UseBasicParsing -TimeoutSec 25
+        return 'ok'
+    } catch {
+        $status = $null
+        if ($_.Exception.Response) { $status = [int]$_.Exception.Response.StatusCode }
+        if ($status -eq 401) { return 'denied' }
+        if ($status) {
+            $body = ''
+            try {
+                $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
+                $body = $reader.ReadToEnd()
+                $reader.Dispose()
+            } catch { }
+            $body = ($body -replace '\s+', ' ').Trim()
+            if ($body.Length -gt 160) { $body = $body.Substring(0, 160) }
+            return "http $status $body"
+        }
+        return 'unreachable'
+    }
+}
+
 if ($Remove) {
     if ($DryRun) { [Console]::Error.WriteLine("would delete $target"); exit 0 }
     if ([SapCred]::Delete($target)) {
@@ -74,10 +101,27 @@ if ($null -eq $result) {
 }
 
 $password = $result[1]
-if ([SapCred]::Write($target, $result[0], $password)) {
-    Write-Output "stored $target for $($result[0])"
-    exit 0
+if (-not [SapCred]::Write($target, $result[0], $password)) {
+    $code = [Runtime.InteropServices.Marshal]::GetLastWin32Error()
+    [Console]::Error.WriteLine("store failed (win32 $code)")
+    exit 1
 }
-$code = [Runtime.InteropServices.Marshal]::GetLastWin32Error()
-[Console]::Error.WriteLine("store failed (win32 $code)")
-exit 1
+Write-Output "stored $target for $($result[0])"
+
+# Verify after storing, never before: only a clear 401 removes the credential again.
+# A 400 or a network error is ambiguous (proxy, ICM, an endpoint that rejects the
+# request shape), so it must not block a password the user asked to store.
+if (-not $NoVerify) {
+    $check = Test-SapAuth ([string]$p.url) $result[0] $password ([string]$p.client)
+    if ($check -eq 'denied') {
+        [SapCred]::Delete($target) | Out-Null
+        [Console]::Error.WriteLine("SAP rejected that password for $($result[0]) on client $($p.client); credential removed again")
+        exit 1
+    }
+    if ($check -eq 'ok') {
+        Write-Output "verified against $($p.url) client $($p.client)"
+    } else {
+        Write-Output "warning: could not verify ($check); the credential is stored and the MCP will be the judge"
+    }
+}
+exit 0

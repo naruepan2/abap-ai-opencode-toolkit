@@ -1,7 +1,61 @@
 {
-  "generated_at": "2026-11-15T06:32:29.764Z",
-  "total": 111,
+  "generated_at": "2026-11-15T06:56:50.784Z",
+  "total": 120,
   "tools": [
+    {
+      "id": "arc1-ds4-100_SAPContext",
+      "name": "SAPContext",
+      "namespace": "arc1-ds4-100",
+      "description": "SHLP: default/deps returns active partial interface metadata, as SAPRead; no KTD or dependency traversal. Primary tool for understanding ABAP/CDS objects. KTD when available, then dependency contracts"
+    },
+    {
+      "id": "arc1-ds4-100_SAPDiagnose",
+      "name": "SAPDiagnose",
+      "namespace": "arc1-ds4-100",
+      "description": "ABAP diagnostics:\n- \"syntax\": check objects[] (CLAS/INTF/PROG/DDLS; version active/inactive). Single: prefer SAPRead SYNTAX.\n- \"unittest\": harmless ABAP Unit for CLAS/PROG/FUGR or DEVC (exact; include"
+    },
+    {
+      "id": "arc1-ds4-100_SAPGit",
+      "name": "SAPGit",
+      "namespace": "arc1-ds4-100",
+      "description": "Git reads and gated abapGit workflows. gCTS mutations are quarantined. abapGit mutations need write/Git gates and allowedPackages ROOT/** or *; clone/pull evidence is unverified. external_info is gate"
+    },
+    {
+      "id": "arc1-ds4-100_SAPLint",
+      "name": "SAPLint",
+      "namespace": "arc1-ds4-100",
+      "description": "Run local abaplint rules on ABAP/CDS source (auto-selects cloud or on-prem rules by system type). Actions:\n- \"lint\": check source (errors+warnings) for ABAP (PROG/CLAS/INTF/FUNC) and CDS (DDLS).\n- \"li"
+    },
+    {
+      "id": "arc1-ds4-100_SAPManage",
+      "name": "SAPManage",
+      "namespace": "arc1-ds4-100",
+      "description": "Probe and report SAP system capabilities. Use BEFORE operations that depend on optional features (abapGit, RAP/CDS, AMDP, HANA, UI5/Fiori, CTS transports, FLP). Also handles package (DEVC) lifecycle.\n"
+    },
+    {
+      "id": "arc1-ds4-100_SAPNavigate",
+      "name": "SAPNavigate",
+      "namespace": "arc1-ds4-100",
+      "description": "Navigate code: definitions, references, completion, hierarchy. references: where-used objects by default; detail=positions/snippets adds bounded native usages; objectType filters results (e.g. CLAS/OC"
+    },
+    {
+      "id": "arc1-ds4-100_SAPRead",
+      "name": "SAPRead",
+      "namespace": "arc1-ds4-100",
+      "description": "Read SAP ABAP source/metadata. DDIC metadata: omit format. SHLP: active partial interface metadata; missing headers/assignments/appends are explicit. No drafts or source formats. For specs, reviews or"
+    },
+    {
+      "id": "arc1-ds4-100_SAPSearch",
+      "name": "SAPSearch",
+      "namespace": "arc1-ds4-100",
+      "description": "Search for ABAP objects, exact object-directory entries, or source code. Modes:\n1. Object search (default): name pattern with wildcards (*); returns type, name, package, description, ADT URI.\n2. TADIR"
+    },
+    {
+      "id": "arc1-ds4-100_SAPTransport",
+      "name": "SAPTransport",
+      "namespace": "arc1-ds4-100",
+      "description": "Manage CTS transport requests (SE09/SE10). Actions: list (current user, modifiable), get (tasks + objects), create (always a Workbench (K) request — the package/target sets target & layer, not the req"
+    },
     {
       "id": "browse_execute",
       "name": "execute",

@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.6.2 — 2026-11-15
+
+**Store first, verify after; only a 401 removes the credential.**
+
+- `store-sap-secret.ps1` writes to the keychain and then probes
+  `/sap/bc/adt/discovery`. A 401 deletes the credential again; a 400 or a network
+  error keeps it and says so, because those are request-shape problems, not a
+  rejected password.
+- A non-401 failure prints 160 characters of the SAP response body, so the cause is
+  visible instead of guessed.
+- `-NoVerify` skips the probe entirely.
+- Why: a pre-flight 400 blocked a password the user had just typed, and the screen
+  could not tell it apart from a wrong password. 401 is the only signal SAP uses for
+  "rejected".
+
 ## v0.6.1 — 2026-11-15
 
 **The SAP password prompt is the native Windows dialog, and MCP startup waits for it.**
