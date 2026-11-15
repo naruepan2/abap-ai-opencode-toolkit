@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T16:33:29+00:00",
+  "generated_at": "2026-11-15T04:49:48+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -677,7 +677,7 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\sap-abap-reverse-engineering\\SKILL.md",
       "owner": "vendor",
-      "hash": "94ac686a6d4711c2d86fd0c4a980612b8fe0531b8bd8d52c9bbf9b5388617019",
+      "hash": "fb82a2d6e4afd1f0ab486dcf8fd90cfeb5cd75bfafd09c98865a6500dfa9c50f",
       "desc_chars": 344,
       "description": "Reverse-engineer SAP ABAP, CDS, RAP, Fiori, AMDP, SQL, DDIC, and related repository objects into evidence-grounded analysis. Use for read-only architecture discovery, dependency and field-lineage analysis, SAP ADT dependency reconciliation, complexity metrics, output catalogs, risks, and either a Te",
       "status": "active",
@@ -1144,6 +1144,17 @@
       "description": "Prepare ABAP changes for SAP transport and verify request contents, dependencies, tests, and activation. Use for transport preparation or release-related requests.",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-webgui-fallback",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-webgui-fallback\\SKILL.md",
+      "owner": "vendor",
+      "hash": "9b15ffdf721f2dbb1b23c9bcac078185669b5207b78c2900fa8f52fee027ed9f",
+      "desc_chars": 328,
+      "description": "Read SAP GUI for HTML (WebGUI) transactions read-only with the sap-ai-webgui MCP server when no ADT or companion tool covers the task: background jobs, short dumps, failed authorization checks, user display, lock entries, server directories, customizing display, through curated recipes or generic sc",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "analyze-chat-session",

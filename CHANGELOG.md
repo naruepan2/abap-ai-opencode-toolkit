@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.5.17 — 2026-11-15
+
+**One ADT launcher and shared profiles; digest shows what is live.**
+
+- `~/.config/opencode/sap/profiles.json` holds URL, client, user, CA and SAP Logon
+  destination per system/client. `sap-mcp.ps1 -Profile ... -Engine ai-dev|arc1`
+  prompts for the password at start (never on disk) and sets the engine-specific
+  flags; `-DryRun` prints the resolved settings to stderr.
+- `opencode.json`: `ds4-100` / `ds4-900` / `gsd-120` now call the launcher; added
+  `arc1-ds4-100` and `arc1-gsd-110` disabled (16 MCP entries, 8 enabled).
+- ARC-1 stays read-only unless `-AllowWrites` is passed; write session must close
+  the ai-dev writer first.
+- Digest prints `TOOLS 111 - ADT none` or the live servers with their role
+  (`write` / `verify` / `read`), from `scripts/tools_now.py --json`.
+- `optional_namespaces` now includes `gsd-120`, `arc1-ds4-100`, `arc1-gsd-110`, so
+  toggling them on/off is not reported as registry drift.
+- `arc-1@1.10.1` installed globally so the launcher can call `arc1.cmd` without
+  npx stdout noise in the MCP channel.
+
 ## v0.5.16 — 2026-11-15
 
 **Live toolset check: know which ADT server is actually connected.**

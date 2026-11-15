@@ -96,6 +96,15 @@ are in `~\.config\opencode\skills-parked\RESTORE.md`. After restoring any of the
 Anything re-enabled must be added to `optional_namespaces` so turning it on and off
 does not look like drift.
 
+## ADT launcher and profiles
+
+Every ADT MCP entry calls `~\.config\opencode\sap\sap-mcp.ps1` with
+`-Profile <system>-<client>` and `-Engine ai-dev|arc1`. Connection data (URL,
+client, user, CA, destination) lives once in `profiles.json` next to it;
+`-DryRun` prints the resolved settings to stderr. The password is prompted at
+every start and never written to disk. Add `-AllowWrites` only for an ARC-1
+session that must write, and close the other writer first.
+
 ## New MCP checklist
 
 - [ ] Scope is clear (read-only? which system/client?)

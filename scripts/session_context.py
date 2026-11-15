@@ -29,6 +29,7 @@ Exit codes
 """
 
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -262,6 +263,31 @@ def run(script, args, timeout=25):
         return ""
 
 
+def toolset_line():
+    """One line: how many tools, and which ADT servers are live right now."""
+    raw = run("tools_now.py", ["--json"])
+    if not raw.strip():
+        return ""
+    try:
+        data = json.loads(raw)
+    except ValueError:
+        return ""
+    servers = data.get("servers", [])
+    total = data.get("total", "?")
+    if not servers:
+        return f"{total} \u00b7 ADT none"
+    parts = []
+    for server in servers:
+        if server.get("allow_write"):
+            role = "write"
+        elif server.get("role") == "test":
+            role = "verify"
+        else:
+            role = "read"
+        parts.append(f"{server.get('namespace', '?')} ({role})")
+    return f"{total} \u00b7 " + ", ".join(parts)
+
+
 def checks():
     """Return (line, registry_details, memory_details) for the health line."""
     reg = run("registry_check.py", ["--check", "--brief"])
@@ -419,6 +445,9 @@ def main():
             out(f"HEALTH   {health}")
             for scope, line in detail[:2]:
                 out(f"  ! {scope}: {line}")
+        tools = toolset_line()
+        if tools:
+            out(f"TOOLS    {tools}")
         if total_open:
             out(f"INBOX    {total_open} open row(s) in {rel(CORRECTIONS)}")
         line = knowledge_line(domains if card is not None else None)
@@ -433,6 +462,9 @@ def main():
     out(f"HEALTH   {health}")
     for scope, line in detail[:3]:
         out(f"  ! {scope}: {line}")
+    tools = toolset_line()
+    if tools:
+        out(f"TOOLS    {tools}")
     out()
 
     style = digest_block(USER_PROFILE)

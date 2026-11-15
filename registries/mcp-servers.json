@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T16:33:29+00:00",
+  "generated_at": "2026-11-15T04:49:48+00:00",
   "servers": [
     {
       "server": "browse",
@@ -61,7 +61,7 @@
       "source": "opencode.json",
       "type": "local",
       "enabled": false,
-      "command_kind": "cmd",
+      "command_kind": "powershell",
       "url_host": ""
     },
     {
@@ -75,6 +75,24 @@
     },
     {
       "server": "ds4-900",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": false,
+      "command_kind": "powershell",
+      "url_host": ""
+    },
+    {
+      "server": "arc1-ds4-100",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": false,
+      "command_kind": "powershell",
+      "url_host": ""
+    },
+    {
+      "server": "arc1-gsd-110",
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",

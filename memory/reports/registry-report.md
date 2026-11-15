@@ -1,21 +1,21 @@
 # Registry report
 
-Generated: 2026-11-14T16:33:29+00:00
+Generated: 2026-11-15T04:49:48+00:00
 
 ## Summary
 
 | Area | Count | Issues | Warnings |
 |---|---|---|---|
-| Skills | 134 | 0 | 4 |
+| Skills | 135 | 0 | 4 |
 | Agents | 24 | 0 | 0 |
-| MCP servers | 14 | 0 | 0 |
+| MCP servers | 16 | 0 | 0 |
 | Tools | 111 | 0 | 0 |
 
 ## Skills by harness
 
 - agents: 47
 - claude: 30
-- copilot: 27
+- copilot: 28
 - opencode: 30
 
 ## New skills
@@ -62,6 +62,8 @@ _None._
 | `gsd-120` | opencode | no | 0 |  |
 | `ds4-100` | opencode | no | 0 |  |
 | `ds4-900` | opencode | no | 0 |  |
+| `arc1-ds4-100` | opencode | no | 0 |  |
+| `arc1-gsd-110` | opencode | no | 0 |  |
 | `com.figma.mcp/mcp` | copilot | yes | n/a |  |
 | `io.github.ChromeDevTools/chrome-devtools-mcp` | copilot | yes | n/a |  |
 | `io.github.SAP/fiori-mcp-server` | copilot | yes | n/a |  |

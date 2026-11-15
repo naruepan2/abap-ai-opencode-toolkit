@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T16:33:29+00:00",
+  "generated_at": "2026-11-15T04:49:48+00:00",
   "agents": [
     {
       "id": "abap-developer",
@@ -109,7 +109,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "2d5338a835d33e677605b4a564af4543076c0680b2187fd4593a398f7a53b70b",
+      "hash": "35fa42eaf67a5c02a461579c0fd59da688a16a1ae7016c2227501634d5b53dcc",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -181,7 +181,7 @@
         "sap-abap-reverse-engineering"
       ],
       "description": "Evidence-driven, strictly read-only reverse engineering of SAP ABAP, CDS, RAP, classic reports, classes, functions, and services. Supports autonomous dependency discovery, dependency evidence reconciliation, and Technical Specification or chat-only analysis.",
-      "hash": "69ab3b41c7188cbf84c17b952fe83f83747acc5414d33baf2229b88f03676386",
+      "hash": "e0903279f3818f4abe519475e9123338def1b0d9d01dd9435a5cad8149028016",
       "status": "active",
       "last_validated": "2026-11-13"
     },
