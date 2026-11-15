@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.5.18 — 2026-11-15
+
+**MCP names now carry their engine.**
+
+- `opencode.json`: `ds4-100` / `ds4-900` / `gsd-120` become `ai-dev-ds4-100` /
+  `ai-dev-ds4-900` / `ai-dev-gsd-120`. `arc1-ds4-100` and `arc1-gsd-110` keep
+  their names; every entry stays disabled.
+- Updated every current reference: tool-map, tooling knowledge, the two DEMO cards,
+  README, registry defaults, HCL program AGENTS. Historical CHANGELOG lines are
+  left as written.
+- `optional_namespaces` follows the new names, so toggling an ADT server is still
+  not reported as registry drift.
+- No tool change: the rename only affects the namespace prefix the model sees the
+  next time an entry is enabled.
+
 ## v0.5.17 — 2026-11-15
 
 **One ADT launcher and shared profiles; digest shows what is live.**

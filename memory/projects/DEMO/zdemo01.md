@@ -48,7 +48,7 @@ by batch, then Post Goods Issue (PGI), and keep the history in `ZMMT014` /
 | System | DS4 (DEMO DEV) |
 | Code client | 100 (ADT) |
 | Test client | 900 (SAP GUI) |
-| ADT destination | `ds4-100` (client-bound) |
+| ADT destination | `ai-dev-ds4-100` (client-bound) |
 | Table display in 900 | `SE16`; `SE16N` is policy-blocked |
 | Source dump | ADT `get_source` (UTF-8); CLI dump mangles Thai |
 

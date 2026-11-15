@@ -250,11 +250,11 @@ observability). They are vendor-owned and live in the Copilot registry only.
 **Known warnings (not actionable):** 4 vendor skill descriptions exceed 1,000
 characters — `abap-cloud-migration`, `badi-enhancement`,
 `sap-integration-wiki`, `sap-support-case`. They are vendor-owned; forking is the
-only way to shorten them. One newly installed skill and the idle `ds4-100` server
+only way to shorten them. One newly installed skill and the idle `ai-dev-ds4-100` server
 are reported as warnings by design, not as issues.
 
-`ds4-100` is an on-demand SAP server: it is enabled only during SAP work, and
-`ds4-900` stays disabled. Both namespaces are marked optional in the tool
+`ai-dev-ds4-100` is an on-demand SAP server: it is enabled only during SAP work, and
+`ai-dev-ds4-900` stays disabled. Both namespaces are marked optional in the tool
 baseline, so turning them on or off does not create false drift.
 
 ## Quick start on a new machine

@@ -1,6 +1,6 @@
 # Registry report
 
-Generated: 2026-11-15T04:49:48+00:00
+Generated: 2026-11-15T04:57:02+00:00
 
 ## Summary
 
@@ -59,9 +59,9 @@ _None._
 | `windows-mcp` | opencode | yes | 19 |  |
 | `sap-gui` | opencode | no | 0 |  |
 | `sap-docs` | opencode | no | 0 |  |
-| `gsd-120` | opencode | no | 0 |  |
-| `ds4-100` | opencode | no | 0 |  |
-| `ds4-900` | opencode | no | 0 |  |
+| `ai-dev-gsd-120` | opencode | no | 0 |  |
+| `ai-dev-ds4-100` | opencode | no | 0 |  |
+| `ai-dev-ds4-900` | opencode | no | 0 |  |
 | `arc1-ds4-100` | opencode | no | 0 |  |
 | `arc1-gsd-110` | opencode | no | 0 |  |
 | `com.figma.mcp/mcp` | copilot | yes | n/a |  |

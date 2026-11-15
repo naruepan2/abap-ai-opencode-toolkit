@@ -38,7 +38,7 @@
 
 ## One ADT path: the MCP, not the parked CLI
 
-- **Rule:** do ADT work through the MCP (`ds4-100` for code, `ds4-900` for test). The
+- **Rule:** do ADT work through the MCP (`ai-dev-ds4-100` for code, `ai-dev-ds4-900` for test). The
   `sap-adt` CLI and its skill are parked; do not reinstate them while the MCP is
   live. If the MCP is retired, remove the overlap and re-run the probes first.
 - **Why:** two write paths mean two credential stores and two sets of rules; the CLI
@@ -48,7 +48,7 @@
   profile nobody is watching.
 - **Seen:** 1 · **Confidence:** high · **Last confirmed:** 2026-11-14
 - **Evidence:** profile `luf-ds4-dev` + `cmdkey` target `sap-adt-cli` removed
-  2026-11-14; `skills-parked/sap-adt-cli`; MCP `ds4-100` / `ds4-900` remain
+  2026-11-14; `skills-parked/sap-adt-cli`; MCP `ai-dev-ds4-100` / `ai-dev-ds4-900` remain
 
 ## Never recall a tool name from memory
 

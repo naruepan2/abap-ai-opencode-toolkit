@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T04:49:48+00:00",
+  "generated_at": "2026-11-15T04:57:01+00:00",
   "source": "live tool catalog snapshot",
   "total": 111,
   "namespaces": {
@@ -123,9 +123,9 @@
     "write"
   ],
   "optional_namespaces": [
-    "ds4-100",
-    "ds4-900",
-    "gsd-120",
+    "ai-dev-ds4-100",
+    "ai-dev-ds4-900",
+    "ai-dev-gsd-120",
     "arc1-ds4-100",
     "arc1-gsd-110",
     "sap-gui",

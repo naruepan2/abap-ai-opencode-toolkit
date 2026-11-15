@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T04:49:48+00:00",
+  "generated_at": "2026-11-15T04:57:01+00:00",
   "servers": [
     {
       "server": "browse",
@@ -56,7 +56,7 @@
       "url_host": "mcp-sap-docs.marianzeis.de"
     },
     {
-      "server": "gsd-120",
+      "server": "ai-dev-gsd-120",
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
@@ -65,7 +65,7 @@
       "url_host": ""
     },
     {
-      "server": "ds4-100",
+      "server": "ai-dev-ds4-100",
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
@@ -74,7 +74,7 @@
       "url_host": ""
     },
     {
-      "server": "ds4-900",
+      "server": "ai-dev-ds4-900",
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",

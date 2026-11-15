@@ -56,12 +56,12 @@
 
 ## SAP on-demand
 
-`ds4-100` (ADT, client 100), `ds4-900` (SAP GUI, client 900) and `sap-gui` (GUI
+`ai-dev-ds4-100` (ADT, client 100), `ai-dev-ds4-900` (ADT, client 900) and `sap-gui` (GUI
 automation) are all **off** in the steady state. The credential dialog must never
 appear at startup. When a task really needs SAP:
 
 1. In `~/.config/opencode/opencode.json` set **only** what the task needs to
-   `"enabled": true` — `ds4-100` for source/DDIC reads, `sap-gui` for transactions
+   `"enabled": true` — `ai-dev-ds4-100` for source/DDIC reads, `sap-gui` for transactions
    and ALV, `sap-docs` for documentation lookups. Keep the rest `false`.
 2. Ask the user to restart/reconnect opencode once. The dialog appears once and the
    user types username + password. Never store the password.

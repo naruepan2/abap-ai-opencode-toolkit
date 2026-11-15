@@ -95,5 +95,5 @@ verification recipe, and the access notes.
   opencode service**. **The file was deleted on 2026-11-13** at the user's request,
   so SICF is blocked again from the next MCP start — re-create it only for SICF work
   and delete it afterwards.
-- ADT MCP `ds4-100` was unavailable for most of this session; `SE16` + `SMICM` were
+- ADT MCP `ai-dev-ds4-100` was unavailable for most of this session; `SE16` + `SMICM` were
   the working read paths.

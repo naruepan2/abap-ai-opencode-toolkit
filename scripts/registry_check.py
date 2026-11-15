@@ -331,7 +331,7 @@ def cmd_init(refresh=False):
     snap = scan_tools_snapshot()
     full = scan_tools_full()
     prev_tools = load_json(REG / "tools.json", {})
-    optional = prev_tools.get("optional_namespaces", ["ds4-100", "ds4-900", "gsd-120", "arc1-ds4-100", "arc1-gsd-110", "sap-gui", "sap-docs", "playwright"])
+    optional = prev_tools.get("optional_namespaces", ["ai-dev-ds4-100", "ai-dev-ds4-900", "ai-dev-gsd-120", "arc1-ai-dev-ds4-100", "arc1-gsd-110", "sap-gui", "sap-docs", "playwright"])
     tools = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "live tool catalog snapshot",

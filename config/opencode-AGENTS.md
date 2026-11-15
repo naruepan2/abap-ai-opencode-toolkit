@@ -2,7 +2,7 @@
 
 ## SAP is on-demand only
 
-- Never enable the `ds4-100` / `ds4-900` / `sap-gui` / `sap-docs` / `playwright`
+- Never enable the `ai-dev-ds4-100` / `ai-dev-ds4-900` / `sap-gui` / `sap-docs` / `playwright`
   MCP servers and never call `sap_connect` / `sap_connect_existing` at session
   start. Opening opencode must never pop the SAP credential dialog.
 - Connect only when the user explicitly asks for SAP work ("เข้า SAP", "เข้า DS4",
@@ -11,7 +11,7 @@
   `abap-agent-workspace-opencode\memory\tool-map.md` §"SAP on-demand": which server
   to enable, the one restart, who types the password, and how to turn it off again.
 - Never write `SAP_PASSWORD` (or any token) to disk. Usernames only, and only in
-  the existing `%APPDATA%\sap-ai-dev-toolkit\ds4-100-user.txt` / `ds4-900-user.txt`.
+  the existing `%APPDATA%\sap-ai-dev-toolkit\ai-dev-ds4-100-user.txt` / `ai-dev-ds4-900-user.txt`.
 - `sap-gui` work: call `sap_list_connections`, then `sap_connect_existing` if a
   session exists. If the session dropped, stop and ask the user to log on manually
   before retrying once.
