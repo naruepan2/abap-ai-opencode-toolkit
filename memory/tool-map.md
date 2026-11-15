@@ -26,7 +26,7 @@
 - MCP `policy.json` is read once at server start; never kill an MCP process to reload it (the namespace disappears).
 - SAP is on-demand: never connect at session start.
 - One call per fact, read-only, narrow (`columns_only`, `max_rows`).
-- Before an ADT call after toggling MCPs, run `python scripts\tools_now.py`; it prints the live path (write/verify/analyse), and `--check --expect <namespace>` fails if the server did not actually connect.
+- After toggling an ADT MCP, `python scripts\tools_now.py` prints the live path; add `--check --expect <ns>` to verify the connection.
 - 48 vendor skills (Basis/DB/integration/Fiori-iOS, plus the old `sap-adt-cli`) are parked in `~\.config\opencode\skills-parked` — restore the family from `RESTORE.md` before any ops work, do not improvise.
 <!-- digest:end -->
 
