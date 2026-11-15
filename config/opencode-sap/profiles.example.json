@@ -1,0 +1,24 @@
+{
+  "profiles": {
+    "example-100": {
+      "url": "https://your-sap-host:44300",
+      "client": "100",
+      "user": "SAP_USER",
+      "system_id": "SID",
+      "destination": "SAP Logon pad description",
+      "language": "EN",
+      "tls_ca": "",
+      "allowed_packages": "$TMP,Z*,Y*"
+    },
+    "example-900": {
+      "url": "https://your-sap-host:44300",
+      "client": "900",
+      "user": "SAP_USER",
+      "system_id": "SID",
+      "destination": "SAP Logon pad description",
+      "language": "EN",
+      "tls_ca": "",
+      "allowed_packages": "$TMP,Z*,Y*"
+    }
+  }
+}

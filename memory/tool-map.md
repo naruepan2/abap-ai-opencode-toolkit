@@ -129,6 +129,25 @@ Rules:
   the server actually connected (the snapshot lags up to 60 s).
 - When both are live and the task writes, ask the user which one to keep.
 
+## SAP credentials
+
+The launcher resolves the password in this order: `SAP_PASSWORD` environment ->
+Windows Credential Manager target `sap-mcp:<profile>` -> credential dialog.
+`profiles.json` holds URL/client/user/CA only; no password.
+
+```powershell
+# store or update (asks once, keeps nothing in a file)
+~\.config\opencode\sap\store-sap-secret.ps1 -Profile luf-ds4-100
+# see which profiles have a secret (never shows it)
+~\.config\opencode\sap\store-sap-secret.ps1 -List
+# remove
+~\.config\opencode\sap\store-sap-secret.ps1 -Profile luf-ds4-100 -Remove
+```
+
+After an SAP password change: re-store, then restart the MCP server (toggle the
+entry or restart OpenCode). A 401 means re-store; never retry the old password
+(account lock).
+
 ## New MCP checklist
 
 - [ ] Scope is clear (read-only? which system/client?)

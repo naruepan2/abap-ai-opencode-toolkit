@@ -31,6 +31,8 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
 - Before the first ADT call, run `python scripts/tools_now.py`; it prints the live
   path. One writer per task; if both `ai-dev-*` and `arc1-*` are connected and the
   task writes, ask the user which one to keep.
+- SAP secrets: env -> Windows Credential Manager (`store-sap-secret.ps1`) -> dialog;
+  never in `opencode.json`. A 401 means re-store, not retry.
 
 ## Working rules
 

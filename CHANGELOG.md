@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.5.20 — 2026-11-15
+
+**SAP passwords can live in the OS keychain; plaintext stays forbidden.**
+
+- `sap-cred.ps1` (CredRead/CredWrite/CredDelete) and `store-sap-secret.ps1`
+  (store / list / remove, named `sap-mcp:<profile>`).
+- `sap-mcp.ps1` resolves the password in order: `SAP_PASSWORD` environment ->
+  Windows Credential Manager -> credential dialog. It verifies the stored username
+  against the profile and refuses a mismatch; `-DryRun` prints only the source.
+- `config/opencode-sap/` is the versioned backup of the scripts plus
+  `profiles.example.json`; real profiles stay local (no customer data in git).
+- AGENTS + tool-map: the OS keychain is allowed for MCP startup, plaintext is not;
+  after a password change re-store and restart; a 401 means re-store, never retry.
+- VS Code `mcp.json` is deliberately untouched.
+
 ## v0.5.19 — 2026-11-15
 
 **ADT routing is written down.**
