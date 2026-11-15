@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""specs_sync.py - mirror every program spec into this repository.
+"""specs_sync.py - mirror every program spec into the instance.
 
 The contract is edited next to the program
 (`Projects/<PROJECT>/<PROGRAM>/spec.md`) because that is where the work happens.
-Git lives in this repository, so the specs are mirrored here as a backup with a
-sha256 manifest. The mirror is generated: never edit it by hand, and read the
-program copy during work.
+The toolkit repository does not carry customer data, so the specs are mirrored into
+the git-ignored instance (`workspace/specs/`) with a sha256 manifest. The mirror is
+generated: never edit it by hand, and read the program copy during work.
 
 Usage
   python scripts/specs_sync.py            # check (default), exit 1 on drift
-  python scripts/specs_sync.py --write    # rebuild specs/ from Projects/
+  python scripts/specs_sync.py --write    # rebuild workspace/specs from Projects/
   python scripts/specs_sync.py --list     # one line per mirrored program
 
 Exit codes
@@ -25,9 +25,9 @@ import shutil
 import sys
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
-PROJECTS = REPO.parent / "Projects"
-MIRROR = REPO / "specs"
+from _paths import PROJECTS, REPO, SPECS
+
+MIRROR = SPECS
 MANIFEST = MIRROR / "manifest.json"
 STATIC = {"README.md"}
 

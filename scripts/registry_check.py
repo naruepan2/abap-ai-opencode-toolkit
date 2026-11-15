@@ -34,10 +34,11 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
+from _paths import MEM, REPO
+
 HOME = Path.home()
-REPO = Path(__file__).resolve().parent.parent
 REG = REPO / "registries"
-REPORTS = REPO / "memory" / "reports"
+REPORTS = MEM / "reports"
 TODAY = date.today()
 
 # Descriptions are always loaded into the agent's context. Vendor skills cannot

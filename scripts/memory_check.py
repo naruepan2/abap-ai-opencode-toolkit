@@ -30,9 +30,7 @@ import re
 import sys
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
-MEM = REPO / "memory"
-INDEX = REPO.parent.parent / "INDEX.md"
+from _paths import INDEX, MEM, REPO
 SKILL_ROOTS = [
     Path.home() / ".config" / "opencode" / "skills",
     Path.home() / ".agents" / "skills",

@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.6.0 — 2026-11-15
+
+**The toolkit is installable: the instance moved out of git.**
+
+- Layout: `workspace/` is the instance (memory, specs mirror, reports) and is
+  git-ignored. `scripts/_paths.py` resolves it, with `ABAP_WORKSPACE`,
+  `ABAP_PROJECTS_ROOT`, and `ABAP_INDEX` for an install outside the original
+  portfolio. The scripts no longer assume `REPO.parent/Projects`.
+- `install.ps1` — idempotent, `-DryRun`, `-Seed`, `-SkipAgents`, `-WithSap`: creates
+  the instance, the memory junction, the tool-snapshot plugin entry, the AGENTS
+  pointer block, and the registry baseline. It never touches SAP profiles, credentials,
+  or MCP entries, and backs up every file it rewrites.
+- `templates/instance/` seeds a fresh instance; the three schema READMEs are the
+  canonical copies (they ship, `workspace/` does not).
+- MIT licence. `SECURITY.md` splits what belongs to the toolkit from what may only
+  live in the instance.
+- Repository renamed `abap-agent-workspace-opencode` → `abap-ai-opencode-toolkit`;
+  GitHub redirects the old URL, and `rename-workspace.ps1` moved the local folder,
+  the junction, and every absolute path outside the repository.
+- Known debt: the old `memory/` and `specs/` paths remain in git history. Purge them
+  before the repository goes public.
+
 ## v0.5.20 — 2026-11-15
 
 **SAP passwords can live in the OS keychain; plaintext stays forbidden.**

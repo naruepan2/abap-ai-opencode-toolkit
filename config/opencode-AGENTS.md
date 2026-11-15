@@ -8,7 +8,7 @@
 - Connect only when the user explicitly asks for SAP work ("เข้า SAP", "เข้า DS4",
   "ทำงาน SAP", an ABAP/RAP/CDS task on a named system and client).
 - **Before enabling a server**, read the procedure in
-  `abap-agent-workspace-opencode\memory\tool-map.md` §"SAP on-demand": which server
+  `abap-ai-opencode-toolkit\workspace\memory\tool-map.md` §"SAP on-demand": which server
   to enable, the one restart, who types the password, and how to turn it off again.
 - Never write `SAP_PASSWORD` (or any token) to disk. Usernames only, and only in
   the existing `%APPDATA%\sap-ai-dev-toolkit\ai-dev-ds4-100-user.txt` / `ai-dev-ds4-900-user.txt`.
@@ -20,7 +20,7 @@
 
 - Portfolio root: `<portfolio>` — read `INDEX.md` first
 - SAP workspace: `<portfolio>\SAP Projects`
-- Framework, memory, agents, skills: `SAP Projects\abap-agent-workspace-opencode`
+- Toolkit, memory, agents, skills: `SAP Projects\abap-ai-opencode-toolkit`
 - SAP project files: `SAP Projects\Projects\<PROJECT>\<PROGRAM>` (e.g.
   `SAP Projects\Projects\DEMO\ZDEMO01`)
 - Every project/program has `README.md`, `AGENTS.md`, and
@@ -49,7 +49,7 @@ first task. The full table lives in the workspace `AGENTS.md`.
 
 ## Memory (one call at session start)
 
-Run, from `<portfolio>\SAP Projects\abap-agent-workspace-opencode`:
+Run, from `<portfolio>\SAP Projects\abap-ai-opencode-toolkit`:
 
 ```powershell
 python scripts\session_context.py

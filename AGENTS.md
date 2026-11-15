@@ -1,7 +1,9 @@
 # Workspace rules
 
-This repository is the portable memory and registry workspace for the OpenCode
-side of the AI teammate.
+This repository is the OpenCode toolkit: the scripts, templates and checks that
+implement the AI teammate. The data they work on — memory, specs mirror, reports —
+lives in `workspace/`, which is git-ignored and is the instance, not the toolkit.
+`ABAP_WORKSPACE` moves the instance anywhere; `scripts/_paths.py` resolves it.
 
 ## Before creating or changing a program — the change contract
 
@@ -27,7 +29,8 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   It covers the window SAP does not: version management snapshots a TR only when it
   is **released**. At release, collapse the block to one line.
 - `scripts/closeout.py` checks both (spec tables, changelog vs `implemented_version`);
-  `scripts/specs_sync.py --write` mirrors spec + changelog into `specs/` - never the FS.
+  `scripts/specs_sync.py --write` mirrors spec + changelog into `workspace/specs/` -
+  never the FS.
 - Before the first ADT call, run `python scripts/tools_now.py`; it prints the live
   path. One writer per task; if both `ai-dev-*` and `arc1-*` are connected and the
   task writes, ask the user which one to keep.
@@ -40,15 +43,15 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   tier: `light` (question/analysis → digest only), `task` (code, file, or SAP work
   → digest + the project card + the project's knowledge domains), `deep` (new
   project, incident, design → digest + every memory file). Details and the write
-  rules live in `memory/README.md`; do not re-read a file the digest shows is not
-  needed.
+  rules live in `workspace/memory/README.md`; do not re-read a file the digest shows
+  is not needed.
 - The digest runs the registry and memory checks. If it reports an **issue**, show
   the short summary and propose a fix. Warnings (a new asset, a stale date, an idle
   on-demand server, a domain at its cap) need a human decision, not a turn.
-- **During work:** log an incident in `memory/corrections.md` (the inbox), one row of
-  at most 240 characters, status `open`, the moment it happens.
+- **During work:** log an incident in `workspace/memory/corrections.md` (the inbox),
+  one row of at most 240 characters, status `open`, the moment it happens.
 - **At close-out, consolidate — one outcome per open row:** merge it into
-  `memory/knowledge/<domain>.md` (`Seen +1`), add a new entry, promote it to an
+  `workspace/memory/knowledge/<domain>.md` (`Seen +1`), add a new entry, promote it to an
   `AGENTS.md` line or a skill, or drop it as a one-off. Set the row `drained`, then
   update the project resume card. One batched edit per file, no re-read. Finish with
   `python scripts/closeout.py` — it checks the inbox, the card, the plan and the

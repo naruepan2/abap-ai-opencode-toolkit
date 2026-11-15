@@ -22,3 +22,6 @@ Thumbs.db
 
 # Local-only snapshots
 tools-snapshot.local.json
+
+# Instance data: memory cards and the specs mirror live here, never in the toolkit.
+/workspace/

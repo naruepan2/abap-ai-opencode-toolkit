@@ -1,7 +1,22 @@
 # Scripts
 
-All three scripts are read-only, standard library only, Python 3.8+. None of them
-connects to SAP, calls an MCP tool, or edits an agent/skill.
+All scripts are read-only, standard library only, Python 3.8+. None of them connects
+to SAP, calls an MCP tool, or edits an agent/skill.
+
+## Where the instance lives — `_paths.py`
+
+Every script imports its paths from `_paths.py` instead of assuming this folder:
+
+| Variable | Default | Override |
+|---|---|---|
+| `WORKSPACE` | `<repo>/workspace` | `ABAP_WORKSPACE` |
+| `MEM` | `<workspace>/memory` | — |
+| `SPECS` | `<workspace>/specs` | — |
+| `PROJECTS` | `<repo>.parent/Projects` | `ABAP_PROJECTS_ROOT` |
+| `INDEX` | `<projects root>.parent.parent/INDEX.md` | `ABAP_INDEX` |
+
+Relative overrides resolve against the current directory. A missing directory is a
+readable message, not a traceback.
 
 ## `session_context.py` — the one call at session start
 
@@ -12,7 +27,7 @@ before starting work:
 - the active project's resume card (status / next step / do not / working dir)
 - memory and registry health, one line each (it runs both scanners for you)
 - the **open** corrections, with their fix level
-- the curated tool rules from the `digest` block in `memory/tool-map.md`
+- the curated tool rules from the `digest` block in `workspace/memory/tool-map.md`
 - the size and row count of every file that can be opened on demand
 - git branch and uncommitted count
 
@@ -29,8 +44,8 @@ open-correction count, and health **only when there is an issue** — use it for
 question, an analysis, or a review, where the tool rules do not matter.
 
 The active card defaults to the most recently modified card under
-`memory/projects/*/`. Exit `0` means the digest printed; `1` means a required
-memory file is missing.
+`workspace/memory/projects/*/`. Exit `0` means the digest printed; `1` means a
+required memory file is missing.
 
 ## `closeout.py` — the last call of a task
 
@@ -60,7 +75,7 @@ python scripts/registry_check.py --init
 # merge newly discovered items into the existing registries
 python scripts/registry_check.py --refresh
 
-# compare and write memory/reports/registry-report.md
+# compare and write workspace/memory/reports/registry-report.md
 python scripts/registry_check.py --check
 
 # short summary for a session start

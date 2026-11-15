@@ -1,52 +1,54 @@
-# ABAP Agent Workspace (OpenCode)
+# ABAP AI OpenCode Toolkit
 
-A portable workspace where the human and the AI grow together.
+A small, portable AI teammate for ABAP work: a memory system, a registry scanner,
+a spec and changelog contract, and the wiring that puts them inside your OpenCode
+session.
 
-This repository is the backup and the operating manual for a small AI teammate:
+The repository has **two layers**, and keeping them apart is the whole design:
 
-- a **user profile** that teaches the AI how you work
-- durable **lessons** and **corrections**
-- **agent / skill / MCP registries**
-- **project resume cards**
-- a **read-only scanner** that reports drift
+| Layer | What it is | Where it lives |
+|---|---|---|
+| **Toolkit** | scripts, templates, docs, the tool-snapshot plugin, the SAP launcher | this repository, git-tracked |
+| **Instance** | your memory cards, knowledge entries, specs mirror, registry report | `workspace/`, never committed here |
 
-It is harness-aware but not harness-locked: this repository is the **OpenCode**
-side. Copilot keeps its own separate setup, so the two can be compared.
+Clone the toolkit, run `install.ps1`, and the instance is yours. A colleague can do
+the same without inheriting your notes.
 
-**Status:** v0.5 — the knowledge-base memory model (incident → inbox → consolidation
-gate → knowledge entry), tiered context loading, memory and registries, the registry
-scanner, and the live tool snapshot plugin.
-Last scan: 2026-11-14 · **issues: 0 · warnings: 5** (review items, none broken).
+It is harness-aware but not harness-locked: this repository is the **OpenCode** side.
+Copilot keeps its own separate setup, so the two can be compared.
 
-## Workspace layout
+**Status:** v0.6 — instance separated from toolkit (`workspace/` plus the
+`ABAP_WORKSPACE` override), a one-command installer, MIT licence. The memory model is
+unchanged: incident -> inbox -> consolidation gate -> knowledge entry, with tiered
+context loading and a live tool snapshot.
+Last scan: 2026-11-15 · **issues: 0 · warnings: 4** (review items, none broken).
 
-The portfolio root is `<portfolio>`; the SAP workspace is
-`SAP Projects`:
+## Layout
 
 ```
-<portfolio>\
-├── INDEX.md                        # small, shared read-only
-├── AGENTS.md                       # portfolio rules
-└── SAP Projects\
-    ├── AGENTS.md                   # SAP workspace rules
-    ├── abap-agent-workspace-opencode\   # this repository
-    └── Projects\
-        └── DEMO\
-            ├── AGENTS.md
-            ├── project.yaml
-            ├── _archive\           # this project's archive
-            ├── _sandbox\           # this project's experiments
-            └── ZDEMO01\
-                ├── AGENTS.md
-                ├── program.yaml
-                └── ...             # SAP program work
+abap-ai-opencode-toolkit\          # this repository
+├── install.ps1                    # one command: instance, junction, plugin, AGENTS
+├── scripts\                       # digest, closeout, registry and memory checks
+├── templates\                     # spec, changelog, plan, probes, instance seed
+├── plugins\tool-snapshot\         # OpenCode plugin that captures the tool catalog
+├── config\opencode-sap\           # SAP launcher + Windows keychain helper (generic)
+├── registries\                    # machine snapshots, regenerated per machine
+└── workspace\                     # YOUR instance - git-ignored
+    ├── memory\                    #   cards, knowledge, inbox, tool map
+    └── specs\                     #   mirror of Projects\**\spec.md
 ```
 
-New global folders go under the portfolio or workspace root as appropriate. New
-SAP projects go under `Projects\<PROJECT>\<PROGRAM>\`, with an uppercase project
-code and the SAP object name. Every project and program folder has
-`README.md`, `AGENTS.md`, and a small manifest. Each project owns its own
-`_archive`/`_sandbox`.
+`workspace\` is what `~\.config\opencode\memory` points at (a junction, created by
+`install.ps1`). To keep the instance in its own private repository, clone it
+elsewhere and set `ABAP_WORKSPACE` to that path; the toolkit never needs to know.
+
+The toolkit was built for a portfolio that keeps SAP work in
+`Projects\<PROJECT>\<PROGRAM>\` with an `INDEX.md` at the parent of the workspace.
+Neither is required: `ABAP_PROJECTS_ROOT` and `ABAP_INDEX` point the checks at any
+tree. New global folders go under the instance root; new SAP projects go under
+`Projects\<PROJECT>\<PROGRAM>\` with an uppercase project code and the SAP object
+name. Every project and program folder has `README.md`, `AGENTS.md`, and a small
+manifest, and each project owns its own `_archive`/`_sandbox`.
 
 Every program also carries `spec.md` - the contract we build and test against
 (requirements, acceptance criteria, approved deviations, open questions) - and
@@ -57,12 +59,12 @@ the project keeps only `README.md` + `project.yaml` unless the project itself is
 deliverable. Templates: `templates/spec.md`, `templates/CHANGELOG.md`. Check:
 `scripts\closeout.py`.
 
-`Projects\` is not a git repository, so the specs are mirrored into this one:
+`Projects\` is not a git repository, so the specs are mirrored into the instance:
 
 ```
-specs\<PROJECT>\<PROGRAM>\spec.md
-specs\<PROJECT>\<PROGRAM>\CHANGELOG.md
-specs\manifest.json            # version, status, sha256 per file
+workspace\specs\<PROJECT>\<PROGRAM>\spec.md
+workspace\specs\<PROJECT>\<PROGRAM>\CHANGELOG.md
+workspace\specs\manifest.json            # version, status, sha256 per file
 ```
 
 The customer FS is **not** mirrored - it is the customer's document, and this
@@ -171,71 +173,13 @@ The lead never forwards a subagent claim as a fact. Evidence is checked first.
 6. **Vendor files are read-only.** Personal work lives in `*-by-pongg` files.
 7. **Keep Copilot and OpenCode separate.** Different memory, different registries.
 
-## Layout
-
-```
-README.md
-AGENTS.md                 # workspace rules for any agent opened here
-SECURITY.md
-.gitattributes
-CHANGELOG.md
-memory/
-  README.md               # how the memory system works (the consolidation gate)
-  user-profile.md         # how the user communicates and decides
-  corrections.md          # INBOX: incidents not yet consolidated (≤7 days)
-  expertise.md            # the end state: reflex / enforced / handbook + cold probes
-  knowledge/              # durable memory: one entry per rule, by domain
-    README.md             # schema, caps, how an entry changes
-    working-method.md     # how to do the work
-    tooling.md            # which tool owns which job
-    sap-gui.md            # driving the SAP GUI
-    sap-abap.md           # ABAP and API contracts
-    sap-data.md           # which table is the truth
-  skill-candidates.md     # patterns that may become skills
-  agent-registry.md       # who owns which agent (editable vs vendor)
-  tool-map.md             # task -> authoritative tool -> fallback
-  team-roster.md          # subagent roles and delegation rules
-  projects/
-    README.md             # project-card template
-    DEMO/
-      zmme011.md          # project resume card
-  _archive/
-    v0-ledger/            # the 2026-11 ledger model (lessons.md + corrections.md)
-  reports/
-    registry-report.md    # generated by the scanner
-registries/
-  README.md
-  agents.json             # agent inventory
-  skills.json             # skill inventory
-  mcp-servers.json        # configured MCP servers
-  tools.json              # tool-catalog baseline (ids + namespaces)
-  tools-snapshot.json     # latest captured snapshot
-  tools-full.json         # latest full tool list (id, name, namespace)
-plugins/
-  tool-snapshot/          # OpenCode server plugin; writes the tool snapshot
-scripts/
-  README.md
-  session_context.py      # one-call session digest (tiered context)
-  closeout.py             # end-of-task check: inbox, card, plan, knowledge dates
-  registry_check.py       # read-only scanner
-  memory_check.py         # read-only memory integrity check
-templates/
-  AGENTS.md               # pointer block for a new machine
-  plan.md                 # plan + todo template for a long task
-  probes.md               # the 9 cold probes as paste-ready prompts
-docs/
-  design.md               # why the teammate works this way
-  lifecycle.md            # onboarding / offboarding agents, skills, MCP
-  comparison.md           # Copilot vs OpenCode scorecard
-```
-
 ## Current registry snapshot
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 134 entries | opencode 31, agents 47, claude 30, copilot 26; 47 vendor skills parked outside the catalog |
+| Skills | 135 entries | opencode 30, agents 47, claude 30, copilot 28; vendor skills parked outside the catalog |
 | Agents | 24 | 4 editable (`*-by-pongg`), 20 vendor |
-| MCP servers | 14 | 8 enabled, 6 disabled; SAP, GUI, docs, Playwright are on-demand, `rosa` removed |
+| MCP servers | 16 | 8 enabled, 8 disabled; SAP, GUI, docs, Playwright are on-demand |
 | Tools | 111 | 5 namespaces; measured 211 before the 2026-11-14 diet |
 
 Prompt cost measured 2026-11-14: **36.0k chars per session** (skills 19.8k + tools
@@ -250,24 +194,34 @@ observability). They are vendor-owned and live in the Copilot registry only.
 **Known warnings (not actionable):** 4 vendor skill descriptions exceed 1,000
 characters — `abap-cloud-migration`, `badi-enhancement`,
 `sap-integration-wiki`, `sap-support-case`. They are vendor-owned; forking is the
-only way to shorten them. One newly installed skill and the idle `ai-dev-ds4-100` server
-are reported as warnings by design, not as issues.
+only way to shorten them. Everything else is clean.
 
 `ai-dev-ds4-100` is an on-demand SAP server: it is enabled only during SAP work, and
 `ai-dev-ds4-900` stays disabled. Both namespaces are marked optional in the tool
 baseline, so turning them on or off does not create false drift.
 
-## Quick start on a new machine
+## Install
 
-1. Clone this repository.
-2. Copy `memory/` to `~/.config/opencode/memory/` (or point the global
-   `AGENTS.md` at this repository).
-3. Add the pointer block from `templates/AGENTS.md` to the global `AGENTS.md`.
-4. Run `python scripts/registry_check.py --init` once, then `--check`.
+```powershell
+git clone https://github.com/<owner>/abap-ai-opencode-toolkit.git
+cd abap-ai-opencode-toolkit
+.\install.ps1 -DryRun      # show what it would do
+.\install.ps1 -Seed        # instance, junction, plugin, AGENTS pointer, registry
+```
+
+Restart OpenCode once, then open a session and run the digest:
+
+```powershell
+python scripts\session_context.py
+```
+
+`install.ps1` is idempotent and touches nothing else: no SAP profiles, no
+credentials, no MCP entries. Every file it rewrites gets a `.bak-` copy.
+
+Requirements: Windows, PowerShell 5.1+, Python 3.8+. The scripts use only the
+standard library.
 
 ## Quick use
-
-Requires Python 3.8+; the scripts use only the standard library.
 
 ```bash
 # one call at session start: project card + health + open inbox + knowledge inventory
@@ -290,7 +244,7 @@ Exit code `0` means nothing is broken; `1` means the report has an issue. Warnin
 (new asset, stale date, over-budget description, idle on-demand SAP server) do not
 fail the check — they need a human decision, not a fix.
 
-The report is written to `memory/reports/registry-report.md`.
+The report is written to `workspace/memory/reports/registry-report.md`.
 
 The tool snapshot is written automatically by `plugins/tool-snapshot` when
 OpenCode loads and when the tool catalog changes. There is no manual snapshot
@@ -321,9 +275,13 @@ same task on both and record the scorecard in `docs/comparison.md`:
 - [x] Issue vs warning split so a healthy session exits 0
 - [ ] Skill and MCP onboarding gates
 - [ ] Compare OpenCode vs Copilot on the same task
+- [x] Instance separated from the toolkit (`workspace/`, `ABAP_WORKSPACE`)
+- [x] One-command install (`install.ps1`, idempotent, `-DryRun`)
+- [ ] `uninstall.ps1` and a non-Windows launcher
+- [ ] Git history purged of customer data before the repository goes public
 
 ## Privacy and license
 
-Private repository. No credentials, tokens, or customer data. See `SECURITY.md`.
-
-License: private, all rights reserved.
+Toolkit: MIT (see `LICENSE`). Instance: yours — `workspace/` is git-ignored here, so
+memory cards and mirrored specs never leave your machine through this repository.
+No credentials, tokens, or customer data belong in the toolkit. See `SECURITY.md`.

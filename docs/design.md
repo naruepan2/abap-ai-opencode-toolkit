@@ -7,18 +7,33 @@ and the duty to say "I don't know" when it doesn't. The human supplies context,
 corrections, approval, and priorities. Both review outcomes and improve the
 process.
 
+## Toolkit and instance
+
+Two layers, one folder, one git boundary:
+
+| Layer | Content | Tracked |
+|---|---|---|
+| **Toolkit** | `scripts/`, `templates/`, `docs/`, `plugins/`, `config/`, `registries/` | yes |
+| **Instance** | `workspace/memory/` (cards, knowledge, inbox), `workspace/specs/` (mirror), reports | no — `/workspace/` is git-ignored |
+
+The split is what makes the toolkit installable: someone clones it, runs
+`install.ps1`, and starts with an empty instance instead of someone else's notes.
+`scripts/_paths.py` resolves the instance (`ABAP_WORKSPACE`, default
+`<repo>/workspace`), so the same scripts work when the instance lives in its own
+private repository. Customer data has exactly one legal home: the instance.
+
 ## Learning layers
 
 | Layer | File | What it stores |
 |---|---|---|
-| Facts | `memory/projects/<PROJECT>/<program>.md` | environment, business rules, code map |
+| Facts | `workspace/memory/projects/<PROJECT>/<program>.md` | environment, business rules, code map |
 | Decisions | project card / `DECISIONS.md` | why a choice was made |
-| Inbox | `memory/corrections.md` | incidents not yet consolidated (≤7 days) |
-| **Knowledge** | `memory/knowledge/<domain>.md` | **the rule, its mechanism and its symptom** |
-| **Expertise & competency** | `memory/expertise.md` | the end state, the three levels, the per-domain levels, the probes |
-| Patterns | `memory/skill-candidates.md` | repeated work that may become a skill |
-| Preferences | `memory/user-profile.md` | language, style, risk rules |
-| Tool behavior | `memory/tool-map.md` | authoritative tool per task |
+| Inbox | `workspace/memory/corrections.md` | incidents not yet consolidated (≤7 days) |
+| **Knowledge** | `workspace/memory/knowledge/<domain>.md` | **the rule, its mechanism and its symptom** |
+| **Expertise & competency** | `workspace/memory/expertise.md` | the end state, the three levels, the per-domain levels, the probes |
+| Patterns | `workspace/memory/skill-candidates.md` | repeated work that may become a skill |
+| Preferences | `workspace/memory/user-profile.md` | language, style, risk rules |
+| Tool behavior | `workspace/memory/tool-map.md` | authoritative tool per task |
 | Outcomes | evidence logs / comparison | what worked, what did not |
 
 ## Context tiers

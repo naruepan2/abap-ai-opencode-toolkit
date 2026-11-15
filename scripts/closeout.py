@@ -31,8 +31,8 @@ try:  # sibling module; present when the script is run from scripts\
 except ImportError:  # imported from elsewhere, or the script is missing
     check_mirror = None
 
-REPO = Path(__file__).resolve().parent.parent
-MEM = REPO / "memory"
+from _paths import MEM, PROJECTS, REPO
+
 CARD_DIR = MEM / "projects"
 INBOX = MEM / "corrections.md"
 KNOWLEDGE = MEM / "knowledge"
@@ -291,7 +291,7 @@ def check_spec(findings, warnings, card):
     if match:
         base = Path(match.group(1))
     else:
-        base = REPO.parent / "Projects" / card["path"].parent.name / card["path"].stem.upper()
+        base = PROJECTS / card["path"].parent.name / card["path"].stem.upper()
     path = base / "spec.md"
     if not path.is_file():
         warnings.append((WARN, "spec",
@@ -435,7 +435,7 @@ def main():
     mirror = check_mirror() if check_mirror else None
     if mirror and mirror["drift"]:
         warnings.append((WARN, "mirror",
-                         f"{len(mirror['drift'])} spec file(s) differ from specs/; run "
+                         f"{len(mirror['drift'])} spec file(s) differ from the mirror; run "
                          "python scripts/specs_sync.py --write"))
     knowledge = check_knowledge(warnings)
 

@@ -23,9 +23,9 @@ Add the plugin directory to the global `opencode.json`:
 {
   "plugins": [
     {
-      "package": "D:/Opencode Projects/SAP Projects/abap-agent-workspace-opencode/plugins/tool-snapshot",
+      "package": "D:/path/to/abap-ai-opencode-toolkit/plugins/tool-snapshot",
       "options": {
-        "workspace": "D:/Opencode Projects/SAP Projects/abap-agent-workspace-opencode"
+        "workspace": "D:/path/to/abap-ai-opencode-toolkit"
       }
     }
   ]

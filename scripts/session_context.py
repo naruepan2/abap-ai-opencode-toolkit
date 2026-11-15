@@ -35,8 +35,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
-MEM = REPO / "memory"
+from _paths import MEM, PROJECTS, REPO
+
 TOOL_MAP = MEM / "tool-map.md"
 USER_PROFILE = MEM / "user-profile.md"
 CORRECTIONS = MEM / "corrections.md"
@@ -185,7 +185,7 @@ def spec_line(card):
     if match:
         base = Path(match.group(1))
     else:
-        base = REPO.parent / "Projects" / card.parent.name / card.stem.upper()
+        base = PROJECTS / card.parent.name / card.stem.upper()
     path = base / "spec.md"
     if not path.is_file():
         return ""

@@ -1,7 +1,9 @@
 # AGENTS.md pointer template
 
-Add a block like this to the global `AGENTS.md` (OpenCode) or to a project
-`AGENTS.md`. Adjust the paths if the workspace lives elsewhere.
+`install.ps1` writes this block into `~\.config\opencode\AGENTS.md` automatically,
+with the real paths filled in. This file is the reference copy: use it when wiring a
+machine by hand, or when you want the block in a project `AGENTS.md` instead of the
+global one.
 
 ```markdown
 ## Memory (one call at session start)
