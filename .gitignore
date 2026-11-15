@@ -6,22 +6,21 @@
 *.pem
 credentials*
 **/credentials*
-
 # Python
 __pycache__/
 *.pyc
-
 # Logs and OS files
 *.log
 Thumbs.db
 .DS_Store
-
 # Editor
 .vscode/
 .idea/
-
 # Local-only snapshots
 tools-snapshot.local.json
-
 # Instance data: memory cards and the specs mirror live here, never in the toolkit.
 /workspace/
+
+# Generated per machine: contains local paths and destination names
+registries/tools-full.json
+registries/tools-snapshot.json

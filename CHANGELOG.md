@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.7.0 — 2026-11-15
+
+**First installable release.** The toolkit and the instance are separate, the
+installer is one command, and the SAP credential path is the native Windows dialog.
+
+- `workspace/` is the instance (memory, specs mirror, reports) and is git-ignored;
+  `scripts/_paths.py` resolves it, with `ABAP_WORKSPACE`, `ABAP_PROJECTS_ROOT` and
+  `ABAP_INDEX` for an install outside the original portfolio.
+- `install.ps1` — idempotent, `-DryRun`, `-Seed`, `-SkipAgents`, `-SkipRegistry`,
+  `-WithSap`: instance, memory junction, tool-snapshot plugin entry, AGENTS pointer,
+  registry baseline. It never touches SAP profiles, credentials or MCP entries, and
+  backs up every file it rewrites.
+- SAP launcher: password from `SAP_PASSWORD` → Windows Credential Manager →
+  the native sign-in dialog (`CredUIPromptForCredentials`), which stores what you
+  type so the next start is silent. One mutex stops two directories opening two
+  dialogs. The launcher names the password source on stderr every start.
+- `mcp.timeout.startup` 180 s, because the dialog needs more than the 30 s default.
+- `tool-snapshot` publishes only from the workspace that owns the toolkit, so a
+  second OpenCode window no longer overwrites the numbers.
+- `registry_check.py` ignores the `mcp.timeout` block when listing servers.
+- MIT licence. `SECURITY.md` splits toolkit data from instance data.
+- README rewritten as an install-first document.
+- Repository renamed `abap-agent-workspace-opencode` → `abap-ai-opencode-toolkit`;
+  GitHub redirects the old URL and a one-shot script moved the local folder, the
+  junction and every absolute path outside the repository.
+
+Detailed entries below: v0.6.2 → v0.5.20.
+
 ## v0.6.2 — 2026-11-15
 
 **Store first, verify after; only a 401 removes the credential.**
