@@ -450,9 +450,7 @@ def cmd_check(brief=False):
                 mcp_zero.append(s["server"])
 
     tool_changes = []
-    if snap is None:
-        tool_changes.append("tool snapshot not available")
-    else:
+    if snap is not None:
         base_ns = reg_tools.get("namespaces", {}) if isinstance(reg_tools, dict) else {}
         if base_ns:
             for name in sorted(set(base_ns) | set(ns)):
@@ -486,6 +484,12 @@ def cmd_check(brief=False):
     tool_list = (full or {}).get("tools", [])
     tool_chars = sum(len(t.get("description") or "") for t in tool_list)
     prompt_notes = []
+    if snap is None:
+        # A fresh install has no catalog yet: the plugin writes it when OpenCode
+        # starts. That is a state to fix, not a broken machine.
+        prompt_notes.append(
+            "tool catalog not captured yet - restart OpenCode so plugins/tool-snapshot "
+            "writes registries/tools-snapshot.json, then run --check again")
     if skill_chars > PROMPT_SKILL_BUDGET:
         prompt_notes.append(
             f"skill catalog is {skill_chars} chars over budget {PROMPT_SKILL_BUDGET} "
@@ -516,7 +520,7 @@ def cmd_check(brief=False):
     skill_issues = len(missing_skills) + len(dup)
     agent_issues = len(agent_missing)
     mcp_issues = len(missing_mcp) + len(mcp_zero)
-    tool_issues = len(tool_changes)
+    tool_issues = 0 if snap is None else len(tool_changes)
     issues = skill_issues + agent_issues + mcp_issues + tool_issues
     warnings = (len(long_desc) + skill_review + agent_review + mcp_review
                 + len(prompt_notes))

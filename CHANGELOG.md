@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.7.1 — 2026-11-15
+
+**A fresh install starts clean.**
+
+- `templates/instance` now seeds every file `memory_check.py` requires —
+  `user-profile`, `corrections`, `tool-map`, `expertise`, `skill-candidates`,
+  `agent-registry` — plus one knowledge domain (`working-method`). A new instance
+  reports 0 issues instead of 7.
+- A missing `registries/tools-snapshot.json` is a warning ("restart OpenCode so the
+  plugin captures the catalog"), not an issue: on a fresh install the file cannot
+  exist yet.
+- Found by installing v0.7.0 from a clean clone into a temporary config directory.
+
 ## v0.7.0 — 2026-11-15
 
 **First installable release.** The toolkit and the instance are separate, the
