@@ -28,6 +28,9 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   is **released**. At release, collapse the block to one line.
 - `scripts/closeout.py` checks both (spec tables, changelog vs `implemented_version`);
   `scripts/specs_sync.py --write` mirrors spec + changelog into `specs/` - never the FS.
+- Before the first ADT call, run `python scripts/tools_now.py`; it prints the live
+  path. One writer per task; if both `ai-dev-*` and `arc1-*` are connected and the
+  task writes, ask the user which one to keep.
 
 ## Working rules
 

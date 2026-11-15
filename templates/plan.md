@@ -18,6 +18,7 @@ Acceptance:  <what is tested, and when it counts as done>   ← = stop condition
 Contract:
 - FS:          <path / "none — proposed <date>">
 - Spec:        <program folder>/spec.md — REQ ids in scope: <REQ-01, REQ-02>
+- ADT path:    <ai-dev | arc1> — writer: <ns>, verify: <ns>, analyse: <ns>
 - Change type: <bugfix | extend | change request>
 - Production:  <not live | live (dev in sync?) | unknown>
 - Target:      <system, client, transport>

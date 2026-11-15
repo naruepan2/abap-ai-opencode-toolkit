@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.5.19 — 2026-11-15
+
+**ADT routing is written down.**
+
+- `memory/tool-map.md`: task→path table (ai-dev = writer, arc1 = specialist) plus
+  the one-writer and one-fact-one-source rules.
+- Repo and workspace `AGENTS.md`: run `tools_now.py` before the first ADT call;
+  when both engines are live and the task writes, ask which one to keep.
+- `templates/plan.md`: a plan now records the `ADT path` (writer / verify /
+  analyse) next to the contract.
+
 ## v0.5.18 — 2026-11-15
 
 **MCP names now carry their engine.**

@@ -105,6 +105,30 @@ client, user, CA, destination) lives once in `profiles.json` next to it;
 every start and never written to disk. Add `-AllowWrites` only for an ARC-1
 session that must write, and close the other writer first.
 
+## ADT routing when both engines are enabled
+
+Pick the path by task, not by tool name. `tools_now.py` prints the live names.
+
+| Task | Path |
+|---|---|
+| Any write / activate / transport / deploy | **ai-dev** (`ai-dev-ds4-100`, verify on `-900`) |
+| A skill from the ARC-1 pack (RAP, migration, review, unused, dossier, doc, UI5) | **arc1** |
+| "What does this object do" / deps / impact / where-used | **arc1** `SAPContext`, then `SAPRead` |
+| ATC / ABAP Unit / dump / quickfix | **arc1** `SAPDiagnose`; use ai-dev when it gates a write |
+| Table data / SQL | **ai-dev** |
+| Git / abapGit | **arc1** `SAPGit` |
+| No skill owns the task | **ai-dev** |
+
+Rules:
+
+- **One writer per task.** Never write through both. If a write needs ARC-1, close
+  or disable ai-dev first, and the other way round.
+- **One fact, one source.** Do not read the same object from both to "double-check";
+  if you must, say why in the answer.
+- Run `python scripts\tools_now.py` after a toggle; `--check --expect <ns>` proves
+  the server actually connected (the snapshot lags up to 60 s).
+- When both are live and the task writes, ask the user which one to keep.
+
 ## New MCP checklist
 
 - [ ] Scope is clear (read-only? which system/client?)
