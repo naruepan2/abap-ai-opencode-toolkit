@@ -239,17 +239,6 @@ def parse_entries(path):
     return entries
 
 
-# A rule that names a custom object is a project decision wearing a global hat: it can
-# only hold in the project that owns the object. Evidence may cite it; the Rule may not.
-CUSTOM_OBJECT = re.compile(r"\bZ[A-Z]{2,}[A-Z0-9_]{2,}\b")
-
-
-def rule_text(body):
-    """The Rule bullet and its continuation lines, without the bullets after it."""
-    match = re.search(r"\*\*rule:\*\*(.*?)(?=\n\s*-\s+\*\*|\Z)", body, re.I | re.S)
-    return match.group(1) if match else ""
-
-
 def check_knowledge(findings, warnings):
     if not KNOWLEDGE_DIR.is_dir():
         findings.append((ISSUE, "knowledge/", "the knowledge base directory is missing"))
@@ -286,12 +275,6 @@ def check_knowledge(findings, warnings):
                 warnings.append((WARN, path.name,
                                  f"entry '{title[:40]}' is {len(body)} chars "
                                  f"(budget {ENTRY_BUDGET}); sharpen the rule"))
-            named = CUSTOM_OBJECT.findall(rule_text(body))
-            if named:
-                warnings.append((WARN, path.name,
-                                 f"entry '{title[:40]}' names '{named[0]}' in the Rule; a "
-                                 "project object belongs in Evidence, or the whole entry "
-                                 "belongs in that project's reports/DECISIONS.md"))
 
 
 def check_inbox(warnings):

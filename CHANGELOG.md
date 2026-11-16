@@ -37,10 +37,11 @@
   defect, not a detail; shipped files use repo-relative paths or `~`.
 - Knowledge stays one flat tree, filed by competence. `memory/knowledge/README.md` now
   carries the routing table (project decision → `spec.md` / `reports/DECISIONS.md`,
-  universal rule → the domain file, procedure → a skill, one-off → drop), and
-  `memory_check.py` enforces both ends: an unknown `domains:` name on a card is an
-  issue, and a `Rule` that names a custom object is a warning. Two entries were
-  rewritten to keep their project detail in `Evidence`.
+  universal rule → the domain file, procedure → a skill, one-off → drop). Only the
+  `domains:` line is checked — an unknown name on a card is an issue, because the digest
+  would otherwise load every file. A `Z…` keyword warning for misfiled rules was tried
+  and removed: it missed project fields like `MENGE_PD`, and a partial check reads as
+  coverage. Two entries were rewritten to keep their project detail in `Evidence`.
 
 ## v0.7.1 — 2026-11-15
 

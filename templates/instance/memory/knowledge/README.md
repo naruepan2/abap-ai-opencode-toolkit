@@ -40,8 +40,9 @@ name in `Evidence` is normal; a project name in the `Rule` means the entry is mi
 | a repeatable procedure | a skill, with one line left here | does it need steps rather than a rule? |
 | one incident, no generalisation | nowhere — drop it at close-out | what would the next agent do differently? |
 
-`memory_check.py` warns when a `Rule` names a `Z…` custom object, because that is the
-signature of a project decision filed globally.
+No check catches a misfiled `Rule`. A keyword test only sees names that start with `Z`,
+and a project field such as `MENGE_PD` passes it — so the review at close-out is the
+gate. The test is the last column above: would another project be wrong to copy it?
 
 ## Entry template
 

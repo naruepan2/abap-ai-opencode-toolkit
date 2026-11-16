@@ -119,9 +119,11 @@ a task session loads **only those files** — the read cost stays flat while the
 grows. A declared name that does not resolve is an issue in `memory_check.py`: the
 digest would silently fall back to every domain file.
 
-The entry itself carries the scope. A `Rule` that names a custom object is a project
-decision in the wrong file, and `memory_check.py` warns on it; the routing table (what
-belongs to a project versus what belongs here) is in `memory/knowledge/README.md`.
+The entry itself carries the scope: a `Rule` that names a project object is a project
+decision in the wrong file. That judgement has no check — a keyword test only catches
+`Z…` names and misses fields like `MENGE_PD` — so the routing table in
+`memory/knowledge/README.md` is the rule and the close-out review is the gate. Only the
+`domains:` line is checked, because a name either resolves to a file or it does not.
 
 ## Bounded growth (the hard rules)
 
