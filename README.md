@@ -48,7 +48,7 @@ Restart OpenCode once, then:
 python scripts\session_context.py
 ```
 
-`install.ps1` is idempotent and does five things:
+`install.ps1` is idempotent and does seven things:
 
 | Step | Effect |
 |---|---|
@@ -56,7 +56,9 @@ python scripts\session_context.py
 | junction | points `~\.config\opencode\memory` at the instance |
 | plugin | registers `plugins\tool-snapshot` in `~\.config\opencode\opencode.json` |
 | pointer | adds a marked block to `~\.config\opencode\AGENTS.md` |
+| skills | copies each personal skill in `config\opencode-skills` into `~\.config\opencode\skills` when the name is new |
 | registry | runs `registry_check.py --init` to baseline this machine |
+| SAP | with `-WithSap`: copies the launcher and an example profile, never a password |
 
 It never touches SAP profiles, credentials, or MCP entries. Every file it rewrites
 gets a timestamped `.bak` next to it. Use `-SkipAgents` if your global `AGENTS.md`
@@ -71,6 +73,7 @@ abap-ai-opencode-toolkit\          # this repository
 ├── templates\                     # spec, changelog, plan, probes, instance seed
 ├── plugins\tool-snapshot\         # OpenCode plugin that captures the tool catalog
 ├── config\opencode-sap\           # SAP launcher + Windows keychain helper
+├── config\opencode-skills\        # personal skills the installer copies in
 ├── registries\                    # machine snapshots, regenerated per machine
 └── workspace\                     # YOUR instance - git-ignored
     ├── memory\                    #   cards, knowledge, inbox, tool map

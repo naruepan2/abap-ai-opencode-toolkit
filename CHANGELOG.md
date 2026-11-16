@@ -29,6 +29,12 @@
   coverage line that names what was *not* read. It delegates lint and transport gates to
   the existing skills instead of re-implementing them; `registry_check.py` lists the
   name in `PERSONAL_SKILLS` so the scanner does not file it under vendor.
+- `install.ps1` copies `config\opencode-skills\` into `~\.config\opencode\skills` when a
+  name is not there yet, so a reinstall restores the personal skills instead of losing
+  them. The `auditor` skill is the first one that ships.
+- `closeout.py` reports a shipped file that names this machine's paths as an issue. The
+  repository is also the installer for the next machine, so a frozen `C:\...` is a
+  defect, not a detail; shipped files use repo-relative paths or `~`.
 
 ## v0.7.1 — 2026-11-15
 

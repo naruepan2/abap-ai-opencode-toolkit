@@ -4,12 +4,15 @@
     Wire the ABAP AI OpenCode Toolkit into a Windows OpenCode installation.
 
 .DESCRIPTION
-    Idempotent installer. It does four things and nothing else:
+    Idempotent installer. It does seven things and nothing else:
 
       1. create the instance directory (<root>\workspace) and seed it
       2. point ~\.config\opencode\memory at <root>\workspace\memory (a junction)
       3. register plugins\tool-snapshot in ~\.config\opencode\opencode.json
       4. add a pointer block to ~\.config\opencode\AGENTS.md
+      5. copy the personal skills in config\opencode-skills when the name is new
+      6. write the registry baseline (registry_check.py --init)
+      7. copy the SAP launcher and an example profile (-WithSap)
 
     It never touches your SAP profiles, credentials, or MCP entries.
     Every file it rewrites gets a timestamped .bak next to it.
@@ -83,7 +86,7 @@ if ($DryRun) { Say "mode     dry run" }
 
 # ------------------------------------------------------------------- 1. instance
 Say ''
-Say '[1/4] instance'
+Say '[1/7] instance'
 if (-not (Test-Path $memory)) {
     if ($DryRun) { Say "  would  create workspace\memory" }
     else {
@@ -113,7 +116,7 @@ if ($Seed -and (Test-Path $seedSource)) {
 
 # ------------------------------------------------------------------- 2. junction
 Say ''
-Say '[2/4] memory junction'
+Say '[2/7] memory junction'
 $link = Join-Path $ConfigDir 'memory'
 if (Test-Path $link) {
     $item = Get-Item $link -Force
@@ -137,7 +140,7 @@ if (Test-Path $link) {
 
 # --------------------------------------------------------------------- 3. plugin
 Say ''
-Say '[3/4] tool-snapshot plugin'
+Say '[3/7] tool-snapshot plugin'
 $configPath = Join-Path $ConfigDir 'opencode.json'
 $package = "$slashRoot/plugins/tool-snapshot"
 $config = $null
@@ -180,7 +183,7 @@ if ($null -ne $config) {
 
 # ---------------------------------------------------------------------- 4. AGENTS
 Say ''
-Say '[4/4] global AGENTS.md pointer'
+Say '[4/7] global AGENTS.md pointer'
 $agentsPath = Join-Path $ConfigDir 'AGENTS.md'
 $marker = '<!-- abap-ai-opencode-toolkit -->'
 $endMarker = '<!-- /abap-ai-opencode-toolkit -->'
@@ -227,10 +230,36 @@ if ($SkipAgents) {
     Say '  create AGENTS.md with the pointer block'
 }
 
-# ------------------------------------------------------------------- 5. registry
+# ---------------------------------------------------------------------- 5. skills
+# Personal skills written for this toolkit, not vendor copies. They ship in the repo so
+# a fresh machine gets them back; an existing name is kept, never overwritten.
+Say ''
+Say '[5/7] skills'
+$skillsSrc = Join-Path $Root 'config\opencode-skills'
+$skillsDst = Join-Path $ConfigDir 'skills'
+if (Test-Path $skillsSrc) {
+    if (-not (Test-Path $skillsDst) -and -not $DryRun) {
+        New-Item -ItemType Directory -Force -Path $skillsDst | Out-Null
+    }
+    foreach ($skill in Get-ChildItem $skillsSrc -Directory) {
+        $dstDir = Join-Path $skillsDst $skill.Name
+        $dstFile = Join-Path $dstDir 'SKILL.md'
+        if (Test-Path $dstFile) {
+            Say "  keep   skills\$($skill.Name)"
+        } elseif ($DryRun) {
+            Say "  would  copy skills\$($skill.Name)"
+        } else {
+            New-Item -ItemType Directory -Force -Path $dstDir | Out-Null
+            Copy-Item (Join-Path $skill.FullName 'SKILL.md') $dstFile
+            Say "  copy   skills\$($skill.Name)"
+        }
+    }
+}
+
+# ------------------------------------------------------------------- 6. registry
 if (-not $SkipRegistry) {
     Say ''
-    Say 'registry'
+    Say '[6/7] registry'
     if ($DryRun) {
         Say '  would  run registry_check.py --init'
     } else {
@@ -243,10 +272,10 @@ if (-not $SkipRegistry) {
     }
 }
 
-# ------------------------------------------------------------------------ 6. SAP
+# ------------------------------------------------------------------------ 7. SAP
 if ($WithSap) {
     Say ''
-    Say 'SAP launcher'
+    Say '[7/7] SAP launcher'
     $sapSrc = Join-Path $Root 'config\opencode-sap'
     $sapDst = Join-Path $ConfigDir 'sap'
     if (-not (Test-Path $sapDst) -and -not $DryRun) { New-Item -ItemType Directory -Force -Path $sapDst | Out-Null }
