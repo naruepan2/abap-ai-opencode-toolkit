@@ -116,7 +116,12 @@ statuses. Editing an entry is how knowledge strengthens.
 
 A project card declares which domains it touches (`domains: [sap-abap, sap-data]`), so
 a task session loads **only those files** — the read cost stays flat while the base
-grows.
+grows. A declared name that does not resolve is an issue in `memory_check.py`: the
+digest would silently fall back to every domain file.
+
+The entry itself carries the scope. A `Rule` that names a custom object is a project
+decision in the wrong file, and `memory_check.py` warns on it; the routing table (what
+belongs to a project versus what belongs here) is in `memory/knowledge/README.md`.
 
 ## Bounded growth (the hard rules)
 

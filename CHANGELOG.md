@@ -35,6 +35,12 @@
 - `closeout.py` reports a shipped file that names this machine's paths as an issue. The
   repository is also the installer for the next machine, so a frozen `C:\...` is a
   defect, not a detail; shipped files use repo-relative paths or `~`.
+- Knowledge stays one flat tree, filed by competence. `memory/knowledge/README.md` now
+  carries the routing table (project decision → `spec.md` / `reports/DECISIONS.md`,
+  universal rule → the domain file, procedure → a skill, one-off → drop), and
+  `memory_check.py` enforces both ends: an unknown `domains:` name on a card is an
+  issue, and a `Rule` that names a custom object is a warning. Two entries were
+  rewritten to keep their project detail in `Evidence`.
 
 ## v0.7.1 — 2026-11-15
 

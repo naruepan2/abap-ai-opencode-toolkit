@@ -239,6 +239,17 @@ def parse_entries(path):
     return entries
 
 
+# A rule that names a custom object is a project decision wearing a global hat: it can
+# only hold in the project that owns the object. Evidence may cite it; the Rule may not.
+CUSTOM_OBJECT = re.compile(r"\bZ[A-Z]{2,}[A-Z0-9_]{2,}\b")
+
+
+def rule_text(body):
+    """The Rule bullet and its continuation lines, without the bullets after it."""
+    match = re.search(r"\*\*rule:\*\*(.*?)(?=\n\s*-\s+\*\*|\Z)", body, re.I | re.S)
+    return match.group(1) if match else ""
+
+
 def check_knowledge(findings, warnings):
     if not KNOWLEDGE_DIR.is_dir():
         findings.append((ISSUE, "knowledge/", "the knowledge base directory is missing"))
@@ -275,6 +286,12 @@ def check_knowledge(findings, warnings):
                 warnings.append((WARN, path.name,
                                  f"entry '{title[:40]}' is {len(body)} chars "
                                  f"(budget {ENTRY_BUDGET}); sharpen the rule"))
+            named = CUSTOM_OBJECT.findall(rule_text(body))
+            if named:
+                warnings.append((WARN, path.name,
+                                 f"entry '{title[:40]}' names '{named[0]}' in the Rule; a "
+                                 "project object belongs in Evidence, or the whole entry "
+                                 "belongs in that project's reports/DECISIONS.md"))
 
 
 def check_inbox(warnings):
@@ -288,19 +305,34 @@ def check_inbox(warnings):
                          "to knowledge/ and archive the rest"))
 
 
-def check_cards(warnings):
+def check_cards(findings, warnings):
     root = MEM / "projects"
     if not root.is_dir():
         return
+    domains = {p.stem.lower() for p in KNOWLEDGE_DIR.glob("*.md") if p.name != "README.md"}
     for card in sorted(root.glob("*/*.md")):
         try:
-            size = len(card.read_text(encoding="utf-8"))
+            text = card.read_text(encoding="utf-8")
         except OSError:
             continue
+        size = len(text)
         if size > CARD_BUDGET:
             warnings.append((WARN, rel_card(card),
                              f"{size} chars (budget {CARD_BUDGET}); move dated "
                              "findings to the project's reports/ and keep the card"))
+        declared = re.search(r"^domains:\s*\[([^\]]*)\]", text, re.M | re.I)
+        if not declared:
+            warnings.append((WARN, rel_card(card),
+                             "no 'domains:' line, so the task tier loads every domain "
+                             "file instead of this project's"))
+            continue
+        wanted = [d.strip().lower() for d in declared.group(1).split(",") if d.strip()]
+        unknown = [d for d in wanted if d not in domains]
+        if unknown:
+            findings.append((ISSUE, rel_card(card),
+                             f"unknown domain(s) {', '.join(unknown)}; the digest falls "
+                             f"back to all {len(domains)} files, so the declared scope "
+                             "is not enforced"))
 
 
 def rel_card(card):
@@ -383,7 +415,7 @@ def main() -> int:
     check_row_length(warnings)
     check_knowledge(findings, warnings)
     check_inbox(warnings)
-    check_cards(warnings)
+    check_cards(findings, warnings)
     check_credentials(findings, warnings)
     check_skill_candidates(warnings)
     check_index(warnings)
