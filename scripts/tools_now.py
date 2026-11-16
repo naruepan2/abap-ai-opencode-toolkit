@@ -232,6 +232,8 @@ def collect(full, posture=None):
             "tools": 0,
             "caps": set(),
             "posture": None,
+            # FIX: a server disabled in config can linger in the tool snapshot.
+            "disabled": False,
         })
         override = OVERRIDES.get(ns, {})
         entry.update({k: v for k, v in override.items() if k in ("role", "allow_write")})
@@ -244,13 +246,20 @@ def collect(full, posture=None):
         if not armed:
             continue
         entry["posture"] = armed
+        # FIX: config is authority. A disabled server is never a writer/analyser,
+        # even while the stale snapshot still lists its tools.
+        if armed["known"] and not armed.get("enabled", True):
+            entry["disabled"] = True
+            entry["allow_write"] = False
+            continue
         if armed["known"] and armed.get("flags_apply"):
             entry["allow_write"] = bool(armed["write"])
     return servers
 
 
 def decide(servers):
-    adt = list(servers.values())
+    # FIX: a disabled server is not part of the usable path.
+    adt = [s for s in servers.values() if not s.get("disabled")]
     writers = [s for s in adt if s["allow_write"]]
     testers = [s for s in adt if s["role"] == "test"]
     readers = [s for s in adt if not s["allow_write"]]
@@ -296,6 +305,10 @@ def decide(servers):
     if unknown:
         warnings.append("posture unknown for " + ", ".join(sorted(unknown))
                         + " - do not assume read-only")
+    for ns, s in servers.items():
+        if s.get("disabled"):
+            warnings.append(f"{ns}: disabled in config but still in tool snapshot "
+                            "- restart the service or ignore the stale snapshot")
     if not adt:
         warnings.append("no ADT server live")
     return {"path": path, "writers": writers, "testers": testers,
@@ -331,7 +344,9 @@ def main():
         except ValueError:
             age = None
 
-    missing = [ns for ns in args.expect if ns not in servers]
+    # FIX: a disabled server is not live; do not count it as a usable server.
+    live = [s for s in servers.values() if not s.get("disabled")]
+    missing = [ns for ns in args.expect if ns not in {s["namespace"] for s in live}]
 
     result = {
         "total": full.get("total", len(full.get("tools", []))),
@@ -353,7 +368,7 @@ def main():
                           "sql": s["posture"]["sql"],
                           "git": s["posture"]["git"]}
                          if s.get("posture") else None)}
-            for s in sorted(servers.values(), key=lambda x: x["namespace"])
+            for s in sorted(live, key=lambda x: x["namespace"])
         ],
         "path": decision["path"],
         "warnings": decision["warnings"],

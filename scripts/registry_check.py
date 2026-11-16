@@ -269,7 +269,9 @@ def scan_mcp():
                 "harness": "opencode",
                 "source": "opencode.json",
                 "type": val.get("type", ""),
-                "enabled": bool(val.get("enabled", True)),
+                # FIX: V2 uses "disabled"; the old "enabled" flag alone lies.
+                "enabled": bool(val.get("enabled", True))
+                and not bool(val.get("disabled", False)),
                 "command_kind": cmd_kind,
                 "url_host": urlparse(url).hostname if url else "",
             }

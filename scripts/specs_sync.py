@@ -167,6 +167,12 @@ def main():
     ap.add_argument("--list", action="store_true", help="one line per program")
     args = ap.parse_args()
 
+    # FIX: never delete a good mirror when the source tree is missing.
+    if args.write and not PROJECTS.is_dir():
+        print(f"specs mirror not written: {PROJECTS} is missing; existing mirror kept",
+              file=sys.stderr)
+        return 1
+
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except (AttributeError, ValueError):
