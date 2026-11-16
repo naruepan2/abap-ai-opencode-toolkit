@@ -4,9 +4,11 @@ Three ADT servers claim to cover ABAP work. This document records what each one
 actually exposes, so a gap is answered by evidence rather than by adding another
 server and hoping the model picks the right tool.
 
-Sources: the repositories as of 2026-11-16 (`fr0ster/mcp-abap-adt` @ `b29d6ff`,
+Sources: the repositories as of 2026-11-17 (`fr0ster/mcp-abap-adt` @ `b29d6ff`,
 `arc-mcp/arc-1` @ `755a265`, `grknylmz/sap-ai-dev-toolkit`) plus the live tool
-catalog of the current session (`registries/tools-full.json`).
+catalog of the current session (`registries/tools-full.json`). The fr0ster
+figures below were re-derived from its generated tool docs at that commit on
+2026-11-17 — `b29d6ff` was still `main` when the check ran.
 
 ---
 
@@ -27,9 +29,10 @@ partial catalog and reaches the rest through `search`. So availability is not
 discoverability — this session needed a `search` call to find DDIC tools that were
 installed all along.
 
-**The rule that follows:** one writer per task, and never mix evidence for the same
-fact from two engines. Two engines agreeing is not stronger evidence; it is two
-nondeterministic choices that happened to land together.
+**The rule that follows:** one object, one writer, one session, and never mix
+evidence for the same fact from two engines. Two engines agreeing is not stronger
+evidence; it is two nondeterministic choices that happened to land together. The
+wording and its evidence live in `docs/mcp-orchestration.md` §5.
 
 ---
 
@@ -37,15 +40,15 @@ nondeterministic choices that happened to land together.
 
 | | ai-dev (vsp) | arc-1 | fr0ster mcp-abap-adt |
 |---|---|---|---|
-| Tools exposed | **75** (live) | **12** documented / **8** live — the live set is **read-only** | **~188** high-level, **74** read-only, **41** compact |
+| Tools exposed | **75** (live) | **12** documented / **8** live — the live set is **read-only** | **292** total · **188** high-level · **74** read-only — the compact binary is a separate shape: **28** tools, **17** read-only |
 | Design | one tool per action | **one tool per verb**, object type as an argument | both: per-type tools *and* a compact multiplexed binary |
 | Read ABAP source | ✔ | ✔ | ✔ |
 | Write / activate | ✔ | ✔ | ✔ |
 | Transports | ✔ | ✔ | ✔ |
 | AUnit / ATC / dumps / profiler | ✔ | ✔ (SAPDiagnose) | ✔ (incl. debugger + profiler traces) |
 | Git (abapGit / gCTS) | list only | ✔ SAPGit | ✖ |
-| ABAP lint (offline) | ✔ | ✔ SAPLint | ✖ (syntax check only) |
-| Agents + skills shipped | **24 agents, 32 skills** | skills + commands | ✖ (tooling only) |
+| ABAP lint (offline) | ✔ | ✔ SAPLint | ✖ — syntax check only, as `Check<Type>`; no lint or format tool |
+| Agents + skills shipped | **24 agents, 32 skills** | skills + commands | ✖ — tooling only: the repo root holds no `agents/` or `skills/` folder |
 | CLI fallback | ✔ | ✔ | ✔ |
 
 The count column is misleading on its own: arc-1's 12 tools carry more object types
@@ -62,10 +65,10 @@ Legend: **C** create · **R** read · **U** update · **A** activate · **D** de
 | Domain (DOMA) | **–** | **C R U A** (create gated by ADT endpoint discovery) | C R U A D |
 | Data element (DTEL) | **–** | **C R U A** | C R U A D |
 | Transparent table | **C R U A** (`create_table`, `update_table`) | C R U A D | C R U A D |
-| Structure | **R** only (`get_structure`) | C R U A (`TABL/DS`, alias `STRU/DS`) | C R A D V |
+| Structure | **R** only (`get_structure`) | C R U A (`TABL/DS`, alias `STRU/DS`) | C R U A D V |
 | Table type (TTYP) | **–** | **C R** (create gated: `/ddic/tabletypes/` must exist, FEAT-65) | C R U A D V |
-| Classic view / SHLP / MSAG | view **–**, search help **R**, message class **–** | SHLP **R** (metadata only), MSAG **C R U A** | MSAG C R; view/SHLP **no dedicated tool** |
-| CDS / DCL / DDLX / BDEF / SRVD / SRVB | ✔ full (incl. publish) | ✔ full (incl. publish) | ✔ (DDL + DDLX + BDEF + SRVB) |
+| Classic view / SHLP / MSAG | view **–**, search help **R**, message class **–** | SHLP **R** (metadata only), MSAG **C R U A** | MSAG **C R U D** (no activate); view/SHLP **no tool** |
+| CDS / DCL / DDLX / BDEF / SRVD / SRVB | ✔ full (incl. publish) | ✔ full (incl. publish) | ✔ (DDL + DDLX + BDEF + SRVD + SRVB); **DCL –** |
 
 Evidence, so the table can be re-checked instead of trusted:
 
@@ -76,9 +79,13 @@ Evidence, so the table can be re-checked instead of trusted:
   discovery; `src/handlers/object-types.ts` carries `DOMA`, `DTEL`, `TTYP`, `VIEW`,
   `SHLP`, `MSAG`, `ENQU`, `ENHO`; the README tool table lists `DOMA`, `DTEL`, `MSAG`
   inside SAPWrite.
-- fr0ster: generated tool docs — 188 `####` entries, categories Domain, Data Element,
-  Table, Table Type, Structure; compact binary takes `object_type` =
-  `DOMAIN | DATA_ELEMENT | TABLE | STRUCTURE | TABLE_TYPE | DDL | …`.
+- fr0ster: the generated tool docs carry **292** `####` entries
+  (`AVAILABLE_TOOLS.md`), **188** in `AVAILABLE_TOOLS_HIGH.md` and **74** in
+  `AVAILABLE_TOOLS_READONLY.md`; the categories are Domain, Data Element, Table,
+  Table Type, Structure, Message Class, Metadata Extension, Behavior Definition,
+  Service Definition and Service Binding. The compact binary takes the object type
+  as an argument — `DOMAIN`, `DATA_ELEMENT`, `TABLE`, `STRUCTURE`, `TABLE_TYPE`,
+  `DDL` (`compact-readonly-entries/src/handlers/compactReadRoutes.ts:110-132`).
 
 ### Corrections to two common assumptions
 
@@ -86,8 +93,10 @@ Evidence, so the table can be re-checked instead of trusted:
    `CreateDomain`; the capability lives in `SAPWrite` with `type: "DOMA"` / `"DTEL"`.
    Judging arc-1 by tool names understates it by an order of magnitude.
 2. **fr0ster's "👁️ View Management: GetView, CreateView, UpdateView"** — not present in
-   its generated tool list (0 matches for `GetView`/`CreateView` across all three docs).
-   CDS is handled as `Ddl`; classic views are not covered. The README bullet is stale.
+   its generated tool list (0 matches for `GetView`/`CreateView`/`UpdateView` across all
+   three generated docs). The bullet is still in the README (`README.md:273`), and the
+   only tool whose name matches `/view/i` is `GetServiceBindingPreviewUrl`. CDS is
+   handled as `Ddl`; classic views are not covered.
 
 ### Capability vs configuration
 
@@ -124,9 +133,13 @@ cost to a namespace index plus `search` results, so the real per-turn delta is
 smaller — and it is not zero. `registry_check.py --check --brief` prints the same
 line before and after a change; that is the honest way to measure an addition.
 
-Beyond context, fr0ster adds a **second credential path**: its own env vars
-(`SAP_USERNAME`/`SAP_PASSWORD` or destination service key) rather than the Windows
-Credential Manager used here. That is a new place for a SAP password to exist.
+Beyond context, fr0ster adds a **second credential path**. Every authentication it
+supports is a *destination* described by env vars; the basic one holds
+`SAP_USERNAME` + `SAP_PASSWORD` (`docs/user-guide/AUTHENTICATION.md:11`), and the
+words keychain or keyring appear nowhere in that guide. Its browser login
+(`@mcp-abap-adt/auth-broker-cli`, `README.md:86`) avoids the password but writes the
+session to `<auth-broker-path>/sessions/<name>.env` — still a second place on disk.
+The Windows Credential Manager used here knows neither route.
 
 ---
 
@@ -139,9 +152,13 @@ Credential Manager used here. That is a new place for a SAP password to exist.
 2. **Close the DDIC gap with arc-1, not with a new server.** Domain, data element and
    table type creation already exist in `SAPWrite`; the launcher is simply not passing
    `-AllowWrites`. That is a per-task switch, not a missing engine.
-3. **Bring fr0ster in only for a task arc-1 refuses** — and then as a task-scoped
-   server (`disabled: true` by default), preferably the read-only or compact binary,
-   with its own keychain entry. Never in the always-on set.
+3. **fr0ster is absent by design, not disabled.** There is no entry for it in
+   `opencode.json`, so it cannot connect and it costs nothing. If a task ever needs
+   what arc-1 refuses, bring it in as a task-scoped entry with `disabled: true` and
+   the read-only shape (`@mcp-abap-adt/core-ro`, or `compact-ro` at 17 tools) — 292
+   tools is not worth a permanent slot. Its credentials would have to travel the same
+   Windows Credential Manager route as the other engines; its own env vars are a
+   second place for a SAP password to exist.
 4. **One object, one writer, one session.** Readers may overlap freely; a second engine
    writes an object only after the first is done and it has been re-read. Record which
    engine produced each piece of evidence. Details and evidence:

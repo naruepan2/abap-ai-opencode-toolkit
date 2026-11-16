@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.7.2 — 2026-11-16
+## v0.7.2 — 2026-11-17
 
 **Several SAP engines can run at once — now with the rules written down.**
 
@@ -47,6 +47,26 @@
   transport and client rules); the knowledge entry for DDIC naming became "read the
   project's convention, or ask", and the concrete `ZD_`/`ZE_` rule moved into the LUF
   project file. The four homes and their precedence are in `docs/memory-model.md`.
+- The fr0ster column of `docs/mcp-capability-matrix.md` was re-derived from that
+  repository's generated tool docs at `b29d6ff` (still `main` on 2026-11-17), and four
+  figures were wrong: the tool count is **292 total / 188 high-level / 74 read-only**
+  (not "41 compact" — the compact binary is a separate shape, 28 tools or 17 read-only),
+  MSAG is **C R U D** rather than "C R", **DCL has no tool**, and there is no lint or
+  format tool — syntax check only, as `Check<Type>`. The README bullet
+  `GetView`/`CreateView`/`UpdateView` is still stale at `README.md:273`.
+- fr0ster is **absent by design, not disabled**: there is no entry for it in
+  `opencode.json`, so it cannot connect and costs nothing. Both docs now say that and
+  state the credential path from its own guide (env vars, no keychain route) rather
+  than from a guess.
+- `docs/mcp-orchestration.md` marks the permission layer as **documented, not
+  configured** — `opencode.json` carries no `agents` and no `permission` block, so no
+  agent is pinned to an engine today. The matrix also states the rule actually in
+  force ("one object, one writer, one session") instead of the older "one writer per
+  task".
+- The vendor's arc-1 guide (v1.7.0) is **older than the clone the toolkit verifies
+  against** (1.10.1 at `755a265`): its object-type list omits DOMA/DTEL/TTYP, which the
+  source carries (`src/handlers/object-types.ts:135-143`). The source wins, and the
+  toolkit cites the source.
 
 ## v0.7.1 — 2026-11-15
 

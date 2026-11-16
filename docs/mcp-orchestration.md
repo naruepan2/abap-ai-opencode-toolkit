@@ -68,8 +68,12 @@ Rule of thumb:
 
 **Layer 1 — process.** Is the server connected at all? `mcp.servers.<name>.disabled`.
 Anything not needed for the current task stays disabled. Today only two ADT engines
-are ever live at once; `fr0ster/mcp-abap-adt` stays disabled because it wants its own
-credential path and its CDS surface is stale.
+are ever live at once. `fr0ster/mcp-abap-adt` is **not configured at all** — there is
+no entry for it in `opencode.json`, so it cannot connect and costs no context. It stays
+out for two reasons that still hold: its credentials travel as env vars (its
+authentication guide has no keychain route) and nothing wires it to the launcher.
+Not because of CDS — it does cover DDL, DDLX, BDEF, SRVD and SRVB; what it lacks is
+DCL and the classic views.
 
 **Layer 2 — permission.** Which agent may call which server? V2 `permissions` entries
 match the normalized `<server>_<tool>` action, and a deny hides the tool *and* drops
@@ -98,6 +102,11 @@ reaching for different engines on the same job.
 name-normalization does with `-`. Agent rules are appended after global rules and the
 last match wins; a deny placed globally can therefore be re-allowed by an agent. Keep
 the deny in the agent that needs it.
+
+**Status: documented, not configured.** `opencode.json` carries no `agents` block and
+no `permission` entry today, so this layer is not enforced — every agent sees every
+connected server and picks by name. That is why §5's rule is a rule for the model
+rather than a mechanism.
 
 **Layer 3 — posture.** What is the engine allowed to do *in SAP*? This is not a tool
 list. `SAPWrite` disappears when the launcher does not pass `-AllowWrites`, and the
