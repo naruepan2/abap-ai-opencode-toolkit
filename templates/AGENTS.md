@@ -67,4 +67,11 @@ the front matter, the FS file, and the REQ/AC tables.
 Project memory lives in `memory/projects/<project>/<program>.md`. Read that card at
 session start and update its resume card at session end. A long task gets
 `plan-<task>.md` next to the program (`templates/plan.md`), pointed at by the card.
+
+## Conventions
+
+Rules every program in this project follows — naming prefixes, object types, transport
+rules, client split. These are **this project's** rules, not SAP's: another project may
+choose differently, so they are not in the shared knowledge base. Add one with its date
+and the decision behind it; if a rule is missing, ask instead of inferring it.
 ```

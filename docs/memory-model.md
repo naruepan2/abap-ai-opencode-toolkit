@@ -125,6 +125,19 @@ decision in the wrong file. That judgement has no check — a keyword test only 
 `memory/knowledge/README.md` is the rule and the close-out review is the gate. Only the
 `domains:` line is checked, because a name either resolves to a file or it does not.
 
+Where each kind of fact lives — narrowest last, and a fact never appears in two places:
+
+| Home | Holds | Loaded by |
+|---|---|---|
+| `SAP Projects/AGENTS.md` | rules for every project under this workspace | session start, nearest `AGENTS.md` |
+| `Projects/<PROJECT>/AGENTS.md` §Conventions | one project's conventions: naming prefixes, object types, transport and client split | the same read |
+| `Projects/<PROJECT>/<PROGRAM>/AGENTS.md`, `spec.md`, `reports/DECISIONS.md` | one program's rules, requirements and decisions | the task itself |
+| `memory/knowledge/<domain>.md` | what is true wherever the table or tool exists | the card's `domains:` |
+
+A naming convention is the clear test: `ZD_`/`ZE_` is a LUF decision, not a SAP rule, so
+it lives in the LUF project file. The shared tree is loaded without knowing which project
+is active — a project rule stored there follows the agent into the next project.
+
 ## Bounded growth (the hard rules)
 
 1. **≤ 12 entries per domain.** At the cap, the entry with the lowest

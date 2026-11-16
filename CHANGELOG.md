@@ -42,6 +42,11 @@
   would otherwise load every file. A `Z…` keyword warning for misfiled rules was tried
   and removed: it missed project fields like `MENGE_PD`, and a partial check reads as
   coverage. Two entries were rewritten to keep their project detail in `Evidence`.
+- Conventions now have an explicit home. `Projects\<PROJECT>\AGENTS.md` §Conventions
+  holds what every program in one project follows (naming prefixes, object types,
+  transport and client rules); the knowledge entry for DDIC naming became "read the
+  project's convention, or ask", and the concrete `ZD_`/`ZE_` rule moved into the LUF
+  project file. The four homes and their precedence are in `docs/memory-model.md`.
 
 ## v0.7.1 — 2026-11-15
 

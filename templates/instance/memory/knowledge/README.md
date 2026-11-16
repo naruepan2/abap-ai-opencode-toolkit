@@ -35,14 +35,22 @@ name in `Evidence` is normal; a project name in the `Rule` means the entry is mi
 
 | The fact is… | It goes to | Test |
 |---|---|---|
-| a decision, exception, object name, field, or naming choice of one program | that program's `spec.md` (DEV/Q) or `reports/DECISIONS.md` | would another project be wrong to copy it? |
-| true wherever the table or tool exists | `knowledge/<domain>.md` | can you state it without naming a custom object? |
+| a convention every program in one project follows — naming prefixes, object types, transport rules, client split | that project's `AGENTS.md` §Conventions (`Projects\<PROJECT>\AGENTS.md`) | would another project be wrong to copy it? |
+| a decision, exception, object name, or field of one program | that program's `spec.md` (DEV/Q) or `reports/DECISIONS.md` | does it only make sense in that program? |
+| true wherever the table or tool exists | `knowledge/<domain>.md` | can you state it without naming a custom object or a project prefix? |
 | a repeatable procedure | a skill, with one line left here | does it need steps rather than a rule? |
 | one incident, no generalisation | nowhere — drop it at close-out | what would the next agent do differently? |
 
+A convention is not knowledge. The knowledge tree is loaded **without knowing which
+project is active** — the card names the domains, not the project — so a rule that only
+holds in LUF would follow the agent into another project. The precedence is the folder
+tree: workspace `AGENTS.md` (every project) → `Projects\<PROJECT>\AGENTS.md` (one
+project) → `Projects\<PROJECT>\<PROGRAM>\AGENTS.md` (one program), with `spec.md` and
+`reports/DECISIONS.md` holding the decisions underneath.
+
 No check catches a misfiled `Rule`. A keyword test only sees names that start with `Z`,
 and a project field such as `MENGE_PD` passes it — so the review at close-out is the
-gate. The test is the last column above: would another project be wrong to copy it?
+gate. The test is the right-hand column: would another project be wrong to copy it?
 
 ## Entry template
 

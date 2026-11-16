@@ -49,6 +49,10 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   project, incident, design → digest + every memory file). Details and the write
   rules live in `workspace/memory/README.md`; do not re-read a file the digest shows
   is not needed.
+- A convention that only one project follows (naming, object prefixes, transport and
+  client rules) goes in `Projects\<PROJECT>\AGENTS.md` §Conventions — not in the
+  knowledge base, which is loaded without knowing which project is active. One
+  program's decision goes in its `spec.md` (DEV/Q) or `reports/DECISIONS.md`.
 - The digest runs the registry and memory checks. If it reports an **issue**, show
   the short summary and propose a fix. Warnings (a new asset, a stale date, an idle
   on-demand server, a domain at its cap) need a human decision, not a turn.
