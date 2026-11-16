@@ -196,14 +196,14 @@ these numbers move with every install.
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 114 | opencode 31, agents 40, claude 25, copilot 18 |
+| Skills | 113 | opencode 30, agents 40, claude 25, copilot 18 |
 | Agents | 24 | 4 editable, 20 vendor |
 | MCP servers | 16 | 11 enabled, 5 disabled/on-demand |
 | Tools | 329 | includes desktop tools; ADT share: ai-dev 75 + 75, arc1 8 |
 
-Prompt cost: **69.5k chars per session** (skills 20.2k + tools 49.3k). Both catalogs
-are over their warning budgets (20k / 28k) — that is a decision to park skills or
-disable servers, not a broken install. SAP servers stay on-demand. See
+Prompt cost: **68.3k chars per session** (skills 19.0k + tools 49.3k). Skills are
+inside the 20k budget; tools remain over 28k — a human decision about which server
+to disable, not a broken install. SAP servers stay on-demand. See
 `docs/design.md` §"Prompt budget".
 
 ## Roadmap

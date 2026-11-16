@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T17:10:30+00:00",
+  "generated_at": "2026-11-16T18:53:10+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -317,17 +317,6 @@
       "hash": "cb0052a6b93c2cfdc523e3167e6860b21ce0b6b86927eabc7e52a36bb2e5716f",
       "desc_chars": 372,
       "description": "Query and inspect SAP OData services with the sap-odata CLI — service discovery, entity metadata and SAP/UI5 annotations, test queries, Fiori-readiness lint, service health checks, and offline EDMX browsing. Use when the user asks about SAP OData or Gateway services, entity sets, $metadata, SAP anno",
-      "status": "active",
-      "last_validated": "2026-11-13"
-    },
-    {
-      "id": "sap-support-case",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\sap-support-case\\SKILL.md",
-      "owner": "vendor",
-      "hash": "870089d4d2ee7f7547972ee57951d45f5c126b53ec61d973777072ed21eb576e",
-      "desc_chars": 1221,
-      "description": "Raise an SAP support case (incident) properly — earn it first by exhausting the supported remedies, route it to the right component using SAP's own routing KBAs rather than the component name the error text happens to print, gather the IDs SAP will ask for (correlation ID, formation/job ID, troubles",
       "status": "active",
       "last_validated": "2026-11-13"
     },
