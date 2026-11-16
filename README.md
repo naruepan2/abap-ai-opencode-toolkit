@@ -1,30 +1,26 @@
 # ABAP AI OpenCode Toolkit
 
-A small, portable AI teammate for ABAP work: a memory system that compounds, a
-per-program contract, a registry scanner, and the wiring that puts them inside your
-OpenCode session.
+A portable AI teammate for ABAP work: memory that compounds, a contract per program,
+and checks that keep OpenCode honest about which tools it can actually call.
 
-The repository has **two layers**, and keeping them apart is the whole design:
+**Two layers. Keep them apart:**
 
-| Layer | What it is | Where it lives |
+| Layer | What it is | Where |
 |---|---|---|
-| **Toolkit** | scripts, templates, docs, the tool-snapshot plugin, the SAP launcher | this repository, git-tracked |
-| **Instance** | your memory cards, knowledge entries, specs mirror, registry report | `workspace/`, never committed here |
+| Toolkit | scripts, templates, docs, plugin, SAP launcher | this repo (git-tracked) |
+| Instance | your cards, knowledge, specs mirror, reports | `workspace/` (never committed) |
 
-Clone the toolkit, run `install.ps1`, and the instance is yours. A colleague can do
-the same without inheriting your notes.
+Clone, run `install.ps1`, restart OpenCode. The instance is yours; a colleague gets
+their own empty one.
 
 ## Why
 
-- **Memory that grows by editing, not by logging.** An incident lands in an inbox,
-  gets consolidated at close-out into a knowledge entry, and a rule that repeats is
-  promoted to `AGENTS.md` or a check. The same file is edited, never appended.
-- **A contract per program.** `spec.md` holds requirements, acceptance criteria,
-  approved deviations and open questions; `CHANGELOG.md` holds one row per deploy,
-  covering the window SAP's version management does not.
-- **Cheap session starts.** One command prints the resume card, the health of memory
-  and registries, the open inbox, and the tool rules — then you read only what the
-  task needs.
+- **Memory that compounds.** Incidents land in an inbox; at close-out each becomes one
+  edited knowledge entry — or a check, if the rule repeats. No append-only log.
+- **A contract per program.** `spec.md` holds requirements and acceptance criteria;
+  `CHANGELOG.md` holds one row per deploy — the window SAP version management misses.
+- **Cheap starts.** One command prints the resume card, health, inbox, and tool rules.
+  Then read only what the task needs.
 
 ## Requirements
 
@@ -48,21 +44,13 @@ Restart OpenCode once, then:
 python scripts\session_context.py
 ```
 
-`install.ps1` is idempotent and does seven things:
+`install.ps1` is idempotent. It seeds `workspace\`, links
+`~\.config\opencode\memory` to it, registers the tool-snapshot plugin, adds a marked
+block to global `AGENTS.md`, copies new personal skills, and baselines the registries.
+With `-WithSap` it also copies the launcher and an example profile — never a password.
 
-| Step | Effect |
-|---|---|
-| instance | creates `workspace\memory` and `workspace\specs`, seeds them from `templates\instance` |
-| junction | points `~\.config\opencode\memory` at the instance |
-| plugin | registers `plugins\tool-snapshot` in `~\.config\opencode\opencode.json` |
-| pointer | adds a marked block to `~\.config\opencode\AGENTS.md` |
-| skills | copies each personal skill in `config\opencode-skills` into `~\.config\opencode\skills` when the name is new |
-| registry | runs `registry_check.py --init` to baseline this machine |
-| SAP | with `-WithSap`: copies the launcher and an example profile, never a password |
-
-It never touches SAP profiles, credentials, or MCP entries. Every file it rewrites
-gets a timestamped `.bak` next to it. Use `-SkipAgents` if your global `AGENTS.md`
-already has a memory block, `-SkipRegistry` to leave the registries alone.
+It never touches SAP profiles, credentials, or MCP entries. Rewrites get a timestamped
+`.bak`. Skip switches: `-SkipAgents`, `-SkipRegistry`.
 
 ## Layout
 
@@ -91,26 +79,18 @@ with an `INDEX.md` above it. Neither is required: `ABAP_PROJECTS_ROOT` and
 ## Daily use
 
 ```bash
-# session start: card, health, inbox, knowledge inventory, tool rules
-python scripts/session_context.py
-python scripts/session_context.py --tiny     # light tier, ~0.8k chars
-
-# end of task: inbox, card, plan, knowledge dates
-python scripts/closeout.py
-python scripts/closeout.py --project DEMO/ZDEMO01
-
-# registries and the prompt budget
-python scripts/registry_check.py --check
-python scripts/registry_check.py --check --brief
-python scripts/registry_check.py --refresh   # only after installing a skill, agent or MCP server
-
-python scripts/memory_check.py               # integrity of the memory system
-python scripts/specs_sync.py --write          # mirror program specs into the instance
+python scripts\session_context.py      # start: card + health + inbox + tool rules
+python scripts\closeout.py             # end: inbox + card + plan + knowledge dates
+python scripts\registry_check.py --check --brief   # tool catalog + prompt cost
+python scripts\memory_check.py         # memory integrity
 ```
 
-Exit code `0` means nothing is broken; `1` means the report has an issue. Warnings
-(new asset, stale date, over-budget description, idle on-demand server) need a human
-decision, not a fix. The full report lands in
+Add `--tiny` to the digest for the light tier, `--project DEMO/ZDEMO01` to closeout
+for one program. `--refresh` only after installing a skill, agent, or MCP server.
+`specs_sync.py --write` mirrors program specs into the instance.
+
+Exit `0` = nothing broken; `1` = an issue. Warnings (new asset, stale date, budget,
+idle server) are human decisions, not fixes. Full report:
 `workspace/memory/reports/registry-report.md`.
 
 ## Memory model
@@ -172,44 +152,15 @@ Give the MCP startup time when a dialog can appear: `mcp.timeout.startup` in
 
 ## Team model
 
-The main agent is the team lead. Specialists are subagents. The lead owns the final
-answer and writes memory; specialists return evidence, not conclusions.
+Main agent = lead. Specialists = subagents. Lead owns the answer and writes memory;
+specialists return evidence, not conclusions.
 
-```mermaid
-flowchart TD
-    U[User]
-    L[Lead: main agent]
-    A[abap-developer]
-    D[abap-runtime-debugger]
-    R[sap-solution-architect]
-    E[explore / general]
-    M[(Memory)]
-    K[(Skills)]
-    T[(Tool map / MCP)]
-    G[(Registries)]
-
-    U -->|goal + approval| L
-    L -->|plan + brief| A
-    L -->|plan + brief| D
-    L -->|plan + brief| R
-    L -->|plan + brief| E
-    A -->|evidence| L
-    D -->|evidence| L
-    R -->|evidence| L
-    E -->|evidence| L
-    L -->|verified result| U
-
-    M <-->|read / write| L
-    G -.->|read-only check| L
-    K -.->|playbooks| A
-    K -.->|playbooks| D
-    K -.->|playbooks| R
-    K -.->|playbooks| E
-    T -.->|routing| A
-    T -.->|routing| D
-    T -.->|routing| R
-    T -.->|routing| E
-```
+- User gives goal + approval → lead makes plan + brief → specialist returns evidence.
+- Specialists: `abap-developer`, `abap-runtime-debugger`, `sap-solution-architect`,
+  `rap-service-developer`, `explore` / `general`.
+- Lead reads and writes memory; registries are read-only checks; skills are playbooks.
+- Tool map routes a specialist to an MCP engine. No specialist writes the same object
+  as another — "one object, one writer, one session".
 
 ## Principles
 
@@ -240,16 +191,20 @@ flowchart TD
 
 ## Measured on the author's machine
 
+Snapshot: 2026-11-17. Re-measure with `python scripts\registry_check.py --check --brief`;
+these numbers move with every install.
+
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 135 | opencode 30, agents 47, claude 30, copilot 28 |
+| Skills | 114 | opencode 31, agents 40, claude 25, copilot 18 |
 | Agents | 24 | 4 editable, 20 vendor |
-| MCP servers | 16 | 9 enabled, 7 on-demand |
-| Tools | 194 | with both SAP engines live; 111 without |
+| MCP servers | 16 | 11 enabled, 5 disabled/on-demand |
+| Tools | 329 | includes desktop tools; ADT share: ai-dev 75 + 75, arc1 8 |
 
-Prompt cost: **48.0k chars per session** with both SAP engines (skills 19.8k + tools
-28.2k), 35.9k without them. The tool budget is 28k, so the two engines sit right on
-the line — enable them on demand. See `docs/design.md` §"Prompt budget".
+Prompt cost: **69.5k chars per session** (skills 20.2k + tools 49.3k). Both catalogs
+are over their warning budgets (20k / 28k) — that is a decision to park skills or
+disable servers, not a broken install. SAP servers stay on-demand. See
+`docs/design.md` §"Prompt budget".
 
 ## Roadmap
 
