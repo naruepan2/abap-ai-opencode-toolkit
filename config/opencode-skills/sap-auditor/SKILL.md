@@ -1,9 +1,9 @@
 ---
-name: auditor
+name: sap-auditor
 description: Audit finished work: separate verified fact from confident prose. Every claim gets evidence at file:line and a verdict, then mentor advice (what to fix) and commentator risks (what to watch). Use for "audit this", "ตรวจงาน", "is this correct", "second opinion", "verify these claims" on any doc, report, memory entry, or change before release. Not for ABAP lint/style (use abap-code-review, abaplint) or transport release gates (use sap-transport-gate).
 ---
 
-# Auditor
+# SAP auditor
 
 Three jobs in one pass, in this order: **audit** (is it true), **mentor** (what to fix),
 **commentator** (what to watch). Never reverse the order — advice built on an unverified

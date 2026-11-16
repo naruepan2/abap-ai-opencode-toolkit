@@ -23,7 +23,7 @@
   about the failure it was preventing.
 - Example profile names in `config/opencode-sap/` are now placeholders
   (`example-100`), so a local profile name cannot leak into a push.
-- New personal skill `auditor` — one pass in three blocks: **audit** (every claim
+- New personal skill `sap-auditor` — one pass in three blocks: **audit** (every claim
   against tier 1-2 evidence, `path:line`, ✅/⚠️/❌/🕰/❓), **mentor** (numbered fixes,
   each with a why), **commentator** (≤3 `trigger → consequence → guard` risks), plus a
   coverage line that names what was *not* read. It delegates lint and transport gates to
@@ -31,7 +31,7 @@
   name in `PERSONAL_SKILLS` so the scanner does not file it under vendor.
 - `install.ps1` copies `config\opencode-skills\` into `~\.config\opencode\skills` when a
   name is not there yet, so a reinstall restores the personal skills instead of losing
-  them. The `auditor` skill is the first one that ships.
+  them. The `sap-auditor` skill is the first one that ships.
 - `closeout.py` reports a shipped file that names this machine's paths as an issue. The
   repository is also the installer for the next machine, so a frozen `C:\...` is a
   defect, not a detail; shipped files use repo-relative paths or `~`.

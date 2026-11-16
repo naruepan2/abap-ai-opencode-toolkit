@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T16:39:30+00:00",
+  "generated_at": "2026-11-16T17:10:30+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -200,17 +200,6 @@
       "last_validated": "2026-11-13"
     },
     {
-      "id": "auditor",
-      "harness": "opencode",
-      "path": "~\\.config\\opencode\\skills\\auditor\\SKILL.md",
-      "owner": "Pongg",
-      "hash": "8ca2482423b3f4b4ac6f687a34a2856597c2b3ba4ac58c1a264aee95eb9fe1f7",
-      "desc_chars": 453,
-      "description": "Audit finished work: separate verified fact from confident prose. Every claim gets evidence at file:line and a verdict, then mentor advice (what to fix) and commentator risks (what to watch). Use for \"audit this\", \"ตรวจงาน\", \"is this correct\", \"second opinion\", \"verify these claims\" on any doc, repo",
-      "status": "new",
-      "last_validated": null
-    },
-    {
       "id": "hana-cloud-inspection",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\hana-cloud-inspection\\SKILL.md",
@@ -253,6 +242,17 @@
       "description": "Perform evidence-based, read-only reverse engineering of unfamiliar SAP ABAP entry points such as programs, function modules, classes, interfaces, transactions, CDS entities, and RAP artifacts. Use when asked to explain an ABAP application, discover direct and transitive dependencies, identify datab",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-auditor",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\sap-auditor\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "c29611473b3b1b26f3675e78d505353e32b206c49aea2a7432b248617f34ff84",
+      "desc_chars": 453,
+      "description": "Audit finished work: separate verified fact from confident prose. Every claim gets evidence at file:line and a verdict, then mentor advice (what to fix) and commentator risks (what to watch). Use for \"audit this\", \"ตรวจงาน\", \"is this correct\", \"second opinion\", \"verify these claims\" on any doc, repo",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "abap-code-review",

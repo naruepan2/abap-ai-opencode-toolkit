@@ -22,7 +22,7 @@ so a reinstall restores them and never overwrites a newer local edit.
 
 | Skill | Purpose |
 |---|---|
-| `auditor` | audit → mentor → commentator over finished work; claims table with `path:line` evidence |
+| `sap-auditor` | audit → mentor → commentator over finished work; claims table with `path:line` evidence |
 
 Sync rule: the live copy is authoritative. After editing
 `~/.config/opencode/skills/<name>/SKILL.md`, copy it back here in the same change —
