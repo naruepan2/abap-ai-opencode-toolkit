@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""tools_now.py - what can I actually call right now?
+"""tools_now.py - what can I actually call right now, and with what authority?
 
 The OpenCode tool-snapshot plugin rewrites registries/tools-full.json whenever an
 MCP server connects, disconnects, or the tool list changes (mcp.* / tool.* /
 session.* events, throttled to once a minute). This script turns that snapshot into
 a decision: which ADT server is live, what it can do, and which one to use.
+
+A live tool list says nothing about permission. `SAPWrite` can be absent because the
+engine cannot write or because the launcher did not pass -AllowWrites, and those are
+different problems. So the script also reads the launcher command from the OpenCode
+MCP config, joins it to the SAP profile, and prints the armed posture
+(write / transport / data / sql / package ceiling) next to each server.
 
 Usage
   python scripts/tools_now.py            # human summary + recommended path
@@ -15,11 +21,16 @@ Usage
 
 Exit codes
   0  a usable path was found
-  1  no ADT server, a stale snapshot, or two writers for the same client
+  1  no ADT server, a stale snapshot, or two writers armed on the same client
+
+Posture is best-effort: when the config is missing or the command does not use
+sap-mcp.ps1, the server is reported with posture "unknown" and the write flag falls
+back to the engine guess. Never treat a guess as permission.
 """
 
 import argparse
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -29,6 +40,22 @@ REPO = Path(__file__).resolve().parent.parent
 REG = REPO / "registries"
 SNAPSHOT = REG / "tools-snapshot.json"
 FULL = REG / "tools-full.json"
+
+# Where the launcher command and the SAP profiles live. Outside the repo on purpose:
+# the repo is shareable, the config carries customer hostnames and usernames.
+MCP_CONFIG = Path(os.environ.get(
+    "OPENCODE_MCP_CONFIG", Path.home() / ".config" / "opencode" / "opencode.json"))
+SAP_PROFILES = Path(os.environ.get(
+    "SAP_PROFILES", Path.home() / ".config" / "opencode" / "sap" / "profiles.json"))
+
+# PowerShell switches sap-mcp.ps1 understands -> posture key.
+LAUNCH_SWITCHES = {
+    "-AllowWrites": "write",
+    "-AllowTransportWrites": "transport",
+    "-AllowDataPreview": "data",
+    "-AllowFreeSql": "sql",
+    "-AllowGitWrites": "git",
+}
 
 # Namespace -> engine. Keep working through the ai-dev rename.
 ENGINES = (
@@ -48,12 +75,14 @@ ARC1_CAPS = {
     "SAPWrite": {"write"},
     "SAPActivate": {"activate"},
     "SAPNavigate": {"deps"},
-    "SAPQuery": {"data"},
+    "SAPQuery": {"data", "sql"},
     "SAPTransport": {"transport"},
     "SAPGit": {"git"},
     "SAPContext": {"deps"},
     "SAPLint": {"lint"},
-    "SAPDiagnose": {"syntax", "atc", "unit", "debug"},
+    # ATC, ABAP Unit, CDS test cases, dumps and SQL traces. There is no debugger:
+    # stepping lives in ai-dev (debugger_attach / debugger_step / debugger_get_variables).
+    "SAPDiagnose": {"syntax", "atc", "unit", "trace"},
     "SAPManage": {"manage"},
 }
 
@@ -103,7 +132,91 @@ def load(path):
         return json.load(handle)
 
 
-def collect(full):
+def _try_load(path):
+    try:
+        return load(path)
+    except (OSError, ValueError):
+        return {}
+
+
+def _mcp_servers(config):
+    """Both config shapes: V2 mcp.servers.<name>, and the older mcp.<name>."""
+    mcp = config.get("mcp") or {}
+    servers = dict(mcp.get("servers") or {})
+    for name, entry in mcp.items():
+        if name in ("servers", "timeout") or not isinstance(entry, dict):
+            continue
+        servers.setdefault(name, entry)
+    return servers
+
+
+def _enabled(entry):
+    if "disabled" in entry:
+        return not entry["disabled"]
+    return entry.get("enabled", True)
+
+
+def _command_of(entry):
+    command = entry.get("command") or ""
+    if isinstance(command, list):
+        return " ".join(str(part) for part in command)
+    return str(command)
+
+
+def launch_posture():
+    """namespace -> what the launcher actually armed, from config + profile.
+
+    Returns {} when the config is absent (another machine, a fixture run). An entry
+    with posture "unknown" means the config exists but this server is not a
+    sap-mcp.ps1 launch, so the switches cannot be read.
+    """
+    config = _try_load(MCP_CONFIG)
+    if not config:
+        return {}
+    profiles = (_try_load(SAP_PROFILES).get("profiles") or {})
+    found = {}
+    for name, entry in _mcp_servers(config).items():
+        command = _command_of(entry)
+        posture = {
+            "profile": "",
+            "engine": "",
+            "system": "",
+            "client": "",
+            "packages": "",
+            "write": False,
+            "transport": False,
+            "data": False,
+            "sql": False,
+            "git": False,
+            "enabled": _enabled(entry),
+            "known": False,
+            # The -Allow* switches live in the arc-1 branch of sap-mcp.ps1; ai-dev
+            # exits earlier with its full tool set, so its write power is not a switch.
+            "flags_apply": False,
+        }
+        if "sap-mcp.ps1" in command:
+            profile = re.search(r"-Profile\s+(\S+)", command)
+            engine = re.search(r"-Engine\s+(\S+)", command)
+            posture["profile"] = profile.group(1) if profile else ""
+            posture["engine"] = engine.group(1) if engine else ""
+            switches = set(re.findall(r"-[A-Za-z]+", command))
+            for switch, key in LAUNCH_SWITCHES.items():
+                if switch in switches:
+                    posture[key] = True
+            # sap-mcp.ps1 hard-codes some flags off; honour the file rather than the
+            # switch list once it declares them.
+            profile_entry = profiles.get(posture["profile"]) or {}
+            posture["system"] = str(profile_entry.get("system_id") or "")
+            posture["client"] = str(profile_entry.get("client") or "")
+            posture["packages"] = str(profile_entry.get("allowed_packages") or "")
+            posture["known"] = bool(posture["profile"])
+            posture["flags_apply"] = posture["engine"] == "arc1"
+        found[name] = posture
+    return found
+
+
+def collect(full, posture=None):
+    posture = posture or {}
     servers = {}
     for tool in full.get("tools", []):
         ns = tool.get("namespace") or "opencode"
@@ -118,17 +231,27 @@ def collect(full):
             "allow_write": engine == "ai-dev" and ROLES.get(client_of(ns), "unknown") == "code",
             "tools": 0,
             "caps": set(),
+            "posture": None,
         })
         override = OVERRIDES.get(ns, {})
         entry.update({k: v for k, v in override.items() if k in ("role", "allow_write")})
         entry["tools"] += 1
         entry["caps"] |= caps_for(engine, tool.get("name", ""), tool.get("id", ""))
+    # A launcher we can read beats any guess. A launcher we cannot read leaves the
+    # guess in place, but marks it so the printer can say "unknown" instead of lying.
+    for ns, entry in servers.items():
+        armed = posture.get(ns)
+        if not armed:
+            continue
+        entry["posture"] = armed
+        if armed["known"] and armed.get("flags_apply"):
+            entry["allow_write"] = bool(armed["write"])
     return servers
 
 
 def decide(servers):
     adt = list(servers.values())
-    writers = [s for s in adt if s["allow_write"] and s["role"] == "code"]
+    writers = [s for s in adt if s["allow_write"]]
     testers = [s for s in adt if s["role"] == "test"]
     readers = [s for s in adt if not s["allow_write"]]
     analysers = [s for s in readers if s["engine"] == "arc1"] or readers
@@ -145,15 +268,39 @@ def decide(servers):
         if analysers:
             parts.append("analyse=" + analysers[0]["namespace"])
         path = " · ".join(parts)
+
+    # Two live readers are free. Two write-armed servers on one system/client are not:
+    # ADT serialises true concurrency with a lock (423), but a sequential
+    # read-modify-write from two engines has no conflict detection and loses an update.
+    conflicts = {}
+    for s in writers:
+        armed = s.get("posture") or {}
+        key = (armed.get("system") or "", armed.get("client") or s["client"])
+        if not all(key):
+            continue
+        conflicts.setdefault(key, []).append(s["namespace"])
+
     warnings = []
-    if len(writers) > 1:
-        warnings.append("more than one code writer is live; pick one per task")
-    if any(s["engine"] == "arc1" and s["allow_write"] for s in adt):
-        warnings.append("arc1 has allow_write=true; keep it read-only unless a skill needs it")
+    for (system, client), names in sorted(conflicts.items()):
+        if len(names) > 1:
+            warnings.append(
+                f"two write-armed servers on {system or '?'}/{client}: "
+                + ", ".join(sorted(names))
+                + " - write each object from one engine")
+    for s in writers:
+        armed = s.get("posture") or {}
+        if armed.get("known") and armed.get("packages") in ("", "*"):
+            warnings.append(f"{s['namespace']}: package ceiling is unrestricted")
+    unknown = [s["namespace"] for s in adt
+               if s.get("posture") is None or not s["posture"].get("known")]
+    if unknown:
+        warnings.append("posture unknown for " + ", ".join(sorted(unknown))
+                        + " - do not assume read-only")
     if not adt:
         warnings.append("no ADT server live")
     return {"path": path, "writers": writers, "testers": testers,
-            "readers": readers, "warnings": warnings}
+            "readers": readers, "warnings": warnings,
+            "write_conflicts": ["/".join(k) for k, v in conflicts.items() if len(v) > 1]}
 
 
 def main():
@@ -172,7 +319,7 @@ def main():
         return 1
     full = load(full_path)
     snapshot = load(SNAPSHOT) if SNAPSHOT.is_file() and not args.file else {}
-    servers = collect(full)
+    servers = collect(full, {} if args.file else launch_posture())
     decision = decide(servers)
 
     age = None
@@ -193,11 +340,24 @@ def main():
         "servers": [
             {"namespace": s["namespace"], "engine": s["engine"], "client": s["client"],
              "role": s["role"], "allow_write": s["allow_write"],
-             "tools": s["tools"], "caps": sorted(s["caps"])}
+             "tools": s["tools"], "caps": sorted(s["caps"]),
+             "posture": ({"profile": s["posture"]["profile"],
+                          "system": s["posture"]["system"],
+                          "client": s["posture"]["client"],
+                          "packages": s["posture"]["packages"],
+                          "known": s["posture"]["known"],
+                          "flags_apply": s["posture"].get("flags_apply", False),
+                          "write": s["posture"]["write"],
+                          "transport": s["posture"]["transport"],
+                          "data": s["posture"]["data"],
+                          "sql": s["posture"]["sql"],
+                          "git": s["posture"]["git"]}
+                         if s.get("posture") else None)}
             for s in sorted(servers.values(), key=lambda x: x["namespace"])
         ],
         "path": decision["path"],
         "warnings": decision["warnings"],
+        "write_conflicts": decision["write_conflicts"],
     }
 
     if args.json:
@@ -213,12 +373,24 @@ def main():
             print(f"ADT    {s['namespace']:<22} {s['engine']:<6} client {s['client'] or '?':<3} "
                   f"{s['role']:<7} {write:<9} {s['tools']:>3} tools")
             print(f"CAPS   {' '.join(s['caps'])}")
+            p = s.get("posture")
+            if p and p["known"] and p.get("flags_apply"):
+                flags = " ".join(
+                    f"{key}={str(p[key]).lower() if isinstance(p[key], bool) else p[key]}"
+                    for key in ("transport", "data", "sql", "git"))
+                print(f"POST   profile {p['profile']} {p['system'] or '?'}/{p['client'] or '?'} "
+                      f"pkgs {p['packages'] or '?'} {flags}")
+            elif p and p["known"]:
+                print(f"POST   profile {p['profile']} {p['system'] or '?'}/{p['client'] or '?'} "
+                      f"writes=engine-default (no -Allow* gate, no package ceiling passed)")
+            elif p is not None:
+                print("POST   unknown (not a sap-mcp.ps1 launch)")
         print(f"PATH   {result['path']}")
         for warning in result["warnings"]:
             print(f"!      {warning}")
         if missing:
             print("!      expected but not live: " + ", ".join(missing))
-    if args.check and (not result["servers"] or len(decision["writers"]) > 1 or missing):
+    if args.check and (not result["servers"] or result["write_conflicts"] or missing):
         return 1
     return 0
 

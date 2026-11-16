@@ -10,6 +10,7 @@ rot between sessions if nobody looks.
   3. the plan file is real        (exists, and no todo left blocked or open by mistake)
   4. knowledge is still confirmed (no entry older than 180 days)
   5. the program spec is usable   (front matter, FS file, REQ/AC tables, open questions)
+  6. shipped files are portable   (no path that exists only on this machine)
 
 Usage
   python scripts/closeout.py                          # newest card
@@ -47,6 +48,11 @@ SPEC_FRONT_MATTER = ("program", "spec_version", "status", "fs_file", "updated")
 REQ_STATUS = {"implemented", "pending-test", "pending", "out-of-scope"}
 
 WARN, ISSUE = "warning", "issue"
+
+# What ships to the next machine. `workspace/` is the instance and may name real
+# paths; `.git` and caches are never read.
+SHIPPED = ("config", "docs", "plugins", "registries", "scripts", "templates")
+TEXT_SUFFIX = {".md", ".py", ".ps1", ".json", ".yml", ".yaml", ".ts", ".js", ".txt", ".sh", ".xml"}
 
 
 def out(text=""):
@@ -235,6 +241,32 @@ def check_knowledge(warnings):
                          f"{ENTRY_STALE_DAYS} days; re-verify or archive: "
                          + "; ".join(stale[:3])))
     return {"domains": len(domains), "entries": entries, "stale": len(stale)}
+
+
+def check_portability(findings):
+    """A shipped file that names this machine breaks the install on the next one.
+
+    Keyed to this machine on purpose: the leak is only visible here, and a frozen drive
+    letter stays invisible until the repo is cloned somewhere else. Repo-relative paths
+    and `~` are the portable forms.
+    """
+    needles = (str(REPO).lower(), str(Path.home()).lower())
+    hits = []
+    paths = list(REPO.glob("*")) + [p for d in SHIPPED for p in (REPO / d).rglob("*")]
+    for path in paths:
+        if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIX:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace").lower()
+        except OSError:
+            continue
+        if any(n in text for n in needles):
+            hits.append(path.relative_to(REPO).as_posix())
+    if hits:
+        findings.append((ISSUE, "portable",
+                         f"{len(hits)} shipped file(s) name this machine: "
+                         + ", ".join(sorted(hits)[:4])
+                         + " - use a repo-relative path or ~"))
 
 
 def all_tables(text):
@@ -438,6 +470,7 @@ def main():
                          f"{len(mirror['drift'])} spec file(s) differ from the mirror; run "
                          "python scripts/specs_sync.py --write"))
     knowledge = check_knowledge(warnings)
+    check_portability(findings)
 
     name = "no card"
     if card:

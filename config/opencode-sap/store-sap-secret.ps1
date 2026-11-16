@@ -1,8 +1,8 @@
 # store-sap-secret.ps1 - store / list / remove the SAP password for a profile.
 #
-#   .\store-sap-secret.ps1 -Profile luf-ds4-100     # store or update
+#   .\store-sap-secret.ps1 -Profile example-100     # store or update
 #   .\store-sap-secret.ps1 -List                    # profiles that have a secret
-#   .\store-sap-secret.ps1 -Profile luf-ds4-100 -Remove
+#   .\store-sap-secret.ps1 -Profile example-100 -Remove
 #
 # The password goes to Windows Credential Manager (DPAPI) under
 #   sap-mcp:<profile>

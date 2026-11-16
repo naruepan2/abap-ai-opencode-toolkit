@@ -141,10 +141,19 @@ warns when the newest changelog row is behind `implemented_version`.
 
 | File | Purpose |
 |---|---|
-| `sap-mcp.ps1` | `-Profile <name> -Engine ai-dev\|arc1`, `-AllowWrites`, `-DryRun`, `-PromptTest` |
+| `sap-mcp.ps1` | `-Profile <name> -Engine ai-dev\|arc1`, `-AllowWrites`, `-AllowDataPreview`, `-AllowFreeSql`, `-AllowTransportWrites -AllowedTransports <list>`, `-AllowGitWrites`, `-DryRun`, `-PromptTest` |
 | `sap-cred.ps1` | Credential Manager (`CredRead`/`CredWrite`) plus the native sign-in dialog |
 | `store-sap-secret.ps1` | store / list / remove a password for a profile |
 | `profiles.example.json` | the shape of a profile: URL, client, user, system, CA, package allowlist |
+
+Every `-Allow*` defaults to off, matching the engine's own "blocked by default" table.
+Transport and Git writes are refused without `-AllowWrites`, and transport writes
+without `-AllowedTransports` warn loudly: transport **release has no package check**, so
+an empty list means every transport in the system.
+
+Running more than one engine? `docs/mcp-capability-matrix.md` says which engine can do
+which job; `docs/mcp-orchestration.md` says what is safe when two run at once, how
+posture is armed, and why the rule is "one object, one writer".
 
 The password is resolved in this order: `SAP_PASSWORD` in the process environment →
 Windows Credential Manager (`sap-mcp:<profile>`) → the native Windows sign-in

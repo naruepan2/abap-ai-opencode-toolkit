@@ -32,8 +32,12 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   `scripts/specs_sync.py --write` mirrors spec + changelog into `workspace/specs/` -
   never the FS.
 - Before the first ADT call, run `python scripts/tools_now.py`; it prints the live
-  path. One writer per task; if both `ai-dev-*` and `arc1-*` are connected and the
-  task writes, ask the user which one to keep.
+  servers and the posture each launcher armed (writes, transport, data, sql, package
+  ceiling). Any number of readers may share an object, but **one object has one writer
+  per session**: a second engine writes it only after the first is done and the object
+  is re-read. Concurrent writes collide on the ADT lock (423); sequential ones lose an
+  update silently. Name the engine and tool behind every fact; two engines that
+  disagree are reading different versions. Details: `docs/mcp-orchestration.md`.
 - SAP secrets: env -> Windows Credential Manager (`store-sap-secret.ps1`) -> dialog;
   never in `opencode.json`. A 401 means re-store, not retry.
 
@@ -75,6 +79,9 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   personal skills may be edited, and only after approval.
 - Keep Copilot and OpenCode separate: this repository is the OpenCode side.
 - Never commit credentials or customer data.
+- Never commit a path that exists only on this machine (`C:\...`, `D:\...`). Shipped
+  files use repo-relative paths or `~`, because the repository is also the installer for
+  the next machine; `closeout.py` reports a leak as an issue.
 - Prefer evidence over guesses: if something is unknown, say so and propose a
   read-only check.
 - Before a significant write or a transport, run

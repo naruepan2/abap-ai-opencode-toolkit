@@ -7,8 +7,9 @@
 ## Digest
 
 - Read source through the SAP MCP, not a console dump (encoding).
-- One writer per task: a second write path is a second set of credentials.
-- Run `scripts/tools_now.py` before the first SAP call; it names the live path.
+- One object, one writer per session: readers may overlap, writers may not.
+- Run `scripts/tools_now.py` before the first SAP call; it names the live servers and
+  the posture each launcher armed.
 
 ## Tasks
 

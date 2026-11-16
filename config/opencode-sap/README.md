@@ -28,9 +28,9 @@ the legacy `mcp.<name>` shape accepts only an integer `timeout` inside an entry,
 an object there makes the entry disappear.
 
 ```powershell
-~\.config\opencode\sap\store-sap-secret.ps1 -Profile luf-ds4-100
+~\.config\opencode\sap\store-sap-secret.ps1 -Profile example-100
 ~\.config\opencode\sap\store-sap-secret.ps1 -List
-~\.config\opencode\sap\store-sap-secret.ps1 -Profile luf-ds4-100 -Remove
+~\.config\opencode\sap\store-sap-secret.ps1 -Profile example-100 -Remove
 ```
 
 After an SAP password change: re-store, then restart the MCP server (toggle the

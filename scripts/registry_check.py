@@ -52,6 +52,12 @@ PERSONAL_DESC_BUDGET = 500
 PROMPT_SKILL_BUDGET = 20000
 PROMPT_TOOL_BUDGET = 28000
 
+# A newly created personal skill keeps its natural name; the `-by-pongg` suffix is
+# the convention for wrappers around a vendor file. Listing the new ones here is what
+# keeps them editable — otherwise the scan marks the folder's skills as vendor and the
+# "never edit a vendor file" rule then blocks the very skill we own.
+PERSONAL_SKILLS = {"auditor"}
+
 SKILL_ROOTS = [
     ("opencode", HOME / ".config" / "opencode" / "skills"),
     ("agents", HOME / ".agents" / "skills"),
@@ -178,7 +184,11 @@ def scan_skills():
                     "id": sid,
                     "harness": harness,
                     "path": disp(path),
-                    "owner": "Pongg" if "by-pongg" in sid.lower() or "by-pongg" in str(path).lower() else "vendor",
+                    "owner": "Pongg"
+                    if sid.lower() in PERSONAL_SKILLS
+                    or "by-pongg" in sid.lower()
+                    or "by-pongg" in str(path).lower()
+                    else "vendor",
                     "hash": sha256_file(path),
                     "desc_chars": len(desc),
                     "description": desc[:300],

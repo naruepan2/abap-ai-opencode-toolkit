@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.7.2 — 2026-11-16
+
+**Several SAP engines can run at once — now with the rules written down.**
+
+- `scripts/tools_now.py` reads the launcher command from the OpenCode MCP config, joins
+  it to the SAP profile, and prints the armed posture per server (`writes`,
+  `transport`, `data`, `sql`, `git`, package ceiling). A live tool list no longer has to
+  be mistaken for permission. `--check` fails when two write-armed servers share one
+  system/client; a server the script cannot read is reported as `POST unknown` instead
+  of being assumed read-only.
+- `sap-mcp.ps1` gains `-AllowTransportWrites`, `-AllowDataPreview`, `-AllowFreeSql`,
+  `-AllowGitWrites` and `-AllowedTransports`. All default to off; transport and Git
+  writes are refused without `-AllowWrites`, and transport writes without a whitelist
+  warn that release has no package check.
+- `docs/mcp-orchestration.md` — what actually happens when two servers run together
+  (ETag revalidation makes cross-engine reads trustworthy; the ADT lock serialises
+  concurrent writes; sequential read-modify-write silently loses an update), the
+  ai-dev/arc-1 coverage split, the three enforcement layers, and the posture table.
+- The workspace rule changes from "one writer per task" to **"one object, one writer,
+  one session"** — the old wording was too strict about idle servers and too vague
+  about the failure it was preventing.
+- Example profile names in `config/opencode-sap/` are now placeholders
+  (`example-100`), so a local profile name cannot leak into a push.
+- New personal skill `auditor` — one pass in three blocks: **audit** (every claim
+  against tier 1-2 evidence, `path:line`, ✅/⚠️/❌/🕰/❓), **mentor** (numbered fixes,
+  each with a why), **commentator** (≤3 `trigger → consequence → guard` risks), plus a
+  coverage line that names what was *not* read. It delegates lint and transport gates to
+  the existing skills instead of re-implementing them; `registry_check.py` lists the
+  name in `PERSONAL_SKILLS` so the scanner does not file it under vendor.
+
 ## v0.7.1 — 2026-11-15
 
 **A fresh install starts clean.**
@@ -181,7 +211,7 @@ Detailed entries below: v0.6.2 → v0.5.20.
 
 - `skills/sap-engineering/sap-adt-cli` → `skills-parked/` (48 parked now). Catalog
   31 → 30 skills, prompt 36.0k → 35.9k.
-- Removed the orphaned `~/.sap-adt-cli` profile (`luf-ds4-dev`, `allow_write: true`)
+- Removed the orphaned `~/.sap-adt-cli` profile (`dev`, `allow_write: true`)
   and the Windows credential target `sap-adt-cli`; the binary was already gone, so
   the profile was a pre-authorized write path with no owner.
 - Added a `tooling` knowledge entry: ADT via MCP `ds4-100` / `ds4-900`; the CLI is a

@@ -1,4 +1,4 @@
-﻿# sap-mcp.ps1 - one launcher for the ADT MCP engines, one connection profile.
+# sap-mcp.ps1 - one launcher for the ADT MCP engines, one connection profile.
 #
 # The MCP entry chooses the engine; the profile holds URL/user/client/CA once.
 # Nothing credential-like is written to disk: the password comes from SAP_PASSWORD,
@@ -7,14 +7,24 @@
 # credential named sap-mcp:<profile>.
 #
 #   powershell -NoProfile -ExecutionPolicy Bypass -File sap-mcp.ps1 `
-#       -Profile luf-ds4-100 -Engine ai-dev
-#   ... -Engine arc1 -AllowWrites        # ARC-1 writes, use one writer per task
+#       -Profile example-100 -Engine ai-dev
+#   ... -Engine arc1 -AllowWrites        # ARC-1 writes, one engine per object
+#   ... -Engine arc1 -AllowWrites -AllowDataPreview -AllowFreeSql
+#   ... -Engine arc1 -AllowWrites -AllowTransportWrites -AllowedTransports DEVK900123,DEVK900124
 #   ... -DryRun                          # print the resolved settings to stderr
 #
+# Every -Allow* default is false, matching ARC-1's own "blocked by default" table.
+# Transport and Git writes are refused unless -AllowWrites is also given, because
+# ARC-1 gates them on allowWrites too; failing here beats a silent no-op in SAP.
 param(
     [Parameter(Mandatory = $true)][string]$Profile,
     [Parameter(Mandatory = $true)][ValidateSet('ai-dev', 'arc1')][string]$Engine,
     [switch]$AllowWrites,
+    [switch]$AllowTransportWrites,
+    [switch]$AllowDataPreview,
+    [switch]$AllowFreeSql,
+    [switch]$AllowGitWrites,
+    [string]$AllowedTransports = '',
     [switch]$DryRun,
     [switch]$PromptTest
 )
@@ -157,15 +167,29 @@ if ($AllowWrites) {
     $env:SAP_ALLOW_WRITES = 'true'
 } else {
     $env:SAP_ALLOW_WRITES = 'false'
+    if ($AllowTransportWrites -or $AllowGitWrites) {
+        [Console]::Error.WriteLine('-AllowTransportWrites/-AllowGitWrites need -AllowWrites; ARC-1 gates them on SAP_ALLOW_WRITES. Nothing started.')
+        exit 1
+    }
 }
-$env:SAP_ALLOW_TRANSPORT_WRITES = 'false'
-$env:SAP_ALLOW_DATA_PREVIEW = 'false'
-$env:SAP_ALLOW_FREE_SQL = 'false'
-$env:SAP_ALLOW_GIT_WRITES = 'false'
+if ($AllowTransportWrites) {
+    if (-not $AllowedTransports) {
+        [Console]::Error.WriteLine('warning: transport writes are on and no -AllowedTransports were given; every transport in the system becomes releasable/deletable. Release has no package check.')
+    } else {
+        $env:SAP_ALLOWED_TRANSPORTS = $AllowedTransports
+    }
+    $env:SAP_ALLOW_TRANSPORT_WRITES = 'true'
+} else {
+    $env:SAP_ALLOW_TRANSPORT_WRITES = 'false'
+    Remove-Item Env:SAP_ALLOWED_TRANSPORTS -ErrorAction SilentlyContinue
+}
+if ($AllowDataPreview) { $env:SAP_ALLOW_DATA_PREVIEW = 'true' } else { $env:SAP_ALLOW_DATA_PREVIEW = 'false' }
+if ($AllowFreeSql) { $env:SAP_ALLOW_FREE_SQL = 'true' } else { $env:SAP_ALLOW_FREE_SQL = 'false' }
+if ($AllowGitWrites) { $env:SAP_ALLOW_GIT_WRITES = 'true' } else { $env:SAP_ALLOW_GIT_WRITES = 'false' }
 $env:ARC1_TOOL_MODE = 'standard'
 
 if ($DryRun) {
-    [Console]::Error.WriteLine("profile=$Profile engine=$Engine url=$($p.url) client=$($p.client) user=$($p.user) password=$passwordSource writes=$($env:SAP_ALLOW_WRITES) packages=$($env:SAP_ALLOWED_PACKAGES)")
+    [Console]::Error.WriteLine("profile=$Profile engine=$Engine url=$($p.url) client=$($p.client) user=$($p.user) password=$passwordSource writes=$($env:SAP_ALLOW_WRITES) transport=$($env:SAP_ALLOW_TRANSPORT_WRITES) data=$($env:SAP_ALLOW_DATA_PREVIEW) sql=$($env:SAP_ALLOW_FREE_SQL) git=$($env:SAP_ALLOW_GIT_WRITES) packages=$($env:SAP_ALLOWED_PACKAGES) transports=$($env:SAP_ALLOWED_TRANSPORTS)")
     exit 0
 }
 
