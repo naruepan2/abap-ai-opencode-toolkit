@@ -42,6 +42,19 @@ function Show-SapPrompt {
     return $result[1]
 }
 
+function Resolve-SapCli {
+    param([string]$Name)
+    # FIX: PATH first. The old hard-coded %APPDATA%\npm\arc1.cmd broke a custom npm prefix.
+    $found = Get-Command $Name -CommandType Application -ErrorAction SilentlyContinue |
+             Select-Object -First 1
+    if ($found) { return $found.Source }
+    if ($env:APPDATA) {
+        $fallback = Join-Path (Join-Path $env:APPDATA 'npm') $Name
+        if (Test-Path $fallback) { return $fallback }
+    }
+    return ''
+}
+
 $profilesPath = Join-Path $PSScriptRoot 'profiles.json'
 if (-not (Test-Path $profilesPath)) {
     [Console]::Error.WriteLine("profiles.json not found next to sap-mcp.ps1")
@@ -158,7 +171,12 @@ if ($Engine -eq 'ai-dev') {
         [Console]::Error.WriteLine("profile=$Profile engine=$Engine url=$($p.url) client=$($p.client) user=$($p.user) destination=$($p.destination) password=$passwordSource writes=env-managed")
         exit 0
     }
-    & 'sap-ai-dev.cmd'
+    $cli = Resolve-SapCli 'sap-ai-dev.cmd'
+    if (-not $cli) {
+        [Console]::Error.WriteLine('sap-ai-dev.cmd not on PATH or in %APPDATA%\npm; install sap-ai-dev-toolkit globally. Nothing started.')
+        exit 1
+    }
+    & $cli
     exit $LASTEXITCODE
 }
 
@@ -193,6 +211,11 @@ if ($DryRun) {
     exit 0
 }
 
-& "$env:APPDATA\npm\arc1.cmd"
+$cli = Resolve-SapCli 'arc1.cmd'
+if (-not $cli) {
+    [Console]::Error.WriteLine('arc1.cmd not on PATH or in %APPDATA%\npm; run npm install -g arc-1. Nothing started.')
+    exit 1
+}
+& $cli
 exit $LASTEXITCODE
 
