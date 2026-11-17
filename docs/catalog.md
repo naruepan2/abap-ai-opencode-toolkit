@@ -80,3 +80,24 @@ Eight small files; names state the job. No subfolders — one import path
 - No credentials, tokens, or customer identifiers in shipped files.
 - Vendor agents and skills are read-only; personal work uses plain names listed
   in `PERSONAL_SKILLS`.
+
+## Deferred — proposed, not executed
+
+These ideas were reviewed on 2026-11-17. None is approved. Do not act on them
+without a new decision. This section exists so the next session can reference
+the reasoning instead of re-deriving it.
+
+1. Split `registries/README.md` into **Baseline (committed)** and **Live snapshot
+   (generated, git-ignored)**. Status: **done** in the same change that added
+   this catalog. No file moved.
+2. Move `docs/plan-fr0ster-evaluation.md` and `docs/plan-mcp-pins.md` into
+   `docs/plans/`. Cost: one `git mv` plus five reference edits (repo skill, live
+   skill, two plan self-references, `workspace/memory/knowledge/tooling.md`).
+   Status: **not done** — user chose to keep paths stable for now.
+3. Physically split `registries/` into `baseline/` and `live/`. Cost: ~8 edits in
+   `registry_check.py`, 3 in `tools_now.py`, ~6 in the snapshot plugin plus a
+   `mkdir`, `.gitignore`, several docs, and a daemon restart. Benefit: cosmetic.
+   Status: **not done** — rejected for now.
+
+`config/`, `scripts/`, `templates/`, `plugins/` and `workspace/` need no move:
+each already separates by owner or generator.
