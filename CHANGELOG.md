@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.7.3 — 2026-11-17
+
+**Clean-up after v0.7.2: an MCP upgrade skill, a repository catalog, and a parked pin plan.**
+
+- `sap-support-case` parked from the live skills folder; the baseline was refreshed.
+  The skill catalog is back inside its 20k budget (19.4k across 31 OpenCode skills).
+- New personal skill `sap-mcp-upgrade` — probe upstream, bump one version token after
+  approval, verify the live process and package metadata, then restore `enabled:false`.
+- `docs/catalog.md` maps every top-level folder by owner and committed/generated state.
+  `registries/README.md` separates the committed baseline from git-ignored live
+  snapshots. No file moved, so no consumer changed.
+- `docs/plan-mcp-pins.md` parks the plan for one manifest plus a check/write script
+  for MCP versions. Not approved to execute; reference only.
+- Deferred folder moves (plans into `docs/plans/`, registries into `baseline/` +
+  `live/`) are recorded in `docs/catalog.md` with their cost. Not done — paths stay
+  stable. `config`, `scripts`, `templates`, `plugins`, `workspace` untouched.
+- `sap-gui` is pinned to `0.6.1` and back to `enabled:false` after verification.
+  Measured numbers in `README.md` updated to the 2026-11-17 snapshot: 115 skills,
+  270 tools, 58.3k chars per session.
+
 ## v0.7.2 — 2026-11-17
 
 **Several SAP engines can run at once — now with the rules written down.**
