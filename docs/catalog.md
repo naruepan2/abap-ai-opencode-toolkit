@@ -128,6 +128,11 @@ Gates:
   `project.yaml`: if it is `$TMP` only, do not ask for a TR number at all. Otherwise
   ask whether a TR exists and accept "not yet" — never invent one. Record the answer
   in `program.yaml` `transport:` and the program `AGENTS.md` §Deploy.
+- If `allowed_packages` is missing or empty (an older scaffold), ask the user for it
+  with one `question` call and use the answer for this program only. Do **not** edit
+  the project's `project.yaml` — that belongs to `sap-project-register`. Record the
+  answered value and its source ("user supplied at program registration") in
+  `reports/DECISIONS.md`.
 - `memory_check.py` checks every card stem under `memory/projects/<project>/*.md`
   against `INDEX.md`. A program card without its own INDEX row is a warning, so
   keep the two INDEX writes strictly per-owner.

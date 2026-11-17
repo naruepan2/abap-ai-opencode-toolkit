@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T10:08:56+00:00",
+  "generated_at": "2026-11-17T10:15:25+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -336,7 +336,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-program-register\\SKILL.md",
       "owner": "Pongg",
-      "hash": "b33da1c0014db21c301d1b69202c5f39044297fb613db9596a3e71baef2745bf",
+      "hash": "68441168deec0d86ab121e98d6f1ef4d4b7f98b7b13c5b9c0fc84bdc70063612",
       "desc_chars": 265,
       "description": "Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for \"register new program\", \"new program folder\", \"new Z program\". Asks for every unknown; never creates a project, deploys, or connects to SAP.",
       "status": "new",

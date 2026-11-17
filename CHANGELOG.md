@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-11-17
+
+- `sap-program-register` handles an older project scaffold whose `project.yaml` has
+  no `allowed_packages`: it asks the user once, uses the answer for this program
+  only, and records the source in DECISIONS — it never edits the project manifest.
+  Found in a no-write re-test of the registration dialogue.
+
 ## v0.7.5 — 2026-11-17
 
 **Registration reads before it asks; the engine baseline is current again.**

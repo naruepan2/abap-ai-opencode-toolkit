@@ -40,6 +40,11 @@ exist" and never invent a package or TR.
 
 Read `allowed_packages` from the project's `project.yaml`.
 
+- If the field is **missing or empty** (older scaffold): ask the user once with the
+  `question` tool — "ใช้ package อะไร? ($TMP / ระบุ package ที่ transport ได้ / ไม่แน่ใจ)"
+  — and use the answer for this program only. Do **not** edit the project's
+  `project.yaml`; that belongs to `sap-project-register`. Record the value and its
+  source in `reports/DECISIONS.md` (e.g. `D-02`).
 - If the lookup already returned a package and a TR, reuse them — ask only for
   what is still missing.
 - If it is `$TMP` only: do **not** ask about a TR. Set `transport: none` and note in
