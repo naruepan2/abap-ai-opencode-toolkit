@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-17
+## v0.7.4 — 2026-11-17
 
 - Split `sap-project-register` into two skills with one shared contract in
   `docs/catalog.md`: `sap-project-register` owns the project folder, manifests,
@@ -21,6 +21,8 @@
   otherwise it offers "TR / not yet / $TMP" and never invents a number.
 - Owner is no longer a registration input: removed from both skills, the project
   manifest, and the `spec.md` front-matter template.
+
+## v0.7.3 — 2026-11-17
 
 **Clean-up after v0.7.2: an MCP upgrade skill, a repository catalog, and a parked pin plan.**
 
