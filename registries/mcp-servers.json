@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T08:56:11+00:00",
+  "generated_at": "2026-11-17T10:08:56+00:00",
   "servers": [
     {
       "server": "browse",
@@ -93,6 +93,24 @@
     },
     {
       "server": "arc1-gsd-110",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": false,
+      "command_kind": "powershell",
+      "url_host": ""
+    },
+    {
+      "server": "ai-dev-sus-100",
+      "harness": "opencode",
+      "source": "opencode.json",
+      "type": "local",
+      "enabled": false,
+      "command_kind": "powershell",
+      "url_host": ""
+    },
+    {
+      "server": "arc1-sus-100",
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
