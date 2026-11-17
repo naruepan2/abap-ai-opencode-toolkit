@@ -99,12 +99,16 @@ Question mode — how both skills must ask:
 Gates:
 
 - `sap-project-register` owns the project folder, `project.yaml`, project README/
-  AGENTS, `_archive`/`_sandbox`, portfolio `INDEX.md`, and optional disabled MCP
-  profile. It never creates a program folder.
+  AGENTS, `_archive`/`_sandbox`, the **project row** in portfolio `INDEX.md`, and
+  optional disabled MCP profile. It never creates a program folder.
 - `sap-program-register` requires the project folder to exist. It owns the program
   folder, `program.yaml`, `spec.md`, `CHANGELOG.md`, `spec/source/`,
-  `reports/DECISIONS.md`, and the memory card. It never touches `INDEX.md` or
-  MCP config.
+  `reports/DECISIONS.md`, the memory card, the **program row** in portfolio
+  `INDEX.md`, and the entry in the project `README.md` §Programs. It never touches
+  MCP config or another program's row.
+- `memory_check.py` checks every card stem under `memory/projects/<project>/*.md`
+  against `INDEX.md`. A program card without its own INDEX row is a warning, so
+  keep the two INDEX writes strictly per-owner.
 - No FS → draft spec using the `HCL_INTERFACE_QA32` pattern; open questions are
   the scope. With FS → copy to `spec/source/` as immutable; a new FS is a new file
   plus a new `fs_version`.

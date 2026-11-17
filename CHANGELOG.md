@@ -11,8 +11,10 @@
   the `question` tool, known values reused instead of re-asked, each answer
   validated before the next, batch only on request. Based on a live test where the
   AI posted a 12-field form and re-asked the client and user it already knew.
-
-## v0.7.3 — 2026-11-17
+- `sap-program-register` scaffold now satisfies the checks it runs: it writes the
+  program's own INDEX row and project README entry, marks no-FS REQ rows `none`,
+  uses `spec_version: 0.1` for a draft, pins the FS version to the file-name token,
+  and names the memory card so closeout can resolve the spec path.
 
 **Clean-up after v0.7.2: an MCP upgrade skill, a repository catalog, and a parked pin plan.**
 
