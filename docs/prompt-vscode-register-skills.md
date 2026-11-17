@@ -68,14 +68,27 @@ only; asks for every unknown; never deploys or connects to SAP.
 - **Resolve the target project before any program work.** A program belongs to a
   project; never assume which one. `sap-program-register` must confirm the target
   project with the user (see Step 4) before asking any other input or calling SAP.
+- **Normalise codes; do not trust the user's casing.** The user may type `luf` or
+  `LuF` when the project is `LUF`. Treat codes as case-insensitive when matching
+  and resolve them to the canonical casing from `INDEX.md` / the folder on disk.
+  Write the canonical form — see Step 3 and Step 4. Never create a second folder
+  just because the casing differed (`LUF` vs `LuF`).
 
 ### Step 3 — `sap-project-register` behaviour
 
-Ask at invocation (skip anything already known): project code (short uppercase),
-SID/description, ADT URL, SAP Logon destination, SAP user, language, TLS CA path,
-allowed packages, test client, and explicit permission to write outside the
-current project. **Do not ask for a transport and do not ask for an owner** — no
-program or SAP object exists yet.
+Ask at invocation (skip anything already known): project code, SID/description,
+ADT URL, SAP Logon destination, SAP user, language, TLS CA path, allowed packages,
+test client, and explicit permission to write outside the current project. **Do
+not ask for a transport and do not ask for an owner** — no program or SAP object
+exists yet.
+
+**Canonical casing:** if the user typed `luf` / `LuF` and a matching project
+already exists, use its on-disk casing (`LUF`) — do not create a duplicate. For a
+new project, uppercase the code (`LUF`) before writing folder, `INDEX.md`, and
+`project.yaml`. The memory card is the one exception: its file name is lowercase
+(`luf.md`) because `closeout.py` uppercases the card stem to find the program
+folder, while the checks compare codes case-insensitively. If the user's code is
+ambiguous after normalising (two folders differ only by case), stop and ask.
 
 Create `Projects/<PROJECT>/` only if absent:
 
@@ -116,15 +129,19 @@ This skill can be invoked on its own; a program cannot exist without a project,
 and guessing one would write the scaffold into the wrong place.
 
 - If the project code is already known from this session or the user's request,
-  restate it and ask the user to confirm it.
+  normalise it against the project list (case-insensitive) and restate the
+  **canonical** form for the user to confirm. `luf` / `LuF` must resolve to `LUF`.
 - If it is **not known**, ask the user: "จะ register program นี้ภายใต้ project ไหนครับ?"
   Do not infer it from the object name, a recent conversation, or a folder listing.
 - If more than one project exists, list the project codes found under `Projects/`
   (read the portfolio `INDEX.md`, do not scan recursively) and let the user pick.
 - If the chosen project folder does **not** exist, stop and tell the user to run
   `sap-project-register` first. Do not create the project from this skill.
-- Once confirmed, read that project's `project.yaml` for `system`, `code_client`,
-  `allowed_packages` and `transport`; use these as the source of truth.
+- Once confirmed, use the on-disk casing of the project folder (never the raw text
+  the user typed). Read that project's `project.yaml` for `system`, `code_client`,
+  `allowed_packages` and `transport`; use these as the source of truth. Create
+  folders and write `INDEX.md` / manifests with the canonical uppercase code; the
+  memory card file stays lowercase.
 
 Then ask (skip known values): program name (SAP object name), one-line purpose,
 FS path or explicit "none", and explicit permission to write outside the current
