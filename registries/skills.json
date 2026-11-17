@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T17:35:53+00:00",
+  "generated_at": "2026-11-17T19:37:21+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -864,7 +864,7 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\capture-lesson\\SKILL.md",
       "owner": "vendor",
-      "hash": "fc10130402d05575b2e355b78e1ee1b6fd7ea00adf1361078f73d9aef1c63a82",
+      "hash": "8d4be91c232a9053d24dd738cca1dc0ca70fb117f1d76614ed894800437d0782",
       "desc_chars": 491,
       "description": "Turn a session finding into a durable artifact by choosing the right destination, showing the exact diff, and waiting for approval. Use when a session revealed something worth keeping — a tool or server behaviour, an environment gotcha, a correction the user made, a preference, or a procedure worth ",
       "status": "new",
@@ -897,9 +897,9 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\long-task-control\\SKILL.md",
       "owner": "vendor",
-      "hash": "47f0445ae1f31dc15e43ea947bdbee989c3ded687cd9fa771081d962f04323c5",
-      "desc_chars": 315,
-      "description": "Run, checkpoint and stop a task that outlives one request: the stop condition, the handoff when stopping early, and why evidence expires. Use when work spans multiple objects or requests, near a request or context limit, when resuming a previous session, or asked \"what is left\". Not for work that fi",
+      "hash": "0e5b76b3c56a7d79f7ebcabaae44ef9a6b7a54aed97115655f1d0268582f440b",
+      "desc_chars": 316,
+      "description": "Run, checkpoint and stop a task that outlives one request - the stop condition, the handoff when stopping early, and why evidence expires. Use when work spans multiple objects or requests, near a request or context limit, when resuming a previous session, or asked \"what is left\". Not for work that f",
       "status": "new",
       "last_validated": null
     },
@@ -913,17 +913,6 @@
       "description": "Rebuild the real SAP/ABAP MCP tool surface from live config and extension manifests, then fix routing drift. Use when a new MCP server or ABAP extension is installed, when the agent picks the wrong server for a task, when a tool name referenced by an agent or skill no longer resolves, or when asked ",
       "status": "active",
       "last_validated": "2026-11-13"
-    },
-    {
-      "id": "new-program",
-      "harness": "copilot",
-      "path": "~\\.copilot\\skills\\new-program\\SKILL.md",
-      "owner": "vendor",
-      "hash": "eadd65b950f1e8b382dc11b7e5545b22bb4a680543733485ad2bf8acf0d24be0",
-      "desc_chars": 476,
-      "description": "Scaffold the local record for a new SAP project or a new program inside an existing project — project.yaml, README, program.yaml, spec index — without guessing a SID, client, or transport. Use when asked to \"start a new project\", \"new program\", \"add a program to this project\", \"สร้างโปรแกรมใหม่\", \"เ",
-      "status": "new",
-      "last_validated": null
     },
     {
       "id": "rap-development",
@@ -941,9 +930,9 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\rap-lifecycle\\SKILL.md",
       "owner": "vendor",
-      "hash": "005e3ab5cc8ee674867fc382aac60419cd5e47bdc4380c1e1311550d95999836",
-      "desc_chars": 392,
-      "description": "The ordered create-and-publish chain for a RAP business object: which server owns each step, and the checks that stop a half-published service. Use when building a RAP stack, adding a layer (table, CDS entity, projection, behavior definition, service definition, service binding), or publishing an OD",
+      "hash": "1160f570011a87717a0f903cb2bb22d20fc49040a13b05d514bac52cee70c36a",
+      "desc_chars": 393,
+      "description": "The ordered create-and-publish chain for a RAP business object - which server owns each step, and the checks that stop a half-published service. Use when building a RAP stack, adding a layer (table, CDS entity, projection, behavior definition, service definition, service binding), or publishing an O",
       "status": "new",
       "last_validated": null
     },
@@ -966,6 +955,39 @@
       "hash": "4d772fe4169c25976a4ed48fb8631477b19042935bb13d36c76f125863f982db",
       "desc_chars": 475,
       "description": "Set up and recover external ABAP debugging on an SAP system with the ADAM MCP server (abap_debug / abap_debug_session / abap_breakpoints / abap_source). Use when an ABAP debug session will not arm, reports a listener conflict or \"another session has global debugging scope\", stops only in the SAP GUI",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-new-program",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-new-program\\SKILL.md",
+      "owner": "vendor",
+      "hash": "b3ea149ed9312dc19e852052b10bce7bf37708ab5e89d760998469b1dc5444d9",
+      "desc_chars": 360,
+      "description": "Scaffold one program record under Projects/<PROJECT>/<PROGRAM>/ - program.yaml, README, changes.md and spec wiring. Use for \"register new program\", \"new Z program\", \"เพิ่มโปรแกรมใหม่\", \"เริ่มโปรแกรมใหม่\". Requires the project record to exist. Asks for every unknown, never guesses a SID, client, tran",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-new-project",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-new-project\\SKILL.md",
+      "owner": "vendor",
+      "hash": "abd9ac0a6a1bdc183479f1007dae3688c993982b945077a1809c387e46398262",
+      "desc_chars": 301,
+      "description": "Scaffold one project record under Projects/<PROJECT>/ - project.yaml and README only. Use for \"register new project\", \"onboard project\", \"เพิ่มโปรเจคใหม่\". Asks for every unknown, never guesses a SID or client, never creates a program, never connects to SAP, never edits mcp.json or reads credentials",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-new-record",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-new-record\\SKILL.md",
+      "owner": "vendor",
+      "hash": "2b6cab294a8eba6334a2bedd2a9ce79d402864db84deff31434687e161673b19",
+      "desc_chars": 403,
+      "description": "Decide which local record is needed before scaffolding SAP work, then hand off to the matching skill. Use when asked to \"start a new project\", \"new program\", \"add a program to this project\", \"set up the record\", \"สร้างโปรเจคใหม่\", \"เริ่มโปรแกรมใหม่\", or when an object is being worked on and has no r",
       "status": "new",
       "last_validated": null
     },
