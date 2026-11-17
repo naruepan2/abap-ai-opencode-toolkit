@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-18
+## v0.7.8 — 2026-11-18
 
 - The committed registry baseline was refreshed to the current machine snapshot.
   No toolkit asset was added or removed.
