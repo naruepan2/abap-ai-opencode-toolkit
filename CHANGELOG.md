@@ -6,6 +6,11 @@
   `opencode.json` to `enabled:true`, store the secret, restart the daemon. The
   OpenCode UI toggle changes only the running daemon's state — it is not written
   back to the file — so enabling by toggle alone is lost on restart.
+- `sap-docs` (`mcp-sap-docs`) is now enabled and documented as the preferred source
+  for SAP documentation, released APIs and clean-core levels: `tool-map.md` routing
+  plus a working-method knowledge entry. Verified live with
+  `sap_get_object_details(CLAS, CL_ABAP_REGEX)` → level A. The registry baseline and
+  README numbers were refreshed to the 2026-11-18 snapshot (18 servers, 205 tools).
 
 ## v0.7.6 — 2026-11-17
 

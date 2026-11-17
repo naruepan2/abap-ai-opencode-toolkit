@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T10:54:12+00:00",
+  "generated_at": "2026-11-17T17:35:53+00:00",
   "servers": [
     {
       "server": "browse",
@@ -51,7 +51,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "remote",
-      "enabled": false,
+      "enabled": true,
       "command_kind": "",
       "url_host": "mcp-sap-docs.marianzeis.de"
     },
