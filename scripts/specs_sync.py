@@ -21,6 +21,7 @@ Exit codes
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -30,6 +31,25 @@ from _paths import PROJECTS, REPO, SPECS
 MIRROR = SPECS
 MANIFEST = MIRROR / "manifest.json"
 STATIC = {"README.md"}
+
+# Refuse to mirror a credential-shaped value: a private mirror is one visibility
+# change away from public and git history cannot be taken back. The assignment form
+# needs a real value, so prose like "never store SAP_PASSWORD in config" is safe.
+CREDENTIAL_SHAPE = re.compile(
+    r"(?im)^\s*(?:SAP_PASSWORD|PASSWORD|PASSWD|PWD|TOKEN|API[_-]?KEY|SECRET|CLIENT_SECRET)"
+    r"\s*[:=]\s*(?!\s*(?:<|\"\"|''|\?|none|na|tbd|\$\{|@secret\b))\S{4,}"
+    r"|(?:ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,})"
+    r"|-----BEGIN [A-Z ]*PRIVATE KEY-----"
+    r"|Bearer\s+[A-Za-z0-9._-]{20,}"
+)
+
+
+def credential_in(path):
+    """True when a file carries a credential-shaped assignment or token."""
+    try:
+        return bool(CREDENTIAL_SHAPE.search(path.read_text(encoding="utf-8")))
+    except (OSError, UnicodeError):
+        return False
 
 
 def sha256(path):
@@ -73,11 +93,19 @@ def collect():
             files["CHANGELOG.md"] = changelog
         # spec/source (the customer FS) is deliberately NOT mirrored: it is the
         # customer's document and this repository must not carry customer data.
+        blocked = []
+        for name, path in list(files.items()):
+            if credential_in(path):
+                print(f"specs mirror: refusing {key}/{name} (credential-shaped value)",
+                      file=sys.stderr)
+                blocked.append(name)
+                del files[name]
         meta = front_matter(spec)
         found[key] = {
             "spec_version": meta.get("spec_version", "?"),
             "status": meta.get("status", "?"),
             "files": files,
+            "blocked": blocked,
         }
     return found
 
@@ -133,6 +161,10 @@ def check():
         for key in have_programs:
             if key not in wanted["programs"]:
                 drift.append((key, "-", "stale program"))
+
+    for key, entry in found.items():
+        for name in entry.get("blocked", []):
+            drift.append((key, name, "credential-shaped value; not mirrored"))
 
     return {"programs": len(found), "files": sum(len(v["files"]) for v in found.values()),
             "drift": drift, "found": found, "manifest": wanted}

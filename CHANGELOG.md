@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased — 2026-11-18
+
+- A large customer FS now gets a thin read map: `templates/spec-index.md` seeds
+  `spec/FS_INDEX.md` (topic → line ranges, ≤10-line summary, cover pages skipped).
+  The fingerprint lives once in `spec.md` front matter (`fs_lines` / `fs_bytes`);
+  `closeout.py` warns when it changes, because a new FS revision invalidates every
+  line range in the map. Tested with a temporary fixture: mismatch warns, match stays
+  silent.
+- `templates/AGENTS.md` program block now carries the rollback rule SAP cannot cover:
+  released TR → version management; open TR → copy the **active** source to
+  `.baseline/<OBJ>_<TR>.abap` before first activation, delete at release. The why
+  stays in `DECISIONS.md`, so `CHANGELOG.md` keeps its slim four columns.
+- `specs_sync.py` refuses to mirror a file carrying a credential-shaped assignment
+  or token and reports it as drift instead of silently copying it (7 regex cases
+  tested).
+
 ## v0.7.8 — 2026-11-18
 
 - The committed registry baseline was refreshed to the current machine snapshot.

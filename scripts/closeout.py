@@ -45,6 +45,8 @@ ENTRY_STALE_DAYS = 180
 SPEC_STALE_DAYS = 180
 CONTRACT = ("FS", "Change type", "Production", "Target")
 SPEC_FRONT_MATTER = ("program", "spec_version", "status", "fs_file", "updated")
+# Optional: when a program records its FS fingerprint, check it against the file.
+FS_FINGERPRINT = ("fs_lines", "fs_bytes")
 REQ_STATUS = {"implemented", "pending-test", "pending", "out-of-scope"}
 
 WARN, ISSUE = "warning", "issue"
@@ -354,6 +356,18 @@ def check_spec(findings, warnings, card):
                 warnings.append((WARN, "spec",
                                  f"fs_version {meta.get('fs_version')} does not match "
                                  f"the file name ({token.group(0)})"))
+            declared = {key: meta.get(key, "").strip() for key in FS_FINGERPRINT}
+            if any(declared.values()):
+                fs_text = read(fs_path)
+                actual = {"fs_lines": str(len(fs_text.splitlines())),
+                          "fs_bytes": str(fs_path.stat().st_size)}
+                bad = [f"{key} {declared[key]} != {actual[key]}"
+                       for key in FS_FINGERPRINT
+                       if declared[key] and declared[key] != actual[key]]
+                if bad:
+                    warnings.append((WARN, "spec",
+                                     "FS fingerprint changed (" + "; ".join(bad) +
+                                     "); rebuild the FS index before using its line ranges"))
 
     tables = all_tables(text)
     req_table = find_table(tables, "id", "fs", "status")

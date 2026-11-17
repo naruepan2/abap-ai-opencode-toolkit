@@ -56,6 +56,21 @@ The customer FS is `spec/source/<file>` (immutable). Change a `REQ`/`AC` in
 `spec.md` before changing code; a deviation needs a decision reference and the
 user's approval. `python scripts\closeout.py --project <PROJECT>/<PROGRAM>` checks
 the front matter, the FS file, and the REQ/AC tables.
+
+For a large FS keep a read map in `spec/FS_INDEX.md` (see `templates/spec-index.md`).
+Declare `fs_lines` and `fs_bytes` **only in `spec.md` front matter** — `closeout.py`
+compares them with the FS file, so the index never carries a second copy of the
+fingerprint. A change means the functional sent a new revision: rebuild the index
+before using any of its line ranges.
+
+## Rollback
+
+- TR **released**: SAP version management owns the source (`SAPRead(type="VERSIONS")`).
+- TR **still open**: SAP has no version of the pre-change source. Before the first
+  activation of an object in that TR, copy its **active** source to
+  `.baseline/<OBJ>_<TR>.abap`; delete that file when the TR is released. A saved but
+  inactive source is not a rollback. The why and the evidence stay in
+  `reports/DECISIONS.md`, not in `CHANGELOG.md`.
 ```
 
 
