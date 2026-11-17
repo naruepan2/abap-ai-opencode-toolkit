@@ -14,9 +14,11 @@ If any is missing, stop and report it.
 
 ## Ask at invocation
 
-Use the required inputs and gates in the shared contract. Ask for every blank.
-Never guess a SID, URL, destination, test client, transport, or owner.
-Get explicit permission before writing outside the current project.
+Follow "Question mode" in the shared contract: one question at a time via the
+`question` tool, restate known values first, validate each answer before the next,
+and stop on a blocker. Batch answers only if the user asks for it. Never guess a
+SID, URL, destination, test client, transport, or owner. Get explicit permission
+before writing outside the current project.
 
 ## Create — `Projects/<PROJECT>/`
 

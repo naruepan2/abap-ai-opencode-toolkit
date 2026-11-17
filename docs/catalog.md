@@ -78,6 +78,24 @@ Required inputs — a blank is a blocker, not a default:
 - Permission to create `Projects/<PROJECT>/`, edit the portfolio `INDEX.md`, and
   edit `~/.config/opencode/opencode.json` and `~/.config/opencode/sap/profiles.json`.
 
+Question mode — how both skills must ask:
+
+- **Default: sequential.** Ask one question at a time with the `question` tool,
+  using options when the answer is a choice. Never post a multi-row form and ask
+  the user to fill it in one go. Batch answers only when the user explicitly asks
+  for it (e.g. "ตอบทีเดียว" / "answer all at once").
+- **Reuse context first.** Before asking, restate what is already known — project
+  code, client, user, engines, FS status. Ask only for the missing values. Never
+  re-ask a value the user already supplied in this session.
+- **Validate each answer before the next question.** Check it against the gates
+  below (folder exists, domain resolves, permission granted, FS present/absent).
+  Stop immediately on a blocker; do not collect the rest of the form.
+- **Order by dependency.** Project code → client → profile name; FS status → FS
+  path; permission → any write outside the current program. Skip branches that do
+  not apply (e.g. no FS → no FS path question).
+- **Match the user's language.** Stay in the language the user writes in; do not
+  mix languages in one prompt.
+
 Gates:
 
 - `sap-project-register` owns the project folder, `project.yaml`, project README/

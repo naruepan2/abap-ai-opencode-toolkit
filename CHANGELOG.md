@@ -7,6 +7,10 @@
   portfolio `INDEX.md` and optional disabled MCP profile;
   `sap-program-register` owns the program folder, spec, changelog and memory card.
   Both ask for every unknown at invocation; neither deploys or connects to SAP.
+- Register skills now follow a shared "Question mode": one question at a time via
+  the `question` tool, known values reused instead of re-asked, each answer
+  validated before the next, batch only on request. Based on a live test where the
+  AI posted a 12-field form and re-asked the client and user it already knew.
 
 ## v0.7.3 — 2026-11-17
 

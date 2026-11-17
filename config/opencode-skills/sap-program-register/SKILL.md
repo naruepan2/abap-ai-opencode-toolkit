@@ -15,9 +15,11 @@ Read the shared contract in `abap-ai-opencode-toolkit/docs/catalog.md` §
 
 ## Ask at invocation
 
-Use the required inputs and gates in the shared contract. Ask for every blank.
-Never guess a program name, purpose, FS, transport, or domain set. If the project
-folder does not exist, stop and tell the user to run `sap-project-register` first.
+Follow "Question mode" in the shared contract: one question at a time via the
+`question` tool, restate known values first, validate each answer before the next,
+and stop on a blocker. Batch answers only if the user asks for it. Never guess a
+program name, purpose, FS, transport, or domain set. If the project folder does
+not exist, stop and tell the user to run `sap-project-register` first.
 
 ## Create — `Projects/<PROJECT>/<PROGRAM>/`
 
