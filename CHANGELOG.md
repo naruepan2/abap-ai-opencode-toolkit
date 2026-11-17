@@ -15,6 +15,12 @@
   program's own INDEX row and project README entry, marks no-FS REQ rows `none`,
   uses `spec_version: 0.1` for a draft, pins the FS version to the file-name token,
   and names the memory card so closeout can resolve the spec path.
+- Transport is now program-level and optional. Project registration no longer asks
+  for a TR: it writes `allowed_packages` and `transport: none` to `project.yaml`.
+  Program registration skips the TR question when `allowed_packages` is `$TMP` only;
+  otherwise it offers "TR / not yet / $TMP" and never invents a number.
+- Owner is no longer a registration input: removed from both skills, the project
+  manifest, and the `spec.md` front-matter template.
 
 **Clean-up after v0.7.2: an MCP upgrade skill, a repository catalog, and a parked pin plan.**
 

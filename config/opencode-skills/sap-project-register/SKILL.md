@@ -17,22 +17,25 @@ If any is missing, stop and report it.
 Follow "Question mode" in the shared contract: one question at a time via the
 `question` tool, restate known values first, validate each answer before the next,
 and stop on a blocker. Batch answers only if the user asks for it. Never guess a
-SID, URL, destination, test client, transport, or owner. Get explicit permission
-before writing outside the current project.
+SID, URL, destination, test client, or allowed packages. Do not ask for a TR or an
+owner: no program or SAP object exists yet, and owner is not a registration input.
+Write `transport: none`. Get explicit permission before writing outside the current
+project.
 
 ## Create — `Projects/<PROJECT>/`
 
 Only when the folder does not exist. If it exists, stop and tell the user to use
 `sap-program-register` for a program inside it.
 
-- `README.md` — System, Code client, Test client, Transport, and a Programs list
-  (empty at first). Use `Projects/README.md` §"Project README template".
+- `README.md` — System, Code client, Test client, Transport (`none`), and a Programs
+  list (empty at first). Use `Projects/README.md` §"Project README template".
 - `AGENTS.md` — scope, System table, empty Programs section, §Conventions with
   "add with date and decision; ask, do not infer", §Deploy "not yet approved",
   §Session start. Use the project-level template in
   `abap-ai-opencode-toolkit/templates/AGENTS.md`.
 - `project.yaml` — `project`, `system`, `code_client`, `test_client`,
-  `transport`, `owner`, `archive: _archive`, `sandbox: _sandbox`, `scope: project`.
+  `allowed_packages` (so the program skill can decide about a TR),
+  `transport: none`, `archive: _archive`, `sandbox: _sandbox`, `scope: project`.
 - `_archive/README.md`, `_sandbox/README.md` — one line each. No shared
   archive/sandbox under `Projects`.
 

@@ -9,7 +9,6 @@ fs_file: spec/source/<FS_FILE>.md
 fs_original_name: "<name as received>"
 scope: <the one thing this program is responsible for>
 implemented_version: <vN or ->
-owner: <name>
 updated: <YYYY-MM-DD>
 ---
 

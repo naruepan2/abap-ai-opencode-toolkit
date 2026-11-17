@@ -72,7 +72,8 @@ at invocation; neither invents a value and neither deploys or connects to SAP.
 Required inputs — a blank is a blocker, not a default:
 
 - Project: code (short uppercase), SID/description, ADT URL, SAP Logon destination,
-  SAP user, language, TLS CA path, allowed packages, test client, transport, owner.
+  SAP user, language, TLS CA path, allowed packages, test client. No TR — no
+  program or SAP object exists at project registration. No owner input.
 - Program: name (SAP object name), one-line purpose, FS path or explicit "none",
   knowledge domains, and explicit permission to write outside the current program.
 - Permission to create `Projects/<PROJECT>/`, edit the portfolio `INDEX.md`, and
@@ -98,14 +99,19 @@ Question mode — how both skills must ask:
 
 Gates:
 
-- `sap-project-register` owns the project folder, `project.yaml`, project README/
-  AGENTS, `_archive`/`_sandbox`, the **project row** in portfolio `INDEX.md`, and
-  optional disabled MCP profile. It never creates a program folder.
+- `sap-project-register` owns the project folder, `project.yaml` (including
+  `allowed_packages` and `transport: none`), project README/AGENTS, `_archive`/
+  `_sandbox`, the **project row** in portfolio `INDEX.md`, and optional disabled
+  MCP profile. It never creates a program folder or asks for a TR.
 - `sap-program-register` requires the project folder to exist. It owns the program
   folder, `program.yaml`, `spec.md`, `CHANGELOG.md`, `spec/source/`,
   `reports/DECISIONS.md`, the memory card, the **program row** in portfolio
   `INDEX.md`, and the entry in the project `README.md` §Programs. It never touches
   MCP config or another program's row.
+- Transport is **program-level and optional**. Read `allowed_packages` from
+  `project.yaml`: if it is `$TMP` only, do not ask for a TR number at all. Otherwise
+  ask whether a TR exists and accept "not yet" — never invent one. Record the answer
+  in `program.yaml` `transport:` and the program `AGENTS.md` §Deploy.
 - `memory_check.py` checks every card stem under `memory/projects/<project>/*.md`
   against `INDEX.md`. A program card without its own INDEX row is a warning, so
   keep the two INDEX writes strictly per-owner.

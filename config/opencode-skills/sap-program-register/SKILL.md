@@ -18,21 +18,33 @@ Read the shared contract in `abap-ai-opencode-toolkit/docs/catalog.md` §
 Follow "Question mode" in the shared contract: one question at a time via the
 `question` tool, restate known values first, validate each answer before the next,
 and stop on a blocker. Batch answers only if the user asks for it. Never guess a
-program name, purpose, FS, transport, or domain set. If the project folder does
-not exist, stop and tell the user to run `sap-project-register` first.
+program name, purpose, FS, or domain set. If the project folder does not exist,
+stop and tell the user to run `sap-project-register` first.
+
+### Transport (optional)
+
+Read `allowed_packages` from the project's `project.yaml`.
+
+- If it is `$TMP` only: do **not** ask about a TR. Set `transport: none` and note in
+  `AGENTS.md` that the program uses `$TMP` and needs no transport.
+- Otherwise ask with the `question` tool: "มี TR (ระบุหมายเลข)" / "ยังไม่มี TR —
+  ตั้ง none" / "ใช้ $TMP — ไม่ต้องการหมายเลข TR". Never invent a TR number.
+- Record `transport: <TR> | none` in `program.yaml` and in the program
+  `AGENTS.md` §Deploy / System table.
 
 ## Create — `Projects/<PROJECT>/<PROGRAM>/`
 
 Only when the folder does not exist.
 
 - `README.md` — one-line purpose, Status, Pointers, Test focus.
-- `AGENTS.md` — program scope, System, Constraints, Session start. §Deploy stays
-  "not yet approved" until the user names a writer and transport.
-- `program.yaml` — `program`, `project`, `status: draft`, `spec`, `changelog`,
-  `fs`, `fs_version`, `decisions`, `memory`, `scope: program`.
+- `AGENTS.md` — program scope, System (with the transport or "$TMP — no
+  transport"), Constraints, Session start. §Deploy stays "not yet approved" until
+  the user names a writer; a `$TMP` program needs no transport.
+- `program.yaml` — `program`, `project`, `status: draft`, `transport`, `spec`,
+  `changelog`, `fs`, `fs_version`, `decisions`, `memory`, `scope: program`.
 - `spec.md` — copy from `templates/spec.md`; set `program`, `project`,
-  `spec_version: 1.0`, `status: draft`, `fs_version`, `fs_file`, `owner`,
-  `updated`, `implemented_version: -`.
+  `spec_version: 1.0`, `status: draft`, `fs_version`, `fs_file`, `updated`,
+  `implemented_version: -`.
 - `CHANGELOG.md` — copy from `templates/CHANGELOG.md`, one row
   `| v0 | <date> | scaffold created | pending |`. Do not claim a deploy.
 - `spec/source/` — copy the supplied FS here. It is immutable; a new FS is a new

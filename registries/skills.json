@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T08:45:08+00:00",
+  "generated_at": "2026-11-17T08:56:11+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -336,7 +336,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-program-register\\SKILL.md",
       "owner": "Pongg",
-      "hash": "7b84d7d284d1de1d963683eb53ea5275c7d836ad50c1fe2ed63f125a7c915d55",
+      "hash": "5458ca9fe30cb012777832164862cf66ca29158e39e25ea959979820419a4126",
       "desc_chars": 265,
       "description": "Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for \"register new program\", \"new program folder\", \"new Z program\". Asks for every unknown; never creates a project, deploys, or connects to SAP.",
       "status": "new",
@@ -347,7 +347,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-project-register\\SKILL.md",
       "owner": "Pongg",
-      "hash": "313d47e03e0573b7605b686a4325aa7fd4fd2e3b1706c50cf818fb0838137a10",
+      "hash": "958ebb058bfbd8650e76f96a0248cea3aee82be5bf8e34abc586ca5a641aa79b",
       "desc_chars": 289,
       "description": "Register a new SAP project in the OpenCode workspace: project folder, manifests, README/AGENTS, archive/sandbox, portfolio INDEX, optional disabled MCP profile. Use for \"register new project\", \"onboard project\". Asks for every unknown; never creates a program, deploys, or connects to SAP.",
       "status": "new",
