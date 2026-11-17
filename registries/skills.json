@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T08:23:22+00:00",
+  "generated_at": "2026-11-17T08:30:57+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -332,13 +332,24 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "sap-program-register",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\sap-program-register\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "485585844ff7ab8c268615f63e54f006590f7454eade331735cba03e4d65c4ed",
+      "desc_chars": 265,
+      "description": "Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for \"register new program\", \"new program folder\", \"new Z program\". Asks for every unknown; never creates a project, deploys, or connects to SAP.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "sap-project-register",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-project-register\\SKILL.md",
       "owner": "Pongg",
-      "hash": "8ebce3d02aafb639f0fc884d989798f0240d3312adec396f18540216de6609be",
-      "desc_chars": 410,
-      "description": "Register a new SAP project and/or program in the OpenCode toolkit workspace from the adopted design — folder scaffold, manifests, spec, memory card, INDEX, and optional MCP profile. Use for \"register new project\", \"new program\", \"onboard project\", \"create program folder\", \"SUS new project\". Asks for",
+      "hash": "8a97c45ac7db6e67cae55e2675ee0d6176b33ad38cf723eed463c41ebddfc342",
+      "desc_chars": 289,
+      "description": "Register a new SAP project in the OpenCode workspace: project folder, manifests, README/AGENTS, archive/sandbox, portfolio INDEX, optional disabled MCP profile. Use for \"register new project\", \"onboard project\". Asks for every unknown; never creates a program, deploys, or connects to SAP.",
       "status": "new",
       "last_validated": null
     },

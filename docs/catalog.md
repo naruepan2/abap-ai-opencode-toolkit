@@ -63,13 +63,46 @@ The check report is not a registry. It is written to
 Eight small files; names state the job. No subfolders — one import path
 (`_paths.py`) and one call per check. Keep new checks at this level.
 
+## Registration contract — shared by both register skills
+
+The two skills `sap-project-register` and `sap-program-register` use this contract.
+Keep the rules here, not duplicated in both skill files. Both skills ask the user
+at invocation; neither invents a value and neither deploys or connects to SAP.
+
+Required inputs — a blank is a blocker, not a default:
+
+- Project: code (short uppercase), SID/description, ADT URL, SAP Logon destination,
+  SAP user, language, TLS CA path, allowed packages, test client, transport, owner.
+- Program: name (SAP object name), one-line purpose, FS path or explicit "none",
+  knowledge domains, and explicit permission to write outside the current program.
+- Permission to create `Projects/<PROJECT>/`, edit the portfolio `INDEX.md`, and
+  edit `~/.config/opencode/opencode.json` and `~/.config/opencode/sap/profiles.json`.
+
+Gates:
+
+- `sap-project-register` owns the project folder, `project.yaml`, project README/
+  AGENTS, `_archive`/`_sandbox`, portfolio `INDEX.md`, and optional disabled MCP
+  profile. It never creates a program folder.
+- `sap-program-register` requires the project folder to exist. It owns the program
+  folder, `program.yaml`, `spec.md`, `CHANGELOG.md`, `spec/source/`,
+  `reports/DECISIONS.md`, and the memory card. It never touches `INDEX.md` or
+  MCP config.
+- No FS → draft spec using the `HCL_INTERFACE_QA32` pattern; open questions are
+  the scope. With FS → copy to `spec/source/` as immutable; a new FS is a new file
+  plus a new `fs_version`.
+- Never ask the user to paste a password. The user stores it himself with
+  `store-sap-secret.ps1 -Profile <profile>`.
+- Stop if any required answer is blank, a file would be overwritten, a domain
+  name does not resolve, or permission for an outside folder is missing.
+
 ## Where to add things
 
 | New thing | Goes to | Also update |
 |---|---|---|
 | check / digest helper | `scripts/` | `scripts/README.md` |
 | personal skill | `config/opencode-skills/<name>/` | `PERSONAL_SKILLS`, `config/README.md`, `CHANGELOG.md`, live copy, registry refresh |
-| new SAP project / program | `Projects/<PROJECT>/<PROGRAM>/` | portfolio `INDEX.md`, memory card, optional profile + MCP entry, registry refresh |
+| new SAP project | `Projects/<PROJECT>/` via `sap-project-register` | portfolio `INDEX.md`, optional profile + MCP entry, registry refresh |
+| new SAP program | `Projects/<PROJECT>/<PROGRAM>/` via `sap-program-register` | memory card, `specs_sync.py --write` |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |

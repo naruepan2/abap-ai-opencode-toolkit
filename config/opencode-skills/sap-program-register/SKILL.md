@@ -1,0 +1,71 @@
+---
+name: sap-program-register
+description: Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for "register new program", "new program folder", "new Z program". Asks for every unknown; never creates a project, deploys, or connects to SAP.
+---
+
+# SAP program register
+
+Program-level scaffold only. One program per call. The project must already exist.
+
+Read the shared contract in `abap-ai-opencode-toolkit/docs/catalog.md` §
+"Registration contract — shared by both register skills", plus
+`Projects/README.md`, `abap-ai-opencode-toolkit/templates/spec.md`,
+`abap-ai-opencode-toolkit/templates/CHANGELOG.md`, and
+`workspace/memory/projects/README.md`. If any is missing, stop and report it.
+
+## Ask at invocation
+
+Use the required inputs and gates in the shared contract. Ask for every blank.
+Never guess a program name, purpose, FS, transport, or domain set. If the project
+folder does not exist, stop and tell the user to run `sap-project-register` first.
+
+## Create — `Projects/<PROJECT>/<PROGRAM>/`
+
+Only when the folder does not exist.
+
+- `README.md` — one-line purpose, Status, Pointers, Test focus.
+- `AGENTS.md` — program scope, System, Constraints, Session start. §Deploy stays
+  "not yet approved" until the user names a writer and transport.
+- `program.yaml` — `program`, `project`, `status: draft`, `spec`, `changelog`,
+  `fs`, `fs_version`, `decisions`, `memory`, `scope: program`.
+- `spec.md` — copy from `templates/spec.md`; set `program`, `project`,
+  `spec_version: 1.0`, `status: draft`, `fs_version`, `fs_file`, `owner`,
+  `updated`, `implemented_version: -`.
+- `CHANGELOG.md` — copy from `templates/CHANGELOG.md`, one row
+  `| v0 | <date> | scaffold created | pending |`. Do not claim a deploy.
+- `spec/source/` — copy the supplied FS here. It is immutable; a new FS is a new
+  file plus a new `fs_version`.
+- `reports/DECISIONS.md` — header plus `D-01` recording the scaffold decision.
+
+### No FS
+
+Use the `HCL_INTERFACE_QA32` pattern: `fs_version: none`, `fs_file: none`,
+`status: draft`; say in §1 that open questions are the scope. closeout needs at
+least one REQ and one AC — process gates only, marked as such, e.g. REQ-01 "no
+implementation before Q-01 is answered", AC-01 "agent asks instead of guessing".
+Never invent a customer requirement.
+
+## Memory card
+
+Create `workspace/memory/projects/<PROJECT>/<program>.md` from the template in
+`workspace/memory/projects/README.md`. Set `domains:` to names that resolve under
+`workspace/memory/knowledge/*.md`. Fill `FS`, `Change type`, `Production`,
+`Target`, `Approved scope`, `Stop condition`, `Plan`. Then run
+`python scripts\specs_sync.py --write` from the toolkit repo.
+
+## Verify
+
+```powershell
+python scripts\closeout.py --project <PROJECT>/<PROGRAM>
+python scripts\memory_check.py --brief
+python scripts\registry_check.py --check --brief
+python scripts\tools_now.py
+```
+
+Clean closeout (warnings are human decisions), memory 0 issues, registry 0 issues,
+tools unchanged. No SAP object was touched. Report the exact files written.
+
+## Stop
+
+Any blank answer, existing folder, missing project, unresolved domain, missing
+permission, or a request to deploy/connect during registration.

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-11-17
+
+- Split `sap-project-register` into two skills with one shared contract in
+  `docs/catalog.md`: `sap-project-register` owns the project folder, manifests,
+  portfolio `INDEX.md` and optional disabled MCP profile;
+  `sap-program-register` owns the program folder, spec, changelog and memory card.
+  Both ask for every unknown at invocation; neither deploys or connects to SAP.
+
 ## v0.7.3 — 2026-11-17
 
 **Clean-up after v0.7.2: an MCP upgrade skill, a repository catalog, and a parked pin plan.**

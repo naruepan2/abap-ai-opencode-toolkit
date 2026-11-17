@@ -24,7 +24,8 @@ so a reinstall restores them and never overwrites a newer local edit.
 |---|---|
 | `sap-auditor` | audit → mentor → commentator over finished work; claims table with `path:line` evidence |
 | `sap-mcp-upgrade` | bump an MCP version pin or add an entry from evidence; probe → approval → verify → restore disabled |
-| `sap-project-register` | scaffold a new SAP project/program from the adopted design; asks for every unknown |
+| `sap-project-register` | scaffold a new SAP project folder, manifests, INDEX, optional disabled MCP profile |
+| `sap-program-register` | scaffold a new program under an existing project: spec, changelog, memory card |
 
 Sync rule: the live copy is authoritative. After editing
 `~/.config/opencode/skills/<name>/SKILL.md`, copy it back here in the same change —
