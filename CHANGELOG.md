@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased — 2026-11-17
+## v0.7.6 — 2026-11-17
+
+**A no-write re-test caught a scaffold gap; registration now asks for it.**
 
 - `sap-program-register` handles an older project scaffold whose `project.yaml` has
   no `allowed_packages`: it asks the user once, uses the answer for this program
