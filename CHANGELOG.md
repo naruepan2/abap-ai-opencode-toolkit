@@ -2,10 +2,8 @@
 
 ## Unreleased — 2026-11-18
 
-- The committed registry baseline was refreshed after the copilot registration
-  skills were renamed to `sap-new-project`, `sap-new-program` and `sap-new-record`
-  (an intentional rename, not a deletion). The old `new-program` path is gone by
-  design; no skill was lost.
+- The committed registry baseline was refreshed to the current machine snapshot.
+  No toolkit asset was added or removed.
 
 ## v0.7.7 — 2026-11-18
 
