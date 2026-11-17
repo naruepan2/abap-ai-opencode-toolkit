@@ -65,6 +65,9 @@ only; asks for every unknown; never deploys or connects to SAP.
 - **One artifact per call.** `sap-project-register` creates only the project;
   `sap-program-register` creates only one program and requires the project to
   exist. Stop if the folder already exists.
+- **Resolve the target project before any program work.** A program belongs to a
+  project; never assume which one. `sap-program-register` must confirm the target
+  project with the user (see Step 4) before asking any other input or calling SAP.
 
 ### Step 3 — `sap-project-register` behaviour
 
@@ -108,10 +111,24 @@ Verify: list exact files written; no SAP object was touched.
 
 ### Step 4 — `sap-program-register` behaviour
 
-Ask at invocation (skip known values): program name (SAP object name), one-line
-purpose, FS path or explicit "none", and explicit permission to write outside the
-current program. If the project folder does not exist, stop and tell the user to
-run `sap-project-register` first.
+**Resolve the target project FIRST — before any other question or SAP call.**
+This skill can be invoked on its own; a program cannot exist without a project,
+and guessing one would write the scaffold into the wrong place.
+
+- If the project code is already known from this session or the user's request,
+  restate it and ask the user to confirm it.
+- If it is **not known**, ask the user: "จะ register program นี้ภายใต้ project ไหนครับ?"
+  Do not infer it from the object name, a recent conversation, or a folder listing.
+- If more than one project exists, list the project codes found under `Projects/`
+  (read the portfolio `INDEX.md`, do not scan recursively) and let the user pick.
+- If the chosen project folder does **not** exist, stop and tell the user to run
+  `sap-project-register` first. Do not create the project from this skill.
+- Once confirmed, read that project's `project.yaml` for `system`, `code_client`,
+  `allowed_packages` and `transport`; use these as the source of truth.
+
+Then ask (skip known values): program name (SAP object name), one-line purpose,
+FS path or explicit "none", and explicit permission to write outside the current
+program.
 
 **Object lookup (read-only).** After the name is known, use the project's live
 `arc1-*` MCP (never hardcode an engine name — confirm system/client first):
