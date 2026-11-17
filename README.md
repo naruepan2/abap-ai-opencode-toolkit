@@ -76,6 +76,9 @@ The scripts assume a portfolio that keeps SAP work in `Projects\<PROJECT>\<PROGR
 with an `INDEX.md` above it. Neither is required: `ABAP_PROJECTS_ROOT` and
 `ABAP_INDEX` point the checks at any tree.
 
+For a map of every folder and which files are committed vs generated, see
+`docs/catalog.md`.
+
 ## Daily use
 
 ```bash

@@ -70,6 +70,9 @@
 - New personal skill `sap-mcp-upgrade` — probe upstream, bump one version token
   after approval, verify the live process and package metadata, then restore
   `enabled:false`. `install.ps1` copies it; `PERSONAL_SKILLS` marks it editable.
+- `docs/catalog.md` maps every top-level folder by owner and committed/generated
+  state. `registries/README.md` now splits committed baseline from git-ignored
+  live snapshots — no files moved, so no consumer broke.
 
 ## v0.7.1 — 2026-11-15
 
