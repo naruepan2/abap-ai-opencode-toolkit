@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T18:53:10+00:00",
+  "generated_at": "2026-11-17T07:04:04+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -308,6 +308,17 @@
       "description": "Find and read the right log or trace for any SAP component or database — instance work-directory traces (dev_disp, dev_w*, dev_ms, dev_rd, dev_icm), ABAP logs (SM21, ST22, SM50, SLG1), standalone components (Web Dispatcher, SAProuter, Cloud Connector, Host Agent, IGS) and each database's own logs (H",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-mcp-upgrade",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\sap-mcp-upgrade\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "5c6fe419dd8ea737ee02e727a7662daf04e26ba95f7f257e68df09f8a8a9271f",
+      "desc_chars": 440,
+      "description": "Upgrade an MCP server version or add a new MCP entry in OpenCode from evidence, not memory. Use for \"upgrade MCP\", \"bump pin\", \"update sap-gui version\", \"check MCP version\", \"add MCP server\", \"new MCP entry\", \"MCP pin drift\". Reads the live config, upstream changelog and installed package; never ena",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "sap-odata-cli",
@@ -924,6 +935,17 @@
       "description": "Validate and deliver SAP RAP OData services, behavior implementations, service bindings, activation, publication, and runtime checks. Use with RAP service exposure or end-to-end RAP validation tasks.",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "sap-adam-external-debug",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-adam-external-debug\\SKILL.md",
+      "owner": "vendor",
+      "hash": "4d772fe4169c25976a4ed48fb8631477b19042935bb13d36c76f125863f982db",
+      "desc_chars": 475,
+      "description": "Set up and recover external ABAP debugging on an SAP system with the ADAM MCP server (abap_debug / abap_debug_session / abap_breakpoints / abap_source). Use when an ABAP debug session will not arm, reports a listener conflict or \"another session has global debugging scope\", stops only in the SAP GUI",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "sap-sdlc-orchestration",

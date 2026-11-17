@@ -23,6 +23,7 @@ so a reinstall restores them and never overwrites a newer local edit.
 | Skill | Purpose |
 |---|---|
 | `sap-auditor` | audit → mentor → commentator over finished work; claims table with `path:line` evidence |
+| `sap-mcp-upgrade` | bump an MCP version pin or add an entry from evidence; probe → approval → verify → restore disabled |
 
 Sync rule: the live copy is authoritative. After editing
 `~/.config/opencode/skills/<name>/SKILL.md`, copy it back here in the same change —

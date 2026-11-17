@@ -67,6 +67,9 @@
   against** (1.10.1 at `755a265`): its object-type list omits DOMA/DTEL/TTYP, which the
   source carries (`src/handlers/object-types.ts:135-143`). The source wins, and the
   toolkit cites the source.
+- New personal skill `sap-mcp-upgrade` — probe upstream, bump one version token
+  after approval, verify the live process and package metadata, then restore
+  `enabled:false`. `install.ps1` copies it; `PERSONAL_SKILLS` marks it editable.
 
 ## v0.7.1 — 2026-11-15
 
