@@ -21,10 +21,27 @@ and stop on a blocker. Batch answers only if the user asks for it. Never guess a
 program name, purpose, FS, or domain set. If the project folder does not exist,
 stop and tell the user to run `sap-project-register` first.
 
+### Object lookup (read-only)
+
+After the object name is known, follow "Object lookup" in the shared contract:
+run `python scripts\tools_now.py` from the toolkit repo, confirm the project's
+system/client, then use that project's live `arc1-*` engine (never hardcode an
+engine name):
+
+- `SAPSearch(searchType="tadir_lookup", names=[<name>], objectTypes=[<types>])`
+  for existence and package.
+- `SAPTransport(action="list")` (then `get` if needed) for the TR holding it.
+
+Report the result, then continue with Transport below. If the engine is not live,
+the call fails, or the result is inconclusive, ask the user — never say "does not
+exist" and never invent a package or TR.
+
 ### Transport (optional)
 
 Read `allowed_packages` from the project's `project.yaml`.
 
+- If the lookup already returned a package and a TR, reuse them — ask only for
+  what is still missing.
 - If it is `$TMP` only: do **not** ask about a TR. Set `transport: none` and note in
   `AGENTS.md` that the program uses `$TMP` and needs no transport.
 - Otherwise ask with the `question` tool: "มี TR (ระบุหมายเลข)" / "ยังไม่มี TR —
@@ -80,9 +97,18 @@ Create `workspace/memory/projects/<PROJECT>/<program>.md` from the template in
 folder name in lowercase) so closeout can resolve the spec path from the stem. If
 you add a `Working directory:` line, use the absolute path — closeout passes it to
 `Path()` as-is; a repo-relative path would resolve against the toolkit repo, not
-the portfolio. Set `domains:` to names that resolve under
-`workspace/memory/knowledge/*.md`. Fill `FS`, `Change type`, `Production`,
-`Target`, `Approved scope`, `Stop condition`, `Plan`. Then run
+the portfolio. Ask for domains in **one** question with three bundles, not a
+five-item multi-select:
+
+- `sap-abap, working-method` — recommended default for an ABAP program/class/FM.
+- `sap-abap, sap-data, working-method` — when it reads tables or verifies FM data.
+- "choose myself" — only then show the real names (`sap-abap`, `sap-data`,
+  `sap-gui`, `tooling`, `working-method`).
+
+Prefill the recommendation from the purpose the user already gave. Every name
+must resolve under `workspace/memory/knowledge/*.md`; `memory_check.py` reports an
+unknown name as an issue. Fill `FS`, `Change type`, `Production`, `Target`,
+`Approved scope`, `Stop condition`, `Plan`. Then run
 `python scripts\specs_sync.py --write` from the toolkit repo.
 
 ## Verify
@@ -95,8 +121,8 @@ python scripts\tools_now.py
 ```
 
 Clean closeout (warnings are human decisions), memory 0 issues and 0 warnings,
-registry 0 issues, tools unchanged. No SAP object was touched. Report the exact
-files written.
+registry 0 issues, tools unchanged. No SAP object was created or modified — the
+lookup is read-only. Report the exact files written and the lookup result.
 
 ## Stop
 

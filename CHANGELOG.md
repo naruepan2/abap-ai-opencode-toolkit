@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 2026-11-17
+
+- `sap-program-register` now does a read-only object lookup before collecting
+  package and TR: `SAPSearch(tadir_lookup)` for existence/package and
+  `SAPTransport` for the TR. Found objects reuse those values; a failed or
+  inconclusive lookup asks the user instead of guessing. No SAP writes.
+- Knowledge domains are now chosen from three bundles (recommended / +sap-data /
+  choose myself), with the recommendation prefilled from the stated purpose,
+  replacing the five-item multi-select.
+
 ## v0.7.4 — 2026-11-17
 
 - Split `sap-project-register` into two skills with one shared contract in

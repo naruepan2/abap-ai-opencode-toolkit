@@ -97,6 +97,22 @@ Question mode — how both skills must ask:
 - **Match the user's language.** Stay in the language the user writes in; do not
   mix languages in one prompt.
 
+Object lookup — program registration only:
+
+- Once an object name is known, do a **read-only** lookup on the project's system
+  before asking for package or TR. Run `python scripts\tools_now.py`, confirm the
+  system/client, and use that project's live `arc1-*` engine:
+  `SAPSearch(searchType="tadir_lookup", names, objectTypes)` for existence and
+  package, then `SAPTransport(action="list"/"get")` for the TR holding it. Never
+  enable a server or write to SAP during registration.
+- **Found:** report the package. If a TR can be confirmed, record it. If no TR is
+  found or the result is inconclusive, ask the user for the number — never guess.
+- **Not found:** treat as new — ask package and TR (no TR question when the package
+  is `$TMP`).
+- **Lookup failed, no logon, engine unavailable, or result unclear:** stop and ask
+  the user. Never claim "not created" from a failed or empty search (see
+  `working-method.md` §"Verify before claiming absence").
+
 Gates:
 
 - `sap-project-register` owns the project folder, `project.yaml` (including
