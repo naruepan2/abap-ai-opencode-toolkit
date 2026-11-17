@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased — 2026-11-17
+## v0.7.5 — 2026-11-17
+
+**Registration reads before it asks; the engine baseline is current again.**
 
 - `sap-program-register` now does a read-only object lookup before collecting
   package and TR: `SAPSearch(tadir_lookup)` for existence/package and
@@ -9,6 +11,10 @@
 - Knowledge domains are now chosen from three bundles (recommended / +sap-data /
   choose myself), with the recommendation prefilled from the stated purpose,
   replacing the five-item multi-select.
+- The committed registry baseline was refreshed after the SUS engine registration:
+  the disabled `ai-dev-sus-100` / `arc1-sus-100` namespaces are recorded the same
+  way as the existing ds4/gsd engines — no profile name, path or credential. The
+  parked waiting-list item is closed.
 
 ## v0.7.4 — 2026-11-17
 
