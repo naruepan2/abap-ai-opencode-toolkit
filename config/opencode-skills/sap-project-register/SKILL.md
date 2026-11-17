@@ -51,8 +51,13 @@ Only when the folder does not exist. If it exists, stop and tell the user to use
   `-Profile <project>-<client> -Engine ai-dev` or `-Engine arc1`,
   `"enabled": false`.
 - Run `python scripts\registry_check.py --refresh` in the toolkit repo, then
-  `--check --brief`. Tell the user to store the password himself and restart the
-  service daemon only when he wants to use the profile.
+  `--check --brief`. Tell the user to store the password himself only when he wants
+  to use the profile.
+- To use the profile later: set `"enabled": true` in `opencode.json` **by editing the
+  file**, store the secret with `store-sap-secret.ps1`, then restart the service
+  daemon. Toggling the switch in the OpenCode UI changes the running daemon's state
+  only — it is not written back to the file and is lost on restart. Do not enable
+  during registration.
 
 ## Verify
 

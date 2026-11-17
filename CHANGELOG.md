@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-11-17
+
+- `sap-project-register` now explains how to actually enable a profile later: edit
+  `opencode.json` to `enabled:true`, store the secret, restart the daemon. The
+  OpenCode UI toggle changes only the running daemon's state — it is not written
+  back to the file — so enabling by toggle alone is lost on restart.
+
 ## v0.7.6 — 2026-11-17
 
 **A no-write re-test caught a scaffold gap; registration now asks for it.**
