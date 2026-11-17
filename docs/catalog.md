@@ -69,6 +69,7 @@ Eight small files; names state the job. No subfolders — one import path
 |---|---|---|
 | check / digest helper | `scripts/` | `scripts/README.md` |
 | personal skill | `config/opencode-skills/<name>/` | `PERSONAL_SKILLS`, `config/README.md`, `CHANGELOG.md`, live copy, registry refresh |
+| new SAP project / program | `Projects/<PROJECT>/<PROGRAM>/` | portfolio `INDEX.md`, memory card, optional profile + MCP entry, registry refresh |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |

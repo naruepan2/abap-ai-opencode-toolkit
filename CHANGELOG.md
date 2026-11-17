@@ -19,6 +19,9 @@
 - `sap-gui` is pinned to `0.6.1` and back to `enabled:false` after verification.
   Measured numbers in `README.md` updated to the 2026-11-17 snapshot: 115 skills,
   270 tools, 58.3k chars per session.
+- New personal skill `sap-project-register` — scaffolds a project/program from the
+  adopted design (folders, manifests, spec, memory card, INDEX, optional MCP profile),
+  asks for every unknown, and never deploys or connects to SAP.
 
 ## v0.7.2 — 2026-11-17
 
