@@ -91,6 +91,9 @@ def collect():
         changelog = program_dir / "CHANGELOG.md"
         if changelog.is_file():
             files["CHANGELOG.md"] = changelog
+        fs_index = program_dir / "spec" / "FS_INDEX.md"
+        if fs_index.is_file():
+            files["FS_INDEX.md"] = fs_index
         # spec/source (the customer FS) is deliberately NOT mirrored: it is the
         # customer's document and this repository must not carry customer data.
         blocked = []

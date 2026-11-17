@@ -12,7 +12,7 @@ immutable; this index is our read map — tens of lines instead of thousands.
 
 ## Read this much
 
-| Task | Open | Lines | ~tok |
+| Task | Open | Lines | Bytes |
 |---|---|---:|---:|
 | What it does / is this the right object | *Summary* below | 0 | 0 |
 | Object metadata, WRICEF type, T-code | <section> | <a>–<b> | <n> |
@@ -27,9 +27,10 @@ immutable; this index is our read map — tens of lines instead of thousands.
 | Test scenarios | <section> | <a>–<b> | <n> |
 | **Never read by default** | cover, approval block, change control, TOC | 1–<n> | <n> |
 
-Rule: start at *Summary*. Open **one** mapped slice only when the task touches it. Never
-read the whole file. If `closeout.py` reports a fingerprint change, the functional sent a
-new revision — **rebuild this map before using any line range**; no script can do that.
+Bytes are measured from the FS, not estimated tokens. Rule: start at *Summary*. Open
+**one** mapped slice only when the task touches it. Never read the whole file. If
+`closeout.py` reports a fingerprint change, the functional sent a new revision —
+**rebuild this map before using any line range**; no script can do that.
 
 ## Summary (written by us, from the FS — ≤10 lines)
 

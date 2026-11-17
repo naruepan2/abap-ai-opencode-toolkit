@@ -14,7 +14,8 @@
   stays in `DECISIONS.md`, so `CHANGELOG.md` keeps its slim four columns.
 - `specs_sync.py` refuses to mirror a file carrying a credential-shaped assignment
   or token and reports it as drift instead of silently copying it (7 regex cases
-  tested).
+  tested). It also mirrors `spec/FS_INDEX.md` when present (the FS itself is still
+  never mirrored).
 
 ## v0.7.8 — 2026-11-18
 
