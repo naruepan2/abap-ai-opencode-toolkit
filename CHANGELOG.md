@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased — 2026-11-17
+## v0.7.7 — 2026-11-18
+
+**Enabling a profile and reading SAP docs are both written down now.**
 
 - `sap-project-register` now explains how to actually enable a profile later: edit
   `opencode.json` to `enabled:true`, store the secret, restart the daemon. The
