@@ -440,7 +440,7 @@ def check_changelog(findings, warnings, spec):
     table = find_table(all_tables(read(path)), "ver", "verified")
     if table is None:
         findings.append((ISSUE, "changelog",
-                         "no table (Ver / Date / What changed / Verified)"))
+                         "no table (Ver / Date / TR / Scope / What changed / Verified)"))
         return None
     headers, rows = table
     ver_at = headers.index("ver")

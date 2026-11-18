@@ -18,7 +18,8 @@ their own empty one.
 - **Memory that compounds.** Incidents land in an inbox; at close-out each becomes one
   edited knowledge entry — or a check, if the rule repeats. No append-only log.
 - **A contract per program.** `spec.md` holds requirements and acceptance criteria;
-  `CHANGELOG.md` holds one row per deploy — the window SAP version management misses.
+  `CHANGELOG.md` keeps one row per deploy with its TR number — the window SAP
+  version management misses, kept for the life of the program.
 - **Cheap starts.** One command prints the resume card, health, inbox, and tool rules.
   Then read only what the task needs.
 
@@ -200,7 +201,7 @@ these numbers move with every install. Current release: **v0.7.9** — see
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 124 | opencode 36, agents 40, claude 25, copilot 23 |
+| Skills | 126 | opencode 36, agents 40, claude 25, copilot 25 |
 | Agents | 24 | 4 editable, 20 vendor |
 | MCP servers | 18 | 14 enabled, 4 disabled/on-demand |
 | Tools | 363 | 12 namespaces; ADT share: ai-dev ×3 (75 each), arc1 ×2 (8/9) |

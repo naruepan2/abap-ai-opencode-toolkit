@@ -193,6 +193,112 @@ Gates:
   --brief`, `specs_sync.py` (check), `closeout.py`, and `tools_now.py` for project
   removal. Report the exact paths removed, the chosen mode, and what remains.
 
+## Co-edit contract — developer and agent on the same object
+
+This contract applies to every program, classic or RAP. `program.yaml` carries
+`kind`, `object_count` and `complexity`; the rest follows from that. The goal is
+smooth handover, not a perfect mirror of SAP: the local files are a navigation
+index, SAP remains the authority for versions and code diffs.
+
+Three layers, never mixed:
+
+| Layer | Where | Role |
+|---|---|---|
+| local index | `CHANGELOG.md` (all rows + `TR` + `Scope`), `spec/RAP_INDEX.md` for RAP | what changed, which TR, where to look |
+| SAP authority | `SAPRead(VERSIONS/diff)`, `SAPTransport(list/get/history)`, `INACTIVE_OBJECTS` | current truth |
+| decision gate | the user, via a question | resolve what neither layer can prove |
+
+Three cones, not one scope:
+
+| Cone | Means | Gate |
+|---|---|---|
+| read-cone | objects we may read to understand a change | package allow-list does **not** gate reads |
+| write-set | objects this task may change | package gate + `-AllowWrites`; one writer per object |
+| data-cone | tables / CDS rows read for verification | `SAP_ALLOW_DATA_PREVIEW` / `SAP_ALLOW_FREE_SQL`, separate from writes |
+
+A fact is either an **event** (released, cancelled, published, activated) written
+once and never edited, or a **state** (draft present, publish state, anchor,
+verified rows) that carries `source` (which tool), `by` (AI/human + harness),
+`verified_at`, and a TTL agreed in `reports/DECISIONS.md`. Without fresh state,
+re-probe — never inherit freshness from a previous session.
+
+**Anchor** — `spec.md` front matter holds `last_tr_check` and `last_tr_seen`.
+These are state: update them only after a live read, and treat them as stale when
+their TTL has passed. A stale anchor is a reason to re-check, not a reason to
+assume nothing changed.
+
+**Sync-on-touch** — before any task that writes or activates:
+
+1. Read card + `spec.md` + newest CHANGELOG rows; for RAP also `RAP_INDEX.md`.
+2. Cheap signals first. `SAPTransport(action="list", status="*", user="*",
+   summary=true)` is one call and still reports `status` + `objectCount`, so a new
+   TR, a release, or extra objects in an existing TR all show up. Add
+   `SAPRead(type="INACTIVE_OBJECTS")` as a one-call "a draft exists" beacon. A
+   conditional-GET/ETag shortcut is deliberately absent — no mounted tool exposes
+   it, so do not plan around it.
+3. If those are silent but suspicion remains, check the package anchor
+   (`SAPRead(type="DEVC", name=<package>, maxResults)`) before opening objects.
+4. Light path (classic, `complexity: light`): no hit → continue with the local
+   index; no further SAP read.
+5. Heavy path (`kind: rap`, `object_count >= 20`, or `complexity: high`): for
+   every hit, `get` the TR, then `diff` only the affected objects with
+   `force_refresh=true`, then `SAPContext(action="impact", type="DDLS")` for
+   downstream RAP objects.
+6. Reconcile: show a short digest; ask the user before touching anything. Add one
+   **new** CHANGELOG row with the TR and the affected `Scope`, `Verified:
+   pending`; update only the affected `RAP_INDEX.md` rows and the anchor. Never
+   rewrite or delete an old row, and never create a second log.
+
+**Activation gate** — before each activation run, not each object:
+
+- Re-read the TR that will carry the work. One `question` call restates the TR,
+  the object list and what remains; options `confirm` / `cancel`, default
+  `cancel`. Execute only after `confirm`.
+- Fast path: if the user named the TR in the handoff and `SAPTransport(history)`
+  returns the same id, keep that as the candidate — but still ask the single
+  confirm question. Otherwise use `list` + `get` to cross-check first.
+- If the TR is released (`R`/`N`) or unclear, stop and ask. Never reuse a
+  released TR; never invent a number.
+- A re-bound object gets a new CHANGELOG row with the new TR; the old row keeps
+  the released TR.
+
+**Handoff by recognition** — do not ask "did you edit anything?". Show the 1–5
+objects whose fingerprint moved (from the probe), list them, and ask "are these
+yours?" with options `none of these` / `these are mine — which TR?` / `not sure`.
+If the user claims them, ask for the TR number and verify it with the probe.
+`not sure` = stop. Recognition of concrete objects beats recall of a vague edit.
+
+**Write protocol** — after the TR gate, before any edit. This guard exists in
+ai-dev; ARC-1 `SAPWrite` is not mounted here, so do not claim the same guard on
+`arc1-*`.
+
+1. `get_source(include_hash=true)` → source + `sourceHash`. For `CLAS`, select
+   the include or method to narrow the write surface.
+2. Lock the object in the confirmed TR.
+3. Edit with `edit_source(expected_source_hash=<fresh hash>, ...)`; for tables
+   `update_table` already requires the full `expected_source`. If the hash no
+   longer matches, stop and re-sync — never overwrite.
+4. Unlock in a `finally` block.
+5. If the target include answers `404`, treat it as a create, not an edit — never
+   auto-initialise it as a write.
+6. Verify with a different engine or `force_refresh=true`: a read right after
+   activation can be served from cache. Activated is not the same as observed.
+
+**Error routing** — meanings differ, so routes differ:
+
+| Result | Meaning | Route |
+|---|---|---|
+| `409` locked by another session | concurrency | stop and wait / ask; do not retry |
+| `423` not modifiable / no lock handle | TR or authorization | fix the TR or rights, not concurrency |
+| `404` / `410` | object gone or renamed | record a tombstone; never silently recreate |
+
+**Known limit — write it down, do not try to code around it:** an edit made in
+SAP, activated while its TR stays open, with no new version, no lock change and
+no report from the developer, is invisible to the agent. No local log and no
+status scan can reveal it. If the user answers the handshake incorrectly, the
+agent will proceed on wrong information. That is an information limit, not a bug;
+a future agent must not go looking for a fix.
+
 ## Where to add things
 
 | New thing | Goes to | Also update |
@@ -203,6 +309,7 @@ Gates:
 | new SAP program | `Projects/<PROJECT>/<PROGRAM>/` via `sap-program-register` | memory card, `specs_sync.py --write` |
 | removed SAP project | via `sap-project-unregister` | portfolio `INDEX.md`, unused MCP entries, registry refresh, no git push of `_archive` |
 | removed SAP program | via `sap-program-unregister` | memory card, `specs_sync.py --write`, no git push of `_archive` |
+| RAP object map | `spec/RAP_INDEX.md` from `templates/RAP_INDEX.md` | `CHANGELOG.md` holds the TR stamp; `specs_sync.py` mirrors it only if its allowlist is extended |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |

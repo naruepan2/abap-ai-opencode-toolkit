@@ -25,9 +25,15 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
 - `spec.md` is per **program**: REQ / AC / approved deviations / open questions. The
   customer FS lives in `spec/source/`, is immutable, and is **never committed**.
   Read it once per session, then only the row in play. Template: `templates/spec.md`.
-- `CHANGELOG.md` is one table row per deploy (`Ver | Date | What changed | Verified`).
-  It covers the window SAP does not: version management snapshots a TR only when it
-  is **released**. At release, collapse the block to one line.
+- `CHANGELOG.md` is one table row per deploy
+  (`Ver | Date | TR | Scope | What changed | Verified`), kept for the life of the
+  program. `Scope` prefixes `CL:` or `RAP:`. It covers the window SAP does not:
+  version management snapshots a TR only when it is **released**. Stamp the TR
+  the change actually used; never collapse rows at release. At release delete the
+  `.baseline` copy — SAP owns the exact diff.
+- Before any write or activation follow `docs/catalog.md` §"Co-edit contract":
+  sync-on-touch, TR confirmation, and a **new** CHANGELOG row for an external
+  edit. A stale local index is a reason to re-read SAP, not a reason to assume.
 - `scripts/closeout.py` checks both (spec tables, changelog vs `implemented_version`);
   `scripts/specs_sync.py --write` mirrors spec + changelog into `workspace/specs/` -
   never the FS.

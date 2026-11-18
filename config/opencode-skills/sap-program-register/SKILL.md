@@ -63,7 +63,14 @@ Only when the folder does not exist.
   transport"), Constraints, Session start. §Deploy stays "not yet approved" until
   the user names a writer; a `$TMP` program needs no transport.
 - `program.yaml` — `program`, `project`, `status: draft`, `transport`, `spec`,
-  `changelog`, `fs`, `fs_version`, `decisions`, `memory`, `scope: program`.
+  `changelog`, `fs`, `fs_version`, `decisions`, `memory`, `scope: program`,
+  `kind: classic | rap`, `object_count: <n>`, `complexity: light | high`.
+  Ask `kind` with one question. If `rap`, ask the object count; derive
+  `complexity: high` when it is 20 or more, otherwise `light`. For `classic`
+  default `object_count: 1` and `complexity: light` unless the user names a
+  superclass chain or another reason to raise it. Record the reason in
+  `reports/DECISIONS.md` when the user overrides the derived value.
+  These fields drive the co-edit path in `docs/catalog.md` §"Co-edit contract".
 - `spec.md` — copy from `templates/spec.md`; set `program`, `project`,
   `spec_version: 1.0`, `status: draft`, `fs_version`, `fs_file`, `updated`,
   `implemented_version: -`.

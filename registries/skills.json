@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T12:52:54+00:00",
+  "generated_at": "2026-11-18T19:09:34+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -347,7 +347,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-program-register\\SKILL.md",
       "owner": "Pongg",
-      "hash": "68441168deec0d86ab121e98d6f1ef4d4b7f98b7b13c5b9c0fc84bdc70063612",
+      "hash": "f55614fcc3ec061f9db04ec9488313bc48926440d0ae6fdad4bf5b97c40b3f88",
       "desc_chars": 265,
       "description": "Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for \"register new program\", \"new program folder\", \"new Z program\". Asks for every unknown; never creates a project, deploys, or connects to SAP.",
       "status": "new",
@@ -897,7 +897,7 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\capture-lesson\\SKILL.md",
       "owner": "vendor",
-      "hash": "a056c0facb2da0dddef81739f298ff1b9ead8ba7c5b64ae6e71207a134dabf5e",
+      "hash": "98c8a2a23b09dac0bb66026e5ce6414f1154b44ff78050d27217e6910e380a75",
       "desc_chars": 491,
       "description": "Turn a session finding into a durable artifact by choosing the right destination, showing the exact diff, and waiting for approval. Use when a session revealed something worth keeping — a tool or server behaviour, an environment gotcha, a correction the user made, a preference, or a procedure worth ",
       "status": "new",
@@ -1040,9 +1040,31 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\sap-new-record\\SKILL.md",
       "owner": "vendor",
-      "hash": "2b6cab294a8eba6334a2bedd2a9ce79d402864db84deff31434687e161673b19",
+      "hash": "dc5f7a26004c424d9836aa1a28fd3a7bb504072deffb2088b276c6ff0da22fdd",
       "desc_chars": 403,
       "description": "Decide which local record is needed before scaffolding SAP work, then hand off to the matching skill. Use when asked to \"start a new project\", \"new program\", \"add a program to this project\", \"set up the record\", \"สร้างโปรเจคใหม่\", \"เริ่มโปรแกรมใหม่\", or when an object is being worked on and has no r",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-program-unregister",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-program-unregister\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "5c1982dd7d3fa163e8a55bc91f8eb08fff75adce3fbf9eb317c72fcc4aa6a3e5",
+      "desc_chars": 363,
+      "description": "Retire one program record from the local Projects notebook and its private mirror - preflight, preview, explicit UNREGISTER confirmation, then _retired locally or hard delete. Use for \"unregister program\", \"retire program record\", \"remove program from Projects\". Never touches SAP objects, transport,",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-project-unregister",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-project-unregister\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "55ba4fec990e89241759d2b6bbfd59890a61c7318d8fcd7e266ecdb6e6ca642c",
+      "desc_chars": 361,
+      "description": "Retire one SAP project record from the local Projects notebook and its private mirror - preflight, preview, explicit UNREGISTER confirmation, then local _retired or hard delete. Use for \"unregister project\", \"retire project record\", \"remove project from Projects\". Refuses when programs remain, and n",
       "status": "new",
       "last_validated": null
     },

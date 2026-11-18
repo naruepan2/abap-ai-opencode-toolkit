@@ -26,6 +26,9 @@ so a reinstall restores them and never overwrites a newer local edit.
 | `sap-mcp-upgrade` | bump an MCP version pin or add an entry from evidence; probe → approval → verify → restore disabled |
 | `sap-project-register` | scaffold a new SAP project folder, manifests, INDEX, optional disabled MCP profile |
 | `sap-program-register` | scaffold a new program under an existing project: spec, changelog, memory card |
+| `sap-data-verify` | read-only, Clean-Core-first data verification through ARC-1; probes both data gates and asks before opening them |
+| `sap-project-unregister` | tear down a project folder with explicit archive/delete choice; no cascade, no SAP/config surprises |
+| `sap-program-unregister` | tear down one program scaffold with the same two-question confirmation and no SAP writes |
 
 Sync rule: the live copy is authoritative. After editing
 `~/.config/opencode/skills/<name>/SKILL.md`, copy it back here in the same change —

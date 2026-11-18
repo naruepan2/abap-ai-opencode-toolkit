@@ -71,6 +71,16 @@ before using any of its line ranges.
   `.baseline/<OBJ>_<TR>.abap`; delete that file when the TR is released. A saved but
   inactive source is not a rollback. The why and the evidence stay in
   `reports/DECISIONS.md`, not in `CHANGELOG.md`.
+
+## Co-edit
+
+Before any write or activation, follow `docs/catalog.md` §"Co-edit contract":
+sync-on-touch (one TR list probe; plus `INACTIVE_OBJECTS` and impact for a large
+RAP stack), then confirm the TR with the user before the activation run. The
+anchor lives in `spec.md` front matter (`last_tr_check` / `last_tr_seen`).
+An external edit found in SAP adds a **new** CHANGELOG row with its TR and Scope —
+never rewrites an old one. If no signal exists and the user cannot name the TR,
+stop; an unreported open-TR edit is not detectable from local data.
 ```
 
 

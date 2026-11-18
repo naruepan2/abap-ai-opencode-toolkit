@@ -73,13 +73,23 @@ Five files, five questions - no duplication:
 | `reports/DECISIONS.md` | Why a choice was made (with evidence) | history |
 | `templates/plan.md` | In what order, for a long run | execution |
 
-`CHANGELOG.md` is one table row per deploy, not a prose log: version, date,
+`CHANGELOG.md` is one table row per deploy, not a prose log: version, date, TR,
 one-line change, verification. It covers the window SAP does not: SAP version
 management snapshots a TR only when it is **released**, so until then the system
-holds only the current code. When the TR is released, the block collapses to one
-line (`TR ... released ... - v1-vN`) and SAP becomes the record; the file never
-grows past one transport. The failure mode is real: ZDEMO01 reached v20 while the
-card and README still said v12.
+holds only the current code. Rows stay for the life of the program — do **not**
+collapse them at release. SAP remains the authority for exact code diffs; this
+table is the local index that lets a person or an agent see what changed and
+which TR carried it without opening every SAP version. Re-binding an object to a
+new TR simply adds a new row with the new TR; the old row keeps the released TR.
+The failure mode this guards against: ZDEMO01 reached v20 while the card and
+README still said v12.
+
+There is one gap no design closes. An edit made in SAP, activated while its TR
+stays open, with no new version, no lock change and no report from the developer,
+is invisible to the agent. The handshake in `docs/catalog.md` §"Co-edit contract"
+narrows it but cannot remove it: if the user answers wrongly, the agent proceeds
+on wrong information. Treat this as an information limit, not a bug — do not keep
+adding scans that cannot observe an unreported open-TR change.
 
 `spec.md` is a thin, checkable contract: YAML front matter (`program`,
 `spec_version`, `status`, `fs_version`, `fs_file`, `implemented_version`,

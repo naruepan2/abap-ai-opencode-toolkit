@@ -1,5 +1,34 @@
 # Changelog
 
+## Unreleased — 2026-11-18
+
+- Program `CHANGELOG.md` now keeps **every** deploy row for the life of the
+  program and carries a `TR` column, replacing the old "collapse to one line at
+  release" rule. SAP version management still owns exact code diffs; the local
+  table is the index that answers what changed and which TR carried it, including
+  re-binding to a new TR after a release. Updated `templates/CHANGELOG.md`,
+  `AGENTS.md`, `docs/design.md`, README and the `closeout.py` table hint. Existing
+  program changelogs were not rewritten.
+- Added `templates/RAP_INDEX.md`: a thin RAP read map organised by dependency
+  chain, artifact layer and runtime phase, with a procedure for locating edits
+  made in SAP outside the agent (TR scan → diff → impact) instead of re-reading a
+  20–120 object stack. Template only — no existing program was changed and
+  `specs_sync.py` does not mirror this file yet.
+- Added `docs/catalog.md` §"Co-edit contract": `kind`/`complexity` paths,
+  sync-on-touch, a per-batch activation gate with a structured handshake, and an
+  explicit statement that an unreported open-TR edit is undetectable and must not
+  be chased as a bug. `CHANGELOG.md` regained its `Scope` column (`CL:`/`RAP:`);
+  `spec.md` gained the `last_tr_check` / `last_tr_seen` anchor; `program-register`
+  records kind/object count/complexity; AGENTS and `design.md` point at the
+  contract. TR stamps stay — no detector was removed.
+- Patched the co-edit contract with five ideas merged from a review of another
+  session's proposal, kept only where the mounted tools support them: event vs
+  state facts with `source`/`by`/`verified_at` and a TTL, read/write/data cones,
+  a `get_source(include_hash=true)` → lock → `edit_source(expected_source_hash)`
+  → unlock write protocol, recognition-based handoff, and 409/423/404 routing.
+  Deliberately left out: ETag conditional GET and `GetObjectDraft` (no mounted
+  tool), the cross-harness write ledger, and per-write `.baseline`.
+
 ## v0.7.9 — 2026-11-18
 
 - A large customer FS now gets a thin read map: `templates/spec-index.md` seeds
