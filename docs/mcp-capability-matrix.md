@@ -4,11 +4,12 @@ Three ADT servers claim to cover ABAP work. This document records what each one
 actually exposes, so a gap is answered by evidence rather than by adding another
 server and hoping the model picks the right tool.
 
-Sources: the repositories as of 2026-11-17 (`fr0ster/mcp-abap-adt` @ `b29d6ff`,
+Sources: the repositories (`fr0ster/mcp-abap-adt` @ `8a9ed53`, tag `v24.0.0`;
 `arc-mcp/arc-1` @ `755a265`, `grknylmz/sap-ai-dev-toolkit`) plus the live tool
 catalog of the current session (`registries/tools-full.json`). The fr0ster
-figures below were re-derived from its generated tool docs at that commit on
-2026-11-17 — `b29d6ff` was still `main` when the check ran.
+figures were re-derived from its generated tool docs at `v24.0.0` on 2026-11-18
+and diffed against the previous baseline `v23.1.0` / `b29d6ff`. The ai-dev and
+arc-1 figures were **not** re-measured in this pass.
 
 ---
 
@@ -40,7 +41,7 @@ wording and its evidence live in `docs/mcp-orchestration.md` §5.
 
 | | ai-dev (vsp) | arc-1 | fr0ster mcp-abap-adt |
 |---|---|---|---|
-| Tools exposed | **75** (live) | **12** documented / **8** live — the live set is **read-only** | **292** total · **188** high-level · **74** read-only — the compact binary is a separate shape: **28** tools, **17** read-only |
+| Tools exposed | **75** (live) | **12** documented / **8** live — the live set is **read-only** | **289** total · **188** high-level · **73** read-only (was 292/188/74 at `v23.1.0`) — the compact shape is **39** tools, **16** read-only (was 40/17) |
 | Design | one tool per action | **one tool per verb**, object type as an argument | both: per-type tools *and* a compact multiplexed binary |
 | Read ABAP source | ✔ | ✔ | ✔ |
 | Write / activate | ✔ | ✔ | ✔ |
@@ -79,24 +80,28 @@ Evidence, so the table can be re-checked instead of trusted:
   discovery; `src/handlers/object-types.ts` carries `DOMA`, `DTEL`, `TTYP`, `VIEW`,
   `SHLP`, `MSAG`, `ENQU`, `ENHO`; the README tool table lists `DOMA`, `DTEL`, `MSAG`
   inside SAPWrite.
-- fr0ster: the generated tool docs carry **292** `####` entries
-  (`AVAILABLE_TOOLS.md`), **188** in `AVAILABLE_TOOLS_HIGH.md` and **74** in
-  `AVAILABLE_TOOLS_READONLY.md`; the categories are Domain, Data Element, Table,
-  Table Type, Structure, Message Class, Metadata Extension, Behavior Definition,
-  Service Definition and Service Binding. The compact binary takes the object type
-  as an argument — `DOMAIN`, `DATA_ELEMENT`, `TABLE`, `STRUCTURE`, `TABLE_TYPE`,
-  `DDL` (`compact-readonly-entries/src/handlers/compactReadRoutes.ts:110-132`).
+- fr0ster: re-derived from the generated tool docs at `v24.0.0` — **289** `####`
+  entries (`AVAILABLE_TOOLS.md`), **188** (`AVAILABLE_TOOLS_HIGH.md`) and **73**
+  (`AVAILABLE_TOOLS_READONLY.md`); the compact doc states **39** tools, **16**
+  read-only. Against `v23.1.0` the full set lost `GetAbapAST`,
+  `GetAbapSemanticAnalysis`, `GetAbapSystemSymbols` and the full-binary `Batch*`
+  tools, and gained `GetObjectDraft`, `GetObjectOutline`, `DebugBatchAnswers` and
+  three background-run tools; high-level is unchanged. Compact `HandlerSearch` +
+  `HandlerWhereUsed` became one `HandlerSystem` with eight actions. The categories
+  are still Domain, Data Element, Table, Table Type, Structure, Message Class,
+  Metadata Extension, Behavior Definition, Service Definition and Service Binding;
+  the compact binary still takes the object type as an argument.
 
 ### Corrections to two common assumptions
 
 1. **"arc-1 cannot create domains or data elements"** — false. It has no tool *named*
    `CreateDomain`; the capability lives in `SAPWrite` with `type: "DOMA"` / `"DTEL"`.
    Judging arc-1 by tool names understates it by an order of magnitude.
-2. **fr0ster's "👁️ View Management: GetView, CreateView, UpdateView"** — not present in
-   its generated tool list (0 matches for `GetView`/`CreateView`/`UpdateView` across all
-   three generated docs). The bullet is still in the README (`README.md:273`), and the
-   only tool whose name matches `/view/i` is `GetServiceBindingPreviewUrl`. CDS is
-   handled as `Ddl`; classic views are not covered.
+2. **fr0ster's "👁️ View Management: GetView, CreateView, UpdateView"** — still not in
+   its generated tool list at `v24.0.0` (0 matches for those three names across all
+   three generated docs; re-checked 2026-11-18). The bullet remains in the README,
+   and the only tool whose name matches `/view/i` is `GetServiceBindingPreviewUrl`.
+   CDS is handled as `Ddl`; classic views are not covered.
 
 ### Capability vs configuration
 
@@ -116,6 +121,22 @@ codebase — check which of the two you are looking at before installing a repla
 server. `python scripts/tools_now.py` now prints that posture per server; the model
 behind it is in `docs/mcp-orchestration.md`.
 
+### What v24.0.0 changed (2026-11-18)
+
+The major bumps the version from 23.x; the counts above already use the new
+numbers. The changes that matter to this evaluation:
+
+| Change | Upstream evidence | Effect here |
+|---|---|---|
+| Start-time restrictions: `--deny-actions`, `--allowed-packages`, `--allowed-requests`, `--denied-tables` / `--allowed-tables` (also `MCP_*` and YAML `restrictions.*`); none by default | README "Access restrictions"; `docs/user-guide/ACCESS_RESTRICTIONS.md` (PR #349) | A task-scoped instance can be allow-listed to a package/request/table set. SAP authorization is still the boundary. |
+| Data tools opt-in: `GetSqlQuery`, `GetTableContents`, `HandlerGetData` off on **every** binary by default, `-ro` included | README "The data tools: off unless enabled"; `HandlerGetData` in the compact doc | The read-only shape no longer reads business data unless explicitly enabled — matches our no-data-preview rule. |
+| Long reads background-by-default: `GetBackgroundRun` / `ListBackgroundRuns` / `DiscardBackgroundRun`; no `timeout` argument | README "Long reads run in the background"; `docs/MIGRATION-24.0.md` | A where-used/search call returns a `run_handle`; a scorecard must count the extra read. |
+| New read `GetObjectDraft` (compact `HandlerGet` `part: 'draft'`) — whose unactivated draft an object holds | PR #349; generated tool docs | Not available from the current two engines. |
+| RFC destinations state their own address (`SAP_ASHOST` + `SAP_SYSNR`, or message server, plus `SAP_CLIENT` / `SAP_LANGUAGE`); no `SAP_URL` | README "For RFC connection"; `docs/MIGRATION-24.0.md` | A hypothetical RFC trial needs a different config shape; our HTTP/TLS findings stand. |
+| Named `--mcp` sessions stay in memory unless `--unsafe`; a named `.env` is still written back with a renewed token | README "Command-Line Options" | Credential-on-disk risk shrinks for `--mcp`, unchanged for `--env` / `--env-path`. |
+| Node 22 or 24 still required; this machine remains `v26.13.1` | README "Getting Started"; `node -v`, 2026-11-18 | A trial is still blocked by the runtime, not by a capability. |
+| Compact `HandlerSearch` + `HandlerWhereUsed` → `HandlerSystem` (8 actions) | PR #346 (D25); compact tool docs | Any future config or scorecard must use the new tool name. |
+
 ---
 
 ## 4. Cost of adding a fourth engine
@@ -133,13 +154,14 @@ cost to a namespace index plus `search` results, so the real per-turn delta is
 smaller — and it is not zero. `registry_check.py --check --brief` prints the same
 line before and after a change; that is the honest way to measure an addition.
 
-Beyond context, fr0ster adds a **second credential path**. Every authentication it
-supports is a *destination* described by env vars; the basic one holds
-`SAP_USERNAME` + `SAP_PASSWORD` (`docs/user-guide/AUTHENTICATION.md:11`), and the
-words keychain or keyring appear nowhere in that guide. Its browser login
-(`@mcp-abap-adt/auth-broker-cli`, `README.md:86`) avoids the password but writes the
-session to `<auth-broker-path>/sessions/<name>.env` — still a second place on disk.
-The Windows Credential Manager used here knows neither route.
+Beyond context, fr0ster adds a **second credential path**, though v24.0.0 narrowed
+it. A named `--mcp` destination keeps its session **in memory by default** —
+`--unsafe` is what writes it to `<auth-broker-path>/sessions/<name>.env`. A `.env`
+named with `--env` / `--env-path` is still read **and written back** with a renewed
+token whatever `--unsafe` says, and the basic one holds `SAP_USERNAME` +
+`SAP_PASSWORD`. The words keychain or keyring appear nowhere in its authentication
+guide (0 matches at `v24.0.0`). The Windows Credential Manager used here knows
+neither route.
 
 ---
 
@@ -152,13 +174,16 @@ The Windows Credential Manager used here knows neither route.
 2. **Close the DDIC gap with arc-1, not with a new server.** Domain, data element and
    table type creation already exist in `SAPWrite`; the launcher is simply not passing
    `-AllowWrites`. That is a per-task switch, not a missing engine.
-3. **fr0ster is absent by design, not disabled.** There is no entry for it in
-   `opencode.json`, so it cannot connect and it costs nothing. If a task ever needs
-   what arc-1 refuses, bring it in as a task-scoped entry with `disabled: true` and
-   the read-only shape (`@mcp-abap-adt/core-ro`, or `compact-ro` at 17 tools) — 292
-   tools is not worth a permanent slot. Its credentials would have to travel the same
-   Windows Credential Manager route as the other engines; its own env vars are a
-   second place for a SAP password to exist.
+3. **fr0ster is still absent by design, not disabled.** No `opencode.json` entry,
+   no global install (last checked 2026-11-17), and Node 22/24 required versus
+   `v26.13.1` here — so it cannot connect and costs nothing. v24.0.0 makes a future
+   trial cheaper and tighter: `compact-ro` is **16** tools, data reads are off by
+   default, and start-time allow-lists can scope it to a package, request or table
+   set. That does not change the gate: credentials would still have to travel the
+   same Windows Credential Manager route, and the roles above already cover the
+   work. The full record, including the local tool-overlap analysis, is
+   `docs/fr0ster-v24-assessment.md`. Re-open `docs/plan-fr0ster-evaluation.md` only
+   if a task proves a real gap.
 4. **One object, one writer, one session.** Readers may overlap freely; a second engine
    writes an object only after the first is done and it has been re-read. Record which
    engine produced each piece of evidence. Details and evidence:
@@ -174,9 +199,13 @@ Re-derive, do not remember:
 # live catalog of what is actually connected
 python scripts\registry_check.py --check --brief
 
-# upstream claims
+# upstream claims — pin the fr0ster tag; main moves
 curl -fsSL https://raw.githubusercontent.com/arc-mcp/arc-1/main/README.md
-curl -fsSL https://raw.githubusercontent.com/fr0ster/mcp-abap-adt/main/docs/user-guide/AVAILABLE_TOOLS_HIGH.md
+curl -fsSL https://raw.githubusercontent.com/fr0ster/mcp-abap-adt/v24.0.0/docs/user-guide/AVAILABLE_TOOLS.md
+curl -fsSL https://raw.githubusercontent.com/fr0ster/mcp-abap-adt/v24.0.0/docs/user-guide/AVAILABLE_TOOLS_HIGH.md
+curl -fsSL https://raw.githubusercontent.com/fr0ster/mcp-abap-adt/v24.0.0/docs/user-guide/AVAILABLE_TOOLS_READONLY.md
+curl -fsSL https://raw.githubusercontent.com/fr0ster/mcp-abap-adt/v24.0.0/compact/docs/AVAILABLE_TOOLS.md
+curl -fsSL https://raw.githubusercontent.com/fr0ster/mcp-abap-adt/v24.0.0/docs/user-guide/ACCESS_RESTRICTIONS.md
 ```
 
 If a row changes, edit it here. A capability that exists but is undiscoverable is a

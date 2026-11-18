@@ -47,7 +47,7 @@ The check report is not a registry. It is written to
 ## Docs — four categories
 
 - Design: `design.md`, `memory-model.md`, `lifecycle.md`
-- Operations: `mcp-orchestration.md`, `mcp-capability-matrix.md`
+- Operations: `mcp-orchestration.md`, `mcp-capability-matrix.md`, `fr0ster-v24-assessment.md`
 - Reference: `comparison.md` (empty scorecard template)
 - Plans: `plan-fr0ster-evaluation.md`, `plan-mcp-pins.md` — parked for later,
   not approved to execute

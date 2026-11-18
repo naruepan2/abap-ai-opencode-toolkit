@@ -8,6 +8,11 @@
 >
 > The plan is a hypothesis. When evidence disagrees, revise it — do not push
 > through. ≤12 todos; one verifiable unit each.
+>
+> **2026-11-18 refresh:** the upstream facts were re-derived from tag `v24.0.0`
+> (`8a9ed53`) and its generated tool docs and recorded in
+> `docs/fr0ster-v24-assessment.md`. The original 2026-11-17 evidence below stays
+> intact. No npm, Node, SAP or credential change; the plan stays parked.
 
 Goal:      Decide from measured evidence whether `@mcp-abap-adt` should stay absent,
            be added as a task-scoped read-only engine, or be trialled as a full

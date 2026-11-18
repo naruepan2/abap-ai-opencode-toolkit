@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T19:37:21+00:00",
+  "generated_at": "2026-11-18T10:57:40+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -251,6 +251,17 @@
       "hash": "c29611473b3b1b26f3675e78d505353e32b206c49aea2a7432b248617f34ff84",
       "desc_chars": 453,
       "description": "Audit finished work: separate verified fact from confident prose. Every claim gets evidence at file:line and a verdict, then mentor advice (what to fix) and commentator risks (what to watch). Use for \"audit this\", \"ตรวจงาน\", \"is this correct\", \"second opinion\", \"verify these claims\" on any doc, repo",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-data-verify",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\sap-data-verify\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "034d1606b6a32a3f10ea2155541fd111840fd49a99dc4b351dbdf1dcf78fb4ca",
+      "desc_chars": 676,
+      "description": "Verify that an ABAP program/report/transaction or Fiori-OData app processes and displays data correctly by reading real rows via ARC-1, Clean-Core-first. Prefer C1/C2-released CDS views (e.g. I_SalesDocument) over raw tables (VBAK); check release state with SAPRead(type=API_STATE). Freestyle SQL (SA",
       "status": "new",
       "last_validated": null
     },
@@ -864,7 +875,7 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\capture-lesson\\SKILL.md",
       "owner": "vendor",
-      "hash": "8d4be91c232a9053d24dd738cca1dc0ca70fb117f1d76614ed894800437d0782",
+      "hash": "a056c0facb2da0dddef81739f298ff1b9ead8ba7c5b64ae6e71207a134dabf5e",
       "desc_chars": 491,
       "description": "Turn a session finding into a durable artifact by choosing the right destination, showing the exact diff, and waiting for approval. Use when a session revealed something worth keeping — a tool or server behaviour, an environment gotcha, a correction the user made, a preference, or a procedure worth ",
       "status": "new",
@@ -897,7 +908,7 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\long-task-control\\SKILL.md",
       "owner": "vendor",
-      "hash": "0e5b76b3c56a7d79f7ebcabaae44ef9a6b7a54aed97115655f1d0268582f440b",
+      "hash": "e16f225bd2550158b1c4aa871d15ec642055b5f553abad45bf8c60f0faba2ab6",
       "desc_chars": 316,
       "description": "Run, checkpoint and stop a task that outlives one request - the stop condition, the handoff when stopping early, and why evidence expires. Use when work spans multiple objects or requests, near a request or context limit, when resuming a previous session, or asked \"what is left\". Not for work that f",
       "status": "new",
@@ -959,11 +970,33 @@
       "last_validated": null
     },
     {
+      "id": "sap-data-verify",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-data-verify\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "05db66f496f999fddcc1b63514aa2675d561f02b07f47a49a7dba97f45484793",
+      "desc_chars": 676,
+      "description": "Verify that an ABAP program/report/transaction or Fiori-OData app processes and displays data correctly by reading real rows via ARC-1, Clean-Core-first. Prefer C1/C2-released CDS views (e.g. I_SalesDocument) over raw tables (VBAK); check release state with SAPRead(type=API_STATE). Freestyle SQL (SA",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-evidence-audit",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-evidence-audit\\SKILL.md",
+      "owner": "vendor",
+      "hash": "1c9063895a72dccd90850ad2955b252be9406beb306435fa4a9c3f81cbe3a8b8",
+      "desc_chars": 314,
+      "description": "Audit finished work - separate verified fact from confident prose. Five evidence tiers, verdict marks, mentor fixes and commentator risks. Use for \"audit this\", \"ตรวจงาน\", \"second opinion\", \"verify these claims\" on a doc, report, memory entry or change before release. Not for ABAP lint or transport ",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "sap-new-program",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\sap-new-program\\SKILL.md",
       "owner": "vendor",
-      "hash": "b3ea149ed9312dc19e852052b10bce7bf37708ab5e89d760998469b1dc5444d9",
+      "hash": "7c87588e206d351b3d4002430755d184d56b006a3319a5c1f9b0abb871811dfe",
       "desc_chars": 360,
       "description": "Scaffold one program record under Projects/<PROJECT>/<PROGRAM>/ - program.yaml, README, changes.md and spec wiring. Use for \"register new program\", \"new Z program\", \"เพิ่มโปรแกรมใหม่\", \"เริ่มโปรแกรมใหม่\". Requires the project record to exist. Asks for every unknown, never guesses a SID, client, tran",
       "status": "new",

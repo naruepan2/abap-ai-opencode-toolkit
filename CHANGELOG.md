@@ -16,6 +16,19 @@
   or token and reports it as drift instead of silently copying it (7 regex cases
   tested). It also mirrors `spec/FS_INDEX.md` when present (the FS itself is still
   never mirrored).
+- fr0ster `v24.0.0` (`8a9ed53`) recorded in `docs/fr0ster-v24-assessment.md`: tool
+  counts re-derived from the generated docs, start-time restrictions, opt-in data
+  tools, and the local tool-overlap analysis. The capability matrix and the parked
+  plan point at it. Nothing installed.
+- `opencode.json` now states `SAP_ALLOW_DATA_PREVIEW=false` and
+  `SAP_ALLOW_FREE_SQL=false` explicitly for all five SAP MCP entries. ARC-1 already
+  defaulted to false; the ai-dev engine does not read these variables, so its data
+  tools stay mounted — the document records the gap and the un-applied option.
+- New personal skill `sap-data-verify`: read-only, Clean-Core-first data verification
+  through ARC-1; probes both gates and stops to ask before opening them. Source in
+  `config/opencode-skills/`, installed to global skills, listed in `PERSONAL_SKILLS`,
+  registry refreshed. Appendix L maps the local `arc1-*` namespaces. A same-named
+  Copilot skill already existed and was not touched.
 
 ## v0.7.8 — 2026-11-18
 
