@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-18
+## v0.7.9 — 2026-11-18
 
 - A large customer FS now gets a thin read map: `templates/spec-index.md` seeds
   `spec/FS_INDEX.md` (topic → line ranges, ≤10-line summary, cover pages skipped).
@@ -29,6 +29,12 @@
   `config/opencode-skills/`, installed to global skills, listed in `PERSONAL_SKILLS`,
   registry refreshed. Appendix L maps the local `arc1-*` namespaces. A same-named
   Copilot skill already existed and was not touched.
+- New personal skills `sap-project-unregister` and `sap-program-unregister`, plus a
+  shared §"Unregistration contract" in `docs/catalog.md`. Every invocation asks Q1
+  (local `_archive` or hard delete) then Q2 (final confirm, default cancel); no
+  inherited approval, no cascade, no SAP/TR/credential changes, no GitHub archive,
+  and `_archive` is never pushed to git. Installed globally and added to
+  `PERSONAL_SKILLS`.
 
 ## v0.7.8 — 2026-11-18
 

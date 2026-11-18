@@ -144,6 +144,55 @@ Gates:
 - Stop if any required answer is blank, a file would be overwritten, a domain
   name does not resolve, or permission for an outside folder is missing.
 
+## Unregistration contract — shared by both unregister skills
+
+The two skills `sap-project-unregister` and `sap-program-unregister` use this
+contract. They undo only what the matching register skill created. They never
+touch SAP objects, transports, stored credentials, or another project/program.
+
+**Confirm every time — no inherited approval:**
+
+- Resolve the exact, case-sensitive name; reject path separators, `..` and
+  wildcards. If the folder or manifest is missing, report and stop — never claim
+  success for removing nothing.
+- Build and show the removal set before asking: folder path + file count, INDEX
+  row, README line, memory card / spec mirror, and any MCP entries. State what
+  will remain (SAP object, TR, other programs, stored credential).
+- **Q1 — mode:** one `question` call with two options: `A` move to local
+  `_archive`, `B` hard delete. No hidden default. For `B`, say in a full sentence
+  before Q2 that deletion is permanent and cannot be undone.
+- **Q2 — final confirm:** one `question` call restating target, chosen mode and
+  removal set. Options `confirm` / `cancel`; default `cancel`. Execute only after
+  `confirm`. Cancel at either question → stop and change nothing.
+- Repeat Q1 and Q2 on **every** invocation, even if a previous turn said "delete
+  it". An interrupted run restarts from Q1.
+
+Gates:
+
+- `sap-program-unregister` owns the program folder, `program.yaml`, `spec.md`,
+  `CHANGELOG.md`, `spec/source/`, `reports/`, the memory card, the program row in
+  portfolio `INDEX.md`, the project README §Programs line, and the spec mirror.
+  It never touches MCP config or another program.
+- `sap-project-unregister` owns the project folder, the project row in portfolio
+  `INDEX.md`, and the MCP profile/entries created at registration. It never
+  deletes a program folder or edits a program row.
+- No cascade. If a project still holds programs (excluding `_archive` and
+  `_sandbox`), project unregister refuses and lists them.
+- Archive mode: program → `Projects/<PROJECT>/_archive/…`; project →
+  `<portfolio>/_archive/…` (create the portfolio archive only for a whole-project
+  retirement, as the workspace rules allow). Write a small README in the archive
+  with the date, original path and removed config entries.
+- Hard delete uses `Remove-Item -LiteralPath` on the validated exact path only —
+  never a wildcard or a recursive scan outside the target.
+- **Never push `_archive` to git.** GitHub archiving is not a menu option and is
+  not performed by these skills.
+- Remove an MCP entry or profile only when no other entry still references it;
+  if that cannot be proven, leave it and report. Never delete a stored credential
+  automatically.
+- Verify after every run: `memory_check.py --brief`, `registry_check.py --check
+  --brief`, `specs_sync.py` (check), `closeout.py`, and `tools_now.py` for project
+  removal. Report the exact paths removed, the chosen mode, and what remains.
+
 ## Where to add things
 
 | New thing | Goes to | Also update |
@@ -152,6 +201,8 @@ Gates:
 | personal skill | `config/opencode-skills/<name>/` | `PERSONAL_SKILLS`, `config/README.md`, `CHANGELOG.md`, live copy, registry refresh |
 | new SAP project | `Projects/<PROJECT>/` via `sap-project-register` | portfolio `INDEX.md`, optional profile + MCP entry, registry refresh |
 | new SAP program | `Projects/<PROJECT>/<PROGRAM>/` via `sap-program-register` | memory card, `specs_sync.py --write` |
+| removed SAP project | via `sap-project-unregister` | portfolio `INDEX.md`, unused MCP entries, registry refresh, no git push of `_archive` |
+| removed SAP program | via `sap-program-unregister` | memory card, `specs_sync.py --write`, no git push of `_archive` |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |

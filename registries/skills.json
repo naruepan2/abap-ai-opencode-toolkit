@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T10:57:40+00:00",
+  "generated_at": "2026-11-18T12:52:54+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -354,6 +354,17 @@
       "last_validated": null
     },
     {
+      "id": "sap-program-unregister",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\sap-program-unregister\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "23e631ed08938fcf175f120017c88d6b57c5b29a18387a52a4b1dd6f7931482f",
+      "desc_chars": 406,
+      "description": "Unregister an existing program from the SAP OpenCode workspace: remove its folder, spec mirror, memory card, INDEX row and project README line, with an explicit user choice of local _archive or hard delete. Use for \"unregister program\", \"remove program scaffold\", \"delete program registration\". Confi",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "sap-project-register",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-project-register\\SKILL.md",
@@ -361,6 +372,17 @@
       "hash": "e6954f89d8baf0ac575af5e56be6ee5272844912c41b0f336b04fb5dcdf3bf8d",
       "desc_chars": 289,
       "description": "Register a new SAP project in the OpenCode workspace: project folder, manifests, README/AGENTS, archive/sandbox, portfolio INDEX, optional disabled MCP profile. Use for \"register new project\", \"onboard project\". Asks for every unknown; never creates a program, deploys, or connects to SAP.",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-project-unregister",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\sap-project-unregister\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "f3571d18497d6b75a7b2d56d21511e0f8933896de3983b950a9596be5bdb3f03",
+      "desc_chars": 417,
+      "description": "Unregister an existing SAP project from the OpenCode workspace: remove its folder, portfolio INDEX row and the MCP profile/entries created at registration, with an explicit user choice of local _archive or hard delete. Use for \"unregister project\", \"remove project scaffold\", \"delete project registra",
       "status": "new",
       "last_validated": null
     },

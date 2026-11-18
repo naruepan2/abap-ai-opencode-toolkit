@@ -195,17 +195,17 @@ specialists return evidence, not conclusions.
 ## Measured on the author's machine
 
 Snapshot: 2026-11-18. Re-measure with `python scripts\registry_check.py --check --brief`;
-these numbers move with every install. Current release: **v0.7.7** — see
+these numbers move with every install. Current release: **v0.7.9** — see
 [Releases](https://github.com/naruepan2/abap-ai-opencode-toolkit/releases).
 
 | Area | Count | Notes |
 |---|---|---|
-| Skills | 122 | opencode 34, agents 40, claude 25, copilot 23 |
+| Skills | 124 | opencode 36, agents 40, claude 25, copilot 23 |
 | Agents | 24 | 4 editable, 20 vendor |
 | MCP servers | 18 | 14 enabled, 4 disabled/on-demand |
 | Tools | 363 | 12 namespaces; ADT share: ai-dev ×3 (75 each), arc1 ×2 (8/9) |
 
-Prompt cost: **73.1k chars per session** (skills 20.7k + tools 52.5k). Both catalogs
+Prompt cost: **74.0k chars per session** (skills 21.5k + tools 52.5k). Both catalogs
 are over budget (skills 20k, tools 28k) — a human decision about which server or
 skill to park, not a broken install. SAP servers stay on-demand. See
 `docs/design.md` §"Prompt budget".
