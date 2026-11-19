@@ -16,8 +16,12 @@
   `impact` on the interface view does not. Added an optional **disabled comment
   block** write mode to the same doc: syntax by object family (SAP Help CDS/BDL
   rules), dividers, placement when comments already exist, and the anchor/marker
-  traps. Not the default; activation stays locked to DEFER for that mode. Gap
-  register and catalog point at the proposal; no component implemented.
+  traps. Read-only syntax probes on DS4/100 then confirmed `*` blocks on PROG/
+  CLAS/FUNC and `//` blocks on DDLS/DDLX/STOB/DCLS/BDEF are clean, but **SRVD
+  rejects comments** ("Comments are not supported and will be deleted on save") — SRVD is excluded
+  from comment-block mode and its proposal stays in the local manifest. Not the
+  default; activation stays locked to DEFER for that mode. Gap register and
+  catalog point at the proposal; no component implemented.
 - Refreshed the registry baseline after the temporary `sap-gui` session and
   daemon restart changed the live tool catalog: 370 tools / 11 namespaces,
   0 issues. Updated README counts and prompt cost (76.2k chars). The 7 warnings

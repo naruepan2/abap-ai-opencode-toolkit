@@ -114,13 +114,27 @@ under CAS. This mode (`INSERT_DISABLED_BLOCKS`) is an optional axis in the
 approval card; choosing it locks activation to `DEFER`. It is still a **write**
 and must obey fresh-read + CAS like any other.
 
-Comment syntax evidence (checked 2026-11-20):
+Comment syntax evidence — read-only probes on DS4/100, 2026-11-20.
+Method: read a real object's source, prepend a COEDIT block **in memory**, then
+call `SAPDiagnose(action="syntax", source=<modified>)`. No SAP write. The method
+was validated first by injecting an invalid token (syntax error reported), so a
+clean result is meaningful. Object names are withheld.
 
-| Object family | Comment | Evidence |
+| Object family | Result | Evidence |
 |---|---|---|
-| PROG / CLAS / FUNC | `*` in column 1 | ABAP convention |
-| DDLS / SRVD | `//` to end of line; `/* ... */` allowed in CDS DDL | SAP Help `ABENCDS_GENERAL_SYNTAX_RULES`; DS4/100 `SAPRead(grep="//")` on a DDLS returned 13 hits |
-| BDEF | `//` to end of line | SAP Help `ABENBDL_GENERAL_SYNTAX_RULES`; **no `/* ... */` documented** — do not use it |
+| PROG | clean | in-memory `*`-column-1 block, 0 errors |
+| CLAS | clean | same |
+| FUNC | clean | same |
+| DDLS | clean | in-memory `//` block, 0 errors; SAP Help `ABENCDS_GENERAL_SYNTAX_RULES` (`//` and `/* ... */`); live `SAPRead(grep="//")` returned 13 hits |
+| DDLX | clean | in-memory `//` block, 0 errors |
+| STOB | clean | read/written through the DDLS type (`SAPRead` has no `STOB` type; URI is `/sap/bc/adt/ddic/ddl/sources/...`) — `//` block, 0 errors |
+| DCLS | clean | in-memory `//` block, 0 errors |
+| BDEF | clean | in-memory `//` block, 0 errors; SAP Help `ABENBDL_GENERAL_SYNTAX_RULES` (**only `//`**, no `/* ... */`) |
+| **SRVD** | **rejected** | syntax error: *"Comments are not supported and will be deleted on save"* — **never insert comment blocks into SRVD source** |
+
+SRVD exposure edges (`exposes`) are still read from its source normally — the
+restriction is only about writing comment proposals into that source. Keep any
+SRVD proposal in the local manifest / approval record, not in the object.
 
 ### Block format
 
@@ -136,7 +150,7 @@ ABAP (`*` column 1), dividers top and bottom at the same length:
   METHOD read_status. result = 'V1'. ENDMETHOD.   "<<-- original untouched
 ```
 
-DDLS / SRVD / BDEF (`//` on every line, including the divider):
+DDLS / BDEF (`//` on every line, including the divider — **not SRVD**):
 
 ```abap
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +174,10 @@ lines are human-readable summaries, not machine anchors.
 | CLAS | `implementations` before `METHOD`; `definitions` before declaration; `testclasses` before test method | head of the include holding most ops; one index per include if ops span includes |
 | FUNC / FUGR | inside the FM include, before the statement | head of FM include (or top include for several FMs) |
 | DDLS | before the field / association / statement | head of DDL source, **after** existing header comments, before the first `@` annotation |
-| SRVD | before the `expose ...;` line | head of service definition |
+| DDLX | before the annotated entity / annotation | head of metadata extension, after header comments |
+| STOB | same as DDLS (source is DDL text via the DDLS type) | same as DDLS |
+| DCLS | before the role / grant statement | head of access control source |
+| SRVD | **no comment block** — keep proposal in local manifest | **no index block in source** |
 | BDEF | before the behavior statement / action | head of BDEF, after existing header comments |
 
 If a comment group already sits directly above the target, insert our block
