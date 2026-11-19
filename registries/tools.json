@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-19T09:21:12+00:00",
+  "generated_at": "2026-11-19T20:17:21+00:00",
   "source": "live tool catalog snapshot",
-  "total": 370,
+  "total": 381,
   "namespaces": {
     "ai-dev-ds4-100": 75,
     "ai-dev-ds4-900": 75,
@@ -10,9 +10,9 @@
     "arc1-sus-100": 9,
     "browse": 26,
     "open-computer-use": 9,
+    "opencode": 31,
     "sap-docs": 9,
     "windows-mcp": 19,
-    "opencode": 20,
     "browser": 45
   },
   "tool_ids": [
@@ -341,6 +341,17 @@
     "open-computer-use_scroll",
     "open-computer-use_set_value",
     "open-computer-use_type_text",
+    "opencode_console_create_model",
+    "opencode_console_create_provider",
+    "opencode_console_get_context",
+    "opencode_console_get_member_usage",
+    "opencode_console_get_usage",
+    "opencode_console_list_members",
+    "opencode_console_list_models",
+    "opencode_console_list_providers",
+    "opencode_console_set_model_enabled",
+    "opencode_console_set_models_enabled",
+    "opencode_console_update_model",
     "opencode_list_mcp_resources",
     "opencode_models",
     "opencode_read_mcp_resource",

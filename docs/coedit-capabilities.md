@@ -97,6 +97,43 @@ Scripting was unavailable (`sapgui/user_scripting` disabled). Verified gone with
 read-only ADT calls: `DS4K904996` → 400 does not exist; `ZCOEDIT_SANDBOX2` →
 404 not found. The GUI policy file now allows `SE38` for future sessions.
 
+## Object-family capability matrix — DS4/100, 2026-11-20
+
+Read-only probes against the object-type list supplied for the index study.
+Methods: `SAPSearch(objectType=<type>)`, `SAPRead(format="editable",
+force_refresh=true)`, `SAPDiagnose(action="syntax", source=<source with an
+in-memory comment block>)`. No SAP write. Comment results are summarised here;
+the block format and placement live in `docs/coedit-index.md`.
+
+| Family | Search | Editable source + hash | Syntax check | Comment block | Note |
+|---|---|---|---|---|---|
+| PROG | yes | yes | yes | `*` pass | |
+| CLAS | yes | yes | yes | `*` pass | |
+| INTF | yes | yes | yes | `*` pass | |
+| FUNC | yes | yes | yes | `*` pass | ARC-1 reads by name; ai-dev needs `parent` |
+| FUGR | yes | **no** | no | n/a | use its `INCL` members instead |
+| INCL | yes | yes | needs a master program | not proven standalone | syntax check refuses an include without its master |
+| TRAN | yes | no | n/a | n/a | metadata only |
+| DDLS | yes | yes | yes | `//` pass | |
+| DDLX | yes | yes | yes | `//` pass | |
+| STOB | yes (`STOB/DO`) | via **DDLS** type | yes | `//` pass | `SAPRead` has no `STOB` type; URI is `/sap/bc/adt/ddic/ddl/sources/...` |
+| DCLS | yes | yes | yes | `//` pass | |
+| BDEF | yes | yes | yes | `//` pass | |
+| SRVD | yes | yes | yes | **rejected** | `"Comments are not supported and will be deleted on save"` |
+| SRVB | yes | no | no | n/a | not in the editable text-source list |
+| TABL / VIEW / DTEL / DOMA / TTYP / SHLP / ENQU / MSAG / AUTH | yes | no | n/a | n/a | metadata; SHLP has its own JSON text output, not editable |
+| ENHO | yes | in schema, not probed | UNVERIFIED | UNVERIFIED | |
+| STRU / TYPE / XSLT / IWMO / IWSV / IWPR / ENHS / SXCI / UI5B / WDYN / WAPA / BIMP | mixed | **not in mounted `SAPRead` type union** | n/a | n/a | search only for most; `TOBJ` search returned none |
+
+The mounted `format="editable"` text-source list is exactly: PROG, INCL, CLAS,
+INTF, FUNC, DDLS, DCLS, BDEF, SRVD, DDLX. Anything outside it has no
+`{source, sourceHash}` pair from this tool and cannot be a source-comment node in
+the index.
+
+TADIR SQL (`SELECT ... FROM tadir`) is **not available**: `SAP_ALLOW_FREE_SQL`
+is false in this harness. Use `SAPSearch(searchType="tadir_lookup")` or
+`SAPRead(type="DEVC")` for object discovery instead.
+
 ## Other harnesses
 
 Do **not** fill this section from OpenCode evidence. Each harness must record its

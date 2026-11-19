@@ -1,7 +1,13 @@
 # Changelog
 
-## Unreleased — 2026-11-19
+## v0.9.0 — 2026-11-20
 
+- Phase 1 of the local-index study: added an object-family capability matrix in
+  `docs/coedit-capabilities.md` from read-only DS4/100 probes across the
+  supplied TADIR type list. Editable text-source + hash is limited to PROG, INCL,
+  CLAS, INTF, FUNC, DDLS, DCLS, BDEF, SRVD, DDLX (STOB read through DDLS);
+  SRVD rejects comments, SRVB/FUGR/TRAN and DDIC metadata have no editable
+  source. TADIR SQL stays unavailable because `SAP_ALLOW_FREE_SQL` is false.
 - Co-edit contract now requires an **approval card + one question** before the
   first edit (no "type อนุมัติ" gate), and **mass activation per activation unit**
   via `activate_multiple` — includes before the main program, RAP bottom-up by
@@ -22,10 +28,10 @@
   from comment-block mode and its proposal stays in the local manifest. Not the
   default; activation stays locked to DEFER for that mode. Gap register and
   catalog point at the proposal; no component implemented.
-- Refreshed the registry baseline after the temporary `sap-gui` session and
-  daemon restart changed the live tool catalog: 370 tools / 11 namespaces,
-  0 issues. Updated README counts and prompt cost (76.2k chars). The 7 warnings
-  (catalogs over budget) remain human decisions.
+- Refreshed the registry baseline after the temporary `sap-gui` session, daemon
+  restart and the new `opencode_console` namespace changed the live tool catalog:
+  381 tools / 11 namespaces, 0 issues. Updated README counts and prompt cost
+  (77.9k chars). The 7 warnings (catalogs over budget) remain human decisions.
 
 ## v0.8.1 — 2026-11-19
 
