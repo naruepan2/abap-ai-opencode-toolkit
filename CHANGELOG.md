@@ -13,8 +13,11 @@
   analysis of a 445-file RAP export supplied locally as a sample (DS4/100 has no
   object of comparable complexity), plus a read-only DS4/100 probe on a CDS pair
   that does exist there — `impact` on the consumption view returns the DCL while
-  `impact` on the interface view does not. Gap register and catalog point at the
-  proposal; no component implemented.
+  `impact` on the interface view does not. Added an optional **disabled comment
+  block** write mode to the same doc: syntax by object family (SAP Help CDS/BDL
+  rules), dividers, placement when comments already exist, and the anchor/marker
+  traps. Not the default; activation stays locked to DEFER for that mode. Gap
+  register and catalog point at the proposal; no component implemented.
 - Refreshed the registry baseline after the temporary `sap-gui` session and
   daemon restart changed the live tool catalog: 370 tools / 11 namespaces,
   0 issues. Updated README counts and prompt cost (76.2k chars). The 7 warnings

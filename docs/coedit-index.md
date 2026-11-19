@@ -107,6 +107,80 @@ edge:
 | `consumed_by_app` | UI5 manifest | OData service → UI5 app |
 | `succeeds` | change comment (human-confirmed) | `_1` replaces `_0` |
 
+## Optional write mode: disabled comment blocks
+
+**Not the default.** Direct write (`APPLY_SOURCE_CHANGES`) stays the default path
+under CAS. This mode (`INSERT_DISABLED_BLOCKS`) is an optional axis in the
+approval card; choosing it locks activation to `DEFER`. It is still a **write**
+and must obey fresh-read + CAS like any other.
+
+Comment syntax evidence (checked 2026-11-20):
+
+| Object family | Comment | Evidence |
+|---|---|---|
+| PROG / CLAS / FUNC | `*` in column 1 | ABAP convention |
+| DDLS / SRVD | `//` to end of line; `/* ... */` allowed in CDS DDL | SAP Help `ABENCDS_GENERAL_SYNTAX_RULES`; DS4/100 `SAPRead(grep="//")` on a DDLS returned 13 hits |
+| BDEF | `//` to end of line | SAP Help `ABENBDL_GENERAL_SYNTAX_RULES`; **no `/* ... */` documented** — do not use it |
+
+### Block format
+
+ABAP (`*` column 1), dividers top and bottom at the same length:
+
+```abap
+**********************************************************************
+* COEDIT <intent> OP1/4 REPLACE_UNIT — unit: read_status — why: return reviewed V2
+* BEFORE:1a2b3c… arc-1.editable — DISABLED — apply then delete this block
+* OLD: METHOD read_status. result = 'V1'. ENDMETHOD.
+* NEW: METHOD read_status. result = 'V2'. ENDMETHOD.
+**********************************************************************
+  METHOD read_status. result = 'V1'. ENDMETHOD.   "<<-- original untouched
+```
+
+DDLS / SRVD / BDEF (`//` on every line, including the divider):
+
+```abap
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// COEDIT <intent> OP1/4 REPLACE_UNIT — unit: ZI_X — why: use successor field
+// BEFORE:1a2b3c… arc-1.editable — DISABLED — apply then delete
+// OLD: LessThan1Year
+// NEW: LessThan1Year_2 as LessThan1Year
+//////////////////////////////////////////////////////////////////////////////////////////////////
+  LessThan1Year   "<<-- original untouched
+```
+
+`OP1/4` = ordinal + total, so multi-op order is unambiguous. `BEFORE` is the
+short fresh hash plus its engine; a changed hash voids the approval. The OLD/NEW
+lines are human-readable summaries, not machine anchors.
+
+### Placement
+
+| Object | Inline block | Index block |
+|---|---|---|
+| PROG | before the affected statement in main source | head of program |
+| CLAS | `implementations` before `METHOD`; `definitions` before declaration; `testclasses` before test method | head of the include holding most ops; one index per include if ops span includes |
+| FUNC / FUGR | inside the FM include, before the statement | head of FM include (or top include for several FMs) |
+| DDLS | before the field / association / statement | head of DDL source, **after** existing header comments, before the first `@` annotation |
+| SRVD | before the `expose ...;` line | head of service definition |
+| BDEF | before the behavior statement / action | head of BDEF, after existing header comments |
+
+If a comment group already sits directly above the target, insert our block
+**above the whole group** — that comment belongs to the target and must stay
+adjacent to it. A trailing comment on the source line is untouched.
+
+### Traps — all of these mean STOP + ask
+
+1. **Anchor duplication:** the `OLD:` line repeats the anchor text, so a naive
+   occurrence count finds 2. Count anchors only in **non-comment source**, never
+   inside a COEDIT block. An anchor found only in comments → STOP.
+2. **OLD/NEW are summaries:** for `REPLACE_UNIT` the real anchor is `anchor_text`
+   + `unit`, not the one-line OLD text.
+3. **Existing marker:** same `intent_id` → never stack. A different intent's
+   block already present → also STOP and ask before adding another.
+4. **Target is a comment:** never "fix" a comment into source. STOP.
+5. Index block and inline block disagree → STOP; no auto-reconcile.
+
+Commented code is never compiled — never claim syntax or ATC passed for it.
+
 ## Rules
 
 1. Store only tool-confirmed or deterministic-source edges. A huge `deps` dump
