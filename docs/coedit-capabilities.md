@@ -46,8 +46,36 @@ no lock, no activation.
 
 Conclusion: hash stability holds within one engine, and hashes must not be
 compared across engines. `object_state` and ARC-1 editable read agree here.
-This probe proves the capability, **not** detection of an external edit — that
-needs a controlled draft change in a sandbox or a real incident to observe.
+
+## Sandbox test — DS4/100, 2026-11-19
+
+Controlled object `ZCOEDIT_SANDBOX` (PROG) created in `$TMP`; it is a **local**
+object and is not in transport `DS4K904994` — the test proves detection after a
+baseline hash, not an object membership change in a released TR. No customer
+object was touched.
+
+| Step | Evidence | Result |
+|---|---|---|
+| baseline A | `object_state.active.sha256 = 784ba5ab…`; local raw-byte SHA-256 = same; ai-dev `sourceHash = 242e63c5…` | ARC-1 hash matches raw bytes; ai-dev hash differs |
+| simulate external edit B | `write_source(expected=ai-A)` → B, activated; no new version | success |
+| detection | `object_state.active.sha256 = b72445d9…` ≠ stored `784ba5ab…`; `hasInactiveDivergence=false` | **external activated edit detected**; TR feed not needed |
+| CAS guard | `edit_source(expected=ai-A)` → `SOURCE_DRIFT`, current `504fce22…`; source still B | no overwrite |
+| undo | `write_source(expected=ai-B)` with pre-image A → activated; `object_state.active.sha256 = 784ba5ab…` | restored by forward write under CAS |
+| cache | `format="editable"` plain vs `force_refresh=true` after activation → same hash | cache window not demonstrated here |
+
+`coedit_baseline.py` used `.baseline/blobs/sha256/784ba5ab…` with intent
+`CHG-SANDBOX-A`; `attach` recorded the post-hash.
+
+Cleanup: both artifacts were deleted through temporary `sap-gui` and verified
+gone with read-only ADT calls (`DS4K904994` → 400 does not exist;
+`ZCOEDIT_SANDBOX` → 404 not found). `sap-gui` was returned to `enabled: false`.
+
+How to delete a TR with the mounted GUI tools: SE10 → Display →
+`Edit > Find...` → type the request number → in the hit list use
+`Position cursor` (F2) → back on the main list `Request/Task > Delete...` →
+confirm. A direct `sap_set_focus` on the list label is **not** enough — SE10
+keeps its own list cursor. `arc1.SAPTransport` and ai-dev expose no delete
+action, so this GUI path is the only mounted one.
 
 ## Other harnesses
 

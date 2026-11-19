@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased — 2026-11-19
+
+- Sandbox-tested the co-edit safety path on DS4/100 with a local test object:
+  `object_state.sha256` detected an external edit activated after the baseline,
+  a stale-hash edit was rejected with `SOURCE_DRIFT` and no overwrite, and
+  `coedit_baseline.py` restored the pre-image as a forward write under CAS.
+  Recorded in `docs/coedit-capabilities.md` and `docs/coedit-gap-register.md`.
+  Limits: the object was local (`$TMP`), so TR membership was not tested; the
+  three-way conflict branch and the 120 s cache window were not demonstrated.
+  Sandbox residue (`ZCOEDIT_SANDBOX`, empty TR `DS4K904994`) was deleted through
+  temporary `sap-gui` and verified gone; the SE10 find → F2 → delete path is
+  recorded in `docs/coedit-capabilities.md`.
+
 ## v0.8.0 — 2026-11-19
 
 - Program `CHANGELOG.md` now keeps **every** deploy row for the life of the
