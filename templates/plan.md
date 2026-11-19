@@ -24,8 +24,9 @@ Contract:
 - Target:      <system, client, transport>
 
 Approved:
-- Write:      <objects that may change>
-- Activate:   <yes / no>
+- Write:      <objects that may change — type/name/locator/layer/hash engine/CAS>
+- Activate:   <yes | no> — `activate_multiple` per activation unit, never one blind batch
+- Units:      <U1 <layer>: objects ...; U2 <layer>: objects ...> — bottom-up order
 - Transport:  <TR or none>
 - By:         <user + date>
 

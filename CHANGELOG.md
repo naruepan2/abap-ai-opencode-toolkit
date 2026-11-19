@@ -2,6 +2,11 @@
 
 ## Unreleased — 2026-11-19
 
+- Co-edit contract now requires an **approval card + one question** before the
+  first edit (no "type อนุมัติ" gate), and **mass activation per activation unit**
+  via `activate_multiple` — includes before the main program, RAP bottom-up by
+  layer, partial failure stops remaining units, no activation loop. Added the
+  same `Activate / Units` fields to `templates/plan.md`.
 - Added `docs/coedit-index.md`: a proposal for a **local object index**
   (nodes + tool-confirmed edges, hash_engine, provenance, invalidation),
   explicitly not a Knowledge Graph and never a write authority. Evidence: static

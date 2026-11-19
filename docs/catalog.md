@@ -282,6 +282,18 @@ open TR detectable (see the known limit below). Store the engine, locator, hash,
    pending`; update only the affected `RAP_INDEX.md` rows and the anchor. Never
    rewrite or delete an old row, and never create a second log.
 
+**Approval card — before the first edit.** For a task with more than a few steps,
+keep the plan in `plan-<task>.md` (`templates/plan.md`) and show a short card in
+chat: goal/acceptance, contract (FS, REQ ids, writer/verify/analyse, change type,
+production, target + TR), write-set (type/name/locator/layer/hash engine/CAS),
+activation units ordered bottom-up, checks (syntax/atc → commit window → mass
+activate per unit → `force_refresh` read-back), and what we will **not** do
+(SAP standard, publish, guessed TR, activation loop, rewriting an old CHANGELOG
+row). Then ask **one** question with options `approve plan (Recommended)` /
+`approve with a change` / `cancel`; never ask the user to type a magic word.
+Approval is given once — only leaving the approved scope needs a new one. A
+deploy pre-approved in the program card still stops on a finding.
+
 **Activation gate** — before each activation run, not each object:
 
 - Re-read the TR that will carry the work. One `question` call restates the TR,
@@ -296,6 +308,16 @@ open TR detectable (see the known limit below). Store the engine, locator, hash,
   `get_source(include_hash=true)` and re-check the TR before locking. A hash that
   no longer matches the plan drops that object: cancel the batch or split it and
   ask again. Do not carry a confirmed TR into a changed source.
+- **Mass activation** — activate per **activation unit** with
+  `ai-dev.activate_multiple(objects=[...])`, not object by object and not one
+  blind batch for the whole program. Order objects bottom-up: includes before
+  the main program; RAP = DDLS/tables → BDEF → behavior pool → projection/DDLX →
+  SRVD/SRVB. A single `activate` can leave includes inactive or fail because a
+  dependency's active version is not ready. If strict order matters and the
+  tool's ordering is unverified, split into smaller per-layer batches. Parse the
+  result per object: a partial failure stops the remaining units, reports
+  diagnostics and does not retry in a loop. Mass activation does not bypass the
+  commit window, CAS or TR confirmation; publish stays a separate boundary.
 - A re-bound object gets a new CHANGELOG row with the new TR; the old row keeps
   the released TR.
 
