@@ -28,6 +28,22 @@
   → unlock write protocol, recognition-based handoff, and 409/423/404 routing.
   Deliberately left out: ETag conditional GET and `GetObjectDraft` (no mounted
   tool), the cross-harness write ledger, and per-write `.baseline`.
+- Started Tier 0–2 of the co-edit gap plan from nine reviewed idea documents.
+  Added `docs/coedit-capabilities.md` (per-harness tool facts) and
+  `docs/coedit-gap-register.md` (accepted/deferred/rejected with reasons), plus
+  `templates/coedit-state.json` for per-object hashes. The contract now separates
+  Hint/Evidence/Guard, adds `object_state.sha256` as an observation beacon,
+  engine-scoped hashes, a post-confirm commit window, post-write read-back,
+  `verification_basis`/`confidence`, error routes 412/403/timeout, and a recheck
+  circuit breaker. Verified in this harness that ai-dev does expose
+  `expected_source_hash` (an earlier VS Code claim was based on scanning only
+  `.js`) and that ARC-1 `object_state` returns sha256 — so the "unreported open-TR
+  edit is always invisible" limit is narrowed to the no-baseline case. The
+  read-only probe on DS4/100 then confirmed `object_state.sha256` stability and
+  that ai-dev and ARC-1 produce different hashes for the same 10,538-byte source —
+  so engine-scoped hashing is now evidence, not a precaution. Detection of a real
+  external edit is still untested (no sandbox write). Tier 3–5 (per-write
+  baseline, RAP sentinels, attribution UX) remain deferred.
 
 ## v0.7.9 — 2026-11-18
 

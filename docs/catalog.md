@@ -208,6 +208,22 @@ Three layers, never mixed:
 | SAP authority | `SAPRead(VERSIONS/diff)`, `SAPTransport(list/get/history)`, `INACTIVE_OBJECTS` | current truth |
 | decision gate | the user, via a question | resolve what neither layer can prove |
 
+Start with `docs/coedit-capabilities.md`. A field absent from that matrix for the
+active harness does not exist for this task: fall back to read-only or a human
+gate. Never copy a capability from another harness — two installations can
+disagree on whether a guard exists.
+
+Three signal roles, never mixed:
+
+| Role | Examples | Use for | Never use for |
+|---|---|---|---|
+| Hint | TR status/objectCount, `INACTIVE_OBJECTS`, `DEVC` anchor | choosing what to read | authorising a write |
+| Evidence | `sourceHash`, `object_state.sha256`, diff, version | freshness and detection | claiming ownership |
+| Guard | `expected_source_hash` + lock handle | preventing lost update | replacing user approval |
+
+Hints and evidence are for navigation; only the guard makes a write safe, and
+only the user resolves ambiguity. Anchor = UX, CAS = safety — not interchangeable.
+
 Three cones, not one scope:
 
 | Cone | Means | Gate |
@@ -219,13 +235,22 @@ Three cones, not one scope:
 A fact is either an **event** (released, cancelled, published, activated) written
 once and never edited, or a **state** (draft present, publish state, anchor,
 verified rows) that carries `source` (which tool), `by` (AI/human + harness),
-`verified_at`, and a TTL agreed in `reports/DECISIONS.md`. Without fresh state,
-re-probe — never inherit freshness from a previous session.
+`verified_at`, `verification_basis` (`source_hash` / `transport_snapshot` /
+`user_attestation`), `confidence` (high/medium/low), and a TTL agreed in
+`reports/DECISIONS.md`. TTL says how old the fact is, not that it is still true.
+Without fresh state, re-probe — never inherit freshness from a previous session.
 
 **Anchor** — `spec.md` front matter holds `last_tr_check` and `last_tr_seen`.
 These are state: update them only after a live read, and treat them as stale when
 their TTL has passed. A stale anchor is a reason to re-check, not a reason to
 assume nothing changed.
+
+**Hash store** — per-object observations live in `spec/coedit-state.json`, keyed by
+`system/client/type/name/locator`. Keep `engine` beside every hash: an ai-dev
+`sourceHash` and an ARC-1 `object_state.sha256` are computed differently and must
+never be compared. A previous `object_state.sha256` is what makes an edit in an
+open TR detectable (see the known limit below). Store the engine, locator, hash,
+`checked_at` and TR together; delete the entry when the TR is released.
 
 **Sync-on-touch** — before any task that writes or activates:
 
@@ -233,18 +258,22 @@ assume nothing changed.
 2. Cheap signals first. `SAPTransport(action="list", status="*", user="*",
    summary=true)` is one call and still reports `status` + `objectCount`, so a new
    TR, a release, or extra objects in an existing TR all show up. Add
-   `SAPRead(type="INACTIVE_OBJECTS")` as a one-call "a draft exists" beacon. A
-   conditional-GET/ETag shortcut is deliberately absent — no mounted tool exposes
-   it, so do not plan around it.
-3. If those are silent but suspicion remains, check the package anchor
+   `SAPRead(type="INACTIVE_OBJECTS")` as a one-call "a draft exists" beacon.
+3. For objects already in `spec/coedit-state.json`, add one
+   `SAPDiagnose(action="object_state")` call each: `hasInactiveDivergence=true`
+   means a draft is pending; an `active.sha256` different from the stored value
+   means an external edit was activated even if the TR stayed open. Compare only
+   hashes recorded by the same engine. A conditional-GET/ETag shortcut is
+   deliberately absent — no mounted tool exposes it, so do not plan around it.
+4. If those are silent but suspicion remains, check the package anchor
    (`SAPRead(type="DEVC", name=<package>, maxResults)`) before opening objects.
-4. Light path (classic, `complexity: light`): no hit → continue with the local
+5. Light path (classic, `complexity: light`): no hit → continue with the local
    index; no further SAP read.
-5. Heavy path (`kind: rap`, `object_count >= 20`, or `complexity: high`): for
+6. Heavy path (`kind: rap`, `object_count >= 20`, or `complexity: high`): for
    every hit, `get` the TR, then `diff` only the affected objects with
-   `force_refresh=true`, then `SAPContext(action="impact", type="DDLS")` for
-   downstream RAP objects.
-6. Reconcile: show a short digest; ask the user before touching anything. Add one
+   `force_refresh=true`, then `SAPContext(action="impact", type="DDLS")` plus
+   `deps`/`usages` for downstream RAP objects.
+7. Reconcile: show a short digest; ask the user before touching anything. Add one
    **new** CHANGELOG row with the TR and the affected `Scope`, `Verified:
    pending`; update only the affected `RAP_INDEX.md` rows and the anchor. Never
    rewrite or delete an old row, and never create a second log.
@@ -259,45 +288,81 @@ assume nothing changed.
   confirm question. Otherwise use `list` + `get` to cross-check first.
 - If the TR is released (`R`/`N`) or unclear, stop and ask. Never reuse a
   released TR; never invent a number.
+- **Commit window** — after `confirm`, re-read every object in the write-set with
+  `get_source(include_hash=true)` and re-check the TR before locking. A hash that
+  no longer matches the plan drops that object: cancel the batch or split it and
+  ask again. Do not carry a confirmed TR into a changed source.
 - A re-bound object gets a new CHANGELOG row with the new TR; the old row keeps
   the released TR.
 
-**Handoff by recognition** — do not ask "did you edit anything?". Show the 1–5
-objects whose fingerprint moved (from the probe), list them, and ask "are these
+**Handoff by recognition** — do not ask "did you edit anything?". Show an evidence
+card per object (1–5): type/name, source locator, what moved (active/inactive
+divergence or hash change), tool and time. Ask **attribution** first — "are these
 yours?" with options `none of these` / `these are mine — which TR?` / `not sure`.
-If the user claims them, ask for the TR number and verify it with the probe.
-`not sure` = stop. Recognition of concrete objects beats recall of a vague edit.
+If claimed, ask for the TR and verify it with the probe. **Authorization** is a
+separate question in the activation gate; never combine the two. `not sure` = stop.
+Recognition of concrete objects beats recall of a vague edit.
+
+Confidence decides whether to proceed: `high` = hash + active claim + matching
+intent → offer continue, still confirm activation; `medium` = hash changed + TR
+candidate → ask attribution; `low` = only a package/transport hint → no write.
+Record `by` (`human|ai`) and `harness` from explicit human choice — SAP sees one
+user and cannot distinguish harnesses. Every handoff appends a new block; never
+edit an earlier one.
 
 **Write protocol** — after the TR gate, before any edit. This guard exists in
 ai-dev; ARC-1 `SAPWrite` is not mounted here, so do not claim the same guard on
 `arc1-*`.
 
-1. `get_source(include_hash=true)` → source + `sourceHash`. For `CLAS`, select
-   the include or method to narrow the write surface.
+1. `get_source(include_hash=true)` → source + `sourceHash` **with the same engine
+   that will write** (`ai-dev` here). For `CLAS`, select the include or method to
+   narrow the write surface; store that locator beside the hash.
 2. Lock the object in the confirmed TR.
 3. Edit with `edit_source(expected_source_hash=<fresh hash>, ...)`; for tables
-   `update_table` already requires the full `expected_source`. If the hash no
-   longer matches, stop and re-sync — never overwrite.
-4. Unlock in a `finally` block.
+   `update_table` already requires the full `expected_source`. The field is
+   optional in the schema — send it on every guarded write. If the hash no longer
+   matches, stop and re-sync — never overwrite.
+4. Unlock in a `finally` block, including on activation failure.
 5. If the target include answers `404`, treat it as a create, not an edit — never
    auto-initialise it as a write.
-6. Verify with a different engine or `force_refresh=true`: a read right after
+6. Post-write read-back: `get_source(include_hash=true)` with the **same engine and
+   locator** → resulting hash into `spec/coedit-state.json` (evidence detail goes
+   to `reports/DECISIONS.md`, not `CHANGELOG.md`). If activate succeeded but the
+   read fails, mark `committed_unverified` and block dependent writes.
+7. Verify with `force_refresh=true` or a different engine: a read right after
    activation can be served from cache. Activated is not the same as observed.
+   Never compare an ARC-1 hash with an ai-dev hash.
 
 **Error routing** — meanings differ, so routes differ:
 
 | Result | Meaning | Route |
 |---|---|---|
 | `409` locked by another session | concurrency | stop and wait / ask; do not retry |
+| `412` / hash mismatch | guard rejected the write | stop, re-read, replan; never overwrite |
 | `423` not modifiable / no lock handle | TR or authorization | fix the TR or rights, not concurrency |
 | `404` / `410` | object gone or renamed | record a tombstone; never silently recreate |
+| `403` on a data call | data gate refused, not a write conflict | stop; never widen the gate or disable a guard |
+| timeout / `5xx` | outcome may be unknown | read-after-timeout; zero replay until committed or not |
 
-**Known limit — write it down, do not try to code around it:** an edit made in
-SAP, activated while its TR stays open, with no new version, no lock change and
-no report from the developer, is invisible to the agent. No local log and no
-status scan can reveal it. If the user answers the handshake incorrectly, the
-agent will proceed on wrong information. That is an information limit, not a bug;
-a future agent must not go looking for a fix.
+Error text is transport-level only: classify with the SAP error body and the
+operation phase. Retry only an idempotent read with a known outcome and a still
+valid hash — conflict never auto-retries.
+
+**Recheck budget / circuit breaker** — read once, reuse evidence, invalidate by
+event. Re-probe on: dirty state, TR/activation change, ownership change, a
+`409`/`412`/`423`/timeout, or a user statement that another harness edited the
+object. Stop and ask when a locator's full source is read twice without a write
+or invalidation, a dependency query repeats, CAS conflicts twice, activation
+fails twice, or the plan is rebuilt twice. No empty recheck loop.
+
+**Known limit — write it down, do not try to code around it:** if there is no
+prior observation of the object, an edit made in SAP and activated while its TR
+stays open leaves no source hash to compare and no local signal — the agent cannot
+see it, and a wrong handshake answer stays wrong. Once a hash has been stored,
+`SAPDiagnose(object_state)` can detect a later active-source change even with the
+TR open; that is detection after a baseline, not reconstruction of history.
+This is an information limit, not a bug — do not keep adding scans for the case
+where no baseline exists.
 
 ## Where to add things
 
@@ -310,6 +375,9 @@ a future agent must not go looking for a fix.
 | removed SAP project | via `sap-project-unregister` | portfolio `INDEX.md`, unused MCP entries, registry refresh, no git push of `_archive` |
 | removed SAP program | via `sap-program-unregister` | memory card, `specs_sync.py --write`, no git push of `_archive` |
 | RAP object map | `spec/RAP_INDEX.md` from `templates/RAP_INDEX.md` | `CHANGELOG.md` holds the TR stamp; `specs_sync.py` mirrors it only if its allowlist is extended |
+| co-edit capability fact | `docs/coedit-capabilities.md` | harness name + snapshot date + LIVE/SRC evidence; never copy across harnesses |
+| co-edit idea outcome | `docs/coedit-gap-register.md` | `docs/catalog.md` holds the rule, not the register |
+| per-object hash state | `spec/coedit-state.json` from `templates/coedit-state.json` | engine beside hash; `specs_sync.py` does not mirror it yet |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |

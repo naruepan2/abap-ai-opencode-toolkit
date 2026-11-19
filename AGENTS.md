@@ -31,9 +31,13 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   version management snapshots a TR only when it is **released**. Stamp the TR
   the change actually used; never collapse rows at release. At release delete the
   `.baseline` copy — SAP owns the exact diff.
-- Before any write or activation follow `docs/catalog.md` §"Co-edit contract":
-  sync-on-touch, TR confirmation, and a **new** CHANGELOG row for an external
-  edit. A stale local index is a reason to re-read SAP, not a reason to assume.
+- Before any write or activation follow `docs/catalog.md` §"Co-edit contract"
+  and `docs/coedit-capabilities.md`: sync-on-touch, TR confirmation, mandatory
+  `expected_source_hash` by the same engine, post-write read-back, and a **new**
+  CHANGELOG row for an external edit. Per-object hashes live in
+  `spec/coedit-state.json`, always with `engine` and `locator` — never compare
+  hashes across engines. A stale local index is a reason to re-read SAP, not a
+  reason to assume.
 - `scripts/closeout.py` checks both (spec tables, changelog vs `implemented_version`);
   `scripts/specs_sync.py --write` mirrors spec + changelog into `workspace/specs/` -
   never the FS.

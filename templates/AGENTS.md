@@ -74,13 +74,17 @@ before using any of its line ranges.
 
 ## Co-edit
 
-Before any write or activation, follow `docs/catalog.md` §"Co-edit contract":
-sync-on-touch (one TR list probe; plus `INACTIVE_OBJECTS` and impact for a large
-RAP stack), then confirm the TR with the user before the activation run. The
-anchor lives in `spec.md` front matter (`last_tr_check` / `last_tr_seen`).
-An external edit found in SAP adds a **new** CHANGELOG row with its TR and Scope —
-never rewrites an old one. If no signal exists and the user cannot name the TR,
-stop; an unreported open-TR edit is not detectable from local data.
+Before any write or activation, follow `docs/catalog.md` §"Co-edit contract" and
+`docs/coedit-capabilities.md` (capabilities are per harness). Sync-on-touch: TR
+list probe + `INACTIVE_OBJECTS` + `object_state` for objects already in
+`spec/coedit-state.json`; add impact/deps/usages for a large RAP stack. Store each
+hash with its engine and locator — never compare across engines. After `confirm`,
+re-read every object in the write-set before locking, and read back with the same
+engine after the write. The anchor lives in `spec.md` front matter
+(`last_tr_check` / `last_tr_seen`); per-object hashes live in
+`spec/coedit-state.json`. An external edit found in SAP adds a **new** CHANGELOG
+row with its TR and Scope — never rewrites an old one. If no baseline exists and
+the user cannot name the TR, stop: that case is an information limit.
 ```
 
 

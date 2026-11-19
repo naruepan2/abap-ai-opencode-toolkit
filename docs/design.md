@@ -84,12 +84,15 @@ new TR simply adds a new row with the new TR; the old row keeps the released TR.
 The failure mode this guards against: ZDEMO01 reached v20 while the card and
 README still said v12.
 
-There is one gap no design closes. An edit made in SAP, activated while its TR
-stays open, with no new version, no lock change and no report from the developer,
-is invisible to the agent. The handshake in `docs/catalog.md` §"Co-edit contract"
-narrows it but cannot remove it: if the user answers wrongly, the agent proceeds
-on wrong information. Treat this as an information limit, not a bug — do not keep
-adding scans that cannot observe an unreported open-TR change.
+There is one gap no design closes: an edit made and activated before we ever
+observed the object leaves no baseline hash, so the agent cannot see it and a
+wrong handshake answer stays wrong. Once a hash has been stored,
+`SAPDiagnose(object_state)` can detect a later active-source change even while
+the TR stays open — that closes the *detectable after baseline* case, not
+history reconstruction. Capability facts are per harness in
+`docs/coedit-capabilities.md`; never copy a guard from another installation.
+Treat the remaining gap as an information limit, not a bug — do not keep adding
+scans for the case where no baseline exists.
 
 `spec.md` is a thin, checkable contract: YAML front matter (`program`,
 `spec_version`, `status`, `fs_version`, `fs_file`, `implemented_version`,

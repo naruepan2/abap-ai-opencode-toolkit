@@ -1,0 +1,17 @@
+{
+  "program": "<PROGRAM>",
+  "updated": "<YYYY-MM-DD>",
+  "note": "Local instance state, not a mirror of SAP. Key = system/client/type/name/locator. Store engine with every hash; never compare hashes across engines. Delete the entry when the TR is released.",
+  "objects": {
+    "DS4/100/CLAS/ZCL_EXAMPLE/implementations": {
+      "engine": "ai-dev",
+      "source_hash": "<hash or ->",
+      "object_state_engine": "arc1",
+      "object_state_sha256": "<hash or ->",
+      "object_state_etag": "<etag or ->",
+      "checked_at": "<ISO-8601 or ->",
+      "tr": "<TR or $TMP>",
+      "verified": "unverified"
+    }
+  }
+}
