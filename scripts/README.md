@@ -63,6 +63,27 @@ Exit `0` means nothing is broken; `1` means a referenced plan is missing or a ta
 does not parse. Warnings (an old open row, a missing contract answer, a blocked todo,
 a stale entry) are human decisions and do not fail the check.
 
+## `coedit_baseline.py` — local pre-image store
+
+Content-addressed pre-images for the co-edit contract. `save` writes a gzip blob
+under `<root>/.baseline/blobs/sha256/` and one manifest entry per intent;
+`attach` records the post-hash after a verified write; `get` restores a blob to
+stdout; `list` shows the index. It verifies `--pre-hash` before storing and
+refuses to store a duplicate intent. This is local-only state — `.baseline/` is
+git-ignored because source can contain customer data.
+
+```bash
+python scripts/coedit_baseline.py save --root <program> --object DS4/100/CLAS/ZCL_X/implementations \
+    --engine ai-dev --intent CHG-1 --tr DEVK900123 --source-file pre.abap --pre-hash sha256:...
+python scripts/coedit_baseline.py attach --root <program> --object DS4/100/CLAS/ZCL_X/implementations \
+    --intent CHG-1 --post-hash sha256:...
+python scripts/coedit_baseline.py get --root <program> --hash <sha256>
+python scripts/coedit_baseline.py list --root <program>
+```
+
+Exit `1` means bad input, hash mismatch, missing entry, or missing blob — never
+silently write a pre-image that does not match the observed source.
+
 ## `registry_check.py`
 
 Read-only scanner for skills, agents, MCP servers, and the tool snapshot. It never

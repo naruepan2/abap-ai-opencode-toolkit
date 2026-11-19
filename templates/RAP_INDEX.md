@@ -76,17 +76,39 @@ apply. Never paste source into the Role cell — one short phrase only.
    - `SAPRead(action="diff", from=..., to=...)` for a change, not two full reads.
 5. Never read the whole stack. Never mirror source into this file.
 
+## 3a. Sentinels and dirty frontier
+
+For a large stack, do not poll every artifact. Mark these sentinels in the
+artifact table and watch only them; when one moves, expand one hop to immediate
+neighbours before deciding to read more.
+
+| Concern | Sentinel | Expand to |
+|---|---|---|
+| data model | root/interface `ZI_*` | dependent DDLS, BDEF |
+| behavior | `ZB_*` BDEF + behavior pool | interface/projection DDLS |
+| UI metadata | projection `ZC_*`, `ZDLX_*` | SRVD |
+| exposure | `ZSRVD_*`, `ZSRVB_*` publish state | service definition, binding |
+| draft | BDEF draft declaration, draft table | behavior implementation |
+
+`SAPContext(action="impact")` alone is downstream only. Add `deps` (what this
+object needs), `usages` (who needs it) and RAP relations; if the tool can only
+give DDLS impact, mark the map **partial** and never infer activation order from
+it. Publish state is not derivable from the root DDLS hash — confirm it
+separately or ask.
+
 ## 4. When someone edited in SAP outside the agent
 
 Do not try to re-sync the whole stack. Detect, locate, record:
 
 ```
 SAPRead(type="INACTIVE_OBJECTS")                              # 1 call, unactivated edits
+SAPDiagnose(action="object_state", name=<sentinel>)            # active/inactive sha256
 SAPTransport(action="list", status="*", user="*", summary=true)
 SAPTransport(action="get", id=<new TR>)                        # only on a hit
 SAPRead(type="VERSIONS", name=<hit>)                           # only on a hit
 SAPRead(type="<TYPE>", name=<hit>, action="diff", from=..., to=..., force_refresh=true)
 SAPContext(action="impact", type="DDLS", name=<hit>)           # downstream of the hit
+SAPContext(action="deps|usages", name=<hit>)                   # complete the graph
 ```
 
 Compare with `last_tr_check` / `last_tr_seen` above.

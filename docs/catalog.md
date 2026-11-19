@@ -269,10 +269,14 @@ open TR detectable (see the known limit below). Store the engine, locator, hash,
    (`SAPRead(type="DEVC", name=<package>, maxResults)`) before opening objects.
 5. Light path (classic, `complexity: light`): no hit → continue with the local
    index; no further SAP read.
-6. Heavy path (`kind: rap`, `object_count >= 20`, or `complexity: high`): for
-   every hit, `get` the TR, then `diff` only the affected objects with
-   `force_refresh=true`, then `SAPContext(action="impact", type="DDLS")` plus
-   `deps`/`usages` for downstream RAP objects.
+6. Heavy path (`kind: rap`, `object_count >= 20`, or `complexity: high`): start
+   from the `spec/RAP_INDEX.md` sentinels — DDLS root, BDEF/behavior pool, DDLX,
+   SRVD/SRVB publish state, draft — not a flat 120-object scan. Poll those first;
+   when a fingerprint moves, expand one hop to immediate neighbours, run
+   `SAPDiagnose(object_state)` on candidates, then `get` the TR, `diff` only the
+   affected objects with `force_refresh=true`, and combine `impact` with
+   `deps`/`usages`/`relations`. If only DDLS impact is available, mark the graph
+   partial and do not use it to decide activation order.
 7. Reconcile: show a short digest; ask the user before touching anything. Add one
    **new** CHANGELOG row with the TR and the affected `Scope`, `Verified:
    pending`; update only the affected `RAP_INDEX.md` rows and the anchor. Never
@@ -310,6 +314,15 @@ Record `by` (`human|ai`) and `harness` from explicit human choice — SAP sees o
 user and cannot distinguish harnesses. Every handoff appends a new block; never
 edit an earlier one.
 
+**Preemption** — the human can stop at safe points without freezing the session:
+before adding an object to the write-set, before the first write, before
+activate/publish, and whenever evidence changes, scope expands, CAS fails, a
+lock conflicts, or the outcome is unknown. Stop only the affected write queue;
+finish cleanup/unlock before pausing, then continue as a read-only observer and
+offer reconciliation. Never ask "accept all" when more than five objects, mixed
+classic/RAP, stale evidence, a no-CAS operation, or a publish/release boundary is
+in play.
+
 **Write protocol** — after the TR gate, before any edit. This guard exists in
 ai-dev; ARC-1 `SAPWrite` is not mounted here, so do not claim the same guard on
 `arc1-*`.
@@ -332,6 +345,23 @@ ai-dev; ARC-1 `SAPWrite` is not mounted here, so do not claim the same guard on
 7. Verify with `force_refresh=true` or a different engine: a read right after
    activation can be served from cache. Activated is not the same as observed.
    Never compare an ARC-1 hash with an ai-dev hash.
+
+**Baseline and undo** — only the actual write-set gets a pre-image, never the
+whole package or TR. After the fresh read and before the first write, store it
+with `scripts/coedit_baseline.py save` (object key, locator, engine, intent, TR,
+observed `source_hash`). After the post-write read-back, `attach` the resulting
+hash to the same entry. Undo is a **write forward under CAS**, not a restore:
+
+1. Re-read current source with the same engine and locator.
+2. If current = post-hash → write the pre-image with `expected_source_hash=current`.
+3. Otherwise three-way reconcile (`base` = post-image, `ours` = pre-image,
+   `theirs` = current); overlapping hunks stop for human review.
+4. Record the undo as a new event with `reverts_intent_id`; never rewrite history
+   or restore on the strength of a TR/timestamp alone.
+
+For RAP, group by activation unit (dependency / SCC) and undo only AI-written
+objects in reverse topological order. Keep pre-images for the open TR plus 30–90
+days after release, pin any incident blob, and keep `.baseline/` out of git.
 
 **Error routing** — meanings differ, so routes differ:
 

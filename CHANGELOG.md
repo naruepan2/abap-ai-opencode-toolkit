@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-18
+## v0.8.0 — 2026-11-19
 
 - Program `CHANGELOG.md` now keeps **every** deploy row for the life of the
   program and carries a `TR` column, replacing the old "collapse to one line at
@@ -27,7 +27,8 @@
   a `get_source(include_hash=true)` → lock → `edit_source(expected_source_hash)`
   → unlock write protocol, recognition-based handoff, and 409/423/404 routing.
   Deliberately left out: ETag conditional GET and `GetObjectDraft` (no mounted
-  tool), the cross-harness write ledger, and per-write `.baseline`.
+  tool) and the cross-harness write ledger; per-write `.baseline` was added later
+  in this release.
 - Started Tier 0–2 of the co-edit gap plan from nine reviewed idea documents.
   Added `docs/coedit-capabilities.md` (per-harness tool facts) and
   `docs/coedit-gap-register.md` (accepted/deferred/rejected with reasons), plus
@@ -42,8 +43,17 @@
   read-only probe on DS4/100 then confirmed `object_state.sha256` stability and
   that ai-dev and ARC-1 produce different hashes for the same 10,538-byte source —
   so engine-scoped hashing is now evidence, not a precaution. Detection of a real
-  external edit is still untested (no sandbox write). Tier 3–5 (per-write
-  baseline, RAP sentinels, attribution UX) remain deferred.
+  external edit is still untested (no sandbox write).
+- Finished Tier 3–5. Added `scripts/coedit_baseline.py` — a git-ignored,
+  content-addressed pre-image store with `save` / `attach` / `get` / `list`, hash
+  verification before storing and one entry per intent — and documented in
+  `scripts/README.md` + `.gitignore`. Undo is now a write-forward under CAS with
+  three-way reconcile, never a blind restore. `templates/RAP_INDEX.md` gained
+  sentinels and a dirty frontier; `impact` alone is marked partial and must be
+  combined with `deps`/`usages`. The contract gained safe-point human preemption
+  and an evidence-card handoff, with attribution and authorization as separate
+  questions. Tier 0–2 gap statuses were updated and the plan file recorded in
+  `docs/plan-coedit-tier3-5-v080.md`.
 
 ## v0.7.9 — 2026-11-18
 

@@ -94,6 +94,15 @@ history reconstruction. Capability facts are per harness in
 Treat the remaining gap as an information limit, not a bug — do not keep adding
 scans for the case where no baseline exists.
 
+Pre-images are stored per **write**, not per TR: a TR can mix classic and RAP
+objects and can stay open across several tasks, so a TR-level snapshot captures
+the wrong start point and makes a large stack explode. `scripts/coedit_baseline.py`
+stores a content-addressed blob plus a small manifest; undo writes forward under
+the same CAS guard and reconciles three ways when someone edited in between.
+The Knowledge Graph ideas in the reviewed documents stay deferred: they add
+infrastructure before a benchmark shows a reduction in reads, and the fixed
+prompt is already over budget.
+
 `spec.md` is a thin, checkable contract: YAML front matter (`program`,
 `spec_version`, `status`, `fs_version`, `fs_file`, `implemented_version`,
 `updated`), then REQ / AC / DEV / Q tables. The customer FS moves to

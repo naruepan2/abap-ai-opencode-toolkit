@@ -29,8 +29,9 @@ Record the four answers in the project resume card (`FS`, `Change type`, `Produc
   (`Ver | Date | TR | Scope | What changed | Verified`), kept for the life of the
   program. `Scope` prefixes `CL:` or `RAP:`. It covers the window SAP does not:
   version management snapshots a TR only when it is **released**. Stamp the TR
-  the change actually used; never collapse rows at release. At release delete the
-  `.baseline` copy — SAP owns the exact diff.
+  the change actually used; never collapse rows at release. Pre-images live in
+  git-ignored `.baseline/` through the open TR plus 30–90 days after release —
+  SAP owns the exact diff.
 - Before any write or activation follow `docs/catalog.md` §"Co-edit contract"
   and `docs/coedit-capabilities.md`: sync-on-touch, TR confirmation, mandatory
   `expected_source_hash` by the same engine, post-write read-back, and a **new**

@@ -66,11 +66,14 @@ before using any of its line ranges.
 ## Rollback
 
 - TR **released**: SAP version management owns the source (`SAPRead(type="VERSIONS")`).
-- TR **still open**: SAP has no version of the pre-change source. Before the first
-  activation of an object in that TR, copy its **active** source to
-  `.baseline/<OBJ>_<TR>.abap`; delete that file when the TR is released. A saved but
-  inactive source is not a rollback. The why and the evidence stay in
-  `reports/DECISIONS.md`, not in `CHANGELOG.md`.
+- TR **still open**: SAP has no version of the pre-change source. Store a
+  **per-write pre-image** of the actual write-set with
+  `python scripts/coedit_baseline.py save --root <program> --object KEY --engine <engine>
+  --intent <id> --tr <TR> --source-file <pre-image>` before the first write; attach
+  the post-hash after read-back. A saved but inactive source is not a rollback.
+  Undo is a forward write under CAS (three-way when current differs), never a
+  blind restore. Keep `.baseline/` out of git; prune 30–90 days after release.
+  The why and the evidence stay in `reports/DECISIONS.md`, not in `CHANGELOG.md`.
 
 ## Co-edit
 

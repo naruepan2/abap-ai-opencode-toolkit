@@ -21,8 +21,8 @@ Status: `accepted` | `modified` | `deferred` | `rejected`.
 | G5 | read right after activation sees stale source | accepted | `force_refresh` / different engine / post-write read-back |
 | G6 | timeout after write, outcome unknown | accepted | read-after-timeout, zero replay until outcome known |
 | G7 | same SAP user from two harnesses | accepted, local only | `by` + `harness` + `intent_id` from explicit human choice; never infer |
-| G8 | RAP 120+ objects read repeatedly | accepted, partial | `RAP_INDEX.md` + sentinels + dirty frontier; benchmark before a graph |
-| G9 | undo restores over an intervening edit | deferred | write-forward + three-way under CAS is the design; not implemented in Tier 0–2 |
+| G8 | RAP 120+ objects read repeatedly | accepted | `RAP_INDEX.md` sentinels + dirty frontier + `deps`/`usages`; still benchmark before a graph |
+| G9 | undo restores over an intervening edit | accepted | `coedit_baseline.py` stores write-triggered pre-images; undo is write-forward under CAS with three-way reconcile |
 | G10 | verification loop / duplicate reads | accepted | read-once evidence + invalidation + budget + circuit breaker |
 | G11 | simultaneous writers in two harnesses | deferred | CAS already prevents lost update; ledger/broker is UX only until there is collision evidence |
 | G12 | ETag / 304 as a guard | rejected | no mounted tool exposes it; do not invent a rule |
@@ -37,7 +37,8 @@ Other decisions:
   schema marks it optional; we enforce it in the working method and write guard.
 - AI-inferred actor / TR / business capability: **rejected** — explicit human choice only.
 - Session scope, change unit + physical write-set + observation strategy:
-  **accepted as vocabulary**, no new file format required in Tier 0–2.
+  **accepted as vocabulary** — no separate file format; `spec/coedit-state.json`
+  holds observations, `CHANGELOG.md` holds intent/history.
 
 Review gate: any idea promoted from `deferred` needs a read-only probe, a
 negative test, and an explicit approval recorded here with date and evidence.
