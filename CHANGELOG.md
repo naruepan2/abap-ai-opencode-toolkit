@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-11-19
+
+- Refreshed the registry baseline after the temporary `sap-gui` session and
+  daemon restart changed the live tool catalog: 370 tools / 11 namespaces,
+  0 issues. Updated README counts and prompt cost (76.2k chars). The 7 warnings
+  (catalogs over budget) remain human decisions.
+
 ## v0.8.1 — 2026-11-19
 
 - Sandbox-tested the co-edit safety path on DS4/100 with a local test object:
