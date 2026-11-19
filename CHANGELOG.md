@@ -12,6 +12,14 @@
   Sandbox residue (`ZCOEDIT_SANDBOX`, empty TR `DS4K904994`) was deleted through
   temporary `sap-gui` and verified gone; the SE10 find → F2 → delete path is
   recorded in `docs/coedit-capabilities.md`.
+- Closed the remaining sandbox gaps on a second object inside a real open TR
+  (`ZCOEDIT_SANDBOX2` in `DS4K904996`): detection worked with the TR feed live
+  and no new revision; three-way merge preserved an unrelated intervening edit,
+  while an overlapping hunk stopped with `UNDO_CONFLICT` and no write. The 120 s
+  cache window was **not** reproduced with the mounted read tools and is
+  recorded as unproven. Cleanup was blocked by GUI Scripting being disabled;
+  the user deleted both artifacts manually and read-only checks confirm they are
+  gone (400/404). The `sap-gui` policy file now allows `SE38`.
 
 ## v0.8.0 — 2026-11-19
 

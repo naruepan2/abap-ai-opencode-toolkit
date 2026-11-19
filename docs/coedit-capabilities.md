@@ -77,6 +77,26 @@ confirm. A direct `sap_set_focus` on the list label is **not** enough — SE10
 keeps its own list cursor. `arc1.SAPTransport` and ai-dev expose no delete
 action, so this GUI path is the only mounted one.
 
+## Second sandbox test — object inside a real open TR, 2026-11-19
+
+`ZCOEDIT_SANDBOX2` was created in transportable package `Z001` inside open TR
+`DS4K904996` (`SAPTransport(get)` listed it as the single object, status `D`,
+`locked=true`). `SAPRead(VERSIONS)` showed only revision `00000` from creation —
+no new revision after the later activations.
+
+| Test | Evidence | Result |
+|---|---|---|
+| baseline A | `object_state.sha256 = d104fa71…`; ai-dev hash `6e16b80a…` | stored via `coedit_baseline.py`, intent `CHG-TR-A` |
+| edit B activated in the open TR | `active.sha256 = 3c09c029…`; TR still `D`, 1 object | **detected** even with a live TR feed |
+| cache | primed `SAPRead` text, wrote C via ai-dev, reread plain vs `force_refresh` → both showed C | 120 s stale window **not reproduced** here; `format="editable"` also sends `Cache-Control: no-cache`. Do not claim it as proven. |
+| three-way, non-overlapping | pre A(L2-A), post B(L2-B), current C(L3-C) → wrote merged `L2-A + L3-C` under CAS of C | external L3 edit preserved, AI write undone |
+| three-way, overlapping | pre P(L2-A), post Q(L2-Q), current R(L2-R) → hunk L2 overlaps | **no write**; `UNDO_CONFLICT` artifact created for human decision; source stayed at R |
+
+Cleanup for this second sandbox was done manually by the user after `sap-gui`
+Scripting was unavailable (`sapgui/user_scripting` disabled). Verified gone with
+read-only ADT calls: `DS4K904996` → 400 does not exist; `ZCOEDIT_SANDBOX2` →
+404 not found. The GUI policy file now allows `SE38` for future sessions.
+
 ## Other harnesses
 
 Do **not** fill this section from OpenCode evidence. Each harness must record its
