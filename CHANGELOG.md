@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-19
+## v0.8.1 — 2026-11-19
 
 - Sandbox-tested the co-edit safety path on DS4/100 with a local test object:
   `object_state.sha256` detected an external edit activated after the baseline,
