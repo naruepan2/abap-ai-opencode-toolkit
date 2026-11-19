@@ -2,6 +2,14 @@
 
 ## Unreleased — 2026-11-19
 
+- Added `docs/coedit-index.md`: a proposal for a **local object index**
+  (nodes + tool-confirmed edges, hash_engine, provenance, invalidation),
+  explicitly not a Knowledge Graph and never a write authority. Evidence: static
+  analysis of a 445-file RAP export supplied locally as a sample (DS4/100 has no
+  object of comparable complexity), plus a read-only DS4/100 probe on a CDS pair
+  that does exist there — `impact` on the consumption view returns the DCL while
+  `impact` on the interface view does not. Gap register and catalog point at the
+  proposal; no component implemented.
 - Refreshed the registry baseline after the temporary `sap-gui` session and
   daemon restart changed the live tool catalog: 370 tools / 11 namespaces,
   0 issues. Updated README counts and prompt cost (76.2k chars). The 7 warnings

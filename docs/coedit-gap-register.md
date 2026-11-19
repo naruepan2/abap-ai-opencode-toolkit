@@ -29,7 +29,10 @@ Status: `accepted` | `modified` | `deferred` | `rejected`.
 
 Other decisions:
 
-- Full Knowledge Graph, graph server, vector store, background crawler: **deferred** —
+- **Local object index** (not a knowledge graph): **accepted as a read-only
+  optional proposal**, not implemented — schema and exit criteria in
+  `docs/coedit-index.md`. Navigation only; never write authority. Full Knowledge
+  Graph, graph server, vector store and background crawler remain **deferred** —
   the lean document itself admits added overhead; prompt cost is already over budget.
 - Custom SAP Z-table / central coordination service / new `RepositoryObjectHead` tool:
   **deferred** — needs governance and approval before any new tool or object.

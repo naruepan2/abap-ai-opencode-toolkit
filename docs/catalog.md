@@ -406,6 +406,7 @@ where no baseline exists.
 | removed SAP program | via `sap-program-unregister` | memory card, `specs_sync.py --write`, no git push of `_archive` |
 | RAP object map | `spec/RAP_INDEX.md` from `templates/RAP_INDEX.md` | `CHANGELOG.md` holds the TR stamp; `specs_sync.py` mirrors it only if its allowlist is extended |
 | co-edit capability fact | `docs/coedit-capabilities.md` | harness name + snapshot date + LIVE/SRC evidence; never copy across harnesses |
+| local object index proposal | `docs/coedit-index.md` | read-only navigation only; data stays local/gitignored; never write authority |
 | co-edit idea outcome | `docs/coedit-gap-register.md` | `docs/catalog.md` holds the rule, not the register |
 | per-object hash state | `spec/coedit-state.json` from `templates/coedit-state.json` | engine beside hash; `specs_sync.py` does not mirror it yet |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
