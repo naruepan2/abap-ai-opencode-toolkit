@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-11-20
+
+- Redesigned the personal `sap-mcp-upgrade` skill to batch MCP upgrade work:
+  a built-in known-server registry with source URLs/probe endpoints, one-pass
+  scan, one batch approval, one daemon restart, one verification, and an
+  explicit "no further upgrades pending" terminal result. This removes the
+  repeated "which server / what next?" questions. Live and repo copies match.
+
 ## v0.8.2 — 2026-11-20
 
 - Relabeled from v0.9.0 before publication was kept; the v0.9.0 tag and Release
