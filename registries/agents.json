@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T14:56:10+00:00",
+  "generated_at": "2026-11-20T16:33:08+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -112,6 +112,20 @@
       "hash": "333764c3d4e8cd83e095d6949f8330fa07a195ef217fe9a47f70e96b1ed01064",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "abap-auto-delivery-by-pongg",
+      "name": "ABAP Auto Delivery by Pongg",
+      "harness": "copilot",
+      "path": "~\\.copilot\\agents\\abap-auto-delivery-by-pongg.agent.md",
+      "owner": "Pongg",
+      "editable": true,
+      "mode": "",
+      "skills": [],
+      "description": "Explicit, trust-calibrated SAP ABAP delivery from approved specification to evidence-backed UAT readiness. User-invoked only. Coordinator of SAP writes; never releases or imports transports.",
+      "hash": "0c5d1496ca65cc5b7ddba1fb73f2a9784b302c0b615d15a03aa92e11ca686cd8",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "abap-developer-by-pongg",

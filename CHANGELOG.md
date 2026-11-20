@@ -16,6 +16,10 @@
   `config/opencode-agents` / `config/opencode-commands` files, keeping existing
   names. `registry_check.py` lists `auto-abap-delivery` as a personal skill so
   it stays editable.
+- Added the manual-only `opencode-backup` skill and `/opencode-backup` command.
+  The skill is hidden from auto-invocation (`opencode/autoinvoke: false`,
+  `disable-model-invocation: true`) and documents the dry-run → verify manifest
+  → optional archive-only cleanup → restore handoff workflow.
 - Backup hardening: `service.json` is excluded (it holds a plaintext OpenCode
   service credential) and the script now rejects a destination inside either
   source tree — copying `workspace/` into itself made robocopy recurse forever.

@@ -56,7 +56,7 @@ PROMPT_TOOL_BUDGET = 28000
 # the convention for wrappers around a vendor file. Listing the new ones here is what
 # keeps them editable — otherwise the scan marks the folder's skills as vendor and the
 # "never edit a vendor file" rule then blocks the very skill we own.
-PERSONAL_SKILLS = {"sap-auditor", "sap-mcp-upgrade", "sap-project-register", "sap-program-register", "sap-data-verify", "sap-project-unregister", "sap-program-unregister", "auto-abap-delivery"}
+PERSONAL_SKILLS = {"sap-auditor", "sap-mcp-upgrade", "sap-project-register", "sap-program-register", "sap-data-verify", "sap-project-unregister", "sap-program-unregister", "auto-abap-delivery", "opencode-backup"}
 
 SKILL_ROOTS = [
     ("opencode", HOME / ".config" / "opencode" / "skills"),

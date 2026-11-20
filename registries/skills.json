@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T14:56:10+00:00",
+  "generated_at": "2026-11-20T16:33:08+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -244,6 +244,17 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "opencode-backup",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\opencode-backup\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "c8baf958218db72984924c6bdc568ce9157cc2630e5c3fcf88a51f43135a6c5d",
+      "desc_chars": 342,
+      "description": "Manual-only backup of OpenCode instance data and curated config into a dated, hash-verified snapshot, with optional cleanup of stale backups. Use only when the user explicitly invokes /opencode-backup, types @opencode-backup, or directly asks to back up OpenCode. Never at session start, from a diges",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "sap-abap-reverse-engineering",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-abap-reverse-engineering\\SKILL.md",
@@ -418,6 +429,17 @@
       "description": "Analyze the current conversation's tool calls, responses, errors, and approach to produce a structured feedback report for improving MCP tool usage with ARC-1. Use when the user asks to \"analyze this session\", \"review my chat\", \"give feedback on tool usage\", \"how did I do\", or wants a retrospective ",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "auto-abap-delivery",
+      "harness": "agents",
+      "path": "~\\.agents\\skills\\auto-abap-delivery\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "69f3cfb973d9f4a58095c78def60e31c6386ad00abf38a4a09bc0a9f20cd47a9",
+      "desc_chars": 519,
+      "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "bootstrap-system-context",
@@ -968,6 +990,17 @@
       "description": "Design SAP extensions using Clean Core principles, released extension points, side-by-side patterns, and explicit risk classification for non-standard alternatives.",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "kit-backup",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\kit-backup\\SKILL.md",
+      "owner": "vendor",
+      "hash": "b9a079fbd8d8d1717cf4667e6119505c5aa737074ad2eeda58d137fedde105a0",
+      "desc_chars": 278,
+      "description": "User-invoked only: snapshot, verify and restore the self-authored agents and skills of this kit into backup/self-authored. Restore is file-by-file with a diff first; no automatic overwrite. Never backs up credentials, MCP config, Projects, or third-party installer-owned skills.",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "long-task-control",
