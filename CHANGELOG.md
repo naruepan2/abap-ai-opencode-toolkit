@@ -2,11 +2,21 @@
 
 ## Unreleased — 2026-11-20
 
-- Redesigned the personal `sap-mcp-upgrade` skill to batch MCP upgrade work:
-  a built-in known-server registry with source URLs/probe endpoints, one-pass
-  scan, one batch approval, one daemon restart, one verification, and an
-  explicit "no further upgrades pending" terminal result. This removes the
-  repeated "which server / what next?" questions. Live and repo copies match.
+- Redesigned the personal `sap-mcp-upgrade` skill for **standalone, OpenCode-only
+  MCP scope**. It scans only `mcp` entries in `opencode.json` and their backing
+  packages — no VS Code/Copilot/Claude skills, no agents, no unrelated npm/uv
+  tools, no skill-install suggestions. Manual-only trigger, built-in MCP registry
+  with probe/changelog URLs, mandatory pre-update report, then a **radio
+  mode question** (`Upgrade all (Recommended)` / `Upgrade selected` / `Cancel`);
+  checkbox selection appears only when the user picks `Upgrade selected`, at
+  upgrade-unit level (not per MCP entry), with ambiguous/unsafe rows disabled.
+  Added an **auto-computed safety rank** (blast radius / config change /
+  rollback / confidence) and an explicit question budget: 1 question for
+  `Upgrade all`, 2 only for `Upgrade selected`, zero for safety ranking.
+  Severity tiers (`security`/`breaking` never batched), a machine-local
+  pending-restart state that blocks new upgrades, one daemon restart, one
+  verification, and a terminal "no further upgrades pending". Live and repo
+  copies match.
 
 ## v0.8.2 — 2026-11-20
 
