@@ -1,6 +1,20 @@
 {
-  "generated_at": "2026-11-19T20:17:21+00:00",
+  "generated_at": "2026-11-20T14:56:10+00:00",
   "agents": [
+    {
+      "id": "abap-auto-delivery-by-pongg",
+      "name": "ABAP Auto Delivery by Pongg",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\agents\\abap-auto-delivery-by-pongg.md",
+      "owner": "Pongg",
+      "editable": true,
+      "mode": "primary",
+      "skills": [],
+      "description": "Trust-calibrated SAP ABAP Delivery Lead. Explicit invocation only; unqualified scope defaults to Attended Standard and qualified scope may run Unattended to READY_FOR_UAT.",
+      "hash": "fbce4c5871a0c16b4461632652f8e426e7fc7c5ab4fdc01160104d49253ff93d",
+      "status": "new",
+      "last_validated": null
+    },
     {
       "id": "abap-developer",
       "name": "abap-developer",

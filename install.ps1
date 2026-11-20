@@ -234,7 +234,7 @@ if ($SkipAgents) {
 # Personal skills written for this toolkit, not vendor copies. They ship in the repo so
 # a fresh machine gets them back; an existing name is kept, never overwritten.
 Say ''
-Say '[5/7] skills'
+Say '[5/7] skills, agents and commands'
 $skillsSrc = Join-Path $Root 'config\opencode-skills'
 $skillsDst = Join-Path $ConfigDir 'skills'
 if (Test-Path $skillsSrc) {
@@ -247,11 +247,39 @@ if (Test-Path $skillsSrc) {
         if (Test-Path $dstFile) {
             Say "  keep   skills\$($skill.Name)"
         } elseif ($DryRun) {
-            Say "  would  copy skills\$($skill.Name)"
+            Say "  would  copy skills\$($skill.Name) (all files)"
         } else {
             New-Item -ItemType Directory -Force -Path $dstDir | Out-Null
-            Copy-Item (Join-Path $skill.FullName 'SKILL.md') $dstFile
-            Say "  copy   skills\$($skill.Name)"
+            # A skill can ship references/ and scripts/ beside SKILL.md; copy the whole tree.
+            Get-ChildItem $skill.FullName -Recurse -File | Where-Object { $_.FullName -notmatch '__pycache__' } | ForEach-Object {
+                $rel = $_.FullName.Substring($skill.FullName.Length + 1)
+                $target = Join-Path $dstDir $rel
+                New-Item -ItemType Directory -Force -Path (Split-Path -Parent $target) | Out-Null
+                Copy-Item -LiteralPath $_.FullName -Destination $target -Force
+            }
+            Say "  copy   skills\$($skill.Name) (all files)"
+        }
+    }
+}
+
+# Agent and command files: same "new name only" rule, so a user edit is never overwritten.
+foreach ($pair in @(
+    @{ src = 'config\opencode-agents'; dst = 'agents' },
+    @{ src = 'config\opencode-commands'; dst = 'commands' }
+)) {
+    $srcDir = Join-Path $Root $pair.src
+    $dstDir = Join-Path $ConfigDir $pair.dst
+    if (-not (Test-Path $srcDir)) { continue }
+    if (-not (Test-Path $dstDir) -and -not $DryRun) { New-Item -ItemType Directory -Force -Path $dstDir | Out-Null }
+    foreach ($file in Get-ChildItem $srcDir -Filter '*.md' -File) {
+        $target = Join-Path $dstDir $file.Name
+        if (Test-Path $target) {
+            Say "  keep   $($pair.dst)\$($file.Name)"
+        } elseif ($DryRun) {
+            Say "  would  copy $($pair.dst)\$($file.Name)"
+        } else {
+            Copy-Item -LiteralPath $file.FullName -Destination $target -Force
+            Say "  copy   $($pair.dst)\$($file.Name)"
         }
     }
 }

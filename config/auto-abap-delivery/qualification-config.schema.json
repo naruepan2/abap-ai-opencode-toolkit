@@ -1,0 +1,452 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/sap-abap-autonomy-qualification-v8.schema.json",
+  "title": "SAP ABAP Autonomous Delivery V8 Qualification Configuration",
+  "description": "Validates the YAML/JSON qualification policy used to resolve Attended versus Unattended execution for bounded SAP ABAP delivery scopes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "policy_revision",
+    "status",
+    "owner",
+    "effective_from",
+    "review_cycle_days",
+    "default_policy",
+    "review_level_rank",
+    "qualification_scope_definition",
+    "promotion_requirements",
+    "critical_scope_rules",
+    "demotion_policy",
+    "qualified_scopes"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "policy_id": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9][A-Z0-9._-]*$" },
+    "policy_revision": { "type": "integer", "minimum": 1 },
+    "status": { "enum": ["draft", "active", "retired"] },
+    "owner": { "type": "string", "minLength": 1 },
+    "approved_by": { "type": ["string", "null"], "minLength": 1 },
+    "effective_from": { "type": "string", "format": "date" },
+    "review_cycle_days": { "type": "integer", "minimum": 1, "maximum": 3650 },
+    "default_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unqualified_scope", "qualified_scope", "critical_scope"],
+      "properties": {
+        "unqualified_scope": { "$ref": "#/$defs/unqualifiedDefault" },
+        "qualified_scope": { "$ref": "#/$defs/qualifiedDefault" },
+        "critical_scope": { "$ref": "#/$defs/criticalDefault" }
+      }
+    },
+    "review_level_rank": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["standard", "guided", "controlled", "strict", "custom"],
+      "properties": {
+        "standard": { "type": "integer", "minimum": 0 },
+        "guided": { "type": "integer", "minimum": 0 },
+        "controlled": { "type": "integer", "minimum": 0 },
+        "strict": { "type": "integer", "minimum": 0 },
+        "custom": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "qualification_scope_definition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_dimensions", "matching_rules"],
+      "properties": {
+        "required_dimensions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/scopeDimension" }
+        },
+        "matching_rules": {
+          "type": "object",
+          "additionalProperties": { "enum": ["exact", "major_minor", "subset"] },
+          "minProperties": 1
+        }
+      }
+    },
+    "promotion_requirements": { "$ref": "#/$defs/promotionRequirements" },
+    "critical_scope_rules": { "$ref": "#/$defs/criticalScopeRules" },
+    "demotion_policy": { "$ref": "#/$defs/demotionPolicy" },
+    "qualified_scopes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/qualifiedScope" }
+    },
+    "resolution_example": { "$ref": "#/$defs/resolutionExample" }
+  },
+  "$defs": {
+    "executionMode": { "enum": ["attended", "unattended"] },
+    "reviewLevel": { "enum": ["not_applicable", "standard", "guided", "controlled", "strict", "custom"] },
+    "attendedReviewLevel": { "enum": ["standard", "guided", "controlled", "strict", "custom"] },
+    "notificationPolicy": { "enum": ["review_blocked_or_complete", "blocked_or_complete"] },
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "scopeDimension": {
+      "enum": [
+        "agent_version", "skill_version", "mcp_profile_id", "mcp_profile_hash",
+        "sap_system", "sap_client", "sap_product", "abap_platform_release",
+        "language_version", "package_patterns", "object_types", "guardrail_profile",
+        "operation_classes"
+      ]
+    },
+    "unqualifiedDefault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution_mode", "review_level", "notification_policy", "reason"],
+      "properties": {
+        "execution_mode": { "const": "attended" },
+        "review_level": { "const": "standard" },
+        "notification_policy": { "const": "review_blocked_or_complete" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "qualifiedDefault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution_mode", "review_level", "notification_policy", "reason"],
+      "properties": {
+        "execution_mode": { "const": "unattended" },
+        "review_level": { "const": "not_applicable" },
+        "notification_policy": { "const": "blocked_or_complete" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "criticalDefault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution_mode", "minimum_review_level", "notification_policy", "reason"],
+      "properties": {
+        "execution_mode": { "const": "attended" },
+        "minimum_review_level": { "enum": ["controlled", "strict", "custom"] },
+        "notification_policy": { "const": "review_blocked_or_complete" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "promotionRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_attended_runs", "minimum_observation_days", "minimum_uat_first_pass_rate",
+        "minimum_test_adequacy_pass_rate", "minimum_evidence_completeness_rate",
+        "must_equal_zero", "maximum_allowed", "required_evidence", "approval"
+      ],
+      "properties": {
+        "minimum_attended_runs": { "type": "integer", "minimum": 1 },
+        "minimum_observation_days": { "type": "integer", "minimum": 0 },
+        "minimum_uat_first_pass_rate": { "$ref": "#/$defs/rate" },
+        "minimum_test_adequacy_pass_rate": { "$ref": "#/$defs/rate" },
+        "minimum_evidence_completeness_rate": { "$ref": "#/$defs/rate" },
+        "must_equal_zero": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "const": 0 }
+        },
+        "maximum_allowed": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "number", "minimum": 0 }
+        },
+        "required_evidence": { "$ref": "#/$defs/stringSet" },
+        "approval": { "$ref": "#/$defs/approvalRequirement" }
+      }
+    },
+    "rate": { "type": "number", "minimum": 0, "maximum": 1 },
+    "approvalRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "required_roles", "additional_roles_when_applicable"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "required_roles": { "$ref": "#/$defs/stringSet" },
+        "additional_roles_when_applicable": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/stringSet" }
+        }
+      }
+    },
+    "criticalScopeRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_execution_mode", "minimum_review_level", "triggers", "always_prohibited_in_development_run"],
+      "properties": {
+        "minimum_execution_mode": { "const": "attended" },
+        "minimum_review_level": { "enum": ["controlled", "strict", "custom"] },
+        "triggers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "description"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+              "description": { "$ref": "#/$defs/nonEmptyString" }
+            }
+          }
+        },
+        "always_prohibited_in_development_run": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "demotionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["immediate_demotion_triggers", "material_change_triggers", "resulting_state", "critical_resulting_state", "requalification"],
+      "properties": {
+        "immediate_demotion_triggers": { "$ref": "#/$defs/stringSet" },
+        "material_change_triggers": { "$ref": "#/$defs/stringSet" },
+        "resulting_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["qualification_state", "execution_mode", "review_level"],
+          "properties": {
+            "qualification_state": { "const": "unqualified" },
+            "execution_mode": { "const": "attended" },
+            "review_level": { "const": "standard" }
+          }
+        },
+        "critical_resulting_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["qualification_state", "execution_mode", "review_level"],
+          "properties": {
+            "qualification_state": { "const": "critical" },
+            "execution_mode": { "const": "attended" },
+            "review_level": { "enum": ["controlled", "strict", "custom"] }
+          }
+        },
+        "requalification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_attended_runs", "require_root_cause_closed", "require_regression_test", "require_policy_owner_approval"],
+          "properties": {
+            "required_attended_runs": { "type": "integer", "minimum": 1 },
+            "require_root_cause_closed": { "const": true },
+            "require_regression_test": { "const": true },
+            "require_policy_owner_approval": { "const": true }
+          }
+        }
+      }
+    },
+    "qualifiedScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope_id", "status", "identity", "sap_target", "repository_scope", "allowed_operation_classes", "prohibited_operation_classes", "guardrails", "qualification_evidence", "approval"],
+      "properties": {
+        "scope_id": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+        "status": { "enum": ["candidate", "qualified", "suspended", "retired"] },
+        "identity": { "$ref": "#/$defs/scopeIdentity" },
+        "sap_target": { "$ref": "#/$defs/sapTarget" },
+        "repository_scope": { "$ref": "#/$defs/repositoryScope" },
+        "allowed_operation_classes": { "$ref": "#/$defs/stringSet" },
+        "prohibited_operation_classes": { "$ref": "#/$defs/stringSet" },
+        "guardrails": { "$ref": "#/$defs/guardrails" },
+        "qualification_evidence": { "$ref": "#/$defs/qualificationEvidence" },
+        "approval": { "$ref": "#/$defs/scopeApproval" }
+      }
+    },
+    "scopeIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent_version", "skill_version", "mcp_profile_id", "mcp_profile_hash"],
+      "properties": {
+        "agent_version": { "$ref": "#/$defs/semanticVersion" },
+        "skill_version": { "$ref": "#/$defs/semanticVersion" },
+        "mcp_profile_id": { "$ref": "#/$defs/nonEmptyString" },
+        "mcp_profile_hash": { "type": "string", "pattern": "^sha256:.+$" }
+      }
+    },
+    "semanticVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$" },
+    "sapTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "client", "product", "abap_platform_release", "language_version", "database"],
+      "properties": {
+        "system": { "type": "string", "pattern": "^[A-Z0-9]{3,8}$" },
+        "client": { "type": "string", "pattern": "^[0-9]{3}$" },
+        "product": { "$ref": "#/$defs/nonEmptyString" },
+        "abap_platform_release": { "$ref": "#/$defs/nonEmptyString" },
+        "language_version": { "enum": ["standard_abap", "abap_for_cloud_development", "abap_for_key_users"] },
+        "database": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "repositoryScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package_patterns", "object_types", "excluded_objects", "transport_scope"],
+      "properties": {
+        "package_patterns": { "$ref": "#/$defs/stringSet" },
+        "object_types": { "$ref": "#/$defs/stringSet" },
+        "excluded_objects": { "$ref": "#/$defs/stringSet" },
+        "transport_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["approved_task_required", "allow_create_request", "allow_release", "allow_import"],
+          "properties": {
+            "approved_task_required": { "type": "boolean" },
+            "allow_create_request": { "type": "boolean" },
+            "allow_release": { "const": false },
+            "allow_import": { "const": false }
+          }
+        }
+      }
+    },
+    "guardrails": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "atc_variants", "max_data_preview_rows", "sensitive_fields_policy"],
+      "properties": {
+        "profile": { "$ref": "#/$defs/nonEmptyString" },
+        "atc_variants": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/nonEmptyString" },
+          "minProperties": 1
+        },
+        "max_data_preview_rows": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "sensitive_fields_policy": { "enum": ["mask", "deny", "allow_approved_only"] }
+      }
+    },
+    "qualificationEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_period", "completed_attended_runs", "uat_first_pass_rate",
+        "test_adequacy_pass_rate", "evidence_completeness_rate", "wrong_target_writes",
+        "unauthorized_actions", "source_overwrite_incidents", "stale_evidence_accepted",
+        "stale_review_approval_applied", "escaped_atc_priority_1_or_2",
+        "transport_clutter_incidents", "critical_guardrail_failures",
+        "unreconciled_restart_replays", "unapproved_external_side_effects"
+      ],
+      "properties": {
+        "observation_period": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["from", "to"],
+          "properties": {
+            "from": { "type": "string", "format": "date" },
+            "to": { "type": "string", "format": "date" }
+          }
+        },
+        "completed_attended_runs": { "type": "integer", "minimum": 0 },
+        "uat_first_pass_rate": { "$ref": "#/$defs/rate" },
+        "test_adequacy_pass_rate": { "$ref": "#/$defs/rate" },
+        "evidence_completeness_rate": { "$ref": "#/$defs/rate" },
+        "wrong_target_writes": { "$ref": "#/$defs/nonNegativeInteger" },
+        "unauthorized_actions": { "$ref": "#/$defs/nonNegativeInteger" },
+        "source_overwrite_incidents": { "$ref": "#/$defs/nonNegativeInteger" },
+        "stale_evidence_accepted": { "$ref": "#/$defs/nonNegativeInteger" },
+        "stale_review_approval_applied": { "$ref": "#/$defs/nonNegativeInteger" },
+        "escaped_atc_priority_1_or_2": { "$ref": "#/$defs/nonNegativeInteger" },
+        "transport_clutter_incidents": { "$ref": "#/$defs/nonNegativeInteger" },
+        "critical_guardrail_failures": { "$ref": "#/$defs/nonNegativeInteger" },
+        "unreconciled_restart_replays": { "$ref": "#/$defs/nonNegativeInteger" },
+        "unapproved_external_side_effects": { "$ref": "#/$defs/nonNegativeInteger" }
+      }
+    },
+    "nonNegativeInteger": { "type": "integer", "minimum": 0 },
+    "scopeApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved_at", "approved_by", "expires_at"],
+      "properties": {
+        "approved_at": { "type": "string", "format": "date-time" },
+        "approved_by": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["role", "identity"],
+            "properties": {
+              "role": { "$ref": "#/$defs/nonEmptyString" },
+              "identity": { "$ref": "#/$defs/nonEmptyString" }
+            }
+          }
+        },
+        "expires_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "resolutionExample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_id", "evaluated_at", "requested_scope", "selected_by_owner", "recommended_by_agent", "minimum_required_by_policy", "effective_policy", "unresolved_conditions"],
+      "properties": {
+        "task_id": { "$ref": "#/$defs/nonEmptyString" },
+        "evaluated_at": { "type": "string", "format": "date-time" },
+        "requested_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["system", "client", "package", "object_types", "operation_classes"],
+          "properties": {
+            "system": { "type": "string", "pattern": "^[A-Z0-9]{3,8}$" },
+            "client": { "type": "string", "pattern": "^[0-9]{3}$" },
+            "package": { "$ref": "#/$defs/nonEmptyString" },
+            "object_types": { "$ref": "#/$defs/stringSet" },
+            "operation_classes": { "$ref": "#/$defs/stringSet" }
+          }
+        },
+        "selected_by_owner": { "$ref": "#/$defs/modeSelection" },
+        "recommended_by_agent": {
+          "allOf": [
+            { "$ref": "#/$defs/modeSelection" },
+            {
+              "type": "object",
+              "required": ["reason"],
+              "properties": { "reason": { "$ref": "#/$defs/stringSet" } }
+            }
+          ]
+        },
+        "minimum_required_by_policy": { "$ref": "#/$defs/modeSelection" },
+        "effective_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["qualification_state", "qualification_scope_id", "execution_mode", "review_level", "notification_policy", "stop_at"],
+          "properties": {
+            "qualification_state": { "enum": ["unqualified", "qualified", "critical"] },
+            "qualification_scope_id": { "type": ["string", "null"] },
+            "execution_mode": { "$ref": "#/$defs/executionMode" },
+            "review_level": { "$ref": "#/$defs/reviewLevel" },
+            "notification_policy": { "$ref": "#/$defs/notificationPolicy" },
+            "stop_at": { "const": "READY_FOR_UAT" }
+          },
+          "allOf": [{ "$ref": "#/$defs/modeConsistency" }]
+        },
+        "unresolved_conditions": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "modeSelection": {
+      "type": "object",
+      "required": ["execution_mode", "review_level"],
+      "properties": {
+        "execution_mode": { "$ref": "#/$defs/executionMode" },
+        "review_level": { "$ref": "#/$defs/reviewLevel" }
+      },
+      "allOf": [{ "$ref": "#/$defs/modeConsistency" }]
+    },
+    "modeConsistency": {
+      "oneOf": [
+        {
+          "properties": {
+            "execution_mode": { "const": "unattended" },
+            "review_level": { "const": "not_applicable" }
+          }
+        },
+        {
+          "properties": {
+            "execution_mode": { "const": "attended" },
+            "review_level": { "$ref": "#/$defs/attendedReviewLevel" }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T20:17:21+00:00",
+  "generated_at": "2026-11-20T14:56:10+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -200,6 +200,17 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "auto-abap-delivery",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\auto-abap-delivery\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "69f3cfb973d9f4a58095c78def60e31c6386ad00abf38a4a09bc0a9f20cd47a9",
+      "desc_chars": 519,
+      "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "hana-cloud-inspection",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\hana-cloud-inspection\\SKILL.md",
@@ -325,9 +336,9 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-mcp-upgrade\\SKILL.md",
       "owner": "Pongg",
-      "hash": "5c6fe419dd8ea737ee02e727a7662daf04e26ba95f7f257e68df09f8a8a9271f",
-      "desc_chars": 440,
-      "description": "Upgrade an MCP server version or add a new MCP entry in OpenCode from evidence, not memory. Use for \"upgrade MCP\", \"bump pin\", \"update sap-gui version\", \"check MCP version\", \"add MCP server\", \"new MCP entry\", \"MCP pin drift\". Reads the live config, upstream changelog and installed package; never ena",
+      "hash": "457ad8672f945220dc4f936b86dcd366a56ffd36cedd1e5cff767c00597d3ff1",
+      "desc_chars": 235,
+      "description": "Check and upgrade MCP servers installed in OpenCode in one pass. Use for \"upgrade MCP\", \"bump pin\", \"check MCP version\", \"what needs updating\", \"MCP pin drift\". OpenCode-only, standalone: no other harness, no skill install suggestions.",
       "status": "new",
       "last_validated": null
     },
@@ -638,6 +649,39 @@
       "description": "Convert a legacy UI5 freestyle JavaScript app (sync bootstrap, jQuery.sap.*, ES5, sap_belize) into a modern UI5 1.147 TypeScript app with sap.f.FlexibleColumnLayout, typed event handlers, ES modules, BaseController, and sap_horizon — with 5 documented critical traps up front. Use when asked to \"mode",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "orca-cli",
+      "harness": "agents",
+      "path": "~\\.agents\\skills\\orca-cli\\SKILL.md",
+      "owner": "vendor",
+      "hash": "e1fb109997802515751aeb984ac011733c10432f2e2f4c9a41fc56ee1b06ad1d",
+      "desc_chars": 869,
+      "description": "Operate Orca-managed worktrees, folder contexts, terminals, repos, automations, worktree comments, and Orca's embedded browser through the `orca` CLI. Use when the user says \"$orca-cli\", \"Orca worktree\", \"child worktree\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"handoff\" ",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "orca-computer-use",
+      "harness": "agents",
+      "path": "~\\.agents\\skills\\orca-computer-use\\SKILL.md",
+      "owner": "vendor",
+      "hash": "c204e8fb3fb887772474135e5bed6143c49e0680fdd45f6d2cc2f9f8fd1acc3d",
+      "desc_chars": 551,
+      "description": "Drives the GUI of a local app window in the background through `orca computer`, without bringing it forward or taking the user's keyboard and pointer where the platform allows: accessibility tree, clicks, typing, menus, dialogs, and screenshots in native apps and external browser windows (Chrome, Ed",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "orchestration",
+      "harness": "agents",
+      "path": "~\\.agents\\skills\\orchestration\\SKILL.md",
+      "owner": "vendor",
+      "hash": "e3d5282234db8a2817ed7c5c660d07851ad509d9e3625d5b42a1641ca5a771e6",
+      "desc_chars": 991,
+      "description": "Run work in separate Orca worker agents and get their results back. Use when the user invokes /orchestration, asks for Orca workers or supervision (monitor, task DAGs, ask/reply, decision gates), or asks to split, parallelize or fan out code changes across agents, worktrees or branches; use Orca wor",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "ponytail",
@@ -1010,6 +1054,17 @@
       "hash": "1c9063895a72dccd90850ad2955b252be9406beb306435fa4a9c3f81cbe3a8b8",
       "desc_chars": 314,
       "description": "Audit finished work - separate verified fact from confident prose. Five evidence tiers, verdict marks, mentor fixes and commentator risks. Use for \"audit this\", \"ตรวจงาน\", \"second opinion\", \"verify these claims\" on a doc, report, memory entry or change before release. Not for ABAP lint or transport ",
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "sap-mcp-upgrade",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-mcp-upgrade\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "a166cdc25aa5c077576eb9fdf0f18b8e07ff4461ce36d6de6ac67b465a0f8b46",
+      "desc_chars": 406,
+      "description": "User-invoked only: list the currently installed MCP/skill versions beside the available versions with their evidence sources, then ask before upgrading any one of them. Read-only detect by default; no install, config edit or restart without explicit approval. Use when asked to check MCP updates, upg",
       "status": "new",
       "last_validated": null
     },

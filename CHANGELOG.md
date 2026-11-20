@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased — 2026-11-20
+
+- Added the V8 `auto-abap-delivery` **control-plane skill** (11 references, 5
+  scripts), the `abap-auto-delivery-by-pongg` coordinator agent, the
+  `/auto-abap-delivery` command, `config/auto-abap-delivery/` (qualification
+  schema + validator) and `docs/auto-abap-delivery/IDEA-V8.md`. The runtime
+  qualification config stays `status: draft` with `qualified_scopes: []`, so the
+  effective default is Attended Standard — no unattended write is unlocked.
+- The V8 `opencode.fragment.json` was **not merged verbatim**: it uses the V1
+  `permission` shape, a broad `python scripts/*` allow and puts `SKILL.md` in
+  `instructions`, which breaks the explicit-invocation contract. OpenCode v2.3.2
+  already discovers the skill/agent/command, so no config change was needed.
+- `install.ps1` now copies whole skill trees (not just `SKILL.md`) and the
+  `config/opencode-agents` / `config/opencode-commands` files, keeping existing
+  names. `registry_check.py` lists `auto-abap-delivery` as a personal skill so
+  it stays editable.
+- Added a git-ignored `.venv/` with `jsonschema` + pure-Python `ruamel.yaml`
+  (Python 3.15 has no PyYAML wheel); both validators fall back to ruamel. Draft
+  config, example config and the compatibility smoke test all validate clean.
+
 ## v0.8.3 — 2026-11-20
 
 - Redesigned the personal `sap-mcp-upgrade` skill for **standalone, OpenCode-only

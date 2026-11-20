@@ -9,6 +9,7 @@ credentials*
 # Python
 __pycache__/
 *.pyc
+.venv/
 # Logs and OS files
 *.log
 Thumbs.db

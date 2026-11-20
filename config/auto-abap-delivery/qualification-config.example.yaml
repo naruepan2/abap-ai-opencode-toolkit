@@ -1,0 +1,364 @@
+# SAP ABAP Autonomous Delivery V8
+# Example Qualification Configuration
+#
+# Purpose:
+# - Resolve whether a delivery scope starts in Attended or Unattended mode.
+# - Define evidence required before promoting a scope to Unattended.
+# - Automatically demote a qualified scope after critical failures or material changes.
+#
+# Important:
+# - These thresholds are project defaults, not official SAP standards.
+# - Never store passwords, OAuth tokens, SAP logon tickets, private keys, or client secrets here.
+# - Unattended qualification never grants transport release/import or production-write authority.
+
+schema_version: "1.0"
+policy_id: "ABAP-AUTONOMY-QUALIFICATION-V8"
+policy_revision: 1
+status: "draft"                    # draft | active | retired
+owner: "SAP Development Governance"
+approved_by: null                   # Set when policy is formally approved.
+effective_from: "2026-11-20"
+review_cycle_days: 90
+
+# -----------------------------------------------------------------------------
+# 1. Default interaction policy
+# -----------------------------------------------------------------------------
+default_policy:
+  unqualified_scope:
+    execution_mode: "attended"
+    review_level: "standard"
+    notification_policy: "review_blocked_or_complete"
+    reason: "Keep the ABAP developer and AI agent in the loop until the scope has sufficient evidence."
+
+  qualified_scope:
+    execution_mode: "unattended"
+    review_level: "not_applicable"
+    notification_policy: "blocked_or_complete"
+    reason: "Allow long-run delivery for an explicitly qualified and bounded scope."
+
+  critical_scope:
+    execution_mode: "attended"
+    minimum_review_level: "controlled"
+    notification_policy: "review_blocked_or_complete"
+    reason: "Critical SAP changes require engineering-gate review even if another scope was qualified."
+
+# Review-level order used when enforcing minimum policy.
+review_level_rank:
+  standard: 10
+  guided: 20
+  controlled: 30
+  strict: 40
+  custom: 50
+
+# -----------------------------------------------------------------------------
+# 2. Qualification scope key
+# Trust is granted only when every material scope dimension matches.
+# -----------------------------------------------------------------------------
+qualification_scope_definition:
+  required_dimensions:
+    - "agent_version"
+    - "skill_version"
+    - "mcp_profile_id"
+    - "mcp_profile_hash"
+    - "sap_system"
+    - "sap_client"
+    - "sap_product"
+    - "abap_platform_release"
+    - "language_version"
+    - "package_patterns"
+    - "object_types"
+    - "guardrail_profile"
+    - "operation_classes"
+
+  matching_rules:
+    agent_version: "exact"
+    skill_version: "major_minor"       # Patch upgrade may retain qualification if no control behavior changed.
+    mcp_profile_id: "exact"
+    mcp_profile_hash: "exact"
+    sap_system: "exact"
+    sap_client: "exact"
+    sap_product: "exact"
+    abap_platform_release: "exact"
+    language_version: "exact"
+    package_patterns: "subset"
+    object_types: "subset"
+    guardrail_profile: "exact"
+    operation_classes: "subset"
+
+# -----------------------------------------------------------------------------
+# 3. Promotion requirements
+# A scope must satisfy all mandatory gates before becoming unattended-eligible.
+# -----------------------------------------------------------------------------
+promotion_requirements:
+  minimum_attended_runs: 5
+  minimum_observation_days: 14
+  minimum_uat_first_pass_rate: 0.80
+  minimum_test_adequacy_pass_rate: 0.90
+  minimum_evidence_completeness_rate: 1.00
+
+  must_equal_zero:
+    wrong_target_writes: 0
+    unauthorized_actions: 0
+    source_overwrite_incidents: 0
+    stale_evidence_accepted: 0
+    stale_review_approval_applied: 0
+    escaped_atc_priority_1_or_2: 0
+    transport_clutter_incidents: 0
+    critical_guardrail_failures: 0
+    unreconciled_restart_replays: 0
+    unapproved_external_side_effects: 0
+
+  maximum_allowed:
+    failed_safe_runs: 1
+    blocked_tooling_runs: 2
+    average_repair_loops_per_slice: 2.0
+    uat_defects_per_run: 1.0
+
+  required_evidence:
+    - "completed_run_records"
+    - "uat_results"
+    - "source_and_evidence_freshness_report"
+    - "atc_cva_results"
+    - "test_adequacy_audits"
+    - "guardrail_reports"
+    - "transport_hygiene_report"
+    - "restart_recovery_results"
+    - "reviewer_signoff"
+
+  approval:
+    required: true
+    required_roles:
+      - "SAP Development Lead"
+      - "Senior ABAP Reviewer"
+    additional_roles_when_applicable:
+      authorization_change:
+        - "SAP Security Reviewer"
+      public_integration_contract:
+        - "Integration Owner"
+      clean_core_exception:
+        - "SAP Solution Architect"
+
+# -----------------------------------------------------------------------------
+# 4. Critical-scope rules
+# These rules override qualified Unattended eligibility.
+# -----------------------------------------------------------------------------
+critical_scope_rules:
+  minimum_execution_mode: "attended"
+  minimum_review_level: "controlled"
+
+  triggers:
+    - id: "FINANCIAL_POSTING"
+      description: "Creates or changes financial posting behavior."
+    - id: "INVENTORY_VALUATION"
+      description: "Changes inventory quantity, valuation, or stock ownership logic."
+    - id: "PRICING_OR_TAX"
+      description: "Changes pricing, tax, discount, surcharge, or condition behavior."
+    - id: "AUTHORIZATION_CHANGE"
+      description: "Changes authorization checks, roles, SU24 proposals, or access boundaries."
+    - id: "DDIC_PERSISTENT_CHANGE"
+      description: "Changes persisted tables, keys, domains, data elements, or conversion-sensitive structures."
+    - id: "PUBLIC_INTERFACE_CHANGE"
+      description: "Changes a public RAP/OData/RFC/BAPI/IDoc/event/form contract."
+    - id: "CLEAN_CORE_EXCEPTION"
+      description: "Uses an unreleased API, classic enhancement exception, or other Clean Core debt."
+    - id: "STANDARD_MODIFICATION"
+      description: "Modifies SAP standard or requires SPAU/SPDD-governed handling."
+    - id: "CROSS_CLIENT_OPERATION"
+      description: "Reads or writes outside the current client boundary."
+    - id: "EXTERNAL_SIDE_EFFECT"
+      description: "Sends a real external message or changes an external system."
+
+  always_prohibited_in_development_run:
+    - "transport_release"
+    - "transport_import"
+    - "production_write"
+    - "productive_mass_update"
+    - "productive_job_schedule"
+    - "productive_idoc_or_rfc_replay"
+    - "authorization_role_assignment"
+    - "real_external_endpoint_without_separate_approval_workflow"
+
+# -----------------------------------------------------------------------------
+# 5. Automatic demotion and requalification
+# -----------------------------------------------------------------------------
+demotion_policy:
+  immediate_demotion_triggers:
+    - "wrong_target_write"
+    - "unauthorized_action"
+    - "source_overwrite"
+    - "critical_guardrail_failure"
+    - "stale_evidence_or_review_applied"
+    - "escaped_atc_priority_1_or_2"
+    - "unapproved_external_side_effect"
+    - "production_boundary_violation"
+
+  material_change_triggers:
+    - "agent_major_or_minor_version_changed"
+    - "skill_major_or_minor_version_changed"
+    - "mcp_profile_hash_changed"
+    - "mcp_write_tool_schema_changed"
+    - "sap_product_or_release_changed"
+    - "abap_language_version_changed"
+    - "guardrail_profile_changed"
+    - "new_object_type_added"
+    - "new_operation_class_added"
+    - "new_package_pattern_added"
+
+  resulting_state:
+    qualification_state: "unqualified"
+    execution_mode: "attended"
+    review_level: "standard"
+
+  critical_resulting_state:
+    qualification_state: "critical"
+    execution_mode: "attended"
+    review_level: "controlled"
+
+  requalification:
+    required_attended_runs: 3
+    require_root_cause_closed: true
+    require_regression_test: true
+    require_policy_owner_approval: true
+
+# -----------------------------------------------------------------------------
+# 6. Qualified scope examples
+# Replace sample identifiers with values discovered from the real SAP landscape.
+# -----------------------------------------------------------------------------
+qualified_scopes:
+  - scope_id: "S4D-100-ZSD-CLAS-DDLS"
+    status: "qualified"               # candidate | qualified | suspended | retired
+
+    identity:
+      agent_version: "8.0.0"
+      skill_version: "8.0.0"
+      mcp_profile_id: "ADT-MCP-S4D-100"
+      mcp_profile_hash: "sha256:REPLACE_WITH_LIVE_PROFILE_HASH"
+
+    sap_target:
+      system: "S4D"
+      client: "100"
+      product: "S4HANA_PRIVATE_EDITION"
+      abap_platform_release: "2025"
+      language_version: "standard_abap"
+      database: "HANA"
+
+    repository_scope:
+      package_patterns:
+        - "ZSD_*"
+      object_types:
+        - "CLAS"
+        - "INTF"
+        - "DDLS"
+        - "DCLS"
+      excluded_objects:
+        - "ZCL_SD_FINANCIAL_POSTING*"
+      transport_scope:
+        approved_task_required: true
+        allow_create_request: false
+        allow_release: false
+        allow_import: false
+
+    allowed_operation_classes:
+      - "read_repository"
+      - "where_used"
+      - "create_approved_object"
+      - "edit_approved_source"
+      - "assign_to_approved_transport_task"
+      - "syntax_check"
+      - "activate"
+      - "run_abap_unit"
+      - "run_atc"
+      - "run_cva"
+      - "read_limited_test_data"
+      - "generate_documentation"
+
+    prohibited_operation_classes:
+      - "delete_object"
+      - "cross_client_write"
+      - "production_write"
+      - "transport_release"
+      - "transport_import"
+      - "real_external_side_effect"
+
+    guardrails:
+      profile: "s4hana-standard-abap-clean-core"
+      atc_variants:
+        local: "Z_DEV_DEFAULT"
+        security: "Z_CVA"
+        readiness: "ABAP_CLOUD_READINESS"
+      max_data_preview_rows: 100
+      sensitive_fields_policy: "mask"
+
+    qualification_evidence:
+      observation_period:
+        from: "2026-10-01"
+        to: "2026-10-31"
+      completed_attended_runs: 5
+      uat_first_pass_rate: 0.80
+      test_adequacy_pass_rate: 1.00
+      evidence_completeness_rate: 1.00
+      wrong_target_writes: 0
+      unauthorized_actions: 0
+      source_overwrite_incidents: 0
+      stale_evidence_accepted: 0
+      stale_review_approval_applied: 0
+      escaped_atc_priority_1_or_2: 0
+      transport_clutter_incidents: 0
+      critical_guardrail_failures: 0
+      unreconciled_restart_replays: 0
+      unapproved_external_side_effects: 0
+
+    approval:
+      approved_at: "2026-11-01T09:00:00+07:00"
+      approved_by:
+        - role: "SAP Development Lead"
+          identity: "REPLACE_WITH_APPROVER"
+        - role: "Senior ABAP Reviewer"
+          identity: "REPLACE_WITH_APPROVER"
+      expires_at: "2027-02-01T00:00:00+07:00"
+
+# -----------------------------------------------------------------------------
+# 7. Sample run-resolution output
+# This section can be generated by the policy resolver for auditability.
+# -----------------------------------------------------------------------------
+resolution_example:
+  task_id: "CR-1024"
+  evaluated_at: "2026-11-20T18:00:00+07:00"
+
+  requested_scope:
+    system: "S4D"
+    client: "100"
+    package: "ZSD_ORDER"
+    object_types:
+      - "CLAS"
+      - "DDLS"
+    operation_classes:
+      - "edit_approved_source"
+      - "activate"
+      - "run_abap_unit"
+      - "run_atc"
+
+  selected_by_owner:
+    execution_mode: "unattended"
+    review_level: "not_applicable"
+
+  recommended_by_agent:
+    execution_mode: "unattended"
+    review_level: "not_applicable"
+    reason:
+      - "Requested scope is covered by S4D-100-ZSD-CLAS-DDLS."
+      - "No critical-scope trigger was detected."
+
+  minimum_required_by_policy:
+    execution_mode: "unattended"
+    review_level: "not_applicable"
+
+  effective_policy:
+    qualification_state: "qualified"
+    qualification_scope_id: "S4D-100-ZSD-CLAS-DDLS"
+    execution_mode: "unattended"
+    review_level: "not_applicable"
+    notification_policy: "blocked_or_complete"
+    stop_at: "READY_FOR_UAT"
+
+  unresolved_conditions: []
