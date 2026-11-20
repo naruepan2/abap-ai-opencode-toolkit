@@ -1,6 +1,11 @@
 # Changelog
 
-## v0.9.0 — 2026-11-20
+## v0.8.2 — 2026-11-20
+
+- Relabeled from v0.9.0 before publication was kept; the v0.9.0 tag and Release
+  were deleted and recreated at the same commit content. The changes below are
+  treated as a patch-level clarification of the co-edit contract, not a minor
+  feature release.
 
 - Phase 1 of the local-index study: added an object-family capability matrix in
   `docs/coedit-capabilities.md` from read-only DS4/100 probes across the
