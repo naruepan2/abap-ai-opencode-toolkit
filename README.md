@@ -196,7 +196,7 @@ specialists return evidence, not conclusions.
 ## Measured on the author's machine
 
 Snapshot: 2026-11-18. Re-measure with `python scripts\registry_check.py --check --brief`;
-these numbers move with every install. Current release: **v0.8.2** — see
+these numbers move with every install. Current release: **v0.8.3** — see
 [Releases](https://github.com/naruepan2/abap-ai-opencode-toolkit/releases).
 
 | Area | Count | Notes |

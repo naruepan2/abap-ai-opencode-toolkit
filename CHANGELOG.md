@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-20
+## v0.8.3 — 2026-11-20
 
 - Redesigned the personal `sap-mcp-upgrade` skill for **standalone, OpenCode-only
   MCP scope**. It scans only `mcp` entries in `opencode.json` and their backing
