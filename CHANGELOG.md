@@ -16,6 +16,11 @@
   `config/opencode-agents` / `config/opencode-commands` files, keeping existing
   names. `registry_check.py` lists `auto-abap-delivery` as a personal skill so
   it stays editable.
+- Added `scripts/backup_opencode.ps1`: dated, hash-verified snapshots of the
+  git-ignored `workspace/` instance data plus a curated copy of
+  `~/.config/opencode` (junctions and stale/vendored files excluded and listed
+  in `manifest.json`). Optional session-DB copy is marked unverified when
+  OpenCode still holds the file. Dry-run and three live smoke tests passed.
 - Added a git-ignored `.venv/` with `jsonschema` + pure-Python `ruamel.yaml`
   (Python 3.15 has no PyYAML wheel); both validators fall back to ruamel. Draft
   config, example config and the compatibility smoke test all validate clean.
