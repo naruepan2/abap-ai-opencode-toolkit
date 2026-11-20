@@ -2,6 +2,16 @@
 
 ## Unreleased — 2026-11-20
 
+- P0 patch to `auto-abap-delivery` from the two exercise results and the V9
+  analysis: class-first new development (no new `FORM`/`PERFORM`, thin
+  `PROG`/`FUNC` shells, Object Responsibility Plan + test-artifact placement),
+  value-based optional unit tests with a `DIAGNOSTIC_DRIVER` taxonomy and no
+  permanent test-driver program, per-object verification and repository
+  reconciliation (`GHOST` gate), scoped owner confirmation, local-package and
+  unpublished-service terminal rules, and a minimum post-run evidence package
+  with `pending_human_review` learning candidates. Agent + skill live/repo
+  copies match. V9 dynamic team planner, evidence scripts and qualification
+  schema changes remain deferred pending a separate decision.
 - Added the V8 `auto-abap-delivery` **control-plane skill** (11 references, 5
   scripts), the `abap-auto-delivery-by-pongg` coordinator agent, the
   `/auto-abap-delivery` command, `config/auto-abap-delivery/` (qualification

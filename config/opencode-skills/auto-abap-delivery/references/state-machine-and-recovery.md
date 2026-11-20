@@ -3,7 +3,9 @@
 Top-level: `DRAFT -> AWAITING_APPROVAL -> QUEUED -> STARTING -> RUNNING -> VERIFYING_FINAL -> READY_FOR_UAT`.
 Exceptional: `BLOCKED`, `PAUSING -> PAUSED`, `RECOVERING`, `FAILED_SAFE`, `CANCELLED`, `SUPERSEDED`.
 
-RUNNING substates: DISCOVERING, ANALYZING_IMPACT, PLANNING_TEAM, DESIGNING_TESTS, IMPLEMENTING_SLICE, ACTIVATING, TESTING_FOCUSED, REPAIRING, TESTING_REGRESSION, RUNNING_ATC, AUDITING, DOCUMENTING, BUILDING_UAT_PACK.
+RUNNING substates: DISCOVERING, ANALYZING_IMPACT, PLANNING_TEAM, DESIGNING_TESTS, IMPLEMENTING_SLICE, ACTIVATING, TESTING_FOCUSED, REPAIRING, TESTING_REGRESSION, RUNNING_ATC, AUDITING, DOCUMENTING, BUILDING_UAT_PACK, REPOSITORY_RECONCILIATION, BUILDING_POST_RUN_EVIDENCE, REPAIRING_EVIDENCE.
+
+`REPOSITORY_RECONCILIATION`: after an uncertain/failed create or activation, persist intent, read TADIR/source/active-inactive/lock/package, classify `ABSENT`/`PARTIAL`/`GHOST`/`ACTIVE`/`INACTIVE`, then cleanup or Decision Inbox; retry only after reconciliation. `BUILDING_POST_RUN_EVIDENCE` uses a frozen source/object inventory; a failed evidence-consistency gate enters `REPAIRING_EVIDENCE` and never advances to `READY_FOR_UAT`.
 
 Persist transition actor/reason/time, command ID, spec revision, before/after hashes, evidence IDs, and lease fencing token. Accept side effects only with active lease, matching token, correct SID/client, matching hashes, allowed object/action, valid TR/lock, and no blocking decision.
 

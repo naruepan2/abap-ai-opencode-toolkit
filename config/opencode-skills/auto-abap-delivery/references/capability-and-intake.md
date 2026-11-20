@@ -12,3 +12,6 @@
 5. Produce an assignment contract and request approval.
 
 Never store passwords, tokens, tickets, private keys, or client secrets. Store a secure destination alias only.
+
+## Test and runtime capability checks
+During live discovery verify whether the MCP surface can create/update class test includes and run ABAP Unit, and whether service-binding publish/OData preview is available. Record `UNAVAILABLE` rather than inferring from object type. A missing runner is a tooling-evidence limitation, not permission to create a permanent test driver. Capture the AUnit runner result and the exact test location in the capability snapshot.

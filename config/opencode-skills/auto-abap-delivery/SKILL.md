@@ -27,8 +27,8 @@ After Spec, plan, and Autonomy Envelope approval, resolve interaction policy usi
 4. **Assess trust and qualification**: load [trust-and-qualification.md](references/trust-and-qualification.md), classify unqualified/qualified/critical scope, and resolve the effective mode.
 5. **Seek approval**: freeze Spec, implementation plan, test plan, execution contract, autonomy envelope, and resolved interaction policy. Do not write SAP source before approval.
 6. **Initialize the run**: execute `scripts/init_run.py` with approved identifiers and interaction fields; validate with `scripts/validate_run.py`.
-7. **Plan the team**: choose one-agent role passes, three roles, or five-to-seven specialist roles based on risk. Enforce one writer per production object. Load [team-and-testing.md](references/team-and-testing.md).
-8. **Apply engineering judgment**: before create/complete decisions, load [engineering-judgment.md](references/engineering-judgment.md) and require reuse, simplicity, test-adequacy, consumer-impact, project-memory, and reviewer-competency controls as applicable.
+7. **Plan the team**: choose one-agent role passes, three roles, or five-to-seven specialist roles based on risk. Enforce one writer per production object. Freeze the Object Responsibility Plan (thin shell vs logic owner vs framework-mandated); any later object-set change is an approval-required delta. Load [team-and-testing.md](references/team-and-testing.md).
+8. **Apply engineering judgment**: before create/complete decisions, load [engineering-judgment.md](references/engineering-judgment.md) and require reuse, simplicity, test-adequacy, consumer-impact, project-memory, and reviewer-competency controls as applicable. Apply the Class-First Gate: no new `FORM`/`PERFORM`, `PROG`/`FUNC` remain thin class-based boundaries, and test-artifact placement is decided before write.
 9. **Execute by slice**: fresh-read, check preconditions, add characterization/failing test when feasible, implement minimum change, syntax-check, activate, focused-test, repair, regress, ATC/CVA/readiness-check, audit, and checkpoint.
 10. **Apply interaction policy**:
    - unattended: continue silently within approved boundaries;
@@ -36,8 +36,8 @@ After Spec, plan, and Autonomy Envelope approval, resolve interaction policy usi
    - never represent scheduled review as a technical blocker.
 11. **Handle owner input**: validate Review Queue approval against source/spec/evidence snapshot; create Decision Inbox items only for human authority or judgment. Load [decision-inbox.md](references/decision-inbox.md).
 12. **Switch modes safely**: apply a mode/level change only at a reconciled safe checkpoint through `RECONFIGURING`. Never stop midway through write or activation.
-13. **Recover**: after restart or uncertain tool result, acquire a new fencing token, reconcile against SAP, invalidate stale evidence/reviews, and resume only from a legal state. Load [state-machine-and-recovery.md](references/state-machine-and-recovery.md).
-14. **Complete**: require fresh source-linked evidence, no outstanding `REWORK` or required review, guardrail report, UAT mapping, and unreleased transport. Build handoff using [evidence-and-uat.md](references/evidence-and-uat.md) and [accountability.md](references/accountability.md).
+13. **Recover**: after restart or uncertain tool result, acquire a new fencing token, reconcile against SAP, invalidate stale evidence/reviews, and resume only from a legal state. After a failed/uncertain create or activation, classify TADIR/active state as `ABSENT`/`PARTIAL`/`GHOST`/`ACTIVE`/`INACTIVE` before any retry. Load [state-machine-and-recovery.md](references/state-machine-and-recovery.md).
+14. **Complete**: require fresh source-linked evidence, no outstanding `REWORK` or required review, guardrail report, UAT mapping, and unreleased transport. Emit post-run evidence with a per-object verification matrix, scoped owner confirmation, disclosed local-package lifecycle, and learning candidates for human review. Build handoff using [evidence-and-uat.md](references/evidence-and-uat.md) and [accountability.md](references/accountability.md).
 
 ## Non-negotiable rules
 
@@ -51,6 +51,11 @@ After Spec, plan, and Autonomy Envelope approval, resolve interaction policy usi
 - Attended review timeout never auto-continues. Transition to `PAUSED_SAFE` when the lease expires.
 - Decision Inbox items cannot be batch-approved. Batch Review Queue approvals only when reversible, same slice/snapshot, and policy-eligible.
 - Production and irreversible actions remain prohibited even in `strict` review.
+- New development is class-first: no new `FORM`/`PERFORM`; reports and function modules stay thin class-based shells/boundaries.
+- No permanent test-driver `PROG` to compensate for a missing AUnit runner. A diagnostic driver result is `DIAGNOSTIC_DRIVER`, never `ABAP_UNIT`.
+- Never claim solution-wide ATC/test success from partial object coverage; disclose `NOT_REPORTED` and `NOT_SUPPORTED` per object.
+- A free-form owner confirmation closes only the named checks it addresses; never use it to override missing evidence.
+- No unapproved ghost object at `READY_FOR_UAT`; an unpublished service stays `READY_FOR_MANUAL_TEST` when runtime evidence is required.
 
 ## Legal final states
 

@@ -14,3 +14,9 @@ Generate scenarios from acceptance criteria, invariants, object failure modes, d
 Select ABAP OO, SQL, CDS, Function Module, AMDP, or RAP test doubles by dependency and release capability. Use deterministic fixtures; no productive mutation or real outbound call. An activation is not proof of correctness.
 
 Repair at most three times per slice by default. If the same error signature repeats twice without a new hypothesis, stop and escalate.
+
+## Optional, value-based unit tests
+Unit tests are not a universal gate. `CLAS` with material logic gets them when value justifies cost (calculation, quantity/date/unit logic, regression-prone fix, boundary-heavy validation, reusable service). `PROG`/`FUNC`/`FUGR` shells do not require them; verify those boundaries with selection validation, foreground/background smoke, controlled execution, output cross-check, and ATC. Never infer "tests impossible" from the object type — check live runner/test-include capability and record `NOT_APPLICABLE` with compensating evidence when omitted.
+
+## Test result taxonomy
+Classify every executed check as `ABAP_UNIT`, `SMOKE`, `INTEGRATION`, `SERVICE_RUNTIME`, `STATIC_REVIEW`, `MANUAL_OWNER_CONFIRMED`, or `DIAGNOSTIC_DRIVER`. A temporary diagnostic driver needs owner approval, a local/non-transportable package, cleanup, and must never be reported as ABAP Unit. Completion uses verification sufficiency (class-based design, required per-object checks, selected tests pass, boundary evidence complete, gaps mapped to UAT), not a fixed unit-test count.

@@ -14,4 +14,6 @@ Default behavior:
 
 Use read-only discovery before write, one writer per object, fresh source/hash/lock/TR checks, incremental tests, ATC/CVA, durable checkpoints, Review Queue, Decision Inbox, recovery reconciliation, and evidence-backed UAT handoff.
 
-Never release/import transports, write production, mass-update productive data, change production authorizations, or call real external endpoints inside this development run.
+Enforce class-first new development: thin `PROG`/`FUNC` shells, no new `FORM`/`PERFORM`, business logic in classes, value-based optional unit tests in class test includes. Classify every test result (`ABAP_UNIT`, `SMOKE`, `INTEGRATION`, `SERVICE_RUNTIME`, `STATIC_REVIEW`, `MANUAL_OWNER_CONFIRMED`, `DIAGNOSTIC_DRIVER`); never relabel a diagnostic driver as ABAP Unit and never create a permanent test-driver program. Reconcile repository state after uncertain creates (ghost/partial objects), keep per-object verification, scope owner confirmation to named checks, and emit post-run evidence with learning candidates for human review — never rewrite the skill or policy yourself.
+
+Never release/import transports, write production, mass-update productive data, change production authorizations, call real external endpoints, claim solution-wide test/ATC success from partial coverage, or reach `READY_FOR_UAT` with an unapproved ghost object.
