@@ -9,7 +9,8 @@
       1. workspace/ (memory cards, corrections, knowledge, specs mirror, reports)
          - the instance data that git ignores and is most likely to be lost.
       2. ~/.config/opencode, minus the memory junction, stale .bak files,
-         vendor clones and the SAP GUI audit log (all re-creatable or stale).
+         vendor clones, the SAP GUI audit log and service.json (a machine-bound
+         OpenCode service credential). All are re-creatable or stale.
       3. optional: the OpenCode session database (three files together).
 
     Every copied file is hash-verified against its source. A manifest with
@@ -57,7 +58,9 @@ $workspace = if ($env:ABAP_WORKSPACE) { (Resolve-Path $env:ABAP_WORKSPACE).Path 
              else { Join-Path $repoRoot 'workspace' }
 $dataDir = Join-Path $HOME '.local\share\opencode'
 $configExcludeDirs = @('memory', 'memory.live-backup-*', 'abap-skills', 'open-computer-use', 'plugins')
-$configExcludeFiles = @('*.bak*', 'sap-gui-audit.jsonl')
+# service.json holds the OpenCode service password - a machine-bound secret,
+# never put it in a portable snapshot. Recreate/re-store it on the new machine.
+$configExcludeFiles = @('*.bak*', 'sap-gui-audit.jsonl', 'service.json')
 $sessionFiles = @('opencode.db', 'opencode.db-wal', 'opencode.db-shm')
 
 function Copy-Tree([string]$src, [string]$dst, [string[]]$xd, [string[]]$xf) {
@@ -89,6 +92,15 @@ function Verify-Copy([string]$src, [string]$dst) {
         if ($a -ne $b) { $bad += "hash: $rel" }
     }
     return $bad
+}
+
+# Guard: a destination inside a source tree makes robocopy copy itself forever.
+$destFull = [System.IO.Path]::GetFullPath($Destination).TrimEnd('\') + '\'
+foreach ($source in @($workspace, $ConfigDir)) {
+    $sourceFull = [System.IO.Path]::GetFullPath($source).TrimEnd('\') + '\'
+    if ($destFull.StartsWith($sourceFull, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Destination must be outside the source tree: $source"
+    }
 }
 
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'

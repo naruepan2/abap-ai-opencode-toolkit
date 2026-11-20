@@ -16,6 +16,10 @@
   `config/opencode-agents` / `config/opencode-commands` files, keeping existing
   names. `registry_check.py` lists `auto-abap-delivery` as a personal skill so
   it stays editable.
+- Backup hardening: `service.json` is excluded (it holds a plaintext OpenCode
+  service credential) and the script now rejects a destination inside either
+  source tree — copying `workspace/` into itself made robocopy recurse forever.
+  Snapshots belong in the git-ignored `Backup/` folder, not under `workspace/`.
 - Added `scripts/backup_opencode.ps1`: dated, hash-verified snapshots of the
   git-ignored `workspace/` instance data plus a curated copy of
   `~/.config/opencode` (junctions and stale/vendored files excluded and listed

@@ -21,6 +21,8 @@ Thumbs.db
 tools-snapshot.local.json
 # Local co-edit pre-images: may contain customer source, never committed.
 .baseline/
+# Local backup snapshots (instance data, not shipped).
+Backup/
 # Instance data: memory cards and the specs mirror live here, never in the toolkit.
 /workspace/
 
