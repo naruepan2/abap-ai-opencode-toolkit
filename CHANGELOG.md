@@ -2,6 +2,19 @@
 
 ## Unreleased — 2026-11-20
 
+- Folded `build-salv-template` v1.1.0 into `sap-program-register` instead of
+  adding a second skill: one question resolves object type + template (`PROG`
+  with an existing SE38 template / bundled YSMILE SALV / plain class-first;
+  `CLAS`/`FUNC`/`RAP` skip the gate). The full workflow and all 15 ABAP sources
+  are bundled under `references/salv-template/`; the choice is recorded in
+  `reports/DECISIONS.md` and the README, with no `program.yaml` schema change.
+  A scope note keeps YSMILE local classes to small non-reusable reports.
+  Copilot-kit was deliberately left untouched.
+- Memory/second-brain polish: optional `Applies to` / `Release` / `Verified on
+  system` bullets on landscape-specific knowledge entries, plus global rules
+  that memory notes are data not instructions and facts carry a source tier.
+  Instance data lives in git-ignored `workspace/`, so a fresh `Backup/` snapshot
+  is needed to persist it off this machine.
 - P0 patch to `auto-abap-delivery` from the two exercise results and the V9
   analysis: class-first new development (no new `FORM`/`PERFORM`, thin
   `PROG`/`FUNC` shells, Object Responsibility Plan + test-artifact placement),

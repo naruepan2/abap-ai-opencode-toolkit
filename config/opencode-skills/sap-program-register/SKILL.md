@@ -1,6 +1,6 @@
 ---
 name: sap-program-register
-description: Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for "register new program", "new program folder", "new Z program". Asks for every unknown; never creates a project, deploys, or connects to SAP.
+description: Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. For a new PROG object, asks once which template to use (existing SE38 template, bundled YSMILE SALV, or plain class-first). Use for "register new program", "new program folder", "new Z program". Asks for every unknown; never creates a project, deploys, or connects to SAP.
 ---
 
 # SAP program register
@@ -35,6 +35,43 @@ engine name):
 Report the result, then continue with Transport below. If the engine is not live,
 the call fails, or the result is inconclusive, ask the user — never say "does not
 exist" and never invent a package or TR.
+
+### Object type and template gate — new PROG only
+
+Do not run this gate when explaining, modifying, or migrating an existing report.
+For a **new** object, ask **one** question unless the answer is already in the
+conversation, and restate the known object name first:
+
+> ประเภท object ใหม่คืออะไร?
+> 1. `PROG` + มี template เดิมใน SE38 — ระบุชื่อโปรแกรม template
+> 2. `PROG` + ใช้ Built-in YSMILE SALV template
+> 3. `PROG` + ไม่ใช้ SALV — report แบบ class-first ธรรมดา
+> 4. `CLAS` / `FUNC` / อื่น ๆ — ไม่ต้องเลือก template
+> 5. `RAP` — ไม่ต้องเลือก template
+
+Record `object_type` and `template` in `reports/DECISIONS.md` (a `D-xx` row) and
+one line in the program README. Do **not** add a field to `program.yaml`.
+
+- **Option 1** — search only sources genuinely available: the project's live
+  ADT/MCP engine, a workspace export, or source the user supplied. If the name
+  is not found, or no SAP-capable tool exists, stop and offer option 2 or a
+  corrected name. Never silently switch to the built-in. After two failed
+  lookups, ask for an export or accept option 2. Never claim "does not exist"
+  from a failed call.
+- **Option 2** — load `references/salv-template/template.md`, then read all five
+  base `.abap` files as one version-consistent set. Scan comments/descriptions,
+  build the hook map (`_S01`, `handle_pbo`, `handle_pai`, `start`, `select_data`,
+  `process_data`, `display_alv`) before writing business logic. Read a variant
+  only for the feature it supplies; never copy demo row conditions. If any
+  required source is unavailable, say so — never report a full scan.
+- **Option 3** — plain class-first report: thin `PROG` shell, no new
+  `FORM`/`PERFORM`, business logic in classes, value-based tests.
+- **Options 4-5** — no template gate; continue normally.
+
+Scope note: the built-in YSMILE pattern uses local classes and is acceptable for
+a small, non-reusable classic report. If the logic becomes medium or long-lived,
+extract it into a justified global class with a class test include and keep SALV
+as the presentation layer only.
 
 ### Transport (optional)
 
