@@ -2,6 +2,12 @@
 
 ## Unreleased — 2026-11-20
 
+- Moved the "one fact, one home / narrowest wins" routing table from the
+  rationale (`docs/memory-model.md`) into the operating rules
+  (`workspace/memory/README.md`), leaving a pointer instead of a duplicate. The
+  program-card template now links its Evidence section to the V9
+  `docs/evidence/<run-id>/` package. No new vault, learning-candidate file or
+  digest filter was added.
 - Added a short `templates/profile.md` ("About me — ABAP Developer by Pongg")
   as the canonical, harness-neutral persona. A copy lives at
   `~/.config/opencode/profile.md` and is loaded via a new `instructions` entry
