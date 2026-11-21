@@ -2,6 +2,13 @@
 
 ## Unreleased — 2026-11-20
 
+- Added a short `templates/profile.md` ("About me — ABAP Developer by Pongg")
+  as the canonical, harness-neutral persona. A copy lives at
+  `~/.config/opencode/profile.md` and is loaded via a new `instructions` entry
+  in the existing global `opencode.json`. The 598-line Copilot agent was not
+  copied: its tool names, roster, lesson paths and memory layout belong to the
+  other harness; the profile keeps only durable working rules and points to
+  `AGENTS.md`, `tool-map.md`, `docs/catalog.md` and `auto-abap-delivery`.
 - Folded `build-salv-template` v1.1.0 into `sap-program-register` instead of
   adding a second skill: one question resolves object type + template (`PROG`
   with an existing SE38 template / bundled YSMILE SALV / plain class-first;
