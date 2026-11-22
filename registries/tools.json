@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-20T16:33:08+00:00",
+  "generated_at": "2026-11-22T13:52:13+00:00",
   "source": "live tool catalog snapshot",
-  "total": 381,
+  "total": 382,
   "namespaces": {
     "ai-dev-ds4-100": 75,
     "ai-dev-ds4-900": 75,
     "ai-dev-sus-100": 75,
-    "arc1-ds4-100": 8,
+    "arc1-ds4-100": 9,
     "arc1-sus-100": 9,
     "browse": 26,
     "open-computer-use": 9,
@@ -243,6 +243,7 @@
     "ai-dev-sus-100_write_source",
     "arc1-ds4-100_SAPContext",
     "arc1-ds4-100_SAPDiagnose",
+    "arc1-ds4-100_SAPGit",
     "arc1-ds4-100_SAPLint",
     "arc1-ds4-100_SAPManage",
     "arc1-ds4-100_SAPNavigate",

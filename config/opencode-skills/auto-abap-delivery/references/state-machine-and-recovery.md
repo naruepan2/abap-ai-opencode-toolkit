@@ -13,6 +13,8 @@ After restart: acquire new fencing token; load append-only logs; rediscover tool
 
 Replay: reads/tests without side effects may repeat. Source write requires hash reconciliation. Activation requires active/inactive reconciliation. External sends, postings, commit/mass updates never replay without idempotency proof and are normally outside this skill.
 
+## State-changing call contract
+For every create/edit/activate, persist an `action_contract`: `command_id`, `intended_object`, `intended_action`, preconditions (source hash, SID/client, transport/lock), expected postconditions, and `reconciliation_required`. A success message is a claim; read back source, active/inactive state, object inventory and postconditions before accepting it. Per-type postconditions are in [repository-reliability.md](repository-reliability.md).
 
-## V7 review states
+## Review states
 Add `REVIEW_PENDING`, `REVIEWING`, and `RECONFIGURING`. Review approvals are revisioned evidence snapshots and become stale when source, dependency, spec, target, profile, or evidence changes. Recovery must restore open reviews and revalidate their snapshot before applying an answer.

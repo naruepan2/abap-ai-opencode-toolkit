@@ -2,6 +2,31 @@
 
 ## Unreleased — 2026-11-20
 
+- Added the OpenCode `abap-developer-by-pongg` agent and `senior-abap-development`
+  skill, adapted from the Copilot agent and `~/.agents/skills` source: Copilot-only
+  tool lists, roster and lesson paths were dropped; skill routing was mapped to
+  installed OpenCode skills; released-alternatives and cloud restrictions were
+  added as a reference. The skill is for one bounded object/change and defers
+  multi-slice runs to `auto-abap-delivery`.
+- Improvements to `auto-abap-delivery` from `abap-skills-main`: RAP guardrail that a
+  clean ATC result does not authorize a non-`transactional-consistent` classic API,
+  lowest Clean Core Level rule, wrapper/exemption strategy, and compact AUnit
+  mechanics without overriding the value-based test gate. Low-value/bloat and
+  contradictory source material was not copied.
+- Core improvement to `auto-abap-delivery` and its agent from the complete
+  delivery bundle and eight exercise summaries: three new unversioned
+  references — `methodology-resolution.md` (profiles with a pre-write dependency
+  gate), `prog-local-class-methodology.md` (L1 local-only / L2 hybrid / G global,
+  so class-first no longer means "must create SE24"), and
+  `repository-reliability.md` (action contract, per-type postconditions, no blind
+  replay). Updated capability intake with client/phase gates, state recovery with
+  the action-contract schema, engineering judgment with local-class choice and
+  cast evidence, evidence handoff with `NOT_RUN_BY_AUNIT_TOOL` / `NOT_REPORTED`
+  / unpublished-binding states, and the workflow with methodology resolution.
+  `FORM`/`PERFORM` is no longer a blanket ban: class-based is the first choice,
+  with a recorded fallback for proven legacy/framework/toolchain/compatibility cases.
+  No duplicate second brain, no design-roadmap content, no new scripts, and no
+  version labels in new names; stale labels were stripped in touched files.
 - Moved the "one fact, one home / narrowest wins" routing table from the
   rationale (`docs/memory-model.md`) into the operating rules
   (`workspace/memory/README.md`), leaving a pointer instead of a duplicate. The

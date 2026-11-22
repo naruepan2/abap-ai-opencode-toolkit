@@ -11,6 +11,8 @@ UAT pack: executive summary; approved revisions; changed objects; before/after; 
 ## Per-object verification matrix
 Never claim solution-wide ATC/test success from partial coverage. For each object record syntax/activation/test/ATC state as `PASS`, `FINDINGS`, `NOT_REPORTED`, `NOT_SUPPORTED`, `NOT_RUN`, or `STALE`, with reason and alternative check. Name every `NOT_REPORTED`/`NOT_SUPPORTED` object in the summary.
 
+Explicit state values: ABAP Unit not executed is `NOT_RUN_BY_AUNIT_TOOL`, never PASS and never a reason to create a permanent test-driver program — supply compensating focused evidence instead. ATC with `processed = 0` is `NOT_REPORTED`, not a pass. An active but unpublished service binding yields no OData/Fiori runtime success evidence; the terminal state stays `READY_FOR_MANUAL_TEST`.
+
 ## Repository and terminal-state gates
 After uncertain create/activation, reconcile TADIR into `ABSENT`/`PARTIAL`/`GHOST`/`ACTIVE`/`INACTIVE`. `READY_FOR_UAT` requires zero unapproved ghost objects, no unexplained partial/inactive objects, and no unresolved `REWORK`. `READY_FOR_MANUAL_TEST` is allowed when an owner cleanup action is recorded and no further autonomous write is safe. A local package with no TR qualifies local development only — never deployment/transport readiness. An active but unpublished service stays `READY_FOR_MANUAL_TEST` when runtime evidence is required.
 

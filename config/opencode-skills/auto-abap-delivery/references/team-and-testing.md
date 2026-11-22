@@ -18,5 +18,7 @@ Repair at most three times per slice by default. If the same error signature rep
 ## Optional, value-based unit tests
 Unit tests are not a universal gate. `CLAS` with material logic gets them when value justifies cost (calculation, quantity/date/unit logic, regression-prone fix, boundary-heavy validation, reusable service). `PROG`/`FUNC`/`FUGR` shells do not require them; verify those boundaries with selection validation, foreground/background smoke, controlled execution, output cross-check, and ATC. Never infer "tests impossible" from the object type — check live runner/test-include capability and record `NOT_APPLICABLE` with compensating evidence when omitted.
 
+When ABAP Unit is selected: use `ltc_`/`ltd_` prefixes, `RISK LEVEL` and `DURATION SHORT/MEDIUM/LONG`, and `FOR TESTING ... RAISING cx_static_check`; create the test environment in `class_setup`, clear doubles in `setup`, and destroy it in `class_teardown`. Prefer constructor injection; use `TEST-SEAM` only as a legacy bridge. These mechanics never override the value-based gate.
+
 ## Test result taxonomy
 Classify every executed check as `ABAP_UNIT`, `SMOKE`, `INTEGRATION`, `SERVICE_RUNTIME`, `STATIC_REVIEW`, `MANUAL_OWNER_CONFIRMED`, or `DIAGNOSTIC_DRIVER`. A temporary diagnostic driver needs owner approval, a local/non-transportable package, cleanup, and must never be reported as ABAP Unit. Completion uses verification sufficiency (class-based design, required per-object checks, selected tests pass, boundary evidence complete, gaps mapped to UAT), not a fixed unit-test count.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T16:33:08+00:00",
+  "generated_at": "2026-11-22T13:52:13+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -204,7 +204,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\auto-abap-delivery\\SKILL.md",
       "owner": "Pongg",
-      "hash": "69f3cfb973d9f4a58095c78def60e31c6386ad00abf38a4a09bc0a9f20cd47a9",
+      "hash": "cfef7a31183dc3614f5a2b4df0a0541fea8a620c25e45934c47d231bf7f982db",
       "desc_chars": 519,
       "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
       "status": "new",
@@ -369,9 +369,9 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-program-register\\SKILL.md",
       "owner": "Pongg",
-      "hash": "f55614fcc3ec061f9db04ec9488313bc48926440d0ae6fdad4bf5b97c40b3f88",
-      "desc_chars": 265,
-      "description": "Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. Use for \"register new program\", \"new program folder\", \"new Z program\". Asks for every unknown; never creates a project, deploys, or connects to SAP.",
+      "hash": "e6dc741f33f551456983eae98692217900457badbfde8e781b49f86038a2d20b",
+      "desc_chars": 389,
+      "description": "Register a new program under an existing SAP project: program folder, manifests, draft spec, changelog, memory card. For a new PROG object, asks once which template to use (existing SE38 template, bundled YSMILE SALV, or plain class-first). Use for \"register new program\", \"new program folder\", \"new ",
       "status": "new",
       "last_validated": null
     },
@@ -420,6 +420,17 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "senior-abap-development",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\senior-abap-development\\SKILL.md",
+      "owner": "Pongg",
+      "hash": "8e3bebddea8cf973a3737d50b9f157724fe9ff4aeb56ec965aa62fb9e638975d",
+      "desc_chars": 389,
+      "description": "Plan and develop SAP ABAP programs from requirements through verification, for classic ABAP and modern ABAP Cloud, Clean Core and RAP. Use for new or changed reports, SALV/ALV, classes, function modules, enhancements, CDS and RAP objects, or when choosing between classic and modern designs. For a mu",
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "analyze-chat-session",
       "harness": "agents",
       "path": "~\\.agents\\skills\\analyze-chat-session\\SKILL.md",
@@ -435,7 +446,7 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\auto-abap-delivery\\SKILL.md",
       "owner": "Pongg",
-      "hash": "69f3cfb973d9f4a58095c78def60e31c6386ad00abf38a4a09bc0a9f20cd47a9",
+      "hash": "2be160931173071fa6bf1f62fb86c2d3f5adc42d2fa4698e0b9285861a82f6d1",
       "desc_chars": 519,
       "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
       "status": "new",
@@ -874,7 +885,7 @@
       "id": "senior-abap-development",
       "harness": "agents",
       "path": "~\\.agents\\skills\\senior-abap-development\\SKILL.md",
-      "owner": "vendor",
+      "owner": "Pongg",
       "hash": "4c5f764b8e2bfb8be52191c6fb44d3c4e800fd0ebc457a2a7758f61e323cc77a",
       "desc_chars": 313,
       "description": "Plan and develop SAP ABAP programs from requirements through verification, for both classic ABAP and modern ABAP Cloud/Clean Core/RAP. Use before creating or changing reports, SALV/ALV, classes, function modules, forms, enhancements, CDS, RAP business objects, or when choosing between classic and mo",
@@ -979,6 +990,17 @@
       "description": "Implement, change, or analyze ABAP CDS data definitions and their dependencies or consumers. Use for DDLS and CDS modeling tasks.",
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "clean-core-decision-gates",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\clean-core-decision-gates\\SKILL.md",
+      "owner": "vendor",
+      "hash": "1e234ddf7343fe5753b320affd4041e0944e00b7fe0362e998f8d162781f791f",
+      "desc_chars": 520,
+      "description": "Decision rules for Clean Core Level A-D work - the lowest-level rule, \"unclassified = Level C\", ATC priority-to-level mapping, the transactional-consistent gate for a classic API used inside RAP, and wrapper governance (level follows the wrapped object, SU22 variants, one exemption, retirement). Use",
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "clean-core-extensibility",
@@ -1106,7 +1128,7 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\sap-new-program\\SKILL.md",
       "owner": "vendor",
-      "hash": "7c87588e206d351b3d4002430755d184d56b006a3319a5c1f9b0abb871811dfe",
+      "hash": "8a7bf7301e0cfb11b4a048002a364fc7c5e100b39e38bebcab362f7583ff0b77",
       "desc_chars": 360,
       "description": "Scaffold one program record under Projects/<PROJECT>/<PROGRAM>/ - program.yaml, README, changes.md and spec wiring. Use for \"register new program\", \"new Z program\", \"เพิ่มโปรแกรมใหม่\", \"เริ่มโปรแกรมใหม่\". Requires the project record to exist. Asks for every unknown, never guesses a SID, client, tran",
       "status": "new",

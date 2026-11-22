@@ -1,4 +1,4 @@
-# V7 interaction control
+# Interaction control
 
 ## Model
 
@@ -38,7 +38,7 @@ A review becomes stale after relevant source, dependency, spec, target, profile,
 
 ## States
 
-Add `REVIEW_PENDING`, `REVIEWING`, and `RECONFIGURING` to the shared V6 state machine. Scheduled review wait time is not blocker time.
+Add `REVIEW_PENDING`, `REVIEWING`, and `RECONFIGURING` to the shared state machine. Scheduled review wait time is not blocker time.
 
 ## Switching
 

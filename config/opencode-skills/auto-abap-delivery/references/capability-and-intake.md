@@ -4,6 +4,10 @@
 - Enumerate MCP servers, tool names/schemas, read/write/destructive classification, health, identity, SID/client, authorization, object coverage, source read/edit, activation, ABAP Unit, ATC, trace, diff, lock, and transport capabilities.
 - Save `capability-snapshot.yaml`. Refresh after restart, configuration change, unknown-tool response, or resume.
 
+## Client and phase gates
+- Name the development, runtime/preview, data-validation and dump clients before any data or runtime claim. A zero-row query in the wrong client is not evidence that data is absent; a dump from another client does not prove failure in the approved target. Reject a runtime claim whose relevant client cannot be accessed.
+- Re-check tool availability, destination/client, package allowlist, write permission, object-type support, profile hash and known quirks before each of discovery, write, verification and recovery — not only once at session start. A disabled or denied tool requires re-arm or owner action; never silently switch destinations.
+
 ## Intake order
 1. Business outcome, current/expected behavior, work type, ticket/spec, sample input/output, deadline, desired `READY_FOR_UAT` boundary.
 2. Read-only target discovery: product/release, ABAP platform, database, language version, current client, object metadata, TADIR, package, original system, active/inactive source, lock, dependencies, test classes, ATC findings, and TR when available.
