@@ -25,8 +25,10 @@ not confirm a target. Offline review of supplied source needs no target.
 
 Before create/edit/delete/activate or a live-data change, present one Pre-Flight:
 confirmed system/client, operation, exact object scope, package/transport,
-dependencies, validation plan, and risks. Wait for explicit approval; approval covers
-only that scope. Reconfirm if any of those fields changes.
+dependencies, validation plan, and risks. Wait for explicit approval. A recorded
+pre-approval in a project or program `AGENTS.md` counts as that approval for the exact
+scope it states — do not re-ask. Approval covers only that scope; reconfirm if any of
+those fields changes.
 
 ## 2. Inspect before designing
 

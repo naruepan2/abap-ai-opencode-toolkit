@@ -22,7 +22,9 @@ program record silently first — do not ask the user to restate what it already
 Before a write classify the work as bug fix, extension, or change request, say whether it
 is live in production, and settle the intended behavior. Present one Pre-Flight (target,
 operation, objects, package/transport, dependencies, validation plan, risks) and wait for
-approval. Approval covers only that scope.
+approval. A recorded pre-approval in a project or program `AGENTS.md` counts as that
+approval for the exact scope it states — do not re-ask. Approval covers only that scope;
+reconfirm if any of those fields changes.
 
 ## Write rules
 Discover live MCP capability before selecting tools; route by capability, never by a

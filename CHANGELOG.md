@@ -2,6 +2,10 @@
 
 ## Unreleased — 2026-11-20
 
+- The developer agent and skill now treat a pre-approval recorded in a project or
+  program `AGENTS.md` (for example LUF/ZMME011 end-to-end deploy) as the Pre-Flight
+  approval for that exact scope, so a pre-approved deploy is not re-asked. Any change
+  to target, objects, package/transport or operation still requires reconfirmation.
 - Added the OpenCode `abap-developer-by-pongg` agent and `senior-abap-development`
   skill, adapted from the Copilot agent and `~/.agents/skills` source: Copilot-only
   tool lists, roster and lesson paths were dropped; skill routing was mapped to
