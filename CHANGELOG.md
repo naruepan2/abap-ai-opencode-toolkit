@@ -2,6 +2,9 @@
 
 ## Unreleased — 2026-11-20
 
+- README refreshed for the current setup: three-agent routing, loaded profile,
+  curated backup script, installer copying whole skill trees, and the latest
+  registry counts/date.
 - `auto-abap-delivery` now recognizes a pre-approval recorded in project/program
   `AGENTS.md` as the approval for that exact scope (no re-ask on an already approved
   deploy), and has a fast path that routes one-to-three-step local changes to the
