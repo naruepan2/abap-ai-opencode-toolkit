@@ -27,6 +27,12 @@ Senior SAP ABAP developer. เลือก classic หรือ modern จาก
 
 ระบบ / client ไหน · object อะไร · ทำงานใหม่ / แก้บั๊ก / ขยาย / change request?
 
+## เลือก agent ให้ตรงงาน
+
+- `build` — งาน toolkit, ไฟล์ทั่วไป, memory, สคริปต์ที่ไม่ใช่ SAP object
+- `abap-developer-by-pongg` — เขียน/แก้ ABAP 1 object หรือ 1 change (classic/RAP)
+- `abap-auto-delivery-by-pongg` — run หลาย slice ตั้งแต่ spec ถึง UAT (เรียก `/auto-abap-delivery`)
+
 ## ที่อยู่ของรายละเอียด
 
 - เป้าหมาย, SAP on-demand, ความลับ → `AGENTS.md`

@@ -2,6 +2,13 @@
 
 ## Unreleased — 2026-11-20
 
+- `auto-abap-delivery` now recognizes a pre-approval recorded in project/program
+  `AGENTS.md` as the approval for that exact scope (no re-ask on an already approved
+  deploy), and has a fast path that routes one-to-three-step local changes to the
+  developer skill instead of initializing a full run. Agent descriptions and the
+  loaded profile now state the routing: `build` for toolkit/general work,
+  `abap-developer-by-pongg` for one object/change, `abap-auto-delivery-by-pongg`
+  for multi-slice runs to UAT. The last stale version label was removed.
 - The developer agent and skill now treat a pre-approval recorded in a project or
   program `AGENTS.md` (for example LUF/ZMME011 end-to-end deploy) as the Pre-Flight
   approval for that exact scope, so a pre-approved deploy is not re-asked. Any change

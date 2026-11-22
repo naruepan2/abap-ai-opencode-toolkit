@@ -11,5 +11,5 @@ Default run budget: 8 hours, 500 tool calls, 3 repairs per slice, 2 repeats of t
 Use start, blocked, and completion notifications only unless the owner opts into a digest. Autonomous development ends before UAT and production.
 
 
-## V7 interaction compatibility
+## Interaction compatibility
 Unattended is the default execution mode and has `review_level: not_applicable`. It uses Decision Inbox only for genuine authority boundaries. A user request to switch to attended must apply at a reconciled safe checkpoint through `RECONFIGURING`; do not interrupt an atomic SAP operation.

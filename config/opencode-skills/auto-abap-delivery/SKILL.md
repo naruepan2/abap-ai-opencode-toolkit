@@ -15,7 +15,7 @@ After Spec, plan, and Autonomy Envelope approval, resolve interaction policy usi
 - Initial default for unqualified scope: `execution_mode: attended`, `review_level: standard`.
 - Qualified scope may default to `unattended`; critical scope requires at least `controlled`.
 - Attended levels: `standard`, `guided`, `controlled`, `strict`, or `custom`.
-- Unattended is preselected only for qualified scope. Unqualified scope preselects Attended Standard. SAP write always requires explicit `APPROVE AND START`.
+- Unattended is preselected only for qualified scope. Unqualified scope preselects Attended Standard. SAP write requires explicit `APPROVE AND START`; a pre-approval recorded in a project or program `AGENTS.md` counts for the exact scope it states, so do not re-ask. Reconfirm if target, objects, package/transport, or operation changes.
 - Use one delivery engine for both modes. Do not create a separate attended workflow.
 - Keep Review Queue separate from Decision Inbox.
 
@@ -39,6 +39,14 @@ After Spec, plan, and Autonomy Envelope approval, resolve interaction policy usi
 13. **Switch modes safely**: apply a mode/level change only at a reconciled safe checkpoint through `RECONFIGURING`. Never stop midway through write or activation.
 14. **Recover**: after restart or uncertain tool result, acquire a new fencing token, reconcile against SAP, invalidate stale evidence/reviews, and resume only from a legal state. After a failed/uncertain create or activation, classify TADIR/active state as `ABSENT`/`PARTIAL`/`GHOST`/`ACTIVE`/`INACTIVE` before any retry. Load [state-machine-and-recovery.md](references/state-machine-and-recovery.md).
 15. **Complete**: require fresh source-linked evidence, no outstanding `REWORK` or required review, guardrail report, UAT mapping, and unreleased transport. Emit post-run evidence with a per-object verification matrix, scoped owner confirmation, disclosed local-package lifecycle, and learning candidates for human review. Build handoff using [evidence-and-uat.md](references/evidence-and-uat.md) and [accountability.md](references/accountability.md).
+
+## Fast path for small changes
+
+A one-to-three-step local change with no new SAP object, no multi-slice plan and no need
+for durable run state does not need a full run. Route it to `senior-abap-development`
+(or the default coding agent for toolkit/non-SAP work) instead of initializing a run.
+Keep the core gates: confirmed target, fresh read, a recorded reason if `FORM`/`PERFORM`
+is used, read-back after write, and no transport release or production action.
 
 ## Non-negotiable rules
 
