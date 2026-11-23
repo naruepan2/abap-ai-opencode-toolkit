@@ -2,6 +2,16 @@
 
 ## Unreleased — 2026-11-23
 
+- V9.4 embedded SQL memory layer reviewed by 6 more agents (plus 6 earlier + the Copilot
+  register): verdict `KEEP_EXPERIMENTAL + INSUFFICIENT_EVIDENCE`, "revise, not redesign".
+  No SQLite introduced. Parked the design report (`v94-memory-design-20261123.md` →
+  `PARKED`), recorded D-29 (deferred with measurable revisit triggers) and D-30 (the
+  OpenCode-only `Write mode` field vs the stale Copilot `IDEA` row — benign harness
+  divergence, no sync, no write into another harness). Added an explicit redaction/
+  injection-lint boundary to `evidence-and-uat.md` and clarified in `evidence_fingerprint.py`
+  that hashing raw bytes is not redaction.
+
+
 - Made the co-edit `Write mode` axis explicit: `templates/plan.md` carries the field,
   `abap-developer-by-pongg` adds it to Pre-Flight, `abap-auto-delivery-by-pongg` freezes it
   in the envelope and treats mid-run changes as a Decision Inbox boundary, and the

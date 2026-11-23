@@ -6,6 +6,9 @@ Hashes file bytes, never mtime or clock. Paths are stored relative to --root so 
 manifest survives a machine change. The hash carries its engine and locator beside it:
 never compare a digest produced by a different engine.
 
+A fingerprint is NOT redaction. Scrub secrets, PII, dumps and production payloads before
+a result is stored, indexed or committed; hashing raw bytes does not sanitize them.
+
 Usage
   python scripts/evidence_fingerprint.py --root <dir> --files a.md,b.json \
       --engine local-sha256 --locator RUN-001
