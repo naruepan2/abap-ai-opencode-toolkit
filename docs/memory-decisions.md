@@ -59,6 +59,7 @@
 | D-25 | toolkit itself | Whole-harness cross-loading of agents/skills | rejected | — | OpenCode and Copilot stay separate copies; only host-neutral rules are shared (`templates/profile.md`) |
 | D-26 | toolkit itself | Full Knowledge Graph | deferred | — | earlier benchmark requirement not met; local object index is navigation only |
 | D-27 | toolkit itself | Rule diet + parking policy | adopted | `auto-abap-delivery/SKILL.md`, `references/non-negotiable-rules.md`, `docs/design.md` | six hard gates stay in the control plane; full rules and the budget policy move to references — adding more prose was making safety rules harder to see |
+| D-28 | toolkit itself | `sap-abap-docs` as a SAP knowledge channel | adopted, bounded | `templates/profile.md`, both `*-by-pongg` agents, `senior-abap-development/SKILL.md`, `released-alternatives.md`, `capability-and-intake.md`, `engineering-judgment.md` | docs MCP outranks recollection/internet for release and API facts but never outranks live SAP; `DOC_EVIDENCE` label, re-verify on target, public-cloud metadata is not on-prem proof — no new hard gate was added |
 
 ## Vocabulary map — do not mix these words
 

@@ -2,7 +2,7 @@
 
 ## SAP is on-demand only
 
-- Never enable the `ai-dev-ds4-100` / `ai-dev-ds4-900` / `sap-gui` / `sap-abap-docs` / `playwright`
+- Never enable the `ai-dev-ds4-100` / `ai-dev-ds4-900` / `sap-gui` / `playwright`
   MCP servers and never call `sap_connect` / `sap_connect_existing` at session
   start. Opening opencode must never pop the SAP credential dialog.
 - Connect only when the user explicitly asks for SAP work ("เข้า SAP", "เข้า DS4",

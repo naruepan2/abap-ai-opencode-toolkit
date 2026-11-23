@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:37:54+00:00",
+  "generated_at": "2026-11-23T11:46:51+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -11,7 +11,7 @@
       "mode": "primary",
       "skills": [],
       "description": "Trust-calibrated SAP ABAP Delivery Lead for multi-slice Classic/RAP runs from spec to READY_FOR_UAT. Explicit invocation only; unqualified scope defaults to Attended Standard and qualified scope may run Unattended. For one object or one change use abap-developer-by-pongg; for toolkit and general wor",
-      "hash": "520132ac30113ab10ede7d6aa47ae17b9ce373e97f20b3c3130be7489d8670f9",
+      "hash": "db73b7fc6d265043c84304505cbb57e77333faedf7cefe1f1e327476aa0da1e0",
       "status": "new",
       "last_validated": null
     },
@@ -25,7 +25,7 @@
       "mode": "primary",
       "skills": [],
       "description": "Senior SAP ABAP developer for one bounded object or change. Designs and implements classic ABAP reports, SALV/ALV, classes, function modules, enhancements, CDS and RAP work with evidence over guessing and a confirmed SAP target. For a multi-slice delivery run with durable state and UAT handoff use a",
-      "hash": "dce31e16e07b1250257c6a53415e79eb71c7ae7bed38014ef7f7f87df3c4452f",
+      "hash": "683c86936e0d239e000a5742dce6c686a5ae42c62b4f3f05c37c965f5673c62b",
       "status": "new",
       "last_validated": null
     },
@@ -137,7 +137,7 @@
       "mode": "",
       "skills": [],
       "description": "Explicit, trust-calibrated SAP ABAP delivery from approved specification to evidence-backed UAT readiness. User-invoked only. Coordinator of SAP writes; never releases or imports transports.",
-      "hash": "d8f446ca7ef4be0f7e08a8390173bc6a61048ac9437e0ba79935a154892f6f35",
+      "hash": "35be3875a8b8e239e872c5c15afc3172ebe9069ea14741e7f26f84dbc12aebe6",
       "status": "new",
       "last_validated": null
     },

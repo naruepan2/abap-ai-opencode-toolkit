@@ -2,6 +2,14 @@
 
 ## Unreleased — 2026-11-23
 
+- Bounded `sap-abap-docs` as a SAP knowledge channel for both `*-by-pongg` agents and the
+  senior/auto delivery skills: `DOC_EVIDENCE` vs `SYS_EVIDENCE`, docs MCP before general web
+  for release/API facts, re-verify on the target, public-cloud metadata is not on-prem proof.
+  Recorded as D-28. Both agents, `templates/profile.md`, `senior-abap-development/SKILL.md`,
+  `released-alternatives.md`, `capability-and-intake.md`, `engineering-judgment.md` and both
+  AGENTS on-demand lists were updated; no hard gate was added.
+
+
 - Replaced the docs MCP `sap-docs`/`sap-ui5-docs` with `sap-abap-docs`
   (`https://mcp-abap.marianzeis.de/mcp`, marianfoo/abap-mcp-server, 9 tools incl. `abap_lint`);
   `ui5_version_diff` was dropped. Remote HTTP MCP entries require `"type": "remote"` —

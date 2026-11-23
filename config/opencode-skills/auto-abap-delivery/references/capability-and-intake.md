@@ -3,6 +3,7 @@
 ## Live discovery
 - Enumerate MCP servers, tool names/schemas, read/write/destructive classification, health, identity, SID/client, authorization, object coverage, source read/edit, activation, ABAP Unit, ATC, trace, diff, lock, and transport capabilities.
 - Save `capability-snapshot.yaml`. Refresh after restart, configuration change, unknown-tool response, or resume.
+- Classify `sap-abap-docs` separately as a read-only knowledge/documentation channel (release matrix, released API, community), not an ADT engine. Record its live availability and degrade to official docs/browser or `UNVERIFIED` when absent.
 
 ## Client and phase gates
 - Name the development, runtime/preview, data-validation and dump clients before any data or runtime claim. A zero-row query in the wrong client is not evidence that data is absent; a dump from another client does not prove failure in the approved target. Reject a runtime claim whose relevant client cannot be accessed.

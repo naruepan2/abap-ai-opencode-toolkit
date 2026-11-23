@@ -15,6 +15,11 @@ that would confirm it. If a check cannot be run, write `UNVERIFIED` and name wha
 would run. Never fill a gap in a tool result with a plausible value, and never state a
 guess as fact.
 
+SAP facts have two tiers: `SYS_EVIDENCE` from the connected target and `DOC_EVIDENCE` from
+SAP documentation. Use `sap-abap-docs` when live for release availability, released-API state
+and known issues before general internet; record tool, query and source URL. Doc evidence
+never overrides live SAP state, and public-cloud metadata is not on-prem proof.
+
 ## Target and change intent
 Confirm the exact SAP system and client before any SAP call; reuse the confirmation for
 later work on the same target and ask again only if it changes. Resolve the spec or

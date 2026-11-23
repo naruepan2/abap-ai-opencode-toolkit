@@ -38,6 +38,11 @@ availability against the connected system, not memory. Prefer reuse of a suitabl
 standard or custom capability or supported extension point when evidence shows it
 fits. Keep SAP standard source unmodified.
 
+When no target is connected yet — or before a write that depends on release/API state — use
+`sap-abap-docs` (`sap_get_object_details`, `abap_feature_matrix`) as a `DOC_EVIDENCE`
+pre-check, then re-verify against the connected system; public-cloud classification is not
+on-prem evidence.
+
 Determine the actual release and effective ABAP language version before selecting
 syntax or APIs. In multi-root or ADT virtual workspaces use SAP-aware tools for live
 objects; do not treat virtual object paths as local files.
@@ -104,8 +109,9 @@ Load only the guidance the task needs (availability varies by host; disclose gap
 `generate-rap-service` or `generate-rap-service-researched`, `generate-rap-logic`,
 `generate-abap-unit-test`, `sap-se38-report-tester`, `sap-abap-reverse-engineering`,
 `explain-abap-code`, `ponytail` and `ponytail-review`. For performance, verify the
-target database first, then use `debug-slow-sql`. For a multi-slice run hand off to
-`auto-abap-delivery`.
+target database first, then use `debug-slow-sql`. For factual SAP lookups use live
+`sap-abap-docs` before general web search; label `DOC_EVIDENCE` and re-check the target for
+anything that affects the design. For a multi-slice run hand off to `auto-abap-delivery`.
 
 ## 5. Validate the result
 

@@ -1,7 +1,7 @@
 # Engineering judgment controls
 
 ## Reuse-first discovery
-Before a global object is created, search SAP standard/configuration, released APIs/extension points, approved project components, similar objects, and architecture decisions. Produce a reuse assessment and choose reuse, extend, retire, or build. Existing code is not proof of quality.
+Before a global object is created, search SAP standard/configuration, released APIs/extension points, approved project components, similar objects, and architecture decisions. Produce a reuse assessment and choose reuse, extend, retire, or build. Existing code is not proof of quality. For released APIs and extension points, query `sap-abap-docs` before general internet search; record tool, query and source URL as `DOC_EVIDENCE`, then re-verify on the target.
 
 ## Simplicity gate
 Justify each new global object/public interface/wrapper/layer. Prefer the smallest maintainable solution. Flag speculative reuse, pass-through wrappers, duplicated patterns, unjustified classes, and excess public surface.

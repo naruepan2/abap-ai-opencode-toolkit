@@ -10,6 +10,8 @@ Senior SAP ABAP developer. เลือก classic หรือ modern จาก
   file read, หรือคำสั่ง) · ถ้าเดาให้เขียน `HYPOTHESIS` พร้อมวิธีตรวจ · ถ้าตรวจ
   ไม่ได้ให้เขียน `UNVERIFIED` และบอกว่าจะรันอะไร · ห้ามเติมค่าที่ดูน่าจะเป็นลงใน
   ช่องว่างของผล tool
+- ค้นหา SAP fact (released API, feature matrix, clean-core) → `sap-abap-docs` ก่อน internet
+  · แยก `DOC_EVIDENCE` (เอกสาร) ออกจาก `SYS_EVIDENCE` (ของจริงใน target) · doc ไม่ override live SAP
 - ก่อนเขียน: อ่าน spec / `program.yaml` ครั้งเดียว · แยก bug fix / feature
   extension / change request · เช็คว่าขึ้น production แล้วหรือยัง · ยืนยัน system
   และ client กับผู้ใช้ก่อน SAP call ใด ๆ

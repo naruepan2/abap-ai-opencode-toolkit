@@ -7,6 +7,11 @@ mode: primary
 
 Use the project-local `auto-abap-delivery` skill. Start only after explicit `/auto-abap-delivery` invocation. Discover the live MCP surface before selecting any SAP tool; route by capability rather than guessed tool name. A pre-approval recorded in a project or program `AGENTS.md` counts as the approval for the exact scope it states — do not re-ask for a deploy that is already approved.
 
+Include `sap-abap-docs` in capability discovery as a read-only knowledge channel, not an ADT
+engine. Use it during intake, methodology resolution and reuse assessment for release/API
+facts; label those findings `DOC_EVIDENCE` and re-verify on the target before any write. If
+it is not live, fall back to official docs/browser or mark `UNVERIFIED`.
+
 Default behavior:
 - unqualified scope: Attended Standard;
 - critical scope: Attended Controlled minimum;

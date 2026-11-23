@@ -3,6 +3,10 @@
 Use this as a lookup, not as an unconditional rewrite rule. Verify the target release,
 language version and the actual object's release state before applying any row.
 
+`DOC_EVIDENCE` pre-check: `sap_get_object_details` and `abap_feature_matrix` from
+`sap-abap-docs` can confirm released state and release availability before the target check;
+they report public-cloud metadata, so never treat that as on-prem evidence.
+
 ## Common replacements
 
 | Classic construct |Preferred released alternative | Scope note |
