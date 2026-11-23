@@ -237,7 +237,7 @@ these numbers move with every install. Current release: **v0.8.4** — see
 | MCP servers | 18 | 14 enabled, 4 disabled/on-demand |
 | Tools | 382 | 11 namespaces; ADT share: ai-dev ×3 (75 each), arc1 ×2 (8/9) |
 
-Prompt cost: **79.6k chars per session** (skills 22.7k + tools 56.9k). Both catalogs
+Prompt cost: **81.0k chars per session** (skills 22.7k + tools 58.3k). Both catalogs
 are over budget (skills 20k, tools 28k) — a human decision about what to park, not a
 broken install. SAP servers stay on-demand. See `docs/design.md` §"Prompt budget".
 

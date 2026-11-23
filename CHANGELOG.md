@@ -2,11 +2,12 @@
 
 ## Unreleased — 2026-11-23
 
-- Renamed the docs MCP `sap-docs` → `sap-ui5-docs` (same hosted endpoint, 9 tools) and
-  registered `sap-abap-docs` (`https://mcp-abap.marianzeis.de/mcp`, marianfoo/abap-mcp-server)
-  as disabled/on-demand. Updated both AGENTS on-demand lists, `tool-map.md`, the
-  `sap-mcp-upgrade` registry table, `registry_check.py` optional namespaces and the
-  registry snapshots. No daemon restart was needed: the harness picked the rename up live.
+- Replaced the docs MCP `sap-docs`/`sap-ui5-docs` with `sap-abap-docs`
+  (`https://mcp-abap.marianzeis.de/mcp`, marianfoo/abap-mcp-server, 9 tools incl. `abap_lint`);
+  `ui5_version_diff` was dropped. Remote HTTP MCP entries require `"type": "remote"` —
+  `"type": "http"` is silently ignored by OpenCode. Updated both AGENTS on-demand lists,
+  `tool-map.md`, the `sap-mcp-upgrade` registry table, `registry_check.py` optional namespaces
+  and the registry snapshots. No daemon restart was needed: changes were picked up live.
 
 ## v0.8.4 — 2026-11-23
 

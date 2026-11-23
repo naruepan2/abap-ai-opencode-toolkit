@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:28:21+00:00",
+  "generated_at": "2026-11-23T11:37:54+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -151,7 +151,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "2c50cd039bc1c32f1f8d1bd8f67950acd713285a8b3aafe22e85a698c818254e",
+      "hash": "8a9fc89f940c6118371a025ae86e90502ebc6568568624bb1728505d8bf5f245",
       "status": "active",
       "last_validated": "2026-11-13"
     },

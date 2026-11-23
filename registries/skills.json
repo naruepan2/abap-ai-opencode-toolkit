@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:28:21+00:00",
+  "generated_at": "2026-11-23T11:37:54+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -471,13 +471,13 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-mcp-upgrade\\SKILL.md",
       "owner": "Pongg",
-      "hash": "170b82d28b378e17939b294fe9267564be0d51f7d4ee15890ee7ea835f054491",
+      "hash": "32b0200dc2e3f05a8ea603b58b4544295c3fa667c1ec53f32e908d85a7f3dab2",
       "desc_chars": 235,
       "description": "Check and upgrade MCP servers installed in OpenCode in one pass. Use for \"upgrade MCP\", \"bump pin\", \"check MCP version\", \"what needs updating\", \"MCP pin drift\". OpenCode-only, standalone: no other harness, no skill install suggestions.",
       "name_in_fm": true,
       "has_desc": true,
       "name_matches_dir": true,
-      "body_lines": 317,
+      "body_lines": 320,
       "status": "new",
       "last_validated": null
     },
