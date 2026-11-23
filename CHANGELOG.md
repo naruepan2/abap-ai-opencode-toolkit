@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.8.6 — 2026-11-23
+
+- Resolved F-12: parked all five SAP MCP servers (`ai-dev-ds4-100/900`, `ai-dev-sus-100`,
+  `arc1-ds4-100/sus-100`) to `enabled:false`, restarted once, and verified `opencode mcp list`
+  shows all five disabled. `sap-abap-docs` remains on (no credential prompt). Registry is
+  0 issues at **126 tools / 7 namespaces**, MCP 18 (8 on / 10 off), prompt **42.7k**.
+  The tool catalog is now inside its 28k budget; the skill catalog is still over 20k.
+  `README.md`, `docs/design.md` and `tool-map.md` updated to match.
+
 ## v0.8.5 — 2026-11-23
 
 - Full audit (5 read-only checker agents, report in `workspace/memory/reports/audit-20261123-report.md`):

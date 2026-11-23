@@ -227,19 +227,19 @@ object. Registries are read-only checks; skills are playbooks.
 ## Measured on the author's machine
 
 Snapshot: 2026-11-23. Re-measure with `python scripts\registry_check.py --check --brief`;
-these numbers move with every install. Current release: **v0.8.5** — see
+these numbers move with every install. Current release: **v0.8.6** — see
 [Releases](https://github.com/naruepan2/abap-ai-opencode-toolkit/releases).
 
 | Area | Count | Notes |
 |---|---|---|
 | Skills | 136 | opencode 39, agents 44, claude 25, copilot 28 |
 | Agents | 27 | 7 editable, 20 vendor |
-| MCP servers | 18 | 13 enabled, 5 disabled/on-demand |
-| Tools | 369 | 12 namespaces; ADT share: ai-dev ×3 (75 each), arc1 ×2 (9 each) |
+| MCP servers | 18 | 8 enabled, 10 disabled/on-demand |
+| Tools | 126 | 7 namespaces; SAP ADT/ARC-1 parked (on-demand) |
 
-Prompt cost: **77.3k chars per session** (skills 22.7k + tools 54.6k). Both catalogs
-are over budget (skills 20k, tools 28k) — a human decision about what to park, not a
-broken install. SAP servers stay on-demand. See `docs/design.md` §"Prompt budget".
+Prompt cost: **42.7k chars per session** (skills 22.7k + tools 20.0k). The skill catalog
+is over budget (skills 20k, tools 28k); a human decision about what to park, not a broken
+install. SAP servers stay on-demand. See `docs/design.md` §"Prompt budget".
 
 ## Roadmap
 

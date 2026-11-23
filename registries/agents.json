@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T12:39:51+00:00",
+  "generated_at": "2026-11-23T14:01:09+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -137,7 +137,7 @@
       "mode": "",
       "skills": [],
       "description": "Explicit, trust-calibrated SAP ABAP delivery from approved specification to evidence-backed UAT readiness. User-invoked only. Coordinator of SAP writes; never releases or imports transports.",
-      "hash": "ec5ca6f8d3c1a950aba017fa5fa6d32647214ae3221aff196ddf358821a6ce35",
+      "hash": "bf15cf06c740addd196b7099a0e1f46c7d97de1c1900323fbe2101f5c9d6b8b5",
       "status": "new",
       "last_validated": null
     },
@@ -151,7 +151,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "a0052f53af8392a0ecaf0ff8f74765a5aff613aebb509912c32d4195df973e7c",
+      "hash": "e2a6fe5a8b773136f17cbb754241c7ff74cada6c4ce2a4d0c4ca8420d33b9162",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -381,7 +381,7 @@
         "sap-st22-dump-analysis"
       ],
       "description": "Read-only SAP ST22 dump analyst using ARC-1 SAPDiagnose(action=dumps), with optional separately confirmed ARC-1 source reads for deeper ABAP root-cause analysis. Use for listing dumps, inspecting a dump ID, explaining short dumps/call stacks, or tracing timeout evidence into implicated source. Never",
-      "hash": "a51e35e13c52592fd12516cd8ba0fa7ad1bc48871e1e1ac57c693e28900310df",
+      "hash": "f292970f8b85349753a912c19f435ed8caeba5ec7c8726dfbe9bcfa3a16f514e",
       "status": "active",
       "last_validated": "2026-11-13"
     }
