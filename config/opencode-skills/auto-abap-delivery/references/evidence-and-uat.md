@@ -8,6 +8,18 @@ Before `READY_FOR_UAT`: all required slices complete; every acceptance criterion
 
 UAT pack: executive summary; approved revisions; changed objects; before/after; acceptance traceability; ABAP Unit/ATC/system cross-check/guardrail results; limitations and residual risk; exact UAT client, scenarios, data, steps and expected results; transport status; rollback/disable approach; evidence index; explicit statement that production action was not performed.
 
+## Read outcomes and decision coverage
+
+Every evidence read records three outcomes: `found` (value present), `none`
+(authoritatively absent) and `unreadable` (could not look). `unreadable` is never
+recorded as `none` or PASS; a check that could not run is `UNAVAILABLE` and fails the
+gate. Keep tool failure separate from verdict.
+
+Alongside requirement coverage, verify **decision coverage**: every approved decision
+and approved deviation in `spec.md` maps to an implementation object and a test/evidence
+item. A REQ→evidence matrix alone does not close a deviation; an unimplemented approved
+deviation blocks `READY_FOR_UAT`.
+
 ## Per-object verification matrix
 Never claim solution-wide ATC/test success from partial coverage. For each object record syntax/activation/test/ATC state as `PASS`, `FINDINGS`, `NOT_REPORTED`, `NOT_SUPPORTED`, `NOT_RUN`, or `STALE`, with reason and alternative check. Name every `NOT_REPORTED`/`NOT_SUPPORTED` object in the summary.
 

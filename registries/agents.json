@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T13:52:13+00:00",
+  "generated_at": "2026-11-23T07:02:17+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -10,8 +10,8 @@
       "editable": true,
       "mode": "primary",
       "skills": [],
-      "description": "Trust-calibrated SAP ABAP Delivery Lead. Explicit invocation only; unqualified scope defaults to Attended Standard and qualified scope may run Unattended to READY_FOR_UAT.",
-      "hash": "8718e835cb0a80001bd560543f3ac806c652dfa618dadea14f2d15ca5c265db0",
+      "description": "Trust-calibrated SAP ABAP Delivery Lead for multi-slice Classic/RAP runs from spec to READY_FOR_UAT. Explicit invocation only; unqualified scope defaults to Attended Standard and qualified scope may run Unattended. For one object or one change use abap-developer-by-pongg; for toolkit and general wor",
+      "hash": "520132ac30113ab10ede7d6aa47ae17b9ce373e97f20b3c3130be7489d8670f9",
       "status": "new",
       "last_validated": null
     },
@@ -25,7 +25,7 @@
       "mode": "primary",
       "skills": [],
       "description": "Senior SAP ABAP developer for one bounded object or change. Designs and implements classic ABAP reports, SALV/ALV, classes, function modules, enhancements, CDS and RAP work with evidence over guessing and a confirmed SAP target. For a multi-slice delivery run with durable state and UAT handoff use a",
-      "hash": "ad9be2c41b3afdfadc4e1628d104f8dbd1d603fdec6de7b20cccaa498eab1971",
+      "hash": "dce31e16e07b1250257c6a53415e79eb71c7ae7bed38014ef7f7f87df3c4452f",
       "status": "new",
       "last_validated": null
     },
@@ -137,7 +137,7 @@
       "mode": "",
       "skills": [],
       "description": "Explicit, trust-calibrated SAP ABAP delivery from approved specification to evidence-backed UAT readiness. User-invoked only. Coordinator of SAP writes; never releases or imports transports.",
-      "hash": "e8f9b6dca11ac933f020af4230d111bc82339985a91c749a1b304075e0db8753",
+      "hash": "d8f446ca7ef4be0f7e08a8390173bc6a61048ac9437e0ba79935a154892f6f35",
       "status": "new",
       "last_validated": null
     },
@@ -151,7 +151,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "95fe37ded1348515ce8f4b6efd9815e214c5fc31f013d1022db289ff703777dc",
+      "hash": "2c50cd039bc1c32f1f8d1bd8f67950acd713285a8b3aafe22e85a698c818254e",
       "status": "active",
       "last_validated": "2026-11-13"
     },

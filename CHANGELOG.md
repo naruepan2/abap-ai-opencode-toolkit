@@ -2,6 +2,12 @@
 
 ## Unreleased — 2026-11-20
 
+- Round A of the context-engineering review (rules only, no new scripts): scope-order
+  gate and external-effect fail-policy declaration in global `AGENTS.md`; three-way
+  read outcomes and `UNAVAILABLE`-fails-the-gate in `docs/catalog.md` and
+  `evidence-and-uat.md`; decision coverage for approved deviations; lazy-read and
+  plan-quality discipline in `auto-abap-delivery`; plan preconditions/reversibility/
+  thinnest first slice; artifact-derived `Next step` and card rebuild.
 - README refreshed for the current setup: three-agent routing, loaded profile,
   curated backup script, installer copying whole skill trees, and the latest
   registry counts/date.

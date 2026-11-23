@@ -400,6 +400,14 @@ Error text is transport-level only: classify with the SAP error body and the
 operation phase. Retry only an idempotent read with a known outcome and a still
 valid hash — conflict never auto-retries.
 
+**Read outcomes and gate outcomes — fail closed.** A check read has three answers:
+`found` (value present), `none` (authoritatively absent) and `unreadable` (could not
+look). `unreadable` is never coerced to "none" or an empty list. A gate verdict is
+`pass` / `skip` / `advisory` / `block` / `unreadable`; a scan that could not run is
+`UNAVAILABLE` and **fails** the gate — it is not a clean pass. Keep tool failure
+(could not run) separate from verdict (found a problem); a blocked check names the
+reason. No environment flag may widen the absolute prohibitions.
+
 **Recheck budget / circuit breaker** — read once, reuse evidence, invalidate by
 event. Re-probe on: dirty state, TR/activation change, ownership change, a
 `409`/`412`/`423`/timeout, or a user statement that another harness edited the

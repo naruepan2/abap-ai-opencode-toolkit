@@ -22,6 +22,9 @@ Contract:
 - Change type: <bugfix | extend | change request>
 - Production:  <not live | live (dev in sync?) | unknown>
 - Target:      <system, client, transport>
+- Preconditions: <read-only assertions checked before any write; halt with no partial write if unmet>
+- Reversibility: <reversible | one-way> — one-way adds a decision gate before its dependent step
+- First slice:  <thinnest end-to-end path touching every layer this change modifies>
 
 Approved:
 - Write:      <objects that may change — type/name/locator/layer/hash engine/CAS>

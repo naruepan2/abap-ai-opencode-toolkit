@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T13:52:13+00:00",
+  "generated_at": "2026-11-23T07:02:17+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -204,7 +204,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\auto-abap-delivery\\SKILL.md",
       "owner": "Pongg",
-      "hash": "cfef7a31183dc3614f5a2b4df0a0541fea8a620c25e45934c47d231bf7f982db",
+      "hash": "3f6255b03450261bf33911f3ed005339f957f91fb95c72c698dd125c7bccbbbc",
       "desc_chars": 519,
       "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
       "status": "new",
@@ -424,7 +424,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\senior-abap-development\\SKILL.md",
       "owner": "Pongg",
-      "hash": "8e3bebddea8cf973a3737d50b9f157724fe9ff4aeb56ec965aa62fb9e638975d",
+      "hash": "6d08a1a3d22f4cabeb876c202528e67196025dffb9b333701210396ead51f77c",
       "desc_chars": 389,
       "description": "Plan and develop SAP ABAP programs from requirements through verification, for classic ABAP and modern ABAP Cloud, Clean Core and RAP. Use for new or changed reports, SALV/ALV, classes, function modules, enhancements, CDS and RAP objects, or when choosing between classic and modern designs. For a mu",
       "status": "new",

@@ -40,6 +40,14 @@ After Spec, plan, and Autonomy Envelope approval, resolve interaction policy usi
 14. **Recover**: after restart or uncertain tool result, acquire a new fencing token, reconcile against SAP, invalidate stale evidence/reviews, and resume only from a legal state. After a failed/uncertain create or activation, classify TADIR/active state as `ABSENT`/`PARTIAL`/`GHOST`/`ACTIVE`/`INACTIVE` before any retry. Load [state-machine-and-recovery.md](references/state-machine-and-recovery.md).
 15. **Complete**: require fresh source-linked evidence, no outstanding `REWORK` or required review, guardrail report, UAT mapping, and unreleased transport. Emit post-run evidence with a per-object verification matrix, scoped owner confirmation, disclosed local-package lifecycle, and learning candidates for human review. Build handoff using [evidence-and-uat.md](references/evidence-and-uat.md) and [accountability.md](references/accountability.md).
 
+## Read and plan discipline
+
+Load only the reference needed for the current step — do not preload all references.
+Before execution, a plan must state read-only preconditions, the thinnest end-to-end
+slice that touches every layer changed, and a BLOCKER-quality review of its dimensions.
+Bounded revision is allowed; unresolved blockers go to the owner, never to auto-approval.
+A `one-way` change inserts a decision gate before its dependent step.
+
 ## Fast path for small changes
 
 A one-to-three-step local change with no new SAP object, no multi-slice plan and no need
