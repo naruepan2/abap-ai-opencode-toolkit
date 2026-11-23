@@ -54,25 +54,21 @@ A one-to-three-step local change with no new SAP object, no multi-slice plan and
 for durable run state does not need a full run. Route it to `senior-abap-development`
 (or the default coding agent for toolkit/non-SAP work) instead of initializing a run.
 Keep the core gates: confirmed target, fresh read, a recorded reason if `FORM`/`PERFORM`
-is used, read-back after write, and no transport release or production action.
+is used, read-back after write, and no transport release or production action. The fast
+path skips the run ledger and evidence package **only** — the change contract (spec,
+intent, target, approval) still applies.
 
-## Non-negotiable rules
+## Hard gates
 
-- SAP reality is authority for source, activation, locks, transport, SID/client; durable artifacts are authority for approved scope and policy.
-- Persist command intent before a side effect and reconcile observed result afterward.
-- Never blindly replay source write, activation, test-data creation, RFC/IDoc/API send, posting, commit, or mass update.
-- Never overwrite source drift. Pause affected work, stale evidence/reviews, and decide safely.
-- Never weaken expected results to make tests pass.
-- Never suppress ATC/CVA findings without ID, rationale, owner, and expiry where applicable.
-- Mark unavailable validation `READY_FOR_MANUAL_TEST` or `INCONCLUSIVE`; never fabricate success.
-- Attended review timeout never auto-continues. Transition to `PAUSED_SAFE` when the lease expires.
-- Decision Inbox items cannot be batch-approved. Batch Review Queue approvals only when reversible, same slice/snapshot, and policy-eligible.
-- Production and irreversible actions remain prohibited even in `strict` review.
-- New development is class-based first. `FORM`/`PERFORM` is a documented fallback, never the default — see [engineering-judgment.md](references/engineering-judgment.md). Reports and function modules stay thin class-based shells/boundaries otherwise.
-- No permanent test-driver `PROG` to compensate for a missing AUnit runner. A diagnostic driver result is `DIAGNOSTIC_DRIVER`, never `ABAP_UNIT`.
-- Never claim solution-wide ATC/test success from partial object coverage; disclose `NOT_REPORTED` and `NOT_SUPPORTED` per object.
-- A free-form owner confirmation closes only the named checks it addresses; never use it to override missing evidence.
-- No unapproved ghost object at `READY_FOR_UAT`; an unpublished service stays `READY_FOR_MANUAL_TEST` when runtime evidence is required.
+1. **SAP reality wins.** Re-read source/hash/lock/TR before a write; read back after. Never overwrite drift or replay an uncertain side effect.
+2. **No irreversible authority.** No transport release/import, production write, mass change, or real external effect — even in `strict` review.
+3. **No fabricated success.** Unavailable validation is `READY_FOR_MANUAL_TEST`/`INCONCLUSIVE`, never PASS. No solution-wide claim from partial coverage; owner confirmation closes only named checks.
+4. **Clean terminal state.** No unapproved ghost object at `READY_FOR_UAT`; unpublished service stays `READY_FOR_MANUAL_TEST` when runtime evidence is required.
+5. **Human gates stay human.** Decision Inbox items are never batch-approved; an attended review timeout never auto-continues.
+6. **Class-based first.** `FORM`/`PERFORM` only as a recorded fallback; no permanent test-driver `PROG`; unit tests value-based.
+
+The full rule list with rationale lives in [non-negotiable-rules.md](references/non-negotiable-rules.md).
+Read it before touching review cadence, test strategy, ATC disposals, decision batching or terminal state.
 
 ## Legal final states
 

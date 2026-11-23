@@ -2,6 +2,16 @@
 
 ## Unreleased — 2026-11-20
 
+- Rule diet and parking policy: `auto-abap-delivery/SKILL.md` now keeps six hard gates
+  and points to `references/non-negotiable-rules.md` for the full list; `docs/design.md`
+  documents an explicit, human-approved parking order for skills and task-scoped MCP
+  servers. Recorded as D-27 in `docs/memory-decisions.md`.
+- Resolved eight consistency findings: the scope-order gate is limited to one run;
+  memory close-out is named apart from run completion; decision homes and lesson
+  capture paths are stated explicitly; freshness authority is live SAP hash > content
+  fingerprint > TTL; the fast path keeps the change contract; agent handoff on growth
+  is explicit; and the SALV template gate uses the same `L1`/`L2`/`G` vocabulary as the
+  delivery skill.
 - Added `docs/memory-decisions.md`: a provenance/decision register for the memory
   and context ideas received from several sources, a vocabulary map for the
   competing tier/state/confidence terms, lesson ownership, and a list of

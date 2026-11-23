@@ -186,9 +186,27 @@ Measured 2026-11-14, in three steps:
 | 29 Basis/DB skills parked | 111 / 16.1k | 49 / 25.8k | 41.9k |
 | 18 duplicates and unused families parked | 111 / 16.1k | **31 / 19.8k** | **36.0k** |
 
-Both catalogs are now inside budget. The only remaining warnings are four vendor
-descriptions over the 1,000-char per-skill budget, which cannot be shortened without
-forking the vendor file — leave them.
+The table above is the historical baseline. Current snapshot (2026-11-23): skill catalog
+**22.7k / 39 entries** and tool descriptions **56.9k / 382 tools** — both over budget
+again. Read `registry_check.py --check --brief` for live numbers; do not update this
+table on every install.
+
+## Parking policy
+
+Over-budget warnings are human decisions, never an auto-fix. Apply in this order:
+
+1. **Duplicate or unused vendor families** — move the directory to
+   `~/.config/opencode/skills-parked/`; reversible, never delete.
+2. **Unused personal skills** — only if they were not used in the current program or
+   the last two sessions.
+3. **Task-scoped MCP engines** — keep `enabled:false` in the steady state; enable only
+   for the task that needs them, then set back. A zero-tool server is an issue, not a
+   parked state.
+
+Never park the safety-critical personal set: `auto-abap-delivery`, `sap-mcp-upgrade`,
+`opencode-backup`, `senior-abap-development`, `sap-program-register`. Moving a skill or
+disabling a server needs explicit approval; after the change run
+`registry_check.py --refresh` once.
 
 ## No-guess protocol
 

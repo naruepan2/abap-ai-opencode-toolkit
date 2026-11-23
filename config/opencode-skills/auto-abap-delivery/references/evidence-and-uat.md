@@ -4,6 +4,13 @@ Evidence fields: ID, task/run, target SID/client, spec revision/hash, autonomy-e
 
 Invalidate evidence when source, dependency, spec, target, relevant configuration, or reconciled command boundary changes.
 
+Freshness authority: live SAP source hash from the same engine > content fingerprint
+from `evidence_fingerprint.py` > TTL of a state declaration. A current TTL never
+substitutes for a changed source.
+
+Run completion is not the **memory close-out** in `workspace/memory/README.md`: this
+file gates a delivery run; that one consolidates correction rows into knowledge.
+
 Before `READY_FOR_UAT`: all required slices complete; every acceptance criterion maps to fresh automated evidence or explicit manual UAT; no `REWORK`; syntax/activation, focused/regression tests, required ATC/CVA/readiness and guardrails pass or have approved disposition; temporary artifacts are cleaned/disclosed; transport is unreleased.
 
 UAT pack: executive summary; approved revisions; changed objects; before/after; acceptance traceability; ABAP Unit/ATC/system cross-check/guardrail results; limitations and residual risk; exact UAT client, scenarios, data, steps and expected results; transport status; rollback/disable approach; evidence index; explicit statement that production action was not performed.

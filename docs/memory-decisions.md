@@ -5,6 +5,15 @@
 > and `docs/memory-model.md` keeps the rationale. When a new idea arrives, add one row
 > here — do not silently introduce a parallel mechanism.
 
+**Decision homes — these are different layers, not competing stores:**
+
+| Home | Owns |
+|---|---|
+| `Projects/<PROJECT>/<PROGRAM>/reports/DECISIONS.md` | why this program changed |
+| `Projects/<PROJECT>/<PROGRAM>/spec.md` DEV/Q rows | approved deviations for this program |
+| `docs/evidence/<run-id>/SPEC_CONFORMANCE.md` | what this run verified — **references** decisions, never restates them |
+| `docs/memory-decisions.md` | why the toolkit and memory design is this way |
+
 ## Sources seen so far
 
 | Source | What it offered | Overall status |
@@ -49,6 +58,7 @@
 | D-24 | persistent-memory review | Export/import with dry run, version marker, conflict abort | adopted in substance | `scripts/backup_opencode.ps1`, `templates/profile.md` | snapshots are dated, hash-verified, and treated as sensitive; a dedicated memory migration tool is not needed |
 | D-25 | toolkit itself | Whole-harness cross-loading of agents/skills | rejected | — | OpenCode and Copilot stay separate copies; only host-neutral rules are shared (`templates/profile.md`) |
 | D-26 | toolkit itself | Full Knowledge Graph | deferred | — | earlier benchmark requirement not met; local object index is navigation only |
+| D-27 | toolkit itself | Rule diet + parking policy | adopted | `auto-abap-delivery/SKILL.md`, `references/non-negotiable-rules.md`, `docs/design.md` | six hard gates stay in the control plane; full rules and the budget policy move to references — adding more prose was making safety rules harder to see |
 
 ## Vocabulary map — do not mix these words
 

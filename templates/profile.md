@@ -33,6 +33,10 @@ Senior SAP ABAP developer. เลือก classic หรือ modern จาก
 - `abap-developer-by-pongg` — เขียน/แก้ ABAP 1 object หรือ 1 change (classic/RAP)
 - `abap-auto-delivery-by-pongg` — run หลาย slice ตั้งแต่ spec ถึง UAT (เรียก `/auto-abap-delivery`)
 
+ถ้างาน 1 object โตเป็นหลาย slice หรือต้องการ durable run state → หยุดแล้วส่งต่อไป
+`abap-auto-delivery-by-pongg` ด้วย `/auto-abap-delivery` อย่าปล่อยให้ session developer
+กลายเป็น run โดยปริยาย
+
 ## ที่อยู่ของรายละเอียด
 
 - เป้าหมาย, SAP on-demand, ความลับ → `AGENTS.md`
