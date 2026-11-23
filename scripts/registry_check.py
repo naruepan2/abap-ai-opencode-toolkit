@@ -45,12 +45,26 @@ TODAY = date.today()
 # be edited, so only flag the worst offenders; personal skills get a tighter budget.
 VENDOR_DESC_BUDGET = 1000
 PERSONAL_DESC_BUDGET = 500
+SKILL_NAME_MAX = 64
+SKILL_DESC_MAX = 1024
+SKILL_BODY_MAX_LINES = 500
 
 # The skill catalog and the tool catalog are injected into every session, so their
 # size is a per-turn cost. Measure it, and warn above the budget: the fix is to
 # park skills or disable a server, never to edit a vendor file.
 PROMPT_SKILL_BUDGET = 20000
 PROMPT_TOOL_BUDGET = 28000
+
+# Per-file byte ceilings for persona/agent/control-plane files. A crossing is a
+# warning (a review decision), never an issue: growing one on purpose is a visible
+# one-line diff here, not a silent creep.
+FILE_BYTE_BUDGETS = {
+    "templates/profile.md": 4500,
+    "config/opencode-agents/abap-auto-delivery-by-pongg.md": 5000,
+    "config/opencode-agents/abap-developer-by-pongg.md": 5000,
+    "config/opencode-skills/auto-abap-delivery/SKILL.md": 12000,
+    "config/opencode-skills/senior-abap-development/SKILL.md": 12000,
+}
 
 # A newly created personal skill keeps its natural name; the `-by-pongg` suffix is
 # the convention for wrappers around a vendor file. Listing the new ones here is what
@@ -192,6 +206,10 @@ def scan_skills():
                     "hash": sha256_file(path),
                     "desc_chars": len(desc),
                     "description": desc[:300],
+                    "name_in_fm": "name" in fm,
+                    "has_desc": bool(desc.strip()),
+                    "name_matches_dir": sid == path.parent.name,
+                    "body_lines": len(text.splitlines()),
                 }
             )
     return found
@@ -403,6 +421,16 @@ def cmd_check(brief=False):
         if (s["owner"] == "vendor" and s["desc_chars"] > VENDOR_DESC_BUDGET)
         or (s["owner"] != "vendor" and s["desc_chars"] > PERSONAL_DESC_BUDGET)
     ]
+    # Personal skills must be self-describing and small enough to load on demand:
+    # name present and equal to the directory, description present, bounded length.
+    skill_contract = [
+        s for s in skills
+        if s["harness"] == "opencode" and s["owner"] != "vendor"
+        and (not s.get("name_in_fm") or not s.get("has_desc")
+             or not s.get("name_matches_dir")
+             or s["desc_chars"] > SKILL_DESC_MAX
+             or s["body_lines"] > SKILL_BODY_MAX_LINES)
+    ]
     stale = []
     for s in reg_skills:
         if s.get("status") == "new":
@@ -530,7 +558,14 @@ def cmd_check(brief=False):
             f"config disables {', '.join(still_loaded)} but the running catalog still "
             "exposes it — restart the opencode service (the daemon), not the window")
 
-    skill_issues = len(missing_skills) + len(dup)
+    for rel, budget in FILE_BYTE_BUDGETS.items():
+        p = REPO / rel
+        if p.is_file() and p.stat().st_size > budget:
+            prompt_notes.append(
+                f"{rel} is {p.stat().st_size} bytes over budget {budget}; trim or "
+                "raise the baseline deliberately")
+
+    skill_issues = len(missing_skills) + len(dup) + len(skill_contract)
     agent_issues = len(agent_missing)
     mcp_issues = len(missing_mcp) + len(mcp_zero)
     tool_issues = 0 if snap is None else len(tool_changes)
@@ -543,6 +578,8 @@ def cmd_check(brief=False):
         issue_detail.append(f"{len(missing_skills)} missing skill path(s)")
     if dup:
         issue_detail.append(f"{len(dup)} duplicate skill name(s)")
+    if skill_contract:
+        issue_detail.append(f"{len(skill_contract)} personal skill contract violation(s)")
     if agent_missing:
         issue_detail.append(f"{len(agent_missing)} agent(s) reference a missing skill")
     if missing_mcp:
@@ -616,6 +653,8 @@ def cmd_check(brief=False):
             lambda x: f"{x['k'][0]}/{x['k'][1]}: " + ", ".join(x["v"]))
     section("Skill descriptions over budget (vendor >1000, personal >500)", long_desc,
             lambda x: f"`{x['id']}` ({x['harness']}, {x['owner']}) — {x['desc_chars']} chars")
+    section("Personal skill contract violations", skill_contract,
+            lambda x: f"`{x['id']}` ({x['path']}) — name/desc/bound check")
     section("Stale or unvalidated skills (>90 days)", stale, lambda x: f"`{x.get('id')}` ({x.get('harness')}) — last_validated={x.get('last_validated')}")
     section("Agents referencing missing skills", agent_missing, lambda x: f"`{x['agent']}` ({x['harness']}) -> `{x['skill']}`")
     section("New agents", new_agents, lambda x: f"`{x['id']}` ({x['harness']}) — {x['path']}")

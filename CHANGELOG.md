@@ -2,6 +2,15 @@
 
 ## Unreleased — 2026-11-20
 
+- Round B: per-file byte budgets and a personal-skill contract gate in
+  `registry_check.py` (name=dir, description present, bounded length); a bounded
+  `templates/subagent-brief.md`; and `scripts/evidence_fingerprint.py` with
+  order-independent, engine/locator-scoped content hashes plus a four-case
+  boundary/known-bad test suite (`tests/`).
+- OpenViking ideas folded in: one-line `> Abstract:` per domain/card shown in the
+  digest for declared domains; a memory-audit line at close-out with stable skip
+  reasons; a gated history-import rule; and a "never echo a credential" rule in
+  global `AGENTS.md`.
 - Round A of the context-engineering review (rules only, no new scripts): scope-order
   gate and external-effect fail-policy declaration in global `AGENTS.md`; three-way
   read outcomes and `UNAVAILABLE`-fails-the-gate in `docs/catalog.md` and

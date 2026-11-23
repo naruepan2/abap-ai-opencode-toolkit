@@ -347,6 +347,14 @@ def entries_in(path):
     return len(re.findall(r"^## ", read(path), re.M))
 
 
+def abstract_of(path):
+    """One-line L0 abstract from a domain file or project card."""
+    for line in read(path).splitlines():
+        if line.startswith("> Abstract:"):
+            return line.split(":", 1)[1].strip()[:80]
+    return ""
+
+
 def knowledge_line(selected=None):
     found = knowledge_files()
     if not found:
@@ -356,7 +364,16 @@ def knowledge_line(selected=None):
     picked = [p for p in found if norm(p.stem) in wanted] if wanted else found
     if not picked:
         picked = found
-    parts = [f"{p.stem} {entries_in(p)}" for p in picked]
+    # Show abstracts only for the project's declared domains — the light tier
+    # must not pay for every domain's summary.
+    abstracts = {p.stem: abstract_of(p) for p in picked} if wanted else {}
+    parts = []
+    for p in picked:
+        piece = f"{p.stem} {entries_in(p)}"
+        a = abstracts.get(p.stem)
+        if a:
+            piece += f" — {a}"
+        parts.append(piece)
     shown = sum(entries_in(p) for p in picked)
     tail = (f" ({shown} of {everything} entries \u2014 this project's domains)"
             if len(picked) < len(found) else f" ({shown} entries)")
