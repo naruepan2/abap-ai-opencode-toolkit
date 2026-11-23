@@ -16,12 +16,12 @@ MCP config, joins it to the SAP profile, and prints the armed posture
 Usage
   python scripts/tools_now.py            # human summary + recommended path
   python scripts/tools_now.py --json     # machine-readable
-  python scripts/tools_now.py --check    # exit 1 on a policy violation / stale data
+  python scripts/tools_now.py --check    # exit 1 on a policy violation (no ADT server / two writers)
   python scripts/tools_now.py --file X   # read a fixture instead of the registry
 
 Exit codes
   0  a usable path was found
-  1  no ADT server, a stale snapshot, or two writers armed on the same client
+  1  no ADT server or two writers armed on the same client
 
 Posture is best-effort: when the config is missing or the command does not use
 sap-mcp.ps1, the server is reported with posture "unknown" and the write flag falls

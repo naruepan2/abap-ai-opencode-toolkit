@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:46:51+00:00",
+  "generated_at": "2026-11-23T12:39:51+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -137,7 +137,7 @@
       "mode": "",
       "skills": [],
       "description": "Explicit, trust-calibrated SAP ABAP delivery from approved specification to evidence-backed UAT readiness. User-invoked only. Coordinator of SAP writes; never releases or imports transports.",
-      "hash": "35be3875a8b8e239e872c5c15afc3172ebe9069ea14741e7f26f84dbc12aebe6",
+      "hash": "ec5ca6f8d3c1a950aba017fa5fa6d32647214ae3221aff196ddf358821a6ce35",
       "status": "new",
       "last_validated": null
     },
@@ -151,7 +151,7 @@
       "mode": "",
       "skills": [],
       "description": "Senior SAP ABAP developer for designing, building, and reviewing classic and modern ABAP solutions. Use for SE38 reports, SALV/ALV, forms, classes, function modules, enhancements, CDS, Clean Core, ABAP Cloud, RAP business objects, transport work, and ABAP Unit. Routes each task to the right SAP MCP ",
-      "hash": "8a9fc89f940c6118371a025ae86e90502ebc6568568624bb1728505d8bf5f245",
+      "hash": "a0052f53af8392a0ecaf0ff8f74765a5aff613aebb509912c32d4195df973e7c",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -223,7 +223,7 @@
         "sap-abap-reverse-engineering"
       ],
       "description": "Evidence-driven, strictly read-only reverse engineering of SAP ABAP, CDS, RAP, classic reports, classes, functions, and services. Supports autonomous dependency discovery, dependency evidence reconciliation, and Technical Specification or chat-only analysis.",
-      "hash": "e0903279f3818f4abe519475e9123338def1b0d9d01dd9435a5cad8149028016",
+      "hash": "62377126e1c058545107a8a0fbf944becf4582821bf5a819a4d4cb295026774a",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -351,7 +351,7 @@
         "sap-se38-report-tester"
       ],
       "description": "Senior tester for SE38 ABAP reports (PROG) that replays selection-screens without SAP GUI. Use when asked to test an SE38 report, reproduce a report bug, hunt real or seeded bugs by code review, map a selection-screen screenshot to code, fetch DB data for given selection values, or walk report logic",
-      "hash": "4eb9505005102388760310368ca6b3e3417a64403b8629a37beb8edd12e5d389",
+      "hash": "b90178a2c135c18b09a10e1ed869d9a0ec4a685545c840fca216ddcf0f9cbb3c",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -381,7 +381,7 @@
         "sap-st22-dump-analysis"
       ],
       "description": "Read-only SAP ST22 dump analyst using ARC-1 SAPDiagnose(action=dumps), with optional separately confirmed ARC-1 source reads for deeper ABAP root-cause analysis. Use for listing dumps, inspecting a dump ID, explaining short dumps/call stacks, or tracing timeout evidence into implicated source. Never",
-      "hash": "83395b9a4c6d9d0a1e521bc1a18948fd9ff2da347ba9d0daa00d42b27cd428e7",
+      "hash": "a51e35e13c52592fd12516cd8ba0fa7ad1bc48871e1e1ac57c693e28900310df",
       "status": "active",
       "last_validated": "2026-11-13"
     }

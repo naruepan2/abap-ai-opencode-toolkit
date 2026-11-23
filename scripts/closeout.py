@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""closeout.py - read-only close-out check for one task.
+"""closeout.py - read-only memory and program close-out check.
 
-The session-start digest covers the start. This covers the end: the four things that
+The session-start digest covers the start. This covers the end: the things that
 rot between sessions if nobody looks.
 
   1. the inbox was drained        (open rows, their age, the row cap)
@@ -11,6 +11,7 @@ rot between sessions if nobody looks.
   4. knowledge is still confirmed (no entry older than 180 days)
   5. the program spec is usable   (front matter, FS file, REQ/AC tables, open questions)
   6. shipped files are portable   (no path that exists only on this machine)
+  7. the memory audit was written (counts and reason codes in the project card)
 
 Usage
   python scripts/closeout.py                          # newest card
@@ -458,6 +459,30 @@ def check_changelog(findings, warnings, spec):
     return {"version": newest, "rows": len(versions)}
 
 
+# -------------------------------------------------------------------- memory audit
+
+AUDIT_RE = re.compile(r"adds\s+\d+,\s*updates\s+\d+,\s*deletes\s+\d+,\s*skipped\s+\d+", re.I)
+
+
+def check_memory_audit(findings, warnings, card):
+    """Validate and return the one-line memory audit in the project card."""
+    if not card:
+        return None
+    m = re.search(r"\*\*Memory audit:\*\*\s*(.+)", card["text"])
+    if not m:
+        warnings.append((WARN, "audit",
+                         "no **Memory audit:** line in the card — write "
+                         "`adds N, updates N, deletes N, skipped N` (reason codes optional)"))
+        return None
+    line = m.group(1).strip()
+    if not AUDIT_RE.search(line):
+        findings.append((ISSUE, "audit",
+                         "malformed memory-audit line; expected "
+                         "`adds N, updates N, deletes N, skipped N` (reason codes optional)"))
+        return None
+    return line
+
+
 # ------------------------------------------------------------------------- main
 
 
@@ -477,6 +502,7 @@ def main():
     card = check_card(findings, warnings, pick_card(args.project))
     plan = check_plan(findings, warnings, card)
     spec = check_spec(findings, warnings, card)
+    audit = check_memory_audit(findings, warnings, card)
     changelog = check_changelog(findings, warnings, spec)
     mirror = check_mirror() if check_mirror else None
     if mirror and mirror["drift"]:
@@ -516,6 +542,8 @@ def main():
     if knowledge:
         out(f"  knowledge  {knowledge['entries']} entries in "
             f"{knowledge['domains']} domains, {knowledge['stale']} stale")
+    if audit:
+        out(f"  audit      {audit}")
     out()
 
     if not findings and not warnings:

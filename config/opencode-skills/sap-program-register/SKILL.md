@@ -68,7 +68,8 @@ one line in the program README. Do **not** add a field to `program.yaml`.
   `FORM`/`PERFORM`, business logic in classes, value-based tests.
 - **Options 4-5** — no template gate; continue normally.
 
-Scope note: use the same `L1`/`L2`/`G` decision as `prog-local-class-methodology.md`.
+Scope note: use the same `L1`/`L2`/`G` decision as
+[prog-local-class-methodology.md](../auto-abap-delivery/references/prog-local-class-methodology.md).
 The built-in YSMILE pattern is `L1` — cohesive local classes for report-only behavior
 with no external consumer. Move shared or reusable logic to a global owner only for
 `L2`/`G` (another consumer, stable API, lifecycle, security boundary or test ownership),

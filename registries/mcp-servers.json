@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:46:51+00:00",
+  "generated_at": "2026-11-23T12:39:51+00:00",
   "servers": [
     {
       "server": "browse",
@@ -33,7 +33,7 @@
       "harness": "opencode",
       "source": "opencode.json",
       "type": "local",
-      "enabled": true,
+      "enabled": false,
       "command_kind": "windows-mcp.exe",
       "url_host": ""
     },

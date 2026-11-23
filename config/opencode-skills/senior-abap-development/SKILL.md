@@ -109,9 +109,9 @@ Load only the guidance the task needs (availability varies by host; disclose gap
 `generate-rap-service` or `generate-rap-service-researched`, `generate-rap-logic`,
 `generate-abap-unit-test`, `sap-se38-report-tester`, `sap-abap-reverse-engineering`,
 `explain-abap-code`, `ponytail` and `ponytail-review`. For performance, verify the
-target database first, then use `debug-slow-sql`. For factual SAP lookups use live
-`sap-abap-docs` before general web search; label `DOC_EVIDENCE` and re-check the target for
-anything that affects the design. For a multi-slice run hand off to `auto-abap-delivery`.
+target database first, then use `debug-slow-sql`. For factual SAP lookups follow the
+`DOC_EVIDENCE` pre-check in §2 (docs MCP before general web search). For a multi-slice run
+hand off to `auto-abap-delivery`.
 
 ## 5. Validate the result
 

@@ -44,7 +44,7 @@
 | D-10 | GSD review | `found / none / unreadable` read outcomes | adopted | `evidence-and-uat.md`, `docs/catalog.md` | "could not look" must never become PASS |
 | D-11 | GSD review | `UNAVAILABLE` fails the gate | adopted | `docs/catalog.md`, check scripts | a scan that did not run is not a clean pass |
 | D-12 | GSD review | Scope-order gate before advancing | adopted | global `AGENTS.md` | session death mid-slice cannot silently skip work |
-| D-13 | GSD review | External-effect fail policy declaration | adopted | global `AGENTS.md`, `docs/catalog.md` | forgetting to decide is a hard error, not an allow |
+| D-13 | GSD review | External-effect fail policy declaration | adopted | global `AGENTS.md` | forgetting to decide is a hard error, not an allow |
 | D-14 | GSD review | Byte baselines + boundary fixtures | partly adopted | `registry_check.py`, `tests/` | byte ceilings and known-bad tests exist; full boundary matrix still pending |
 | D-15 | GSD review | Bounded subagent brief with verbatim citation | adopted | `templates/subagent-brief.md` | prevents whole-file inlining and paraphrase drift |
 | D-16 | GSD review | Lazy reference reading | adopted | `auto-abap-delivery/SKILL.md` | 15 references must not behave as always-on text |
@@ -55,11 +55,11 @@
 | D-21 | persistent-memory review | `add / update / supersede` with recoverable trash | adopted in principle | `workspace/memory/README.md` | close-out has merge/add/drop; supersede maps to archive + pointer, never a silent overwrite |
 | D-22 | persistent-memory review | Flag contradictions; pinned memories are not auto-changed | deferred | — | close-out owner gate already stops unsafe promotion; add only if contradictions recur |
 | D-23 | persistent-memory review | Directory-driven project marker | deferred | — | `ABAP_WORKSPACE` and the workspace junction already resolve the instance; do not add a second identity source without a need |
-| D-24 | persistent-memory review | Export/import with dry run, version marker, conflict abort | adopted in substance | `scripts/backup_opencode.ps1`, `templates/profile.md` | snapshots are dated, hash-verified, and treated as sensitive; a dedicated memory migration tool is not needed |
+| D-24 | persistent-memory review | Export/import with dry run, version marker, conflict abort | adopted in substance | `scripts/backup_opencode.ps1` | snapshots are dated, hash-verified, and treated as sensitive; a dedicated memory migration tool is not needed |
 | D-25 | toolkit itself | Whole-harness cross-loading of agents/skills | rejected | — | OpenCode and Copilot stay separate copies; only host-neutral rules are shared (`templates/profile.md`) |
 | D-26 | toolkit itself | Full Knowledge Graph | deferred | — | earlier benchmark requirement not met; local object index is navigation only |
 | D-27 | toolkit itself | Rule diet + parking policy | adopted | `auto-abap-delivery/SKILL.md`, `references/non-negotiable-rules.md`, `docs/design.md` | six hard gates stay in the control plane; full rules and the budget policy move to references — adding more prose was making safety rules harder to see |
-| D-28 | toolkit itself | `sap-abap-docs` as a SAP knowledge channel | adopted, bounded | `templates/profile.md`, both `*-by-pongg` agents, `senior-abap-development/SKILL.md`, `released-alternatives.md`, `capability-and-intake.md`, `engineering-judgment.md` | docs MCP outranks recollection/internet for release and API facts but never outranks live SAP; `DOC_EVIDENCE` label, re-verify on target, public-cloud metadata is not on-prem proof — no new hard gate was added |
+| D-28 | toolkit itself | `sap-abap-docs` as a SAP knowledge channel | adopted, bounded | facets in `templates/profile.md`, both `*-by-pongg` agents, `senior-abap-development/SKILL.md`, `released-alternatives.md`, `capability-and-intake.md`, `engineering-judgment.md` | docs MCP outranks recollection/internet for release and API facts but never outranks live SAP; `DOC_EVIDENCE` label, re-verify on target, public-cloud metadata is not on-prem proof — no new hard gate was added |
 
 ## Vocabulary map — do not mix these words
 

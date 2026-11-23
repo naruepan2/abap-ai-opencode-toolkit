@@ -1,7 +1,9 @@
 # Scripts
 
-All scripts are read-only, standard library only, Python 3.8+. None of them connects
-to SAP, calls an MCP tool, or edits an agent/skill.
+Most checks are read-only, but three commands write local files:
+`specs_sync.py --write`, `registry_check.py --init/--refresh` and `coedit_baseline.py`.
+`compatibility_check.py` imports `yaml`/`ruamel.yaml`; the rest use the standard library.
+None connects to SAP, calls an MCP tool, or edits an agent/skill. Python 3.8+.
 
 ## Where the instance lives — `_paths.py`
 
@@ -49,19 +51,21 @@ required memory file is missing.
 
 ## `closeout.py` — the last call of a task
 
-Read-only check of the four things that rot between sessions: the inbox (open rows,
-their age, the cap), the project card (the four change-contract answers and how old
-it is), a referenced plan file (exists; how many todos are open or blocked), and the
-knowledge entries (none unconfirmed for 180 days).
+Read-only check of the things that rot between sessions: the inbox (open rows, their
+age, the cap), the project card (the four change-contract answers and how old it is),
+a referenced plan file (exists; how many todos are open or blocked), knowledge entries
+(none unconfirmed for 180 days), the program spec/changelog, shipped-file portability,
+and the memory-audit line in the card.
 
 ```bash
 python scripts/closeout.py                          # newest card
 python scripts/closeout.py --project DEMO/ZDEMO01
 ```
 
-Exit `0` means nothing is broken; `1` means a referenced plan is missing or a table
-does not parse. Warnings (an old open row, a missing contract answer, a blocked todo,
-a stale entry) are human decisions and do not fail the check.
+Exit `0` means no issue; `1` means an issue from any checked area — a missing plan, an
+unparsable table, a malformed memory-audit line, or a spec/changelog/portability failure.
+Warnings (an old open row, a missing contract answer, a blocked todo, a stale entry) are
+human decisions and do not fail the check.
 
 ## `coedit_baseline.py` — local pre-image store
 
@@ -118,8 +122,8 @@ disconnecting SAP no longer looks like drift.
 ## `memory_check.py`
 
 Read-only integrity check for the memory system: required files, table columns,
-row evidence, credential-like strings, allowed status values (`open`, `closed`,
-`wontfix`, `promoted`), promoted skill candidates with a real skill folder, and
+row evidence, credential-like strings, allowed status values (`open`, `drained`),
+promoted skill candidates with a real skill folder, and
 project cards reachable from the portfolio `INDEX.md`. Run it after a close-out.
 
 ```bash

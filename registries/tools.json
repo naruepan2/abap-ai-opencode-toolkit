@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-23T11:46:51+00:00",
+  "generated_at": "2026-11-23T12:39:51+00:00",
   "source": "live tool catalog snapshot",
-  "total": 388,
+  "total": 369,
   "namespaces": {
     "ai-dev-ds4-100": 75,
     "ai-dev-ds4-900": 75,
@@ -12,7 +12,6 @@
     "open-computer-use": 9,
     "opencode": 32,
     "sap-abap-docs": 9,
-    "windows-mcp": 19,
     "generate": 1,
     "automation": 5,
     "browser": 44
@@ -386,25 +385,6 @@
     "subagent",
     "webfetch",
     "websearch",
-    "windows-mcp_App",
-    "windows-mcp_Click",
-    "windows-mcp_Clipboard",
-    "windows-mcp_ControlStatus",
-    "windows-mcp_DisplayInventory",
-    "windows-mcp_FileSystem",
-    "windows-mcp_Move",
-    "windows-mcp_MultiEdit",
-    "windows-mcp_MultiSelect",
-    "windows-mcp_Notification",
-    "windows-mcp_Process",
-    "windows-mcp_Scrape",
-    "windows-mcp_Screenshot",
-    "windows-mcp_Scroll",
-    "windows-mcp_Shortcut",
-    "windows-mcp_Snapshot",
-    "windows-mcp_Type",
-    "windows-mcp_Wait",
-    "windows-mcp_WaitFor",
     "write"
   ],
   "optional_namespaces": [

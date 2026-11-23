@@ -19,6 +19,8 @@ Thumbs.db
 .idea/
 # Local-only snapshots
 tools-snapshot.local.json
+# Machine-local MCP override; never commit (opencode.json is the shipped config)
+.mcp.json
 # Local co-edit pre-images: may contain customer source, never committed.
 .baseline/
 # Local backup snapshots (instance data, not shipped).

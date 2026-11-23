@@ -9,7 +9,7 @@ they report public-cloud metadata, so never treat that as on-prem evidence.
 
 ## Common replacements
 
-| Classic construct |Preferred released alternative | Scope note |
+| Classic construct | Preferred released alternative | Scope note |
 |---|---|---|
 | `AUTHORITY-CHECK` | `CL_ABAP_AUTHORIZATION` | ABAP Cloud / cloud development. Classic ABAP keeps `AUTHORITY-CHECK`; never state the cloud rule unqualified. |
 | `sy-uname` | `CL_ABAP_CONTEXT_INFO` | Where available in the target release. |

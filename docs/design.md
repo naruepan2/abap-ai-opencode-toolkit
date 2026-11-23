@@ -187,7 +187,7 @@ Measured 2026-11-14, in three steps:
 | 18 duplicates and unused families parked | 111 / 16.1k | **31 / 19.8k** | **36.0k** |
 
 The table above is the historical baseline. Current snapshot (2026-11-23): skill catalog
-**22.7k / 39 entries** and tool descriptions **56.9k / 382 tools** — both over budget
+**22.7k / 39 entries** and tool descriptions **54.6k / 369 tools** — both over budget
 again. Read `registry_check.py --check --brief` for live numbers; do not update this
 table on every install.
 

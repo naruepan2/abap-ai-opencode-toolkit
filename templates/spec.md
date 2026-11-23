@@ -66,7 +66,7 @@ test not recorded; `pending` = not built; `out-of-scope`.
 
 ## 4. Acceptance criteria
 
-Each AC is one run. `Pending` means no evidence yet - never report it as passed.
+Each AC has one evidence record (one test run). `Pending` means no evidence yet - never report it as passed.
 
 | ID | Given / When / Then | REQ | Evidence |
 |---|---|---|---|

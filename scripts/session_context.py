@@ -348,7 +348,7 @@ def entries_in(path):
 
 
 def abstract_of(path):
-    """One-line L0 abstract from a domain file or project card."""
+    """One-line abstract from a domain file or project card."""
     for line in read(path).splitlines():
         if line.startswith("> Abstract:"):
             return line.split(":", 1)[1].strip()[:80]

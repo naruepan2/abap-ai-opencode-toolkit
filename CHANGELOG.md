@@ -1,21 +1,44 @@
 # Changelog
 
-## Unreleased — 2026-11-23
+## v0.8.5 — 2026-11-23
+
+- Full audit (5 read-only checker agents, report in `workspace/memory/reports/audit-20261123-report.md`):
+  corrected stale snapshot numbers in `README.md`/`docs/design.md`/`tool-map.md`, fixed
+  `scripts/README.md` status values and read-only/stdlib claims, removed a false exit-code
+  claim in `tools_now.py`, made the closeout audit regex case-insensitive, removed an L0
+  term leak, narrowed three decision homes, deduplicated the D-28 rule, fixed the spec
+  "one run" wording, and reworded two CHANGELOG overclaims. Parked count is now 50 in
+  `RESTORE.md`/`tool-map.md`, and the `opencode mcp list` cwd caveat is documented.
+- ZMME011 (local audit only, no SAP connection): marked `patched_MODL_v22.abap` /
+  `patched_VIEW.abap` as stale v22/v23 navigation copies in `program.yaml`, `README.md`
+  and `AGENTS.md`, and added a mandatory active-version read-back gate to the pre-approved
+  deploy procedure. F-12 (on-demand docs vs 5 enabled SAP servers) is deferred to a user decision.
+
+
+- Closed the five remaining consistency findings: full cross-skill reference path, a
+  definition of `run`, a fast path that distinguishes SAP-object specs from toolkit files,
+  an enforced memory-audit line in `closeout.py`, and a corrected docstring. `.mcp.json` is
+  now git-ignored.
+- Disabled `windows-mcp` (19 tools): OpenCode self-upgraded 2.3.2 → 2.4.0 and rejects its
+  MCP initialize handshake. Both suggested `protocol` values were tried without success;
+  the binary has no protocol flag and 0.9.0 is the latest release. `open-computer-use` and
+  `browse` remain available. Registry is back to 0 issues at 369 tools.
 
 - Bounded `sap-abap-docs` as a SAP knowledge channel for both `*-by-pongg` agents and the
   senior/auto delivery skills: `DOC_EVIDENCE` vs `SYS_EVIDENCE`, docs MCP before general web
   for release/API facts, re-verify on the target, public-cloud metadata is not on-prem proof.
-  Recorded as D-28. Both agents, `templates/profile.md`, `senior-abap-development/SKILL.md`,
-  `released-alternatives.md`, `capability-and-intake.md`, `engineering-judgment.md` and both
-  AGENTS on-demand lists were updated; no hard gate was added.
-
+  Recorded as D-28. The rule was removed from both AGENTS on-demand lists and recorded in
+  `templates/profile.md`, both agents, `senior-abap-development/SKILL.md`,
+  `released-alternatives.md`, `capability-and-intake.md` and `engineering-judgment.md`;
+  no hard gate was added.
 
 - Replaced the docs MCP `sap-docs`/`sap-ui5-docs` with `sap-abap-docs`
   (`https://mcp-abap.marianzeis.de/mcp`, marianfoo/abap-mcp-server, 9 tools incl. `abap_lint`);
   `ui5_version_diff` was dropped. Remote HTTP MCP entries require `"type": "remote"` —
-  `"type": "http"` is silently ignored by OpenCode. Updated both AGENTS on-demand lists,
-  `tool-map.md`, the `sap-mcp-upgrade` registry table, `registry_check.py` optional namespaces
-  and the registry snapshots. No daemon restart was needed: changes were picked up live.
+  `"type": "http"` is silently ignored by OpenCode. Removed `sap-docs` from both AGENTS
+  on-demand lists, updated `tool-map.md`, the `sap-mcp-upgrade` registry table,
+  `registry_check.py` optional namespaces and the registry snapshots. No daemon restart was
+  needed: changes were picked up live.
 
 ## v0.8.4 — 2026-11-23
 

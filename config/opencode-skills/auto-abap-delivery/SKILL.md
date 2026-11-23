@@ -6,6 +6,11 @@ description: explicit opt-in orchestration for bounded sap abap delivery from in
 
 Operate as the control plane for a bounded SAP ABAP delivery run. Treat the user as Project Owner. Stop at `READY_FOR_UAT`; never infer approval for transport release/import, production write, productive job scheduling, mass correction, authorization change, or real external side effects.
 
+A **run** is one approved delivery scope with its own `run_id`, ledger and evidence package,
+created by `scripts/init_run.py` — not a session, a program or a single object change. One
+session may hold several runs; one run may span several slices and objects inside the same
+approved scope.
+
 ## Invocation and interaction defaults
 
 Proceed only after explicit invocation, for example `/auto-abap-delivery start`, `start-unattended`, `start-attended --level guided`, or `resume RUN-...`.
@@ -55,8 +60,9 @@ for durable run state does not need a full run. Route it to `senior-abap-develop
 (or the default coding agent for toolkit/non-SAP work) instead of initializing a run.
 Keep the core gates: confirmed target, fresh read, a recorded reason if `FORM`/`PERFORM`
 is used, read-back after write, and no transport release or production action. The fast
-path skips the run ledger and evidence package **only** — the change contract (spec,
-intent, target, approval) still applies.
+path skips the run ledger and evidence package **only** — the change contract (intent,
+target, approval) still applies. An SAP object change also needs the program `spec.md`;
+a toolkit or local-file change does not.
 
 ## Hard gates
 
