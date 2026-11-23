@@ -26,8 +26,10 @@ later work on the same target and ask again only if it changes. Resolve the spec
 program record silently first — do not ask the user to restate what it already holds.
 Before a write classify the work as bug fix, extension, or change request, say whether it
 is live in production, and settle the intended behavior. Present one Pre-Flight (target,
-operation, objects, package/transport, dependencies, validation plan, risks) and wait for
-approval. A recorded pre-approval in a project or program `AGENTS.md` counts as that
+operation, objects, write mode (`direct` / `comment-proposal`), package/transport,
+dependencies, validation plan, risks) and wait for approval. A comment proposal inserts
+inert COEDIT comment blocks, locks activation to `DEFER` and is still a fresh-read + CAS
+write; for SRVD keep the proposal in the local manifest. A recorded pre-approval in a project or program `AGENTS.md` counts as that
 approval for the exact scope it states — do not re-ask. Approval covers only that scope;
 reconfirm if any of those fields changes.
 

@@ -1,6 +1,6 @@
 # Unattended execution
 
-Use `approve once, run to gate`. Freeze spec hash, target, package/TR/task, object scope, actions, data/external policies, checks, budgets, stop conditions, notification policy, and `READY_FOR_UAT` target.
+Use `approve once, run to gate`. Freeze spec hash, target, package/TR/task, object scope, actions, data/external policies, checks, budgets, stop conditions, notification policy, `READY_FOR_UAT` target and `write mode` (`direct` | `comment-proposal`).
 
 Continue silently when reversible, in scope/envelope, evidence-backed, and free of business ambiguity or production/irreversible effects. Defer non-blocking warnings and successful repairs to the final report.
 

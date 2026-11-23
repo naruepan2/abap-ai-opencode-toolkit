@@ -28,6 +28,7 @@ Contract:
 
 Approved:
 - Write:      <objects that may change — type/name/locator/layer/hash engine/CAS>
+- Write mode: <direct | comment-proposal> — comment locks Activate to no/DEFER; still a CAS write
 - Activate:   <yes | no> — `activate_multiple` per activation unit, never one blind batch
 - Units:      <U1 <layer>: objects ...; U2 <layer>: objects ...> — bottom-up order
 - Transport:  <TR or none>

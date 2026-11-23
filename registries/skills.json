@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T14:01:09+00:00",
+  "generated_at": "2026-11-23T14:23:46+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -276,7 +276,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\auto-abap-delivery\\SKILL.md",
       "owner": "Pongg",
-      "hash": "27fc03acb2c09921077a3c9dfa22b07a3f826b4ebe62551c57929308a98e70a7",
+      "hash": "5c9b6fe628f4f1dafdb96b72a3bbe03008a4d4bfad064f3daf772ea828f6d3a7",
       "desc_chars": 519,
       "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
       "name_in_fm": true,

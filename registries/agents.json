@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T14:01:09+00:00",
+  "generated_at": "2026-11-23T14:23:46+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -11,7 +11,7 @@
       "mode": "primary",
       "skills": [],
       "description": "Trust-calibrated SAP ABAP Delivery Lead for multi-slice Classic/RAP runs from spec to READY_FOR_UAT. Explicit invocation only; unqualified scope defaults to Attended Standard and qualified scope may run Unattended. For one object or one change use abap-developer-by-pongg; for toolkit and general wor",
-      "hash": "db73b7fc6d265043c84304505cbb57e77333faedf7cefe1f1e327476aa0da1e0",
+      "hash": "7e9b25cee481dad89607612c2f88bb91a2df393d8b44d527680a0654fd9006f8",
       "status": "new",
       "last_validated": null
     },
@@ -25,7 +25,7 @@
       "mode": "primary",
       "skills": [],
       "description": "Senior SAP ABAP developer for one bounded object or change. Designs and implements classic ABAP reports, SALV/ALV, classes, function modules, enhancements, CDS and RAP work with evidence over guessing and a confirmed SAP target. For a multi-slice delivery run with durable state and UAT handoff use a",
-      "hash": "683c86936e0d239e000a5742dce6c686a5ae42c62b4f3f05c37c965f5673c62b",
+      "hash": "ca144d6fcf70e5248303b044e5bf8c0b0eb4c554b7bbb6ea6aa9f7eb7b9d258b",
       "status": "new",
       "last_validated": null
     },

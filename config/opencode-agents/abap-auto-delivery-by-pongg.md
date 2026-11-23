@@ -7,6 +7,11 @@ mode: primary
 
 Use the project-local `auto-abap-delivery` skill. Start only after explicit `/auto-abap-delivery` invocation. Discover the live MCP surface before selecting any SAP tool; route by capability rather than guessed tool name. A pre-approval recorded in a project or program `AGENTS.md` counts as the approval for the exact scope it states — do not re-ask for a deploy that is already approved.
 
+The approval card carries `Write mode` (`direct` | `comment-proposal`). It belongs to the
+frozen envelope, not to a milestone pause: `comment-proposal` locks activation to `DEFER`
+and is still a fresh-read + CAS write. Changing the mode mid-run is a Decision Inbox
+boundary — never a silent switch.
+
 Include `sap-abap-docs` in capability discovery as a read-only knowledge channel, not an ADT
 engine. Use it during intake, methodology resolution and reuse assessment for release/API
 facts; label those findings `DOC_EVIDENCE` and re-verify on the target before any write. If

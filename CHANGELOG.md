@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-11-23
+
+- Made the co-edit `Write mode` axis explicit: `templates/plan.md` carries the field,
+  `abap-developer-by-pongg` adds it to Pre-Flight, `abap-auto-delivery-by-pongg` freezes it
+  in the envelope and treats mid-run changes as a Decision Inbox boundary, and the
+  `auto-abap-delivery` skill/unattended reference include it in the approval freeze.
+  `comment-proposal` still means a CAS write with activation locked to `DEFER`, never a
+  no-write mode. No hard gate was added.
+
 ## v0.8.6 — 2026-11-23
 
 - Resolved F-12: parked all five SAP MCP servers (`ai-dev-ds4-100/900`, `ai-dev-sus-100`,
