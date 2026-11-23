@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-11-23
+
+- Renamed the docs MCP `sap-docs` → `sap-ui5-docs` (same hosted endpoint, 9 tools) and
+  registered `sap-abap-docs` (`https://mcp-abap.marianzeis.de/mcp`, marianfoo/abap-mcp-server)
+  as disabled/on-demand. Updated both AGENTS on-demand lists, `tool-map.md`, the
+  `sap-mcp-upgrade` registry table, `registry_check.py` optional namespaces and the
+  registry snapshots. No daemon restart was needed: the harness picked the rename up live.
+
 ## v0.8.4 — 2026-11-23
 
 - Rule diet and parking policy: `auto-abap-delivery/SKILL.md` now keeps six hard gates

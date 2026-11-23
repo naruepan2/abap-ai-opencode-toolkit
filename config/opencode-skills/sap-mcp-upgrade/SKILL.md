@@ -66,7 +66,8 @@ found by discovery (below) and added only with approval.
 | `ai-dev-*` (ds4-100/900, sus-100, gsd-120) | env `SAP_AI_DEV_TOOLKIT_VERSION` in `sap-mcp.ps1` (0.9.9928) | `https://registry.npmjs.org/sap-ai-dev-toolkit/latest` | github.com/grknylmz/sap-ai-dev-toolkit |
 | `arc1-*` (ds4-100, sus-100, gsd-110) | npm global, unpinned (1.10.1) | `https://registry.npmjs.org/arc-1/latest` | github.com/arc-mcp/arc-1 |
 | `sap-gui` | `mcp-sap-gui[screenshots]==0.6.1` in config command | `https://pypi.org/pypi/mcp-sap-gui/json` | github.com/kts982/mcp-sap-gui |
-| `sap-docs` | hosted HTTP, no local pin | endpoint status / release notes | github.com/marianfoo/mcp-sap-docs |
+| `sap-ui5-docs` (formerly `sap-docs`) | hosted HTTP, no local pin | endpoint status / release notes | github.com/marianfoo/mcp-sap-docs |
+| `sap-abap-docs` | hosted HTTP, no local pin | endpoint status / release notes | github.com/marianfoo/abap-mcp-server |
 | `playwright` | npm global, unpinned | `https://registry.npmjs.org/@playwright/mcp/latest` | github.com/microsoft/playwright-mcp |
 | `open-computer-use` | npm global, unpinned | `https://registry.npmjs.org/open-computer-use/latest` | github.com/iFurySt/open-computer-use |
 | `windows-mcp` | uvx tool, unpinned (0.8.8) | `https://pypi.org/pypi/windows-mcp/json` | github.com/CursorTouch/Windows-MCP |

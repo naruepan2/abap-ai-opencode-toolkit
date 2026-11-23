@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T07:02:17+00:00",
+  "generated_at": "2026-11-23T11:28:21+00:00",
   "source": "live tool catalog snapshot",
   "total": 382,
   "namespaces": {
@@ -11,7 +11,7 @@
     "browse": 26,
     "open-computer-use": 9,
     "opencode": 31,
-    "sap-docs": 9,
+    "sap-ui5-docs": 9,
     "windows-mcp": 19,
     "browser": 45
   },
@@ -364,15 +364,15 @@
     "patch",
     "question",
     "read",
-    "sap-docs_abap_feature_matrix",
-    "sap-docs_fetch",
-    "sap-docs_sap_community_search",
-    "sap-docs_sap_discovery_center_search",
-    "sap-docs_sap_discovery_center_service",
-    "sap-docs_sap_get_object_details",
-    "sap-docs_sap_search_objects",
-    "sap-docs_search",
-    "sap-docs_ui5_version_diff",
+    "sap-ui5-docs_abap_feature_matrix",
+    "sap-ui5-docs_fetch",
+    "sap-ui5-docs_sap_community_search",
+    "sap-ui5-docs_sap_discovery_center_search",
+    "sap-ui5-docs_sap_discovery_center_service",
+    "sap-ui5-docs_sap_get_object_details",
+    "sap-ui5-docs_sap_search_objects",
+    "sap-ui5-docs_search",
+    "sap-ui5-docs_ui5_version_diff",
     "shell",
     "skill",
     "subagent",
@@ -406,7 +406,8 @@
     "arc1-ds4-100",
     "arc1-gsd-110",
     "sap-gui",
-    "sap-docs",
+    "sap-ui5-docs",
+    "sap-abap-docs",
     "playwright"
   ]
 }
