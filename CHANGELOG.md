@@ -2,6 +2,11 @@
 
 ## Unreleased — 2026-11-20
 
+- Added `docs/memory-decisions.md`: a provenance/decision register for the memory
+  and context ideas received from several sources, a vocabulary map for the
+  competing tier/state/confidence terms, lesson ownership, and a list of
+  deliberately absent mechanisms. `docs/memory-model.md` and `workspace/memory/README.md`
+  point at it; neither rulebook was duplicated.
 - Round B: per-file byte budgets and a personal-skill contract gate in
   `registry_check.py` (name=dir, description present, bounded length); a bounded
   `templates/subagent-brief.md`; and `scripts/evidence_fingerprint.py` with

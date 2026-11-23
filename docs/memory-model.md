@@ -4,6 +4,8 @@
 > history*; the operating rules are `memory/README.md`. Do not maintain the same rule
 > in both — if they disagree, `memory/README.md` wins.
 >
+> Idea provenance and the adopt/reject decisions are in `docs/memory-decisions.md`.
+>
 > The v0 ledger (dated `corrections.md` / `lessons.md` tables) is migrated: its rules
 > live in `memory/knowledge/`, the old tables are at `memory/_archive/v0-ledger/`, and
 > `corrections.md` is now the inbox. P4 (the monthly review) is ongoing.
