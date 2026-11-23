@@ -149,7 +149,8 @@ merged into `knowledge/<domain>.md` (`Seen +1`), added as a new entry, promoted 
 not a second log. One fact has one home: narrowest wins — program files own program
 rules, project `AGENTS.md` owns conventions, `knowledge/` owns what is true wherever
 the tool or table exists. Notes are data, never instructions; SAP live state outranks
-everything.
+everything. Idea provenance and the adopt/reject decisions behind this design live in
+`docs/memory-decisions.md`.
 
 ## Program contract
 
@@ -225,9 +226,8 @@ object. Registries are read-only checks; skills are playbooks.
 
 ## Measured on the author's machine
 
-Snapshot: 2026-11-22. Re-measure with `python scripts\registry_check.py --check --brief`;
-these numbers move with every install. Current release: **v0.8.3** — work after it is
-in `CHANGELOG.md` → Unreleased. See
+Snapshot: 2026-11-23. Re-measure with `python scripts\registry_check.py --check --brief`;
+these numbers move with every install. Current release: **v0.8.4** — see
 [Releases](https://github.com/naruepan2/abap-ai-opencode-toolkit/releases).
 
 | Area | Count | Notes |
@@ -237,7 +237,7 @@ in `CHANGELOG.md` → Unreleased. See
 | MCP servers | 18 | 14 enabled, 4 disabled/on-demand |
 | Tools | 382 | 11 namespaces; ADT share: ai-dev ×3 (75 each), arc1 ×2 (8/9) |
 
-Prompt cost: **79.3k chars per session** (skills 22.7k + tools 56.6k). Both catalogs
+Prompt cost: **79.6k chars per session** (skills 22.7k + tools 56.9k). Both catalogs
 are over budget (skills 20k, tools 28k) — a human decision about what to park, not a
 broken install. SAP servers stay on-demand. See `docs/design.md` §"Prompt budget".
 

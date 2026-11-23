@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-20
+## v0.8.4 — 2026-11-23
 
 - Rule diet and parking policy: `auto-abap-delivery/SKILL.md` now keeps six hard gates
   and points to `references/non-negotiable-rules.md` for the full list; `docs/design.md`
