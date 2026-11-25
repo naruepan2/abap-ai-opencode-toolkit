@@ -2,6 +2,12 @@
 
 ## Unreleased — 2026-11-25
 
+- Added `docs/handoff.md`: an on-demand index and thinking guide for a new AI model or
+  collaborator — five habits, a map of canonical homes, session start, idea intake, roles,
+  non-negotiable pointers and decision rules. No rule is duplicated: each points to its
+  home. `docs/catalog.md` gained a routing row. Prompt bytes unchanged.
+
+
 - `/pingpong-partner` review of ECC's 7-step workflow and capability table: all seven steps
   already exist in `auto-abap-delivery` (`SKILL.md:29-46`, `team-and-testing.md:10`), with
   test design before implement; no reordering and no mandatory RED gate (would conflict with
