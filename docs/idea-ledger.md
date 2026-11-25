@@ -86,6 +86,15 @@ reads this even when no question was asked — it is the opening for "should we 
 this?" Silence is not an acceptable substitute for a ledger row, and a ledger row is not
 a substitute for telling the owner. Never bury a solo decision only in a commit message.
 
+**Run all checks BEFORE the commit, not after.** A solo decision is not finished until
+`registry_check.py --check --brief`, `memory_check.py --brief`, `closeout.py` and
+`compatibility_check.py` all pass from the repo root (plus `evidence_fingerprint.py
+--self-test` when evidence code changed). If a check fails, fix it in the same working
+tree and re-run — do not commit a known failure and amend later. Evidence for this rule:
+the relocation playbook was committed in `c2cb1f1`, closeout then reported 1 portability
+issue, and the fix needed a second commit `bead786`; running closeout first would have
+avoided the extra commit.
+
 ## Thinking partner mode
 
 Role: a thinking partner, not an order-taker. The secretary records what happened; this
