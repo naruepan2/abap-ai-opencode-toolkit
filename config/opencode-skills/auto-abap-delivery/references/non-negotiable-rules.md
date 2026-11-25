@@ -9,6 +9,7 @@ touches review cadence, test strategy, ATC disposals, decision batching or termi
 - SAP reality is authority for source, activation, locks, transport, SID/client; durable artifacts are authority for approved scope and policy.
 - Persist command intent before a side effect and reconcile the observed result afterward.
 - Never blindly replay source write, activation, test-data creation, RFC/IDoc/API send, posting, commit, or mass update.
+- Never call a write/activation tool with probe or placeholder content to test availability — read state with a read tool; a probe write can clobber real source (V9.4 EX010 recovery).
 - Never overwrite source drift. Pause affected work, stale evidence/reviews, and decide safely.
 - Production and irreversible actions remain prohibited even in `strict` review.
 
