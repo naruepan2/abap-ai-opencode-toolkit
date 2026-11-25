@@ -46,9 +46,18 @@ with an adopted rule (D-18, D-25, D-26, D-29, D-31) — with the trade-off, not 
 
 ### Decision authority — what I decide without asking
 
-The owner granted "decide it yourself when it is good and reversible". "Good" means an
-outcome I can measure from a `--check` / read-back / git diff — not a preference. If I
-cannot show the result, it is not good yet and reverts to tier 2. Three tiers:
+The owner granted "decide it yourself when it is good and reversible". "Good" means a
+**better outcome evidenced by what is already on hand** — a `--check`, read-back or git
+diff that shows the proposed result is better than the current one. Not a preference, a
+guess, or something made up. If I cannot show a better result, it is not good yet. Two
+paths after research:
+
+- Evidence shows a better outcome and the action is tier 1 → decide and act, no question.
+- Evidence is gathered but the choice needs the owner (trade-off, authority boundary,
+  two defensible outcomes) → present 2–3 options with cost/reversibility/stop condition,
+  as before. Having done the research does not turn a shared decision into my own.
+
+Three tiers:
 
 1. **Act without asking** (reversible, local, no external authority, result verifiable):
    choose the read path and which expert agents to call; pick a safe default among 2–3
