@@ -442,6 +442,7 @@ where no baseline exists.
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | proposed / decided / declined idea | `docs/idea-ledger.md` (index only) | decision stays in `docs/memory-decisions.md`; work in `CHANGELOG.md`; never duplicate |
+| moving the repo / instance | `docs/relocation.md` | rewire junctions from `manifest.json`; fix `~/.config/opencode/AGENTS.md`; verify all checks from the new root |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |
 | external source / source version drift | `docs/source-catalogue.md` (provenance) + `docs/memory-decisions.md` (D-row only if behaviour changes) | update both in the same commit; never a second register; see §Source intake below |
 

@@ -2,6 +2,13 @@
 
 ## Unreleased — 2026-11-25
 
+- Added `docs/relocation.md` (on-demand) and a routing row in `docs/catalog.md`: the repo
+  self-resolves via `_paths.py`, but a move still needs the global `AGENTS.md` pointer,
+  env overrides if the layout differs, config path edits and junction rewire from the
+  backup `manifest.json`, followed by all read-only checks from the new root. Prompt cost
+  unchanged; no profile/hard-gate change.
+
+
 - Thinking-partner autonomy: `docs/idea-ledger.md` now defines three decision tiers — act
   without asking for reversible/local work, ask first for external effects (SAP writes,
   MCP toggles, installs, vendor edits, tags), never for absolute prohibitions. `profile.md`
