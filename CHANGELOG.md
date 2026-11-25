@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-11-25
+
+- Recorded the Kreycin YouTube "4 ways to teach AI" transcript in `docs/source-catalogue.md`
+  and `docs/idea-ledger.md`. One read-only gap-check reviewer confirmed all four methods are
+  already covered or rejected: skill lazy-load + byte budget, on-demand MCP, plain-file
+  search (no vector D-18), curated inbox + audit (no auto-capture D-19). No change, no new
+  always-loaded bytes.
+
 ## v0.8.8 — 2026-11-25
 
 - Added `docs/handoff.md`: an on-demand index and thinking guide for a new AI model or
