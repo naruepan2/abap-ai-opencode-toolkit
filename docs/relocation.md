@@ -54,6 +54,33 @@
    `python scripts/memory_check.py --brief`, `python scripts/closeout.py`,
    `python scripts/compatibility_check.py`. Expect 0 issues; warnings are human decisions.
 
+## Dry-run evidence (2026-11-25, simulated — not a real move)
+
+A copy of the toolkit was placed in a temporary directory and all checks were run from that
+new root using env overrides, with the SAP MCP servers parked. The instance data came from
+the latest backup. No file in the real toolkit or instance was modified.
+
+| Check | Result |
+|---|---|
+| `session_context.py --brief` | pass — card, health, tool rules loaded from the new root |
+| `registry_check.py --check --brief` | 0 issues / 8 warnings, 126 tools, 7 namespaces |
+| `memory_check.py --brief` | 0 issues / 0 warnings |
+| `closeout.py` | clean; audit line `adds 0, updates 1, deletes 0, skipped 0` |
+| `compatibility_check.py` | valid, no errors |
+| `tools_now.py --check` | exit 1 **expected** — SAP MCP is parked; not a playbook defect |
+
+Caveats:
+- `ABAP_INDEX` was set one level too low in the dry run (a test-setup mistake, not a
+  playbook defect); the default is `PROJECTS.parent.parent / INDEX.md`, i.e. one level
+  above the `SAP Projects` folder. Step 3 in this playbook is correct as written.
+- `tools_now.py --check` reports `none` because the SAP servers are parked; that is the
+  intended steady state (see §SAP on-demand in `tool-map.md`).
+- The `closeout` card showed v37 / 30 REQ / 29 AC / 26 changelog rows, newer than the
+  toolkit's last close-out (v36 / 29 REQ / 28 AC / 25 rows). The mirror stayed in sync.
+
+Status: playbook logic **verified** on a copy. Still `UNVERIFIED` against a real move —
+junction rewire, global AGENTS pointer, config paths and SAP credentials were not exercised.
+
 ## Rules
 
 - Never edit vendored agents/skills; restore personal `*-by-pongg` files from the toolkit.
