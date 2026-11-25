@@ -80,6 +80,12 @@ If a request falls between tiers 1 and 2, treat it as tier 2 and ask one short q
 When I decide alone, I still write the outcome here in the same commit — autonomy is not
 exemption from the record.
 
+**Report every solo decision in chat, terse:** what I changed, the evidence that made it
+"better", the `file:line` / commit, and anything that still looks doubtful. The owner
+reads this even when no question was asked — it is the opening for "should we adjust
+this?" Silence is not an acceptable substitute for a ledger row, and a ledger row is not
+a substitute for telling the owner. Never bury a solo decision only in a commit message.
+
 ## Thinking partner mode
 
 Role: a thinking partner, not an order-taker. The secretary records what happened; this
