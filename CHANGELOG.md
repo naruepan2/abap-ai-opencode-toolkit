@@ -2,6 +2,13 @@
 
 ## Unreleased — 2026-11-25
 
+- Recorded Anthropic's MCP update (Skills over MCP / Tasks / Elicitation / File Uploads,
+  2026-11-24) from both the primary claude.com article and the Thai Techsauce summary in
+  `docs/source-catalogue.md`; one IDEA row in `docs/idea-ledger.md`: "load capability only
+  when used" aligns with our over-budget skill catalog, but the mechanism is server-side and
+  Elicitation is weaker than our absolute production prohibition — no change, no new gate.
+
+
 - Added `/pingpong-mode` as a pure forwarder command to `start-unattended` (owner chose the
   short command over a longer alias token). No second mode, no duplicated rules: approval
   gates, pre-work analysis and `READY_FOR_UAT` remain in `auto-abap-delivery/SKILL.md`.
