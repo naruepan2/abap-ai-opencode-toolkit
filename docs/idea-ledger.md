@@ -19,7 +19,7 @@
 - Never copy a rejected idea forward without its reason and its own revisit trigger.
 - No new always-loaded bytes: this file is on-demand (`docs/`, not in `FILES_ON_DEMAND`).
 
-## Thinking partner (เพื่อนคู่คิด)
+## Thinking partner (FRIDAY)
 
 Secretary records; thinking partner challenges. Same on-demand file, no new bytes in
 `profile.md` beyond the existing pointer line. When the user asks for a second opinion,
@@ -125,7 +125,7 @@ role challenges what has not happened yet. Both live in this one index.
 | `note: <text>` | append one row, status `open` |
 | `recall <topic>` | search `memory-decisions.md`, `CHANGELOG.md`, `reports/`, `scratch/` and summarize with evidence |
 | `what's pending` | list all `open` rows + the decision each one waits on |
-| `/pingpong-partner <เรื่อง>` (คู่คิด) | run the thinking-partner steps above: disk facts → real decision → both counter-cases → 2–3 options → record outcome · pure pointer command, no new rule |
+| `/pingpong-partner <เรื่อง>` (FRIDAY) | run the thinking-partner steps above: disk facts → real decision → both counter-cases → 2–3 options → record outcome · pure pointer command, no new rule |
 
 ## Rows
 
@@ -136,7 +136,7 @@ role challenges what has not happened yet. Both live in this one index.
 | 2026-11-25 | SQLite embedded memory layer (V9.4) | deferred | `docs/memory-decisions.md` D-29; report `v94-memory-design-20261123.md` | revisit only on the D-29 numeric triggers |
 | 2026-11-23 | Write-mode `direct | comment-proposal` field | done | `c262d93`, `templates/plan.md`, both `*-by-pongg` agents | none; Copilot-side divergence noted in D-30 |
 | 2026-11-25 | `humanizer` / `thai-humanizer` technique | cited, not adopted | `docs/memory-decisions.md` D-31 | if wanted, one host-neutral profile line with a byte reading |
-| 2026-11-25 | Assistant acts as personal secretary / thinking partner (this file + 4 commands) | done | this file, `templates/profile.md` | use `note:` / `recall` / `what's pending` / `คู่คิด` |
+| 2026-11-25 | Assistant acts as personal secretary / thinking partner (this file + 4 commands) | done | this file, `templates/profile.md` | use `note:` / `recall` / `what's pending` / `FRIDAY` |
 | 2026-11-25 | Release after source-intake P0 | done | tag `v0.8.7`, commit `0a092bb` | none |
 | 2026-11-25 | Thinking-partner decision authority (3 tiers) | done | this file §Decision authority; `profile.md` pointer | tier 1 = decide alone + record; tier 2 = ask; tier 3 = never |
 | 2026-11-25 | Decision Inbox deadline + safe default while waiting | IDEA | master idea §17.2; our `decision-inbox.md:3-9` lacks both; review has timeout but decision does not | revisit when ≥1 decision stalls or is batch-approved because the field was missing; doc-only, on-demand |
@@ -149,3 +149,4 @@ role challenges what has not happened yet. Both live in this one index.
 | 2026-11-25 | Toolkit recheck — 3 read-only scan teams | done (analysis) | briefs in gitignored `workspace/memory/scratch/scan-20261125-brief-{a,b,c}.md`; parent re-verified every decisive file:line | 17 confirmed (3 broken, 10 stale, 4 gate gaps), 2 false positives rejected (A-F1/A-F3); chose A — doc-only confirmed fixes + template mirror, 0 always-loaded bytes; hard gates still 6; code hardening deferred |
 | 2026-11-25 | Cross-session idea continuity + PP identity | done (analysis) | fresh-context tester given only the two `profile.md` pointers + `handoff.md`; briefs in gitignored `workspace/memory/scratch/pp-20261125-{crosssession,recall-test}-brief.md` | 3/3 FOUND with file:line — idea outcomes at `idea-ledger.md:148-149`, PP rule home `:22,:98` + `config/opencode-commands/pingpong-partner.md:4`; chose A — no new file/bytes, rely on ledger + always-loaded profile pointer + command (D-23 still stands); only gap = an idea never written to a row |
 | 2026-11-25 | `opencode.db` as toolkit memory / search source | declined (analysis) | read-only query this session: 169 MB + 17.6 MB WAL, 100 sessions / 13,830 messages / 3,232 parts / 3 credential rows; toolkit only uses it via `backup_opencode.ps1:26-28,64,118-141` (`-IncludeSessions`, close app first) | chose A — no adoption, keep backup/restore only + write idea rows immediately; B (read-only chat lookup) rejected for schema drift; C (memory store) rejected — D-18/D-19/D-29, credential, portability; revisit only on a real recovery failure |
+| 2026-11-25 | Rename thinking-partner label `คู่คิด` → `FRIDAY` | done | owner chose FRIDAY; command description + live copy, `docs/idea-ledger.md:22,128,139`, `CHANGELOG.md` Unreleased | historical `CHANGELOG.md:67` left intact; Copilot-side `pingpong-partner` skill untouched (D-25); `templates/profile.md` unchanged — 0 always-loaded bytes |

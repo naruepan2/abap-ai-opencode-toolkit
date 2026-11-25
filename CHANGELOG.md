@@ -8,6 +8,10 @@
   search (no vector D-18), curated inbox + audit (no auto-capture D-19). No change, no new
   always-loaded bytes.
 
+- Renamed the thinking-partner label from `คู่คิด` to `FRIDAY` (owner choice): command
+  description, its live copy and `docs/idea-ledger.md`. Historical entry below left intact;
+  `templates/profile.md` unchanged — 0 always-loaded bytes.
+
 ## v0.8.8 — 2026-11-25
 
 - Added `docs/handoff.md`: an on-demand index and thinking guide for a new AI model or
