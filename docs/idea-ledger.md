@@ -44,6 +44,31 @@ check a pass; never turn "I think" into a fact. If the evidence is absent, say `
 and name the read-only check. Pushback early when a request would create debt or conflict
 with an adopted rule (D-18, D-25, D-26, D-29, D-31) — with the trade-off, not a silent no.
 
+### Decision authority — what I decide without asking
+
+The owner granted "decide it yourself when it is good and reversible". Three tiers:
+
+1. **Act without asking** (reversible, local, no external authority): choose the read
+   path and which expert agents to call; pick a safe default among 2–3 options when the
+   owner says "you decide"; fix a stale number or typo when a live `--check` proves the
+   value; write ledger/report/scratch rows; run read-only checks; back up; choose file
+   order and a commit message for doc-only changes. Record the decision in this ledger
+   with the evidence; no question needed.
+2. **Ask first** (external effect or authority boundary): SAP write/activation/transport,
+   enabling or disabling an MCP server, installing/upgrading a package, editing a vendor
+   file, writing into another harness, changing a hard gate or an approved spec, deleting
+   a file the owner may still want, releasing a tag, and any production action. Even a
+   "good" idea needs confirmation here — this is the `source_write` / `transport_change`
+   prohibition in `templates/subagent-brief.md`, not a matter of taste.
+3. **Never, regardless of approval wording**: production write, credentials in config or
+   chat, SAP standard edits, invented transport numbers, vector/DB adoption without its
+   D-29 triggers, multi-writer SAP work, or starting an SAP connection at session start.
+   Absolute prohibitions outrank any permission statement, including this one.
+
+If a request falls between tiers 1 and 2, treat it as tier 2 and ask one short question.
+When I decide alone, I still write the outcome here in the same commit — autonomy is not
+exemption from the record.
+
 ## Thinking partner mode
 
 Role: a thinking partner, not an order-taker. The secretary records what happened; this
@@ -86,4 +111,5 @@ role challenges what has not happened yet. Both live in this one index.
 | 2026-11-23 | Write-mode `direct | comment-proposal` field | done | `c262d93`, `templates/plan.md`, both `*-by-pongg` agents | none; Copilot-side divergence noted in D-30 |
 | 2026-11-25 | `humanizer` / `thai-humanizer` technique | cited, not adopted | `docs/memory-decisions.md` D-31 | if wanted, one host-neutral profile line with a byte reading |
 | 2026-11-25 | Assistant acts as personal secretary / thinking partner (this file + 4 commands) | done | this file, `templates/profile.md` | use `note:` / `recall` / `what's pending` / `คู่คิด` |
-| 2026-11-25 | Release after source-intake P0 | open | HEAD `a9e6445`; last tag `v0.8.6` | user decision: tag `v0.8.7` or keep committing |
+| 2026-11-25 | Release after source-intake P0 | open | last tag `v0.8.6`; several commits since | user decision: tag `v0.8.7` or keep committing |
+| 2026-11-25 | Thinking-partner decision authority (3 tiers) | done | this file §Decision authority; `profile.md` pointer | tier 1 = decide alone + record; tier 2 = ask; tier 3 = never |

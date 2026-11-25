@@ -2,6 +2,13 @@
 
 ## Unreleased — 2026-11-25
 
+- Thinking-partner autonomy: `docs/idea-ledger.md` now defines three decision tiers — act
+  without asking for reversible/local work, ask first for external effects (SAP writes,
+  MCP toggles, installs, vendor edits, tags), never for absolute prohibitions. `profile.md`
+  carries one short pointer (kept under its 4,500-byte budget). Autonomy does not exempt
+  the record: outcomes are still written to the ledger in the same commit.
+
+
 - Secretary mode: added `docs/idea-ledger.md` (on-demand navigation index for proposals,
   decisions, declines and open items) with the `note:` / `recall` / `what's pending`
   commands and one host-neutral pointer in `templates/profile.md`. `docs/catalog.md`

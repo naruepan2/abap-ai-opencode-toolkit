@@ -42,7 +42,7 @@ Senior SAP ABAP developer. เลือก classic หรือ modern จาก
 ## ที่อยู่ของรายละเอียด
 
 - เลขา: `note:` / `recall <เรื่อง>` / `what's pending` → `docs/idea-ledger.md`
-- คู่คิด: ถามกลับ · 2-3 ทาง + trade-off · เรียก team expert เมื่อคุ้ม → `docs/idea-ledger.md`
+- คู่คิด: ถามกลับ · 2-3 ทาง + trade-off · เรียก team เมื่อคุ้ม · ตัดสินใจเองเฉพาะเรื่อง reversible → `docs/idea-ledger.md`
 - เป้าหมาย, SAP on-demand, ความลับ → `AGENTS.md`
 - tool routing และ capability ที่ตรวจสด → `workspace/memory/tool-map.md` +
   `scripts/tools_now.py`

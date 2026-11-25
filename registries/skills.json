@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T05:14:14+00:00",
+  "generated_at": "2026-11-25T05:34:47+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -1260,6 +1260,21 @@
       "body_lines": 215,
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "skill-version-scan",
+      "harness": "agents",
+      "path": "~\\.agents\\skills\\skill-version-scan\\SKILL.md",
+      "owner": "vendor",
+      "hash": "267c4297c982a7d1fea2d6ef765469b02b6e76dbf003cfcb04d86d5835a39ee7",
+      "desc_chars": 478,
+      "description": "Content-level audit of installed agent skills against their upstream Git sources: detect new versions, SKILL.md drift and local customizations, read-only. Use when asked to \"scan skill versions\", \"check installed skills for updates\", \"is this skill outdated\", \"compare my skill with upstream\", or aft",
+      "name_in_fm": true,
+      "has_desc": true,
+      "name_matches_dir": true,
+      "body_lines": 102,
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "writing-for-agents",
