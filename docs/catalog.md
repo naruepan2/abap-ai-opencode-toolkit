@@ -442,6 +442,28 @@ where no baseline exists.
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |
+| external source / source version drift | `docs/source-catalogue.md` (provenance) + `docs/memory-decisions.md` (D-row only if behaviour changes) | update both in the same commit; never a second register; see §Source intake below |
+
+## Source intake
+
+An idea arrives from an external source, or a known source ships a new version:
+
+1. Provenance row in `docs/source-catalogue.md` first — URL @ ref, version, date,
+   licence, evidence basis. Unknown cells stay `UNVERIFIED` with a proposed read-only
+   check; never fill a plausible value.
+2. Bounded research into `workspace/memory/reports/<idea>-<date>.md` (git-ignored,
+   not in the digest, evidence trail only — never a second decision log). Reuse the
+   shape of `v94-memory-design-20261123.md`: inputs, facts, team, verdicts, invariant,
+   proposed D-row. One reviewer with `file:line` evidence; blocked → stop and ask.
+3. A D-row in `docs/memory-decisions.md` only if behaviour changes. Before triage, cite
+   verbatim the existing REJECTED/deferred rows (D-18, D-25, D-26, D-29) and require
+   new evidence against that row's own revisit trigger — a restatement is not evidence.
+4. Status + commit hash in the **same** commit. A deferred row is not reopened by a new
+   mention. Never write into another harness (D-25/D-30).
+5. Untriaged concepts stay in `workspace/memory/scratch/YYYY-MM-<topic>.md`: human-written,
+   `Status: scratch` + `Expires:` ≤14 days, max 3 files, one page each, never in the
+   digest, never knowledge or evidence. Promote via the lesson router, or delete. A
+   committed concept needs one line in the active card's `Next step` to survive a reset.
 
 ## Rules
 

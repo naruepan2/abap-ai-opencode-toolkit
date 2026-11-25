@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased — 2026-11-25
+
+- Source-intake methodology (P0): added `docs/source-catalogue.md` as the on-demand home
+  for provenance (URL/ref, version, date, licence, evidence basis, checked pin, delta);
+  `docs/memory-decisions.md` now points to it and keeps decisions/status only; `docs/catalog.md`
+  gained one routing row and a §Source intake procedure (bounded research in git-ignored
+  `workspace/memory/reports/`, untriaged concepts in `workspace/memory/scratch/` with a
+  14-day expiry, duplicate check against REJECTED rows, same-commit status+hash). D-31 records
+  `humanizer`/`thai-humanizer` as cited, not adopted into the toolkit — no new loaded bytes.
+  No skill, agent, AGENTS file, profile or MCP entry changed.
+
+
+- Upgraded `open-computer-use` 1.1.5 → 1.1.6 (routine: Locked Use recovery after Broker
+  restart, macOS click focus, Homebrew docs; zero GHSA). Verified catalog, process,
+  package metadata and one read-only `list_apps` call. A service-only restart twice left
+  the namespace disabled; a full app close/reopen restored it. `sap-mcp-upgrade-state.json`
+  records the change with `verified:true`, no pending entries.
+
 ## Unreleased — 2026-11-23
 
 - V9.4 embedded SQL memory layer reviewed by 6 more agents (plus 6 earlier + the Copilot

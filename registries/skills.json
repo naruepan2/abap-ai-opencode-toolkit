@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T15:48:12+00:00",
+  "generated_at": "2026-11-25T04:12:22+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -332,6 +332,21 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "humanizer",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\humanizer\\SKILL.md",
+      "owner": "vendor",
+      "hash": "e32d1aa54b2230bd355f2f16bcc9c5afbc8c74bfe227cad55dd686cff0206e5d",
+      "desc_chars": 297,
+      "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler.",
+      "name_in_fm": true,
+      "has_desc": true,
+      "name_matches_dir": true,
+      "body_lines": 504,
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "opencode-backup",
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\opencode-backup\\SKILL.md",
@@ -583,6 +598,21 @@
       "has_desc": true,
       "name_matches_dir": true,
       "body_lines": 141,
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "thai-humanizer",
+      "harness": "opencode",
+      "path": "~\\.config\\opencode\\skills\\thai-humanizer\\SKILL.md",
+      "owner": "vendor",
+      "hash": "b1c2b23575eab66f40049d4f55b69ac990e1ade22a9c2d5552e08af75b2869b3",
+      "desc_chars": 510,
+      "description": "ลบร่องรอยการเขียนแบบ AI ออกจากข้อความภาษาไทย ทำให้อ่านลื่นและเป็นธรรมชาติเหมือนคนไทยเขียนจริง ใช้เมื่อต้องการ humanize / แก้ / รีไรต์บทความ แคปชัน อีเมล หรือคอนเทนต์ภาษาไทยที่อ่านแล้วรู้สึก \"เป็น AI\" — เช่นเมื่อผู้ใช้พูดว่า \"ทำให้เป็นภาษาคน\", \"ลบความเป็น AI\", \"humanize ภาษาไทย\", \"แก้ให้ไม่ slop\", \"เ",
+      "name_in_fm": true,
+      "has_desc": true,
+      "name_matches_dir": true,
+      "body_lines": 230,
       "status": "new",
       "last_validated": null
     },
@@ -1056,13 +1086,13 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\sap-abap-reverse-engineering\\SKILL.md",
       "owner": "vendor",
-      "hash": "fb82a2d6e4afd1f0ab486dcf8fd90cfeb5cd75bfafd09c98865a6500dfa9c50f",
+      "hash": "573147c8aebb8f805cc5583f2d4c43d7d687dab6eb9e37d39274c7dd7441e9db",
       "desc_chars": 344,
       "description": "Reverse-engineer SAP ABAP, CDS, RAP, Fiori, AMDP, SQL, DDIC, and related repository objects into evidence-grounded analysis. Use for read-only architecture discovery, dependency and field-lineage analysis, SAP ADT dependency reconciliation, complexity metrics, output catalogs, risks, and either a Te",
       "name_in_fm": true,
       "has_desc": true,
       "name_matches_dir": true,
-      "body_lines": 102,
+      "body_lines": 106,
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -1472,6 +1502,21 @@
       "last_validated": "2026-11-13"
     },
     {
+      "id": "sap-abap-reverse-engineering",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\sap-abap-reverse-engineering\\SKILL.md",
+      "owner": "vendor",
+      "hash": "573147c8aebb8f805cc5583f2d4c43d7d687dab6eb9e37d39274c7dd7441e9db",
+      "desc_chars": 344,
+      "description": "Reverse-engineer SAP ABAP, CDS, RAP, Fiori, AMDP, SQL, DDIC, and related repository objects into evidence-grounded analysis. Use for read-only architecture discovery, dependency and field-lineage analysis, SAP ADT dependency reconciliation, complexity metrics, output catalogs, risks, and either a Te",
+      "name_in_fm": true,
+      "has_desc": true,
+      "name_matches_dir": true,
+      "body_lines": 106,
+      "status": "new",
+      "last_validated": null
+    },
+    {
       "id": "sap-adam-external-debug",
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\sap-adam-external-debug\\SKILL.md",
@@ -1536,13 +1581,13 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\sap-new-program\\SKILL.md",
       "owner": "vendor",
-      "hash": "6de62d05ab734302ab65f5a6a25156cf4f5cb2097dc73fdd34e5c6e918645e20",
+      "hash": "81978606d158530a82e66438fa8951862577670b6ab6466a49c3810c58e5592d",
       "desc_chars": 360,
       "description": "Scaffold one program record under Projects/<PROJECT>/<PROGRAM>/ - program.yaml, README, changes.md and spec wiring. Use for \"register new program\", \"new Z program\", \"เพิ่มโปรแกรมใหม่\", \"เริ่มโปรแกรมใหม่\". Requires the project record to exist. Asks for every unknown, never guesses a SID, client, tran",
       "name_in_fm": true,
       "has_desc": true,
       "name_matches_dir": true,
-      "body_lines": 148,
+      "body_lines": 149,
       "status": "new",
       "last_validated": null
     },

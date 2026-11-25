@@ -4,6 +4,12 @@
 > not a second rulebook: `workspace/memory/README.md` still wins on operating rules,
 > and `docs/memory-model.md` keeps the rationale. When a new idea arrives, add one row
 > here — do not silently introduce a parallel mechanism.
+>
+> **Source provenance lives in `docs/source-catalogue.md`** (on-demand): URL @ ref,
+> version, date read, licence, evidence basis, last-checked pin and delta. This file
+> owns decisions and status; that file owns where an idea came from. New source → its
+> provenance row first, idea row second. Re-checks overwrite cells there — no row per
+> check, and no status copied between the two files.
 
 **Decision homes — these are different layers, not competing stores:**
 
@@ -62,6 +68,7 @@
 | D-28 | toolkit itself | `sap-abap-docs` as a SAP knowledge channel | adopted, bounded | facets in `templates/profile.md`, both `*-by-pongg` agents, `senior-abap-development/SKILL.md`, `released-alternatives.md`, `capability-and-intake.md`, `engineering-judgment.md` | docs MCP outranks recollection/internet for release and API facts but never outranks live SAP; `DOC_EVIDENCE` label, re-verify on target, public-cloud metadata is not on-prem proof — no new hard gate was added |
 | D-29 | V9.4 embedded SQL memory layer | SQLite as authoritative store / index / run state | deferred | — | `KEEP_EXPERIMENTAL + INSUFFICIENT_EVIDENCE`: 41 notes vs 10k–10,000 medium profiles, second source of truth against D-01/D-18/D-25, zero multi-hop queries, no divergence detector/fenced writer/verified restore. Only genuinely new idea (unreconciled command intent) is DB-free and stays JSONL-first. Revisit only when ALL hold: a real recovery failure OR >0 logged multi-hop queries/session, note corpus ≥500–1,000 (FTS ≥5,000), p95 >100 ms for 2 sessions, divergence detector + fenced writer + restore drill green, and retrieval benchmark pass on OUR gate (≥40% fewer source chars, recall ≥95%, 0 wrong writes). Engine/PRAGMA/schema/FTS/migrations are implementation detail, not a decision. Evidence: `workspace/memory/reports/v94-memory-design-20261123.md`; PostgreSQL+pgvector and committing sanitized-evidence identifiers stay REJECTED |
 | D-30 | cross-harness divergence | `Write mode` field is OpenCode-only, not synced to the Copilot register | noted | `templates/plan.md`, both `*-by-pongg` agents, `auto-abap-delivery/SKILL.md`, `unattended-execution.md` (commit `c262d93`) | OpenCode froze a bounded `direct | comment-proposal` field in the approval envelope — still a CAS write, activation `DEFER`, mid-run change is a Decision Inbox boundary, so "approve once, run to gate" survives. Copilot `improvement-register.md:151` still calls it `IDEA` and an attended human gate. Benign scope difference, not a policy reversal; harnesses stay separate (D-25). Do NOT mark that row APPLIED or write into `D:\abap-copilot-kit` without explicit permission |
+| D-31 | vendor skills `humanizer` / `thai-humanizer` | Humanize prose technique | cited, not adopted | `docs/source-catalogue.md` | Both arrived as vendor skills on the user-level harness; MIT; bodies 34.1k + 23.7k bytes would exceed the 4.5k `profile.md` ceiling (347 B headroom) and the 500-line personal-skill cap. Style already lives in `templates/profile.md`; re-expressing would add always-loaded bytes while skills are over budget. If behaviour is ever wanted, add one host-neutral line with a before/after byte reading — no toolkit install, no new hard gate |
 
 ## Vocabulary map — do not mix these words
 

@@ -68,7 +68,7 @@ found by discovery (below) and added only with approval.
 | `sap-gui` | `mcp-sap-gui[screenshots]==0.6.1` in config command | `https://pypi.org/pypi/mcp-sap-gui/json` | github.com/kts982/mcp-sap-gui |
 | `sap-abap-docs` (replaced `sap-docs`/`sap-ui5-docs`) | hosted HTTP, no local pin | endpoint status / release notes | github.com/marianfoo/abap-mcp-server |
 | `playwright` | npm global, unpinned | `https://registry.npmjs.org/@playwright/mcp/latest` | github.com/microsoft/playwright-mcp |
-| `open-computer-use` | npm global, unpinned | `https://registry.npmjs.org/open-computer-use/latest` | github.com/iFurySt/open-computer-use |
+| `open-computer-use` | npm global, unpinned (1.1.6) | `https://registry.npmjs.org/open-computer-use/latest` | github.com/iFurySt/open-computer-use; a service-only restart may leave it disabled — close/reopen the app |
 | `windows-mcp` (disabled) | uv tool, unpinned (0.9.0) | `https://pypi.org/pypi/windows-mcp/json` | github.com/CursorTouch/Windows-MCP; OpenCode 2.4.0 rejects its MCP handshake |
 | `browse` | self-updating CLI (`browse --version`) + npm `@opencode/browse` | `browse status`, Anomaly release channel | github.com/anomalyco/browse |
 | `opencode_console`, `browser`, built-ins | none | n/a | github.com/anomalyco/opencode |

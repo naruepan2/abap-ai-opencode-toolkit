@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T15:48:12+00:00",
+  "generated_at": "2026-11-25T04:12:22+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -137,7 +137,7 @@
       "mode": "",
       "skills": [],
       "description": "Explicit, trust-calibrated SAP ABAP delivery from approved specification to evidence-backed UAT readiness. User-invoked only. Coordinator of SAP writes; never releases or imports transports.",
-      "hash": "bf15cf06c740addd196b7099a0e1f46c7d97de1c1900323fbe2101f5c9d6b8b5",
+      "hash": "bf1cf21dfe0b3674c92229701337a923bff2024677d52b29163531493578d618",
       "status": "new",
       "last_validated": null
     },
@@ -223,7 +223,7 @@
         "sap-abap-reverse-engineering"
       ],
       "description": "Evidence-driven, strictly read-only reverse engineering of SAP ABAP, CDS, RAP, classic reports, classes, functions, and services. Supports autonomous dependency discovery, dependency evidence reconciliation, and Technical Specification or chat-only analysis.",
-      "hash": "62377126e1c058545107a8a0fbf944becf4582821bf5a819a4d4cb295026774a",
+      "hash": "268a53f87652cf58db4961151609a0e1001798fb09ecddbf86b1e0a9077f39a6",
       "status": "active",
       "last_validated": "2026-11-13"
     },
