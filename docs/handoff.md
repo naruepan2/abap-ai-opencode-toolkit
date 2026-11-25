@@ -37,7 +37,8 @@ restate it here.
    Home: `profile.md`, `idea-ledger.md` §Thinking partner.
 5. **Fail closed.** An unrun check is not PASS; `UNAVAILABLE` fails the gate; a saved
    source is not activated; activation is not tested; a subagent result is a sample.
-   Home: `non-negotiable-rules.md`, hard gates 1–6 in `auto-abap-delivery/SKILL.md`.
+   Home: `config/opencode-skills/auto-abap-delivery/references/non-negotiable-rules.md`,
+   hard gates 1–6 in `config/opencode-skills/auto-abap-delivery/SKILL.md`.
 
 ## 3. Where to look — the map
 
@@ -97,7 +98,8 @@ SAP on-demand · no credentials in config/chat · no SAP standard edits · no in
 transport · no production write · no vector DB/embeddings/VLM/server/auto-capture/hook
 bus · no whole-harness cross-loading (D-25) · six hard gates stay six (D-27) · release
 means `READY_FOR_UAT`, never `DONE`. Full text lives in global `AGENTS.md`,
-`docs/memory-decisions.md` and `non-negotiable-rules.md`.
+`docs/memory-decisions.md` and
+`config/opencode-skills/auto-abap-delivery/references/non-negotiable-rules.md`.
 
 ## 8. If you have to choose under uncertainty
 
