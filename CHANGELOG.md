@@ -2,6 +2,14 @@
 
 ## Unreleased — 2026-11-25
 
+- `/pingpong-partner` review of ECC's 7-step workflow and capability table: all seven steps
+  already exist in `auto-abap-delivery` (`SKILL.md:29-46`, `team-and-testing.md:10`), with
+  test design before implement; no reordering and no mandatory RED gate (would conflict with
+  value-based testing and the no-test-driver rule). Recorded an IDEA for an AgentShield-style
+  content scan, gated on a real finding — today's read-only scan of 35 prompt files found 0
+  hidden-Unicode / outbound-command hits and no broad-permission config key.
+
+
 - Recorded Anthropic's MCP update (Skills over MCP / Tasks / Elicitation / File Uploads,
   2026-11-24) from both the primary claude.com article and the Thai Techsauce summary in
   `docs/source-catalogue.md`; one IDEA row in `docs/idea-ledger.md`: "load capability only
