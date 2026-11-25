@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:12:22+00:00",
+  "generated_at": "2026-11-25T05:06:18+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -486,7 +486,7 @@
       "harness": "opencode",
       "path": "~\\.config\\opencode\\skills\\sap-mcp-upgrade\\SKILL.md",
       "owner": "Pongg",
-      "hash": "056fdb68899d667e995733dabfead3cb75246e6111a4671678e76db3b89a50bc",
+      "hash": "f7f7ea6d294adfb300a6487ab1e03595f64050a26b459ba8e326c1ccd6478d8b",
       "desc_chars": 235,
       "description": "Check and upgrade MCP servers installed in OpenCode in one pass. Use for \"upgrade MCP\", \"bump pin\", \"check MCP version\", \"what needs updating\", \"MCP pin drift\". OpenCode-only, standalone: no other harness, no skill install suggestions.",
       "name_in_fm": true,
@@ -1356,13 +1356,13 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\capture-lesson\\SKILL.md",
       "owner": "vendor",
-      "hash": "edb6c60a5c331480f94c8024f725618a56c16549881f357250103524cc2ad0f3",
+      "hash": "873bdc85198c4f44485d27d64ee9ed055af45d3706f0fc067a35a2906d22897f",
       "desc_chars": 491,
       "description": "Turn a session finding into a durable artifact by choosing the right destination, showing the exact diff, and waiting for approval. Use when a session revealed something worth keeping — a tool or server behaviour, an environment gotcha, a correction the user made, a preference, or a procedure worth ",
       "name_in_fm": true,
       "has_desc": true,
       "name_matches_dir": true,
-      "body_lines": 114,
+      "body_lines": 111,
       "status": "new",
       "last_validated": null
     },
@@ -1386,13 +1386,13 @@
       "harness": "copilot",
       "path": "~\\.copilot\\skills\\clean-core-decision-gates\\SKILL.md",
       "owner": "vendor",
-      "hash": "54192683eb21d9beff4994d7f2d92c9c826e4ec8b2f2c31467984ec43b428294",
+      "hash": "b8e8101c9190edc6d47fcb77e3c44e9f477869de8a142bb95b24fbdf376948b8",
       "desc_chars": 520,
       "description": "Decision rules for Clean Core Level A-D work - the lowest-level rule, \"unclassified = Level C\", ATC priority-to-level mapping, the transactional-consistent gate for a classic API used inside RAP, and wrapper governance (level follows the wrapped object, SU22 variants, one exemption, retirement). Use",
       "name_in_fm": true,
       "has_desc": true,
       "name_matches_dir": true,
-      "body_lines": 60,
+      "body_lines": 67,
       "status": "new",
       "last_validated": null
     },

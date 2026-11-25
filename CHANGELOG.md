@@ -2,6 +2,12 @@
 
 ## Unreleased — 2026-11-25
 
+- Secretary mode: added `docs/idea-ledger.md` (on-demand navigation index for proposals,
+  decisions, declines and open items) with the `note:` / `recall` / `what's pending`
+  commands and one host-neutral pointer in `templates/profile.md`. `docs/catalog.md`
+  gained a routing row. No skill, agent, hard gate or always-loaded rule was added.
+
+
 - Source-intake methodology (P0): added `docs/source-catalogue.md` as the on-demand home
   for provenance (URL/ref, version, date, licence, evidence basis, checked pin, delta);
   `docs/memory-decisions.md` now points to it and keeps decisions/status only; `docs/catalog.md`

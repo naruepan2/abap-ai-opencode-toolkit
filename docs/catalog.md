@@ -441,6 +441,7 @@ where no baseline exists.
 | per-object hash state | `spec/coedit-state.json` from `templates/coedit-state.json` | engine beside hash; `specs_sync.py` does not mirror it yet |
 | MCP entry | `~/.config/opencode/opencode.json` | `registries`, `docs/mcp-orchestration.md`, this catalog |
 | plan | `docs/plan-<task>.md` | this catalog |
+| proposed / decided / declined idea | `docs/idea-ledger.md` (index only) | decision stays in `docs/memory-decisions.md`; work in `CHANGELOG.md`; never duplicate |
 | knowledge rule | `workspace/memory/knowledge/<domain>.md` | not this repository |
 | external source / source version drift | `docs/source-catalogue.md` (provenance) + `docs/memory-decisions.md` (D-row only if behaviour changes) | update both in the same commit; never a second register; see §Source intake below |
 
