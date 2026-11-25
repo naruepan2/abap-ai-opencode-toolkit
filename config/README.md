@@ -29,6 +29,9 @@ so a reinstall restores them and never overwrites a newer local edit.
 | `sap-data-verify` | read-only, Clean-Core-first data verification through ARC-1; probes both data gates and asks before opening them |
 | `sap-project-unregister` | tear down a project folder with explicit archive/delete choice; no cascade, no SAP/config surprises |
 | `sap-program-unregister` | tear down one program scaffold with the same two-question confirmation and no SAP writes |
+| `auto-abap-delivery` | multi-slice run control plane: methodology, slices, recovery, evidence, UAT handoff |
+| `senior-abap-development` | single-object design and implementation, classic or modern ABAP |
+| `opencode-backup` | manual hash-verified snapshots of the instance and curated config |
 
 Sync rule: the live copy is authoritative. After editing
 `~/.config/opencode/skills/<name>/SKILL.md`, copy it back here in the same change —

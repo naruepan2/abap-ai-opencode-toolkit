@@ -12,7 +12,7 @@
 - `scripts/_paths.py:9-14,34-38` — three env overrides for a different layout:
   `ABAP_WORKSPACE` (instance dir), `ABAP_PROJECTS_ROOT` (program folders),
   `ABAP_INDEX` (portfolio index).
-- `scripts/install.ps1:43-44,70-83` — `$PSScriptRoot` / `$HOME`, no hardcoded drive.
+- `install.ps1:43-44,70-83` — `$PSScriptRoot` / `$HOME`, no hardcoded drive (root-level file).
 - `scripts/closeout.py` portability check — shipped files contain no machine-only path
   (verified clean 2026-11-25).
 

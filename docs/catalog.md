@@ -60,7 +60,7 @@ The check report is not a registry. It is written to
 
 ## Scripts — flat by design
 
-Eight small files; names state the job. No subfolders — one import path
+Eleven small files; names state the job. No subfolders — one import path
 (`_paths.py`) and one call per check. Keep new checks at this level.
 
 ## Registration contract — shared by both register skills

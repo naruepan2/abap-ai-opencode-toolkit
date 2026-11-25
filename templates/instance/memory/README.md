@@ -7,8 +7,8 @@
 ## Read at session start — one call, then pick a tier
 
 ```powershell
-python scripts\session_context.py            # digest, ~2.6k chars
-python scripts\session_context.py --tiny     # light tier, ~0.8k chars
+python scripts\session_context.py            # digest, ~3.5k chars (measured 3,512)
+python scripts\session_context.py --tiny     # light tier, ~1.1k chars (measured 1,099)
 python scripts\session_context.py --full     # + file map + raw checks
 python scripts\session_context.py --project DEMO/ZDEMO01
 ```
@@ -105,7 +105,7 @@ mentions.
 into every session), enforced (a check fails when it breaks), handbook (only correct
 if read) — and lists eight cold probes that prove it. Promote a rule up the ladder
 only when getting it wrong is expensive and it recurs; archive an entry once its probe
-can no longer fail. Today: 6 reflex, 3 enforced, 15 handbook — the honest gap.
+can no longer fail. Today: 7 reflex, 3 enforced, 26 handbook (15 uncovered) — the honest gap.
 
 Measured prompt budget (skills, tools, AGENTS, digest, cards): `docs/design.md`
 §"Prompt budget".
