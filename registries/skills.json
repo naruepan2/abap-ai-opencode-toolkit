@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T05:06:18+00:00",
+  "generated_at": "2026-11-25T05:14:14+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -891,7 +891,7 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\grilling\\SKILL.md",
       "owner": "vendor",
-      "hash": "26d225ea8a36f4acacbe267e789cfb97d73964412f4243dd4b65b6cb806ddebc",
+      "hash": "ec91c3f684a0a6323eaf30faa26d3aac5b95f28811eca6d4f108138934063c5c",
       "desc_chars": 152,
       "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
       "name_in_fm": true,
@@ -906,7 +906,7 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\improve-codebase-architecture\\SKILL.md",
       "owner": "vendor",
-      "hash": "f053ff6d7a70f10bd0104e368f7e664b23ea6378898e305bf027e8864757822f",
+      "hash": "ab526ca26246137fe96048b072d93aeff45f763da5e6c0eca5e51012dfd34433",
       "desc_chars": 125,
       "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
       "name_in_fm": true,
@@ -1041,7 +1041,7 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\research\\SKILL.md",
       "owner": "vendor",
-      "hash": "524b404b1ca373a8b00f63a64667ec4b0a61c3c9cf4e8f246e639be859bb6979",
+      "hash": "4422d07f1375712f0ecfadc05e6210bad2880f1d36eab32f62760eed344f935a",
       "desc_chars": 238,
       "description": "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.",
       "name_in_fm": true,
