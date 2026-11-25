@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-25
+## v0.8.7 — 2026-11-25
 
 - Added `docs/relocation.md` (on-demand) and a routing row in `docs/catalog.md`: the repo
   self-resolves via `_paths.py`, but a move still needs the global `AGENTS.md` pointer,
