@@ -33,6 +33,7 @@ import json
 import re
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 from _paths import MEM, PROJECTS, REPO
@@ -329,6 +330,26 @@ def open_corrections(limit):
     return items[:limit] if limit else items
 
 
+def open_corrections_age():
+    """Age in days of the oldest open inbox row, or None if none is dated."""
+    headers, rows = table_rows(CORRECTIONS)
+    if not headers:
+        return None
+    oldest = None
+    for row in rows:
+        if len(row) != len(headers):
+            continue
+        data = dict(zip(headers, row))
+        if data.get("status", "").strip().lower() != "open":
+            continue
+        try:
+            age = (date.today() - date.fromisoformat(data.get("date", "").strip())).days
+        except ValueError:
+            continue
+        oldest = age if oldest is None else max(oldest, age)
+    return max(0, oldest) if oldest is not None else None
+
+
 def knowledge_files():
     if not KNOWLEDGE_DIR.is_dir():
         return []
@@ -466,7 +487,9 @@ def main():
         if tools:
             out(f"TOOLS    {tools}")
         if total_open:
-            out(f"INBOX    {total_open} open row(s) in {rel(CORRECTIONS)}")
+            age = open_corrections_age()
+            suffix = f" · oldest {age}d" if age is not None else ""
+            out(f"INBOX    {total_open} open{suffix}")
         line = knowledge_line(domains if card is not None else None)
         if line:
             out(f"KNOW     {line}")
@@ -496,7 +519,9 @@ def main():
     if total_open:
         shown = len(items)
         extra = total_open - shown
-        out(f"INBOX {total_open} open" + (f" (showing {shown})" if extra > 0 else ""))
+        age = open_corrections_age()
+        suffix = f" · oldest {age}d" if age is not None else ""
+        out(f"INBOX {total_open} open{suffix}" + (f" (showing {shown})" if extra > 0 else ""))
         for behavior, level in items:
             tag = f"[{level}] " if level else ""
             out(f"  - {tag}{flat(behavior, CORRECTION_CUT)}")
