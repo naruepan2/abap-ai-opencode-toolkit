@@ -6,6 +6,10 @@
   decisions, declines and open items) with the `note:` / `recall` / `what's pending`
   commands and one host-neutral pointer in `templates/profile.md`. `docs/catalog.md`
   gained a routing row. No skill, agent, hard gate or always-loaded rule was added.
+- Thinking partner: `docs/idea-ledger.md` now also defines `คู่คิด` / `second opinion` —
+  disk facts first, one named decision, counter-case against both the user's leaning and
+  my own recommendation, 2–3 options with cost/reversibility/stop, outcome recorded in
+  the same commit. No new always-loaded bytes.
 
 
 - Source-intake methodology (P0): added `docs/source-catalogue.md` as the on-demand home

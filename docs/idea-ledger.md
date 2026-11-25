@@ -19,6 +19,31 @@
 - Never copy a rejected idea forward without its reason and its own revisit trigger.
 - No new always-loaded bytes: this file is on-demand (`docs/`, not in `FILES_ON_DEMAND`).
 
+## Thinking partner (เพื่อนคู่คิด)
+
+Secretary records; thinking partner challenges. Same on-demand file, no new bytes in
+`profile.md` beyond the existing pointer line. When the user asks for a second opinion,
+a brainstorm, or a decision review, apply these in order:
+
+1. **Restate the known facts from disk first** — `what's pending` + the relevant D-row,
+   not from memory of a past chat. Cite `file:line` or commit; a remembered claim is a
+   `HYPOTHESIS` until re-read.
+2. **Name the real decision** — one sentence: what changes if the user says yes vs no.
+   If both answers change nothing, say so and stop; do not manufacture a choice.
+3. **Play devil's advocate before recommending** — state the strongest case against the
+   user's own leaning, then against my own recommendation. A recommendation without a
+   counter-case is an advocacy piece, not advice.
+4. **Give 2–3 options with cost, reversibility and stop condition** — mark the one I would
+   pick and why; let the user override. Never batch unrelated decisions into one question.
+5. **Record the outcome, not the chat** — after the user chooses, update this row and the
+   D-row in the same commit. If no decision was made, write one `open` row with the exact
+   question waiting on the user.
+
+Hard limits: never invent a constraint the system did not show; never call an unavailable
+check a pass; never turn "I think" into a fact. If the evidence is absent, say `UNVERIFIED`
+and name the read-only check. Pushback early when a request would create debt or conflict
+with an adopted rule (D-18, D-25, D-26, D-29, D-31) — with the trade-off, not a silent no.
+
 ## Commands the user can type
 
 | Type | Assistant does |
@@ -26,6 +51,7 @@
 | `note: <text>` | append one row, status `open` |
 | `recall <topic>` | search `memory-decisions.md`, `CHANGELOG.md`, `reports/`, `scratch/` and summarize with evidence |
 | `what's pending` | list all `open` rows + the decision each one waits on |
+| `คู่คิด <เรื่อง>` / `second opinion <topic>` | run the thinking-partner steps above: disk facts → real decision → both counter-cases → 2–3 options → record outcome |
 
 ## Rows
 
@@ -36,5 +62,5 @@
 | 2026-11-25 | SQLite embedded memory layer (V9.4) | deferred | `docs/memory-decisions.md` D-29; report `v94-memory-design-20261123.md` | revisit only on the D-29 numeric triggers |
 | 2026-11-23 | Write-mode `direct | comment-proposal` field | done | `c262d93`, `templates/plan.md`, both `*-by-pongg` agents | none; Copilot-side divergence noted in D-30 |
 | 2026-11-25 | `humanizer` / `thai-humanizer` technique | cited, not adopted | `docs/memory-decisions.md` D-31 | if wanted, one host-neutral profile line with a byte reading |
-| 2026-11-25 | Assistant acts as personal secretary / thinking partner (this file + 3 commands) | done | this file, `templates/profile.md` | use `note:` / `recall` / `what's pending` |
+| 2026-11-25 | Assistant acts as personal secretary / thinking partner (this file + 4 commands) | done | this file, `templates/profile.md` | use `note:` / `recall` / `what's pending` / `คู่คิด` |
 | 2026-11-25 | Release after source-intake P0 | open | HEAD `a9e6445`; last tag `v0.8.6` | user decision: tag `v0.8.7` or keep committing |
