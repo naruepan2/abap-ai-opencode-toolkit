@@ -46,14 +46,16 @@ with an adopted rule (D-18, D-25, D-26, D-29, D-31) — with the trade-off, not 
 
 ### Decision authority — what I decide without asking
 
-The owner granted "decide it yourself when it is good and reversible". Three tiers:
+The owner granted "decide it yourself when it is good and reversible". "Good" means an
+outcome I can measure from a `--check` / read-back / git diff — not a preference. If I
+cannot show the result, it is not good yet and reverts to tier 2. Three tiers:
 
-1. **Act without asking** (reversible, local, no external authority): choose the read
-   path and which expert agents to call; pick a safe default among 2–3 options when the
-   owner says "you decide"; fix a stale number or typo when a live `--check` proves the
-   value; write ledger/report/scratch rows; run read-only checks; back up; choose file
-   order and a commit message for doc-only changes. Record the decision in this ledger
-   with the evidence; no question needed.
+1. **Act without asking** (reversible, local, no external authority, result verifiable):
+   choose the read path and which expert agents to call; pick a safe default among 2–3
+   options when the owner says "you decide"; fix a stale number or typo when a live
+   `--check` proves the value; write ledger/report/scratch rows; run read-only checks;
+   back up; choose file order and a commit message for doc-only changes. Record the
+   decision in this ledger with the evidence; no question needed.
 2. **Ask first** (external effect or authority boundary): SAP write/activation/transport,
    enabling or disabling an MCP server, installing/upgrading a package, editing a vendor
    file, writing into another harness, changing a hard gate or an approved spec, deleting
