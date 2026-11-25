@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 2026-11-25
+
+- Recorded provenance for four new sources in `docs/source-catalogue.md`: the local
+  Classic-to-RAP V2.0 master, the Poteto Mode guide and skill (both licence/pin UNVERIFIED),
+  and Everything Claude Code (MIT verified, v2.2.3). Four read-only reviewers compared them
+  with the toolkit: most ideas are already re-expressed here; R4/production stays an absolute
+  never; no SQLite/KG/scorecard/playbook-router change. `docs/idea-ledger.md` holds the
+  decision-deadline idea (IDEA + trigger), the `pingpong-mode` alias as an open pointer, and
+  marks the v0.8.7 release done. No skill, hard gate or always-loaded byte changed.
+
 ## v0.8.7 — 2026-11-25
 
 - Added `docs/relocation.md` (on-demand) and a routing row in `docs/catalog.md`: the repo

@@ -137,5 +137,7 @@ role challenges what has not happened yet. Both live in this one index.
 | 2026-11-23 | Write-mode `direct | comment-proposal` field | done | `c262d93`, `templates/plan.md`, both `*-by-pongg` agents | none; Copilot-side divergence noted in D-30 |
 | 2026-11-25 | `humanizer` / `thai-humanizer` technique | cited, not adopted | `docs/memory-decisions.md` D-31 | if wanted, one host-neutral profile line with a byte reading |
 | 2026-11-25 | Assistant acts as personal secretary / thinking partner (this file + 4 commands) | done | this file, `templates/profile.md` | use `note:` / `recall` / `what's pending` / `คู่คิด` |
-| 2026-11-25 | Release after source-intake P0 | open | last tag `v0.8.6`; several commits since | user decision: tag `v0.8.7` or keep committing |
+| 2026-11-25 | Release after source-intake P0 | done | tag `v0.8.7`, commit `0a092bb` | none |
 | 2026-11-25 | Thinking-partner decision authority (3 tiers) | done | this file §Decision authority; `profile.md` pointer | tier 1 = decide alone + record; tier 2 = ask; tier 3 = never |
+| 2026-11-25 | Decision Inbox deadline + safe default while waiting | IDEA | master idea §17.2; our `decision-inbox.md:3-9` lacks both; review has timeout but decision does not | revisit when ≥1 decision stalls or is batch-approved because the field was missing; doc-only, on-demand |
+| 2026-11-25 | `pingpong-mode` alias → `start-unattended` | open | 4-team review: alias, not new semantics; `pingpong-mode` would be a pointer, never a clone | owner will re-check after provenance rows land; if adopted, one line in the existing command file only, no new skill/gate |
