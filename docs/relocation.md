@@ -1,6 +1,6 @@
 # Relocation playbook — moving the toolkit or the instance
 
-> On-demand reference. Read this when `D:\Opencode Projects` (or `~/.config/opencode`)
+> On-demand reference. Read this when the portfolio root or `~/.config/opencode`
 > moves, or when a new machine must use the same toolkit. The repo is self-resolving;
 > the hazards are the **global AGENTS pointer** and the **absolute junction targets**.
 > No file here changes prompt cost. Nothing here authorises SAP access.
@@ -20,9 +20,9 @@
 
 | Item | Why | Evidence |
 |---|---|---|
-| global `~/.config/opencode/AGENTS.md:68` | literal `D:\Opencode Projects\SAP Projects\abap-ai-opencode-toolkit` in the session-start instruction | read this session |
-| junction targets | 43/43 targets in `manifest.json` are absolute `D:\...` / `C:\...` | backup `opencode-20261125-123448` |
-| `~/.config/opencode/opencode.json` MCP commands | local servers name `C:\Users\narue\...` | read this session |
+| global `~/.config/opencode/AGENTS.md:68` | literal absolute portfolio path in the session-start instruction | read this session |
+| junction targets | targets in `manifest.json` are absolute drive paths | backup manifest, verified this session |
+| `~/.config/opencode/opencode.json` MCP commands | local servers name absolute home paths | read this session |
 | SAP secrets in Windows Credential Manager | keyed to the user account, not to this repo | `sap-mcp-upgrade` skill |
 
 ## Move procedure
