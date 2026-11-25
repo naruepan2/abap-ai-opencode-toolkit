@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-11-25
+## v0.8.8 — 2026-11-25
 
 - Added `docs/handoff.md`: an on-demand index and thinking guide for a new AI model or
   collaborator — five habits, a map of canonical homes, session start, idea intake, roles,

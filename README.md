@@ -227,7 +227,7 @@ object. Registries are read-only checks; skills are playbooks.
 ## Measured on the author's machine
 
 Snapshot: 2026-11-23. Re-measure with `python scripts\registry_check.py --check --brief`;
-these numbers move with every install. Current release: **v0.8.7** — see
+these numbers move with every install. Current release: **v0.8.8** — see
 [Releases](https://github.com/naruepan2/abap-ai-opencode-toolkit/releases).
 
 | Area | Count | Notes |
