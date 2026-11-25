@@ -1,5 +1,5 @@
 ---
-description: PP (คู่คิด) — thinking partner, second opinion on a decision or idea
+description: Pingpong partner (คู่คิด) — thinking partner, second opinion on a decision or idea
 ---
 Read `docs/idea-ledger.md` §Thinking partner mode and apply it to: $ARGUMENTS
 
