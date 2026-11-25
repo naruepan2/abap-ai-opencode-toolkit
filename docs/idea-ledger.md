@@ -140,4 +140,4 @@ role challenges what has not happened yet. Both live in this one index.
 | 2026-11-25 | Release after source-intake P0 | done | tag `v0.8.7`, commit `0a092bb` | none |
 | 2026-11-25 | Thinking-partner decision authority (3 tiers) | done | this file §Decision authority; `profile.md` pointer | tier 1 = decide alone + record; tier 2 = ask; tier 3 = never |
 | 2026-11-25 | Decision Inbox deadline + safe default while waiting | IDEA | master idea §17.2; our `decision-inbox.md:3-9` lacks both; review has timeout but decision does not | revisit when ≥1 decision stalls or is batch-approved because the field was missing; doc-only, on-demand |
-| 2026-11-25 | `pingpong-mode` alias → `start-unattended` | open | 4-team review: alias, not new semantics; `pingpong-mode` would be a pointer, never a clone | owner will re-check after provenance rows land; if adopted, one line in the existing command file only, no new skill/gate |
+| 2026-11-25 | `pingpong-mode` alias → `start-unattended` | done | `config/opencode-commands/pingpong-mode.md` — pure forwarder, owner chose B for a short `/pingpong-mode` | none; never duplicate delivery rules into the alias |

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T05:52:06+00:00",
+  "generated_at": "2026-11-25T08:27:57+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -636,13 +636,13 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\auto-abap-delivery\\SKILL.md",
       "owner": "Pongg",
-      "hash": "45adbbf1e5784ade4df79050c927b020606b89e294a1e7c4514f3487b1c076d7",
+      "hash": "c4bea226bc7c149c05567bac506a90dbdd3f6e1f6cf9ad6753c75224f2593bc6",
       "desc_chars": 519,
       "description": "explicit opt-in orchestration for bounded sap abap delivery from intake and approved specification through implementation, self-testing, atc, recovery, trust-calibrated attended or unattended interaction, evidence, and uat handoff. use only when the user explicitly invokes auto-abap-delivery, asks t",
       "name_in_fm": true,
       "has_desc": true,
       "name_matches_dir": true,
-      "body_lines": 110,
+      "body_lines": 112,
       "status": "new",
       "last_validated": null
     },

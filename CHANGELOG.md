@@ -2,6 +2,11 @@
 
 ## Unreleased — 2026-11-25
 
+- Added `/pingpong-mode` as a pure forwarder command to `start-unattended` (owner chose the
+  short command over a longer alias token). No second mode, no duplicated rules: approval
+  gates, pre-work analysis and `READY_FOR_UAT` remain in `auto-abap-delivery/SKILL.md`.
+
+
 - Recorded provenance for four new sources in `docs/source-catalogue.md`: the local
   Classic-to-RAP V2.0 master, the Poteto Mode guide and skill (both licence/pin UNVERIFIED),
   and Everything Claude Code (MIT verified, v2.2.3). Four read-only reviewers compared them
