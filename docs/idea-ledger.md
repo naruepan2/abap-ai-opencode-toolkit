@@ -125,7 +125,7 @@ role challenges what has not happened yet. Both live in this one index.
 | `note: <text>` | append one row, status `open` |
 | `recall <topic>` | search `memory-decisions.md`, `CHANGELOG.md`, `reports/`, `scratch/` and summarize with evidence |
 | `what's pending` | list all `open` rows + the decision each one waits on |
-| `คู่คิด <เรื่อง>` / `second opinion <topic>` | run the thinking-partner steps above: disk facts → real decision → both counter-cases → 2–3 options → record outcome |
+| `/pp <เรื่อง>` (PP = คู่คิด) | run the thinking-partner steps above: disk facts → real decision → both counter-cases → 2–3 options → record outcome · pure pointer command, no new rule |
 
 ## Rows
 
