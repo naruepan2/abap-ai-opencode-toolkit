@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T08:27:57+00:00",
+  "generated_at": "2026-11-28T14:19:13+00:00",
   "skills": [
     {
       "id": "abap-runtime-analysis",
@@ -1086,7 +1086,7 @@
       "harness": "agents",
       "path": "~\\.agents\\skills\\sap-abap-reverse-engineering\\SKILL.md",
       "owner": "vendor",
-      "hash": "573147c8aebb8f805cc5583f2d4c43d7d687dab6eb9e37d39274c7dd7441e9db",
+      "hash": "8c219c1419c4da98e48e843e56a166e1bbfa1cbbf6c88137e15b42119badbf26",
       "desc_chars": 344,
       "description": "Reverse-engineer SAP ABAP, CDS, RAP, Fiori, AMDP, SQL, DDIC, and related repository objects into evidence-grounded analysis. Use for read-only architecture discovery, dependency and field-lineage analysis, SAP ADT dependency reconciliation, complexity metrics, output catalogs, risks, and either a Te",
       "name_in_fm": true,
@@ -1470,6 +1470,36 @@
       "body_lines": 238,
       "status": "active",
       "last_validated": "2026-11-13"
+    },
+    {
+      "id": "pingpong-mode",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\pingpong-mode\\SKILL.md",
+      "owner": "vendor",
+      "hash": "e755bab7d4887d3ca103d097db1712fd5ea694e449b4817c14228895cf347777",
+      "desc_chars": 218,
+      "description": "User-invoked short alias that forwards to the auto-abap-delivery skill's start-unattended token. Not a third mode and not a brainstorm command. Pointer only: qualification, approval and the UAT stop live in that skill.",
+      "name_in_fm": true,
+      "has_desc": true,
+      "name_matches_dir": true,
+      "body_lines": 49,
+      "status": "new",
+      "last_validated": null
+    },
+    {
+      "id": "pingpong-partner",
+      "harness": "copilot",
+      "path": "~\\.copilot\\skills\\pingpong-partner\\SKILL.md",
+      "owner": "vendor",
+      "hash": "bddffb4a9303134abf010c694fac78f82cda7e9a4e44ef36bb456019dce3e8b6",
+      "desc_chars": 200,
+      "description": "User-invoked thinking-partner entry point (คู่คิด) for brainstorm, ideas, issues, problem-solving and decisions. Pointer only: the rules live in user memory and the kit handoff note, not in this file.",
+      "name_in_fm": true,
+      "has_desc": true,
+      "name_matches_dir": true,
+      "body_lines": 48,
+      "status": "new",
+      "last_validated": null
     },
     {
       "id": "rap-development",

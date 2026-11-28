@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T08:27:57+00:00",
+  "generated_at": "2026-11-28T14:19:13+00:00",
   "servers": [
     {
       "server": "browse",
@@ -155,7 +155,16 @@
       "url_host": ""
     },
     {
-      "server": "arc-1",
+      "server": "arc-1-gsd110",
+      "harness": "copilot",
+      "source": "mcp-config.json",
+      "type": "unknown",
+      "enabled": true,
+      "command_kind": "",
+      "url_host": ""
+    },
+    {
+      "server": "arc-1-gsd120",
       "harness": "copilot",
       "source": "mcp-config.json",
       "type": "unknown",

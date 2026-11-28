@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T08:27:57+00:00",
+  "generated_at": "2026-11-28T14:19:13+00:00",
   "agents": [
     {
       "id": "abap-auto-delivery-by-pongg",
@@ -223,7 +223,7 @@
         "sap-abap-reverse-engineering"
       ],
       "description": "Evidence-driven, strictly read-only reverse engineering of SAP ABAP, CDS, RAP, classic reports, classes, functions, and services. Supports autonomous dependency discovery, dependency evidence reconciliation, and Technical Specification or chat-only analysis.",
-      "hash": "268a53f87652cf58db4961151609a0e1001798fb09ecddbf86b1e0a9077f39a6",
+      "hash": "c1007fd9ed31dd7c89ef753a627b0a53e2def43962e19f3d4dd728244647b01a",
       "status": "active",
       "last_validated": "2026-11-13"
     },
@@ -381,7 +381,7 @@
         "sap-st22-dump-analysis"
       ],
       "description": "Read-only SAP ST22 dump analyst using ARC-1 SAPDiagnose(action=dumps), with optional separately confirmed ARC-1 source reads for deeper ABAP root-cause analysis. Use for listing dumps, inspecting a dump ID, explaining short dumps/call stacks, or tracing timeout evidence into implicated source. Never",
-      "hash": "f292970f8b85349753a912c19f435ed8caeba5ec7c8726dfbe9bcfa3a16f514e",
+      "hash": "e60ed75e340e9ee06c3cb1e879fbb3df50156d33b5cf3d665d9fac36083e7df2",
       "status": "active",
       "last_validated": "2026-11-13"
     }
